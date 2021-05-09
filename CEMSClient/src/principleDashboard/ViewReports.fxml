@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ViewReportsController">
+   <children>
+      <Label layoutX="410.0" layoutY="70.0" text="View Reports">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="reportTable" layoutX="126.0" layoutY="161.0" prefHeight="446.0" prefWidth="712.0" />
+      <JFXButton fx:id="deleteBtn" layoutX="126.0" layoutY="653.0" prefHeight="43.0" prefWidth="128.0" style="-fx-background-color: #e84545;" text="Delete Selected" />
+   </children>
+</AnchorPane>
