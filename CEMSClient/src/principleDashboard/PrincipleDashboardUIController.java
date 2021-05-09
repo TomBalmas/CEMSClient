@@ -1,22 +1,21 @@
 package principleDashboard;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import util.Navigator;
 
-
-public class PrincipleDashboardUIController implements Initializable {
+public class PrincipleDashboardUIController {
 
 	@FXML
 	private VBox menuVBox;
@@ -32,9 +31,6 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	@FXML
 	private JFXButton activeTestRequestsBtn;
-
-	@FXML
-	private JFXButton reportsBtn;
 
 	@FXML
 	private JFXButton viewReportsBtn;
@@ -54,39 +50,46 @@ public class PrincipleDashboardUIController implements Initializable {
 	@FXML
 	private AnchorPane contentPaneAnchr;
 
-	@FXML
-	private VBox hiddenBtn;
+	private Node viewReports;
+	private Node createReport;
 
-	
-	
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-//init for starting the dashboard, hiding and showing report buttons on mouse hover
-		reportsBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				hiddenBtn.setVisible(true);
-				hiddenBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						hiddenBtn.setVisible(true);
-					}
-				});
-				hiddenBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						hiddenBtn.setVisible(false);
-					}
-				});
-			}
-		});
-		reportsBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				hiddenBtn.setVisible(false);
-			}
-		});
+	@FXML
+	void activeTestRequestClicked(MouseEvent event) {
+
+	}
+
+	@FXML
+	void createReportClicked(MouseEvent event) {
+		
+		try {
+			contentPaneAnchr.getChildren().clear();
+			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
+			contentPaneAnchr.getChildren().addAll(createReport);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void questionBankClicked(MouseEvent event) {
+
+	}
+
+	@FXML
+	void testBankClicked(MouseEvent event) {
+
+	}
+
+	@FXML
+	void viewReportsClicked(MouseEvent event) {
+		
+		try {
+			contentPaneAnchr.getChildren().clear();
+			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+			contentPaneAnchr.getChildren().addAll(viewReports);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 

@@ -9,6 +9,9 @@ import util.*;
 
 public class TmpMain extends Application {
 
+	/**
+	 * Temporary main for tests
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
