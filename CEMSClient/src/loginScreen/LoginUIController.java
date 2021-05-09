@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import util.*;
+import util.GeneralUIMethods;
+import util.Navigator;
 
 public class LoginUIController{
 
@@ -53,7 +54,7 @@ public class LoginUIController{
 		 * ------------------------------------------------------------------------------------------------*/
 		GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 			try {
-				teacherDashboard = FXMLLoader.load(getClass().getResource(Navigator.TEACHERDASHBOARD.getVal()));
+				teacherDashboard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
 				anchorLogin.getChildren().setAll(teacherDashboard);
 			} catch (IOException e1) {
 				e1.printStackTrace();
