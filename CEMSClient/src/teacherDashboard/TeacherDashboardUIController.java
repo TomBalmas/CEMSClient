@@ -15,14 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import util.Navigator;
 
-/**
- * @author Toosick22
- *
- */
-/**
- * @author Toosick22
- *
- */
 public class TeacherDashboardUIController {
 
 	@FXML
@@ -65,6 +57,7 @@ public class TeacherDashboardUIController {
     private AnchorPane anchorLogin;
 
 	private Node testBank;
+  private Node questionBank;
 
 	/**
 	 * clicking test bank will open the test bank page.
@@ -84,6 +77,20 @@ public class TeacherDashboardUIController {
 			e.printStackTrace();
 		}
 	}
+      /**
+     * clicking question bank will open the question bank page.
+     *
+     * @param event
+     */
+    @FXML
+    void clickQuestionBank(MouseEvent event) {
+    	try {
+    		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTIONBANK.getVal()));
+    		contentPaneAnchr.getChildren().setAll(questionBank);
+    		setMenuStyle(questionBankBtn);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	
 	
 	/**clicking a button on the menu will paint the background

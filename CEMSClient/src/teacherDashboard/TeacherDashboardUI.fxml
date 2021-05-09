@@ -23,6 +23,9 @@
                   <Insets />
                </VBox.margin>
             </Label>
+            <JFXButton fx:id="testBankBtn" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
+            <JFXButton fx:id="questionBankBtn" onMouseClicked="#clickQuestionBank" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
+            <JFXButton fx:id="setDateForTestsBtn" prefHeight="83.0" prefWidth="283.0" text="Set Date For Tests" textFill="WHITE" />
             <JFXButton fx:id="testBankBtn" onMouseClicked="#clickTestBank" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
             <JFXButton fx:id="questionBankBtn" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
             <JFXButton fx:id="viewActiveTestsBtn" prefHeight="83.0" prefWidth="283.0" text="View Active Tests" textFill="WHITE" />
