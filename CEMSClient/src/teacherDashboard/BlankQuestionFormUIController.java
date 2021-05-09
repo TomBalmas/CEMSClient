@@ -67,7 +67,7 @@ public class BlankQuestionFormUIController {
 	@FXML
 	void clickBack() {
 		try {
-			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTIONBANK.getVal()));
+			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(questionBank);
 		} catch (IOException e1) {
 			e1.printStackTrace();

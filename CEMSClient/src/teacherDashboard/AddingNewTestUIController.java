@@ -59,7 +59,7 @@ public class AddingNewTestUIController implements Initializable{
     @FXML
     void clickBack(MouseEvent event) {
 		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TESTBANK.getVal()));
+			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -33,7 +33,7 @@ public class QuestionBankUIController {
     @FXML
     void clickAddAnewQuestion(MouseEvent event) {
     	try {
-    		blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANKQUESTIONFORM.getVal()));
+    		blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
     		contentPaneAnchor.getChildren().setAll(blankQuestionForm);
     		//setMenuStyle(addAnewQuestionBtn);
 		} catch (IOException e1) {

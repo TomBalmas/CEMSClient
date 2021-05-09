@@ -70,7 +70,7 @@ public class TeacherDashboardUIController {
 		 * need to add query that will show the tests of the teacher's teaching fields only.
 		 * ------------------------------------------------------------------------------------------------*/
 		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TESTBANK.getVal()));
+			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
 			setMenuStyle(testBankBtn);
 		} catch (IOException e) {
@@ -85,7 +85,7 @@ public class TeacherDashboardUIController {
     @FXML
     void clickQuestionBank(MouseEvent event) {
     	try {
-    		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTIONBANK.getVal()));
+    		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
     		contentPaneAnchor.getChildren().setAll(questionBank);
     		setMenuStyle(questionBankBtn);
 		} catch (IOException e1) {

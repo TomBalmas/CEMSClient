@@ -39,7 +39,7 @@ public class BankUIController {
     @FXML
     void addNewTest(MouseEvent event) {
 		try {
-			addNewTest = FXMLLoader.load(getClass().getResource(Navigator.ADDINGNEWTEST.getVal()));
+			addNewTest = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 			contentPaneAnchor.getChildren().setAll(addNewTest);
 		} catch (IOException e) {
 			e.printStackTrace();
