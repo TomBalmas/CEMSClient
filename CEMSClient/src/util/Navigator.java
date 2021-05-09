@@ -10,7 +10,6 @@ public enum Navigator {
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
 	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
-	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml");
 	
 	private final String val;
