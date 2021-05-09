@@ -15,7 +15,7 @@
          <children>
             <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="58.0" prefWidth="1.0" text=" " textFill="WHITE" />
             <ImageView fx:id="logoImg" fitHeight="157.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="teacherDashboardLbl" alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Teacher Dashboard" textFill="WHITE">
+            <Label fx:id="teacherDashboardLbl" alignment="CENTER" prefHeight="73.0" prefWidth="283.0" text="Teacher Dashboard" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>
@@ -26,6 +26,8 @@
             <JFXButton fx:id="testBankBtn" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
             <JFXButton fx:id="questionBankBtn" onMouseClicked="#clickQuestionBank" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
             <JFXButton fx:id="setDateForTestsBtn" prefHeight="83.0" prefWidth="283.0" text="Set Date For Tests" textFill="WHITE" />
+            <JFXButton fx:id="testBankBtn" onMouseClicked="#clickTestBank" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
+            <JFXButton fx:id="questionBankBtn" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
             <JFXButton fx:id="viewActiveTestsBtn" prefHeight="83.0" prefWidth="283.0" text="View Active Tests" textFill="WHITE" />
             <JFXButton fx:id="scheduledTestsBtn" prefHeight="70.0" prefWidth="290.0" text="Scheduled Tests" textFill="WHITE" />
             <JFXButton fx:id="testReportsBtn" prefHeight="83.0" prefWidth="283.0" text="Test Reports" textFill="WHITE" />
@@ -36,6 +38,6 @@
                </VBox.margin>
             </JFXButton>
          </children></VBox>
-      <AnchorPane fx:id="contentPaneAnchr" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" />
+      <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" />
    </children>
 </AnchorPane>

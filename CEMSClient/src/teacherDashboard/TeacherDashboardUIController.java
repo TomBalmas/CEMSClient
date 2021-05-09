@@ -17,43 +17,69 @@ import util.Navigator;
 
 public class TeacherDashboardUIController {
 
-    @FXML
-    private VBox menuVBox;
+	@FXML
+	private VBox menuVBox;
+
+	@FXML
+	private JFXToggleButton darkModeToggleBtn;
+
+	@FXML
+	private ImageView logoImg;
+
+	@FXML
+	private Label teacherDashboardLbl;
+
+	@FXML
+	private JFXButton testBankBtn;
+
+	@FXML
+	private JFXButton questionBankBtn;
+
+	@FXML
+	private JFXButton viewActiveTestsBtn;
+
+	@FXML
+	private JFXButton scheduledTestsBtn;
+
+	@FXML
+	private JFXButton testReportsBtn;
+
+	@FXML
+	private JFXButton checkTestsBtn;
+
+	@FXML
+	private JFXButton signOutBtn;
+
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
     @FXML
-    private JFXToggleButton darkModeToggleBtn;
+    private AnchorPane anchorLogin;
 
-    @FXML
-    private ImageView logoImg;
+	private Node testBank;
+  private Node questionBank;
 
-    @FXML
-    private Label teacherDashboardLbl;
-
-    @FXML
-    private JFXButton setDateForTestsBtn;
-
-    @FXML
-    private JFXButton viewActiveTestsBtn;
-
-    @FXML
-    private JFXButton testBankBtn;
-
-    @FXML
-    private JFXButton questionBankBtn;
-
-    @FXML
-    private JFXButton testReportsBtn;
-
-    @FXML
-    private JFXButton scheduledTestsBtn;
-
-    @FXML
-    private JFXButton signOutBtn;
-
-    @FXML
-    private AnchorPane contentPaneAnchr;
-    private Node questionBank;
-    /**
+	/**
+	 * clicking test bank will open the test bank page.
+	 * 
+	 * @param event
+	 */
+	@FXML
+    void clickTestBank(MouseEvent event) {
+		/*------------------------------------------------------------------------------------------------
+		 * need to add query that will show the tests of the teacher's teaching fields only.
+		 * ------------------------------------------------------------------------------------------------*/
+		try {
+			testBank = FXMLLoader.load(getClass().getResource(Navigator.TESTBANK.getVal()));
+			contentPaneAnchor.getChildren().setAll(testBank);
+			setMenuStyle(testBankBtn);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+      /**
+     * clicking question bank will open the question bank page.
+     *
      * @param event
      */
     @FXML
@@ -65,18 +91,20 @@ public class TeacherDashboardUIController {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-    	
-    	
-
-    }
-    private void setMenuStyle(JFXButton b) {
-        testBankBtn.setStyle("");
-        questionBankBtn.setStyle("");
-        viewActiveTestsBtn.setStyle("");
-        scheduledTestsBtn.setStyle("");
-        testReportsBtn.setStyle("");
-       // checkTestsBtn.setStyle("");
-        b.setStyle("-fx-background-color:#00ADB5;");
-    }
-
+	
+	
+	/**clicking a button on the menu will paint the background
+	 * and remove the color from all other buttons on the menu.
+	 * 
+	 * @param b
+	 */
+	private void setMenuStyle(JFXButton b) {
+		testBankBtn.setStyle("");
+		questionBankBtn.setStyle("");
+		viewActiveTestsBtn.setStyle("");
+		scheduledTestsBtn.setStyle("");
+		testReportsBtn.setStyle("");
+		checkTestsBtn.setStyle("");
+		b.setStyle("-fx-background-color:#00ADB5;");
+	}
 }
