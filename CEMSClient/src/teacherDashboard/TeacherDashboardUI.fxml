@@ -29,11 +29,12 @@
             <JFXButton fx:id="questionBankBtn" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
             <JFXButton fx:id="testReportsBtn" prefHeight="83.0" prefWidth="283.0" text="Test Reports" textFill="WHITE" />
             <JFXButton fx:id="scheduledTestsBtn" prefHeight="70.0" prefWidth="290.0" text="Scheduled Tests" textFill="WHITE" />
-            <JFXButton fx:id="signOutBtn" prefHeight="57.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="signOutBtn" prefHeight="85.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
                <VBox.margin>
                   <Insets top="120.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
+      <AnchorPane fx:id="contentPaneAnchr" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" />
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class teacherDashboardUIController {
@@ -41,5 +42,8 @@ public class teacherDashboardUIController {
 
     @FXML
     private JFXButton signOutBtn;
+
+    @FXML
+    private AnchorPane contentPaneAnchr;
 
 }
