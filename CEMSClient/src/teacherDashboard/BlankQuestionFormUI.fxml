@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.BlankQuestionFormUIController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.BlankQuestionFormUIController">
    <children>
       <Label fx:id="newQuestionFormLbl" alignment="CENTER" layoutX="309.0" layoutY="56.0" prefHeight="84.0" prefWidth="348.0" text="New Question Form" textFill="#280505">
          <font>
@@ -24,7 +24,7 @@
             <Font name="System Italic" size="29.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="127.0" layoutY="694.0" text="Back">
+      <JFXButton fx:id="backBtn" layoutX="127.0" layoutY="694.0" onMouseClicked="#clickBack" text="Back">
          <font>
             <Font size="30.0" />
          </font>

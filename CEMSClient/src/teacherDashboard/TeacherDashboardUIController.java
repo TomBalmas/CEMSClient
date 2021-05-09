@@ -86,11 +86,12 @@ public class TeacherDashboardUIController {
     void clickQuestionBank(MouseEvent event) {
     	try {
     		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTIONBANK.getVal()));
-    		contentPaneAnchr.getChildren().setAll(questionBank);
+    		contentPaneAnchor.getChildren().setAll(questionBank);
     		setMenuStyle(questionBankBtn);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+    }
 	
 	
 	/**clicking a button on the menu will paint the background
