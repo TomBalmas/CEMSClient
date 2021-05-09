@@ -35,7 +35,7 @@ public class LoginUIController{
 	@FXML
 	private AnchorPane anchorLogin;
 
-	private Node teacherDashboard;
+	private Node studentDashboard;
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
 	/**
@@ -53,8 +53,8 @@ public class LoginUIController{
 		 * ------------------------------------------------------------------------------------------------*/
 		GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 			try {
-				teacherDashboard = FXMLLoader.load(getClass().getResource(Navigator.TEACHERDASHBOARD.getVal()));
-				anchorLogin.getChildren().setAll(teacherDashboard);
+				studentDashboard = FXMLLoader.load(getClass().getResource(Navigator.STUDENTDASHBOARD.getVal()));
+				anchorLogin.getChildren().setAll(studentDashboard);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
