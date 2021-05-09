@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -11,8 +13,9 @@
    <children>
       <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" style="-fx-background-color: #393E46;">
          <children>
-            <Label alignment="CENTER" prefHeight="109.0" prefWidth="285.0" text="Icon" textFill="WHITE" />
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Teacher Dashboard" textFill="WHITE">
+            <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="58.0" prefWidth="1.0" text=" " textFill="WHITE" />
+            <ImageView fx:id="logoImg" fitHeight="157.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="teacherDashboardLbl" alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Teacher Dashboard" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>
@@ -20,15 +23,15 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <JFXButton fx:id="testBank" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
-            <JFXButton fx:id="setDateForTests" prefHeight="83.0" prefWidth="283.0" text="Set Date For Tests" textFill="WHITE" />
-            <JFXButton fx:id="viewActiveTests" prefHeight="83.0" prefWidth="283.0" text="View Active Tests" textFill="WHITE" />
-            <JFXButton fx:id="questionBank" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
-            <JFXButton fx:id="testReports" prefHeight="83.0" prefWidth="283.0" text="Test Reports" textFill="WHITE" />
-            <JFXButton fx:id="scheduledTests" prefHeight="70.0" prefWidth="290.0" text="Scheduled Tests" textFill="WHITE" />
-            <JFXButton fx:id="signOut" prefHeight="57.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="setDateForTestsBtn" prefHeight="83.0" prefWidth="283.0" text="Set Date For Tests" textFill="WHITE" />
+            <JFXButton fx:id="viewActiveTestsBtn" prefHeight="83.0" prefWidth="283.0" text="View Active Tests" textFill="WHITE" />
+            <JFXButton fx:id="testBankBtn" prefHeight="83.0" prefWidth="283.0" text="Test Bank" textFill="WHITE" />
+            <JFXButton fx:id="questionBankBtn" prefHeight="83.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
+            <JFXButton fx:id="testReportsBtn" prefHeight="83.0" prefWidth="283.0" text="Test Reports" textFill="WHITE" />
+            <JFXButton fx:id="scheduledTestsBtn" prefHeight="70.0" prefWidth="290.0" text="Scheduled Tests" textFill="WHITE" />
+            <JFXButton fx:id="signOutBtn" prefHeight="57.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="150.0" />
+                  <Insets top="120.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
