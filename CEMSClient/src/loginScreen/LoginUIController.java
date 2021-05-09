@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class LoginUIController{
+public class LoginUIController {
 
 	@FXML
 	private JFXTextField usernameTxt;
@@ -36,7 +36,7 @@ public class LoginUIController{
 	@FXML
 	private AnchorPane anchorLogin;
 
-	private Node teacherDashboard;
+	private Node dashBoard;
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
 	/**
@@ -54,8 +54,13 @@ public class LoginUIController{
 		 * ------------------------------------------------------------------------------------------------*/
 		GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 			try {
-				teacherDashboard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-				anchorLogin.getChildren().setAll(teacherDashboard);
+				if (usernameTxt.getText().equals("t"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+				else if (usernameTxt.getText().equals("p"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
+				else if (usernameTxt.getText().equals("s"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+				anchorLogin.getChildren().setAll(dashBoard);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

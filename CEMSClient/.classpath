@@ -9,6 +9,6 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ArtLo/git/CEMSClient/CEMSClient/lib/jfoenix-8.0.10.jar"/>
+	<classpathentry kind="lib" path="D:/Toosick22/eclipse workspace/CEMSClient/CEMSClient/lib/jfoenix-8.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
