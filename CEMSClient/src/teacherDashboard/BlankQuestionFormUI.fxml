@@ -19,7 +19,7 @@
             <Font size="26.0" />
          </font>
       </JFXTextArea>
-      <Label fx:id="chooseAnswersLbl" alignment="CENTER" layoutX="104.0" layoutY="391.0" prefHeight="84.0" prefWidth="348.0" text="choose answers:" textFill="#280505">
+      <Label fx:id="chooseAnswersLbl" alignment="CENTER" layoutX="127.0" layoutY="385.0" prefHeight="84.0" prefWidth="348.0" text="Choose the correct answer:" textFill="#280505">
          <font>
             <Font name="System Italic" size="29.0" />
          </font>
@@ -53,5 +53,25 @@
             <JFXTextArea fx:id="answer4Txt" prefHeight="35.0" prefWidth="138.0" promptText="answer 4" />
          </graphic>
       </JFXRadioButton>
+      <Label fx:id="correctAnswer3Lbl" layoutX="381.0" layoutY="606.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="correctAnswer2Lbl" layoutX="381.0" layoutY="556.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="correctAnswer1Lbl" layoutX="381.0" layoutY="499.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="correctAnswer4Lbl" layoutX="381.0" layoutY="649.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
