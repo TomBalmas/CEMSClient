@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class GeneralUIMethods {
 
 	/**
-	 * moves element on the screen "layoutX" pixels in "time" seconds.
+	 * moves object on the screen "layoutX" pixels in "time" seconds.
 	 * 
 	 * @param o
 	 * @param layoutX

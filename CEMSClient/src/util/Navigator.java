@@ -4,7 +4,7 @@ public enum Navigator {
 	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
 	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
 	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
-	LOGIN ("LoginUI.fxml"),
+	LOGIN ("/loginScreen/LoginUI.fxml"),
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
 	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
