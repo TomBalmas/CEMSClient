@@ -123,13 +123,11 @@ public class BlankQuestionFormUIController implements Initializable {
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {//observable to view changes in radio button
-				// TODO Auto-generated method stub
 			     if (group.getSelectedToggle() != null) {
 			    	 JFXRadioButton button = (JFXRadioButton) group.getSelectedToggle();
 			    	 setToggleGroupNotVisible();
 			    	 if(button.equals(answer1Btn))
 			    		 correctAnswer1Lbl.setVisible(true);
-			    	 
 			    	 if(button.equals(answer2Btn))
 			    		 correctAnswer2Lbl.setVisible(true);
 			    	 if(button.equals(answer3Btn))
