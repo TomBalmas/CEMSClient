@@ -1,5 +1,6 @@
 package teacherDashboard;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
@@ -59,10 +60,11 @@ public class BlankQuestionFormUIController {
 	
 	private Node questionBank;
 
-	// need to add a method that allows to select only one answer at a time
-	private void setCorrectAnswer(JFXButton b) {
-		b.setStyle("-fx-background-color:#00ADB5;");
-	}
+	
+    @FXML
+    void setCorrectAnswer(MouseEvent event) {
+    	
+    }
 
 	@FXML
 	void clickBack() {

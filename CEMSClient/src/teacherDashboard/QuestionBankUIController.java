@@ -30,12 +30,19 @@ public class QuestionBankUIController {
     private Node blankQuestionForm;
     @FXML
     private JFXTreeTableView<?> questionBankTable;
+    
+    /**
+     * clicking add a new question will go to blank question
+     * for page.
+     * 
+     * @param event
+     */
     @FXML
+    
     void clickAddAnewQuestion(MouseEvent event) {
     	try {
     		blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
     		contentPaneAnchor.getChildren().setAll(blankQuestionForm);
-    		//setMenuStyle(addAnewQuestionBtn);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
