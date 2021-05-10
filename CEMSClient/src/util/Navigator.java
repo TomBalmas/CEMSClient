@@ -11,7 +11,7 @@ public enum Navigator {
 	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml");
-	
+  
 	private final String val;
 
 	Navigator(String val) {

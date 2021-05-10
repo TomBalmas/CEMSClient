@@ -36,6 +36,7 @@ public class LoginUIController {
 	private AnchorPane anchorLogin;
 
 	private Node dashBoard;
+  
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
 	/**
