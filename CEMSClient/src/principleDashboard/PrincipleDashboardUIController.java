@@ -52,10 +52,19 @@ public class PrincipleDashboardUIController {
 
 	private Node viewReports;
 	private Node createReport;
+	private Node activeTests;
 
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
 
+		try {
+			contentPaneAnchr.getChildren().clear();
+			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ActiveTests.getVal()));
+			contentPaneAnchr.getChildren().addAll(activeTests);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
