@@ -85,7 +85,7 @@ public class PrincipleDashboardUIController implements Initializable {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
 		l.add(new JFXButton("Cancel"));
-		util.popUp.showMaterialDialog(error, contentPaneAnchor, l, "Test", "test");
+		util.PopUp.showMaterialDialog(error, contentPaneAnchor, l, "Test", "test");
 	}
 
 	@FXML

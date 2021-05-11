@@ -13,7 +13,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
-public class popUp {
+public class PopUp {
 	public static void showMaterialDialog(StackPane root, Node nodeToBeBlurred, List<JFXButton> controls, String header, String body) {
 	    BoxBlur blur = new BoxBlur(3, 3, 3);
 	    if (controls.isEmpty()) {
