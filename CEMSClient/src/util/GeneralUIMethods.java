@@ -15,17 +15,6 @@ import javafx.util.Duration;
 public class GeneralUIMethods {
 
 	private static int menuMovementLeftToRight = 1280 - 283 + 1;
-	
-	private static Stage stage;
-
-	public static void setStage(Stage stage) {
-		GeneralUIMethods.stage = stage;
-	}
-
-	public static Stage getStage() {
-		return stage;
-	}
-	
 
 	/**
 	 * moves object on the screen "layoutX" pixels in "time" seconds.
