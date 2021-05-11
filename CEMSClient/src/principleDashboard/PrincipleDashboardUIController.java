@@ -1,21 +1,26 @@
 package principleDashboard;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import util.GeneralUIMethods;
 import util.Navigator;
 
-public class PrincipleDashboardUIController {
+public class PrincipleDashboardUIController implements Initializable {
 
 	@FXML
 	private VBox menuVBox;
@@ -48,10 +53,14 @@ public class PrincipleDashboardUIController {
 	private JFXButton signOutBtn;
 
 	@FXML
-	private AnchorPane contentPaneAnchr;
+	private AnchorPane anchorLogin;
+
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
 	private Node viewReports;
 	private Node createReport;
+	private Node login;
 
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
@@ -60,14 +69,8 @@ public class PrincipleDashboardUIController {
 
 	@FXML
 	void createReportClicked(MouseEvent event) {
-		
-		try {
-			contentPaneAnchr.getChildren().clear();
-			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
-			contentPaneAnchr.getChildren().addAll(createReport);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		GeneralUIMethods.loadPage(contentPaneAnchor, createReport);
+		GeneralUIMethods.setMenuStyle(createReportBtn, menuVBox);
 	}
 
 	@FXML
@@ -82,11 +85,30 @@ public class PrincipleDashboardUIController {
 
 	@FXML
 	void viewReportsClicked(MouseEvent event) {
-		
+		GeneralUIMethods.loadPage(contentPaneAnchor, viewReports);
+		GeneralUIMethods.setMenuStyle(viewReportsBtn, menuVBox);
+
+	}
+
+	/**
+	 * clicking sign out will go back to the login screen
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void signOutClicked(MouseEvent event) {
+		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
+	}
+
+	/**
+	 *initializes all the FXML files for easier access.
+	 */
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			contentPaneAnchr.getChildren().clear();
 			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
-			contentPaneAnchr.getChildren().addAll(viewReports);
+			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
+			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

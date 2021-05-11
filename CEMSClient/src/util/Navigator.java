@@ -2,15 +2,17 @@ package util;
 
 public enum Navigator {
 	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
-	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
-	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
-	LOGIN ("/loginScreen/LoginUI.fxml"),
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
-	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
-	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
-	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
-	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
-	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml");
+	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
+	VIEW_REPORTS ("ViewReports.fxml"),
+	CREATE_REPORT ("CreateReport.fxml"),
+	LOGIN ("/loginScreen/LoginUI.fxml"),
+	BLANK_QUESTION_FORM ("BlankQuestionFormUI.fxml"),
+	QUESTION_BANK ("QuestionBankUI.fxml"),
+	TEST_BANK ("bankUI.fxml"),
+	ADDING_NEW_TEST ("AddingNewTestUI.fxml"),
+	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
+	GRADES ("StudentGrades.fxml");
   
 	private final String val;
 
