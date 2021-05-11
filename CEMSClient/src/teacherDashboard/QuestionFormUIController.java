@@ -18,7 +18,7 @@ public class QuestionFormUIController {
 
     @FXML
     private JFXTextArea QuestionIdTxtArea;
-
+ 
     @FXML
     private JFXTextArea questionContentTxtArea;
 
@@ -29,7 +29,7 @@ public class QuestionFormUIController {
     private Text questionIdTxt;
 
     @FXML
-    private Text authorTxt;
+    private Text authorTxt; 
 
     @FXML
     private JFXButton editBtn;
