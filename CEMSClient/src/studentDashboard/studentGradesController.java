@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-
+  
 public class studentGradesController {
 
     @FXML
@@ -14,7 +14,7 @@ public class studentGradesController {
 
     @FXML
     private JFXComboBox<?> courseFilter;
-
+    
     @FXML
     private JFXComboBox<?> filedFilter;
 
