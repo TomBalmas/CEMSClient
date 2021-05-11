@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
   
-public class studentGradesController {
+public class StudentGradesController {
 
     @FXML
     private JFXTreeTableView<?> gradesTable;

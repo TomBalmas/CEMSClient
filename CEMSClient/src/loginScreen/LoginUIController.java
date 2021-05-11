@@ -6,17 +6,19 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import util.*;
+import util.GeneralUIMethods;
+import util.Navigator;
 
-public class LoginUIController {
+public class LoginUIController{
 
 	@FXML
 	private JFXTextField usernameTxt;
@@ -47,7 +49,7 @@ public class LoginUIController {
 	 * @param event
 	 */
 	@FXML
-	void clickLogin(ActionEvent event) {
+	void clickLogin(Event event) {
 		/*------------------------------------------------------------------------------------------------
 		 * need to add here a test: which user entered the system
 		 * moveItem's lambda expression will change according to the user's permissions

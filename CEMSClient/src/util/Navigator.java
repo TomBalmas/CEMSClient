@@ -1,12 +1,12 @@
 package util;
 
 public enum Navigator {
+	LOGIN ("/loginScreen/LoginUI.fxml"),
 	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	VIEW_REPORTS ("ViewReports.fxml"),
 	CREATE_REPORT ("CreateReport.fxml"),
-	LOGIN ("/loginScreen/LoginUI.fxml"),
 	BLANK_QUESTION_FORM ("BlankQuestionFormUI.fxml"),
 	QUESTION_BANK ("QuestionBankUI.fxml"),
 	TEST_BANK ("bankUI.fxml"),
