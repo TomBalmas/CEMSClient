@@ -3,6 +3,7 @@ package principleDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -16,51 +17,57 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
 
 public class PrincipleDashboardUIController implements Initializable {
 
-	@FXML
-	private VBox menuVBox;
 
-	@FXML
-	private JFXToggleButton darkModeToggleBtn;
+    @FXML
+    private AnchorPane anchorLogin;
 
-	@FXML
-	private ImageView logoImg;
+    @FXML
+    private VBox menuVBox;
 
-	@FXML
-	private Label teacherDashboardLbl;
+    @FXML
+    private JFXToggleButton darkModeToggleBtn;
 
-	@FXML
-	private JFXButton activeTestRequestsBtn;
+    @FXML
+    private ImageView logoImg;
 
-	@FXML
-	private JFXButton viewReportsBtn;
+    @FXML
+    private Label teacherDashboardLbl;
 
-	@FXML
-	private JFXButton createReportBtn;
+    @FXML
+    private JFXButton activeTestRequestsBtn;
 
-	@FXML
-	private JFXButton testBankBtn;
+    @FXML
+    private JFXButton viewReportsBtn;
 
-	@FXML
-	private JFXButton questionBankBtn;
+    @FXML
+    private JFXButton createReportBtn;
 
-	@FXML
-	private JFXButton signOutBtn;
+    @FXML
+    private JFXButton testBankBtn;
 
-	@FXML
-	private AnchorPane anchorLogin;
+    @FXML
+    private JFXButton questionBankBtn;
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private JFXButton signOutBtn;
+
+    @FXML
+    private AnchorPane contentPaneAnchor;
+
+    @FXML
+    private StackPane error;
 
 	private Node viewReports;
 	private Node createReport;
 	private Node login;
+
 
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
@@ -75,7 +82,10 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	@FXML
 	void questionBankClicked(MouseEvent event) {
-
+		List<JFXButton> l = new ArrayList<JFXButton>();
+		l.add(new JFXButton("Okay"));
+		l.add(new JFXButton("Cancel"));
+		util.popUp.showMaterialDialog(error, contentPaneAnchor, l, "Test", "test");
 	}
 
 	@FXML
@@ -101,7 +111,7 @@ public class PrincipleDashboardUIController implements Initializable {
 	}
 
 	/**
-	 *initializes all the FXML files for easier access.
+	 * initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
