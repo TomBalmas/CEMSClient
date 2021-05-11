@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,7 +47,7 @@ public class LoginUIController {
 	 * @param event
 	 */
 	@FXML
-	void clickLogin(MouseEvent event) {
+	void clickLogin(ActionEvent event) {
 		/*------------------------------------------------------------------------------------------------
 		 * need to add here a test: which user entered the system
 		 * moveItem's lambda expression will change according to the user's permissions
@@ -54,13 +55,15 @@ public class LoginUIController {
 		 * ------------------------------------------------------------------------------------------------*/
 		GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 			try {
-				if (usernameTxt.getText().equals("t"))
+				if (usernameTxt.getText().equals("t")) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-				else if (usernameTxt.getText().equals("p"))
+				}
+				else if (usernameTxt.getText().equals("p"))  {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-				else if (usernameTxt.getText().equals("s"))
+				}
+				else if (usernameTxt.getText().equals("s")) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-					
+				}
 				anchorLogin.getChildren().setAll(dashBoard);
 			} catch (IOException e1) {
 				e1.printStackTrace();
