@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class LoginUIController{
+public class LoginUIController {
 
 	@FXML
 	private JFXTextField usernameTxt;
@@ -39,7 +39,7 @@ public class LoginUIController{
 	private AnchorPane anchorLogin;
 
 	private Node dashBoard;
-  
+
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
 	/**
@@ -50,6 +50,9 @@ public class LoginUIController{
 	 */
 	@FXML
 	void clickLogin(Event event) {
+		if (!usernameTxt.getText().equals("t") && !usernameTxt.getText().equals("s")
+				&& !usernameTxt.getText().equals("p"))
+			return;
 		/*------------------------------------------------------------------------------------------------
 		 * need to add here a test: which user entered the system
 		 * moveItem's lambda expression will change according to the user's permissions
@@ -59,11 +62,9 @@ public class LoginUIController{
 			try {
 				if (usernameTxt.getText().equals("t")) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-				}
-				else if (usernameTxt.getText().equals("p"))  {
+				} else if (usernameTxt.getText().equals("p")) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-				}
-				else if (usernameTxt.getText().equals("s")) {
+				} else if (usernameTxt.getText().equals("s")) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
 				}
 				anchorLogin.getChildren().setAll(dashBoard);
