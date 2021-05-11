@@ -71,14 +71,15 @@ public class BlankQuestionFormUIController implements Initializable {
 
 	    @FXML
 	    private JFXTextArea answer4Txt;
+  
+  	  @FXML
+	    private Label correctAnswer1Lbl;
+  
+  	  @FXML
+	    private Label correctAnswer2Lbl;
+  
 	    @FXML
 	    private Label correctAnswer3Lbl;
-
-	    @FXML
-	    private Label correctAnswer2Lbl;
-
-	    @FXML
-	    private Label correctAnswer1Lbl;
 
 	    @FXML
 	    private Label correctAnswer4Lbl;
