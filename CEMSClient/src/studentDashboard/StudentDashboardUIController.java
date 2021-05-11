@@ -52,6 +52,11 @@ public class StudentDashboardUIController implements Initializable {
 	private Node takeTest;
 	private Node login;
 
+	/**
+	 * clicking grades will open the grades page.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void gradesPage(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, grades);
