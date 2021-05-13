@@ -61,9 +61,6 @@ public class PrincipleDashboardUIController implements Initializable {
 	private AnchorPane contentPaneAnchor;
 
 	@FXML
-	private StackPane error;
-	
-	@FXML
 	private StackPane popUpWindow;
 
 	private Node viewReports;
@@ -147,7 +144,8 @@ public class PrincipleDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		GeneralUIMethods.setPopupStackPane(popUpWindow);
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		GeneralUIMethods.setSideBar(menuVBox);
 		try {
 			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
 			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
