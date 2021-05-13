@@ -96,6 +96,7 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
+
 	/**
 	 *initializes all the FXML files for easier access.
 	 */
