@@ -66,6 +66,7 @@ public class TeacherDashboardUIController implements Initializable {
 
 	private Node testBank;
 	private Node questionBank;
+	private Node activeTest;
 	private Node login;
 	private Node checkTest;
 
@@ -91,10 +92,22 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 	}
 	
+
+	/**
+	 * clicking view active test will open the active test page.
+	 *
+	 * @param event
+	 */
+	@FXML
+	void viewActiveTestClicked(MouseEvent event) {
+		GeneralUIMethods.loadPage(contentPaneAnchor, activeTest);
+		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
+  
 	@FXML
 	void checkTestClicked(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, checkTest);
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
+
 	}
 
 	/**
@@ -117,6 +130,7 @@ public class TeacherDashboardUIController implements Initializable {
 		try {
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
+			activeTest = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TEST.getVal()));
 			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 			checkTest = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TEST.getVal()));
 		} catch (IOException e) {

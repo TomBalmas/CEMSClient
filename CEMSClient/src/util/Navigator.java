@@ -13,6 +13,7 @@ public enum Navigator {
 	CHECK_TEST ("/teacherDashboard/CheckTestByCodeUI.fxml"),
 	TEST_BANK ("/teacherDashboard/TestBankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
+	VIEW_ACTIVE_TEST ("/teacherDashboard/ViewActiveTest.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
 	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
 	VIEW_REPORTS ("ViewReports.fxml"),
