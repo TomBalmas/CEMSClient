@@ -102,7 +102,8 @@ public class TeacherDashboardUIController implements Initializable {
 	void viewActiveTestClicked(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTest);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
-  
+	}
+	
 	@FXML
 	void checkTestClicked(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, checkTest);
