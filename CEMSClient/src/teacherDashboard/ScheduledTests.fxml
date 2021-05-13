@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.ScheduledTestsController">
+   <children>
+      <JFXTreeTableView fx:id="scheduledTestsTbl" layoutX="138.0" layoutY="149.0" prefHeight="488.0" prefWidth="724.0" />
+      <JFXButton fx:id="changeDateBtn" layoutX="692.0" layoutY="678.0" onMouseClicked="#changeDateClicked" text="Change Date">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="scheduledTestsLbl" alignment="CENTER" layoutX="349.0" layoutY="63.0" prefHeight="63.0" prefWidth="303.0" text="Scheduled Tests">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
