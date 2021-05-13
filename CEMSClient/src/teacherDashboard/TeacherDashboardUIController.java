@@ -75,9 +75,11 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking test bank will open the test bank page.
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void testBankClicked(MouseEvent event) {
+	void testBankClicked(MouseEvent event) throws IOException {
+		testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
@@ -86,9 +88,11 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking question bank will open the question bank page.
 	 *
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void questionBankClicked(MouseEvent event) {
+	void questionBankClicked(MouseEvent event) throws IOException {
+		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 	}
@@ -97,9 +101,11 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking view active test will open the active test page.
 	 *
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void viewActiveTestClicked(MouseEvent event) {
+	void viewActiveTestClicked(MouseEvent event) throws IOException {
+		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
@@ -108,16 +114,19 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking check tests will go to the check tests screen
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void checkTestsClicked(MouseEvent event) {
+	void checkTestsClicked(MouseEvent event) throws IOException {
+		checkTests = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TESTS.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, checkTests);
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
 	
     @FXML
-    void scheduledTestsClicked(MouseEvent event) {
+    void scheduledTestsClicked(MouseEvent event) throws IOException {
+		scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
     	GeneralUIMethods.loadPage(contentPaneAnchor, scheduledTests);
 		GeneralUIMethods.setMenuStyle(scheduledTestsBtn, menuVBox);
     }
@@ -126,9 +135,11 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event) {
+	void clickSignOut(MouseEvent event) throws IOException {
+		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
@@ -139,16 +150,5 @@ public class TeacherDashboardUIController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
-			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
-			checkTests = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TESTS.getVal()));
-			scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 }
