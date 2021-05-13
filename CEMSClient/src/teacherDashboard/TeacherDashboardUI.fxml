@@ -28,7 +28,7 @@
             <JFXButton fx:id="viewActiveTestsBtn" prefHeight="83.0" prefWidth="283.0" text="View Active Tests" textFill="WHITE" />
             <JFXButton fx:id="scheduledTestsBtn" prefHeight="70.0" prefWidth="290.0" text="Scheduled Tests" textFill="WHITE" />
             <JFXButton fx:id="testReportsBtn" prefHeight="83.0" prefWidth="283.0" text="Test Reports" textFill="WHITE" />
-            <JFXButton fx:id="checkTestsBtn" prefHeight="83.0" prefWidth="283.0" text="Check Tests" textFill="WHITE" />
+            <JFXButton fx:id="checkTestsBtn" onMouseClicked="#checkTestClicked" prefHeight="83.0" prefWidth="283.0" text="Check Tests" textFill="WHITE" />
             <JFXButton fx:id="signOutBtn" onMouseClicked="#clickSignOut" prefHeight="85.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
                <VBox.margin>
                   <Insets top="120.0" />
