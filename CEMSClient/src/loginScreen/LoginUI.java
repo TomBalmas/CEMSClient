@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.GeneralUIMethods;
 import util.Navigator;
 
 public class LoginUI extends Application {
@@ -18,6 +19,7 @@ public class LoginUI extends Application {
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+
 	}
 
 	public static void main(String[] args) {

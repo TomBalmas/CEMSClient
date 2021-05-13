@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Toosick22/eclipse workspace/CEMSClient/CEMSClient/lib/jfoenix-8.0.10.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="C:\jfoenix-8.0.10.jar"/>
+	<classpathentry kind="output" path="bin"></classpathentry>
 </classpath>

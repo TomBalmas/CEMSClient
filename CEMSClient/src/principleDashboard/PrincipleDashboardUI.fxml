@@ -6,10 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.PrincipleDashboardUIController">
+<AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.PrincipleDashboardUIController">
    <children>
       <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" style="-fx-background-color: #393E46;">
          <children>
@@ -35,12 +36,13 @@
                   <Insets />
                </VBox.margin></JFXButton>
             <JFXButton fx:id="questionBankBtn" onMouseClicked="#questionBankClicked" prefHeight="80.0" prefWidth="283.0" text="Question Bank" textFill="WHITE" />
-            <JFXButton fx:id="signOutBtn" prefHeight="85.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
                <VBox.margin>
                   <Insets top="120.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
-      <AnchorPane fx:id="contentPaneAnchr" layoutX="292.0" layoutY="10.0" prefHeight="800.0" prefWidth="1000.0" />
+      <AnchorPane fx:id="contentPaneAnchor" layoutX="292.0" layoutY="10.0" prefHeight="800.0" prefWidth="1000.0" />
+      <StackPane fx:id="error" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="300.0" />
    </children>
 </AnchorPane>

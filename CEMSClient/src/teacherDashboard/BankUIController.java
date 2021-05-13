@@ -32,7 +32,11 @@ public class BankUIController {
     
     private Node addNewTest;
 
-    /**clicking add new test opens question bank screen
+    public JFXButton getAddNewTestButton() {
+		return addNewTestButton;
+	}
+
+	/**clicking add new test opens question bank screen
      * 
      * @param event
      */

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.studentGradesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentGradesController">
    <children>
       <JFXTreeTableView fx:id="gradesTable" layoutX="173.0" layoutY="150.0" prefHeight="478.0" prefWidth="676.0" />
       <JFXComboBox fx:id="courseFilter" layoutX="309.0" layoutY="114.0" onMouseClicked="#courseFilterClick" />

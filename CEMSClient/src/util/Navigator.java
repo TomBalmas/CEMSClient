@@ -1,18 +1,27 @@
 package util;
 
+/**
+ * this enum helps us get the right fxml path for each page of the application
+ *
+ */
 public enum Navigator {
-	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
-	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
-	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
 	LOGIN ("/loginScreen/LoginUI.fxml"),
+	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
-	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
+	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
 	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml");
-	
+	VIEW_REPORTS ("ViewReports.fxml"),
+	CREATE_REPORT ("CreateReport.fxml"),
+	BLANK_QUESTION_FORM ("BlankQuestionFormUI.fxml"),
+	ADDING_NEW_TEST ("AddingNewTestUI.fxml"),
+	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
+	GRADES ("StudentGrades.fxml");
+
+  
 	private final String val;
 
 	Navigator(String val) {
