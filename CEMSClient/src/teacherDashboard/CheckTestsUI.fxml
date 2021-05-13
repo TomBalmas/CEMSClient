@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickSubmit" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestByCodeUIController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickSubmit" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestsUIController">
    <children>
-      <Label fx:id="checkTestLbl" alignment="CENTER" layoutX="333.0" layoutY="28.0" prefHeight="84.0" prefWidth="348.0" text="Check Test" textFill="#280505">
+      <Label fx:id="checkTestLbl" alignment="CENTER" layoutX="333.0" layoutY="28.0" prefHeight="84.0" prefWidth="348.0" text="Check Tests" textFill="#280505">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
