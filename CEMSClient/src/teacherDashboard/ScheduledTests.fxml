@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,5 +21,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
+      <JFXDatePicker fx:id="changeDateField" layoutX="171.0" layoutY="678.0" prefHeight="51.0" prefWidth="251.0" />
+      <JFXTimePicker fx:id="changeTimeField" layoutX="467.0" layoutY="678.0" prefHeight="51.0" prefWidth="171.0" />
    </children>
 </AnchorPane>

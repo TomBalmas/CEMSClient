@@ -93,12 +93,12 @@ public class BlankQuestionFormUIController implements Initializable {
 
 	@FXML
 	void clickSave() {
-		List<JFXButton> l = new ArrayList<JFXButton>();
-		l.add(new JFXButton("Okay"));
+		List<JFXButton> list = new ArrayList<JFXButton>();
+		list.add(new JFXButton("Okay"));
 		System.out.println(GeneralUIMethods.getPopupPane());
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), l, "Question Saved",
+		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
 				"question Id:");
-		if (l.get(0).isPressed())
+		if (list.get(0).isPressed())
 			clickBack();
 	}
 

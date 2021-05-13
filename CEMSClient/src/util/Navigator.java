@@ -16,8 +16,9 @@ public enum Navigator {
 	VIEW_ACTIVE_TESTS ("/teacherDashboard/ViewActiveTests.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
 	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
-	REQUEST_TIME_EXTENSION ("/teacherDashboard/RequestTimeExtension.fxml"),
-	VIEW_REPORTS ("ViewReports.fxml"),
+	REQUEST_TIME_EXTENSION ("/teacherDashboard/RequestTimeExtensionUI.fxml"),
+	SCHEDULED_TESTS ("/teacherDashboard/ScheduledTests.fxml"),
+	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
 	CREATE_REPORT ("CreateReport.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
 	GRADES ("StudentGrades.fxml");

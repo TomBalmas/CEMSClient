@@ -11,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
@@ -39,6 +37,9 @@ public class LoginUIController {
 	private AnchorPane anchorLogin;
 
 	private Node dashBoard;
+	private String TEACHER = "t";// ---------need to receive the string from DB---------
+	private String STUDENT = "s";// ---------need to receive the string from DB---------
+	private String PRINCIPLE = "p";// ---------need to receive the string from DB---------
 
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
@@ -50,8 +51,8 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
-		if (!usernameTxt.getText().equals("t") && !usernameTxt.getText().equals("s")
-				&& !usernameTxt.getText().equals("p"))
+		if (!GeneralUIMethods.validateCode(usernameTxt, TEACHER) && !GeneralUIMethods.validateCode(usernameTxt, STUDENT)
+				&& !GeneralUIMethods.validateCode(usernameTxt, PRINCIPLE))
 			return;
 		/*------------------------------------------------------------------------------------------------
 		 * need to add here a test: which user entered the system
@@ -60,11 +61,11 @@ public class LoginUIController {
 		 * ------------------------------------------------------------------------------------------------*/
 		GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 			try {
-				if (usernameTxt.getText().equals("t")) {
+				if (GeneralUIMethods.validateCode(usernameTxt, TEACHER)) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-				} else if (usernameTxt.getText().equals("p")) {
+				} else if (GeneralUIMethods.validateCode(usernameTxt, PRINCIPLE)) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-				} else if (usernameTxt.getText().equals("s")) {
+				} else if (GeneralUIMethods.validateCode(usernameTxt, STUDENT)) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
 				}
 				anchorLogin.getChildren().setAll(dashBoard);
