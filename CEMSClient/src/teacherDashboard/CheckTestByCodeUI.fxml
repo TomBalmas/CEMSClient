@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickSubmit" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestByCodeUIController">
+   <children>
+      <Label fx:id="checkTestLbl" alignment="CENTER" layoutX="333.0" layoutY="28.0" prefHeight="84.0" prefWidth="348.0" text="Check Test" textFill="#280505">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="testTbl" layoutX="156.0" layoutY="228.0" prefHeight="386.0" prefWidth="730.0" />
+      <Label fx:id="serachLbl" alignment="CENTER" layoutX="75.0" layoutY="86.0" prefHeight="84.0" prefWidth="348.0" text="Search:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="searchTxt" layoutX="332.0" layoutY="111.0" prefHeight="4.0" prefWidth="337.0" />
+      <Label fx:id="serachLbl1" alignment="CENTER" layoutX="106.0" layoutY="159.0" prefHeight="84.0" prefWidth="348.0" text="Unchecked exams:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="serachLbl2" alignment="CENTER" layoutX="507.0" layoutY="636.0" prefHeight="84.0" prefWidth="253.0" text="Enter test code:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="testCodeTxt" layoutX="741.0" layoutY="655.0" prefHeight="46.0" prefWidth="227.0" />
+      <JFXButton fx:id="submitBtn" layoutX="797.0" layoutY="714.0" onMouseClicked="#clickSubmit" text="Submit">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

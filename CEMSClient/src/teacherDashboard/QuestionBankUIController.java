@@ -41,12 +41,12 @@ public class QuestionBankUIController {
 	@FXML
 
 	void clickAddAnewQuestion(MouseEvent event) {
-		try {
-			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
+	     try {
+	            blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+	        } catch (IOException e1) {
+	            e1.printStackTrace();
+	        }
+	        GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
 	}
 
 	public JFXButton getAddAnewQuestionBtn() {
