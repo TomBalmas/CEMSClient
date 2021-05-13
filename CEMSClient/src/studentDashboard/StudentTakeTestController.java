@@ -1,16 +1,13 @@
 package studentDashboard;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 
 public class StudentTakeTestController {
-
-    @FXML
-    private JFXPasswordField testCodeField;
 
     @FXML
     private JFXRadioButton manualBtn;
@@ -22,7 +19,11 @@ public class StudentTakeTestController {
     private JFXButton beginTestBtn;
 
     @FXML
+    private JFXTextField testCodeField;
+
+    @FXML
     void beginTestClick(MouseEvent event) {
+
     }
 
 }

@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class QuestionBankUIController implements Initializable{
+public class QuestionBankUIController {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -27,9 +27,11 @@ public class QuestionBankUIController implements Initializable{
 
 	@FXML
 	private Label questionBankLbl;
-	private Node blankQuestionForm;
+
 	@FXML
 	private JFXTreeTableView<?> questionBankTable;
+
+	private Node blankQuestionForm;
 
 	/**
 	 * clicking add a new question will go to blank question for page.
@@ -39,21 +41,16 @@ public class QuestionBankUIController implements Initializable{
 	@FXML
 
 	void clickAddAnewQuestion(MouseEvent event) {
-		GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
-	}
-
-	public JFXButton getAddAnewQuestionBtn() {
-		return addAnewQuestionBtn;
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+		GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
+	}
+
+	public JFXButton getAddAnewQuestionBtn() {
+		return addAnewQuestionBtn;
 	}
 
 }
