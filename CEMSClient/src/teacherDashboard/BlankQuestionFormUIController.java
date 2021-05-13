@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -21,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import util.Navigator;
 
 /**
@@ -80,10 +83,12 @@ public class BlankQuestionFormUIController implements Initializable {
   
 	    @FXML
 	    private Label correctAnswer3Lbl;
-
+	    
+	    @FXML
+	    private StackPane questionSaved;
 	    @FXML
 	    private Label correctAnswer4Lbl;
-
+	 
 	    private Node questionBank;
 	    //toggle group for allowing one choice of radio button
 	    final ToggleGroup group = new ToggleGroup();
@@ -100,12 +105,14 @@ public class BlankQuestionFormUIController implements Initializable {
 	
 	@FXML
 	void clickSave() {
-		try {
-			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			contentPaneAnchor.getChildren().setAll(questionBank);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		List<JFXButton> l = new ArrayList<JFXButton>();
+		l.add(new JFXButton("Okay"));
+	
+		util.PopUp.showMaterialDialog(questionSaved, contentPaneAnchor, l, "Question Saved", "question Id:");
+		
+			if(l.get(0).isPressed())
+				clickBack();
+		
 	}
 
     
