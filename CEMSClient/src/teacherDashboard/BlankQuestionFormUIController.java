@@ -24,10 +24,6 @@ import javafx.scene.layout.StackPane;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-/**
- * @author irbte
- *
- */
 public class BlankQuestionFormUIController implements Initializable {
 
 	@FXML
@@ -99,8 +95,9 @@ public class BlankQuestionFormUIController implements Initializable {
 	void clickSave() {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupStackPane(), contentPaneAnchor, l, "Question Saved", "question Id:");
-		if(l.get(0).isPressed())
+		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupStackPane(), contentPaneAnchor, l, "Question Saved",
+				"question Id:");
+		if (l.get(0).isPressed())
 			clickBack();
 	}
 

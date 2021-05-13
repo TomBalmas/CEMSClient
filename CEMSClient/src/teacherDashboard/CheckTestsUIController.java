@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class CheckTestByCodeUIController {
+public class CheckTestsUIController {
 
     @FXML
     private AnchorPane contentPaneAnchor;

@@ -60,15 +60,15 @@ public class TeacherDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane anchorLogin;
-	
+
 	@FXML
 	private StackPane popUpWindow;
 
 	private Node testBank;
 	private Node questionBank;
-	private Node activeTest;
+	private Node activeTests;
 	private Node login;
-	private Node checkTest;
+	private Node checkTests;
 
 	/**
 	 * clicking test bank will open the test bank page.
@@ -91,7 +91,6 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 	}
-	
 
 	/**
 	 * clicking view active test will open the active test page.
@@ -100,13 +99,18 @@ public class TeacherDashboardUIController implements Initializable {
 	 */
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) {
-		GeneralUIMethods.loadPage(contentPaneAnchor, activeTest);
+		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
-	
+
+	/**
+	 * clicking check tests will go to the check tests screen
+	 * 
+	 * @param event
+	 */
 	@FXML
-	void checkTestClicked(MouseEvent event) {
-		GeneralUIMethods.loadPage(contentPaneAnchor, checkTest);
+	void checkTestsClicked(MouseEvent event) {
+		GeneralUIMethods.loadPage(contentPaneAnchor, checkTests);
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
@@ -117,13 +121,12 @@ public class TeacherDashboardUIController implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event){
+	void clickSignOut(MouseEvent event) {
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
-
 	/**
-	 *initializes all the FXML files for easier access.
+	 * initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -131,9 +134,9 @@ public class TeacherDashboardUIController implements Initializable {
 		try {
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			activeTest = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TEST.getVal()));
+			activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
 			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
-			checkTest = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TEST.getVal()));
+			checkTests = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TESTS.getVal()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
