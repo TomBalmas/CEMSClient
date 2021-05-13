@@ -22,48 +22,46 @@ import teacherDashboard.QuestionBankUIController;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-
 public class PrincipleDashboardUIController implements Initializable {
 
+	@FXML
+	private AnchorPane anchorLogin;
 
-    @FXML
-    private AnchorPane anchorLogin;
+	@FXML
+	private VBox menuVBox;
 
-    @FXML
-    private VBox menuVBox;
+	@FXML
+	private JFXToggleButton darkModeToggleBtn;
 
-    @FXML
-    private JFXToggleButton darkModeToggleBtn;
+	@FXML
+	private ImageView logoImg;
 
-    @FXML
-    private ImageView logoImg;
+	@FXML
+	private Label teacherDashboardLbl;
 
-    @FXML
-    private Label teacherDashboardLbl;
+	@FXML
+	private JFXButton activeTestRequestsBtn;
 
-    @FXML
-    private JFXButton activeTestRequestsBtn;
+	@FXML
+	private JFXButton viewReportsBtn;
 
-    @FXML
-    private JFXButton viewReportsBtn;
+	@FXML
+	private JFXButton createReportBtn;
 
-    @FXML
-    private JFXButton createReportBtn;
+	@FXML
+	private JFXButton testBankBtn;
 
-    @FXML
-    private JFXButton testBankBtn;
+	@FXML
+	private JFXButton questionBankBtn;
 
-    @FXML
-    private JFXButton questionBankBtn;
+	@FXML
+	private JFXButton signOutBtn;
 
-    @FXML
-    private JFXButton signOutBtn;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
-
-    @FXML
-    private StackPane error;
+	@FXML
+	private StackPane error;
 
 	private Node viewReports;
 	private Node createReport;
@@ -78,16 +76,15 @@ public class PrincipleDashboardUIController implements Initializable {
 	void activeTestRequestClicked(MouseEvent event) {
 
 		try {
-			contentPaneAnchr.getChildren().clear();
+			contentPaneAnchor.getChildren().clear();
 			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()));
-			contentPaneAnchr.getChildren().addAll(activeTests);
+			contentPaneAnchor.getChildren().addAll(activeTests);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
 	/**
 	 * load create report page
 	 *
@@ -98,8 +95,6 @@ public class PrincipleDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(createReportBtn, menuVBox);
 	}
 
-	
-	
 	/**
 	 * load question bank page
 	 *
@@ -112,7 +107,6 @@ public class PrincipleDashboardUIController implements Initializable {
 		controller.getAddAnewQuestionBtn().setVisible(false);
 	}
 
-	
 	/**
 	 * load test bank page
 	 *
@@ -124,7 +118,7 @@ public class PrincipleDashboardUIController implements Initializable {
 		BankUIController controller = testBankLoader.getController();
 		controller.getAddNewTestButton().setVisible(false);
 	}
-	
+
 	/**
 	 * load view reports page
 	 *

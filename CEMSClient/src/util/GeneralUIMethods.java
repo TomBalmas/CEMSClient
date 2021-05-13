@@ -63,6 +63,7 @@ public class GeneralUIMethods {
 	
 	/**
 	 * loads a given node onto the given anchor
+	 * node can be created while initializing the class
 	 * 
 	 * @param anchor
 	 * @param page
