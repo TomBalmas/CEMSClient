@@ -1,6 +1,7 @@
 package util;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -93,5 +94,17 @@ public class GeneralUIMethods {
 	
 	public static VBox getSideBar() {
 		return sideBar;
+	}
+	
+	/**
+	 * compares the text in the text field to the string
+	 * 
+	 * @param textField
+	 * @param string
+	 */
+	public static boolean validateCode(JFXTextField textField, String string) {
+		if(textField.getText().equals(string))
+			return true;
+		return false;
 	}
 }

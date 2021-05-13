@@ -39,7 +39,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="EnterCodeField" layoutX="422.0" layoutY="641.0" />
+      <JFXTextField fx:id="enterCodeField" layoutX="422.0" layoutY="641.0" onKeyReleased="#checkCode" />
       <JFXButton fx:id="lockBtn" layoutX="406.0" layoutY="674.0" onMouseClicked="#lockClicked" prefHeight="51.0" prefWidth="169.0" text="Lock">
          <font>
             <Font size="24.0" />

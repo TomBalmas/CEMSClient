@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickSubmit" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestsUIController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#submitClicked" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestsUIController">
    <children>
       <Label fx:id="checkTestLbl" alignment="CENTER" layoutX="333.0" layoutY="28.0" prefHeight="84.0" prefWidth="348.0" text="Check Tests" textFill="#280505">
          <font>
@@ -32,7 +32,7 @@
          </font>
       </Label>
       <JFXTextArea fx:id="testCodeTxt" layoutX="741.0" layoutY="655.0" prefHeight="46.0" prefWidth="227.0" />
-      <JFXButton fx:id="submitBtn" layoutX="797.0" layoutY="714.0" onMouseClicked="#clickSubmit" text="Submit">
+      <JFXButton fx:id="submitBtn" layoutX="797.0" layoutY="714.0" onMouseClicked="#submitClicked" text="Submit">
          <font>
             <Font size="30.0" />
          </font>

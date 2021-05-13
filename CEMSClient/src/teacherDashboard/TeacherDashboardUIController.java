@@ -69,6 +69,7 @@ public class TeacherDashboardUIController implements Initializable {
 	private Node activeTests;
 	private Node login;
 	private Node checkTests;
+	private Node scheduledTests;
 
 	/**
 	 * clicking test bank will open the test bank page.
@@ -114,6 +115,12 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
+	
+    @FXML
+    void scheduledTestsClicked(MouseEvent event) {
+    	GeneralUIMethods.loadPage(contentPaneAnchor, scheduledTests);
+		GeneralUIMethods.setMenuStyle(scheduledTestsBtn, menuVBox);
+    }
 
 	/**
 	 * clicking sign out will go back to the login screen
@@ -138,6 +145,7 @@ public class TeacherDashboardUIController implements Initializable {
 			activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
 			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 			checkTests = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TESTS.getVal()));
+			scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
