@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import teacherDashboard.BankUIController;
+import teacherDashboard.TestBankUIController;
 import teacherDashboard.QuestionBankUIController;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -62,6 +62,9 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	@FXML
 	private StackPane error;
+	
+	@FXML
+	private StackPane popUpWindow;
 
 	private Node viewReports;
 	private Node createReport;
@@ -115,7 +118,7 @@ public class PrincipleDashboardUIController implements Initializable {
 	void testBankClicked(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
-		BankUIController controller = testBankLoader.getController();
+		TestBankUIController controller = testBankLoader.getController();
 		controller.getAddNewTestButton().setVisible(false);
 	}
 
@@ -144,6 +147,7 @@ public class PrincipleDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		GeneralUIMethods.setPopupStackPane(popUpWindow);
 		try {
 			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
 			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));

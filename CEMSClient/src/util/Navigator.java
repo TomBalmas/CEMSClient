@@ -10,13 +10,14 @@ public enum Navigator {
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
-	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
+	CHECK_TEST ("/teacherDashboard/CheckTestByCodeUI.fxml"),
+	TEST_BANK ("/teacherDashboard/TestBankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
 	VIEW_ACTIVE_TEST ("/teacherDashboard/ViewActiveTest.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
+	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
 	VIEW_REPORTS ("ViewReports.fxml"),
 	CREATE_REPORT ("CreateReport.fxml"),
-	BLANK_QUESTION_FORM ("BlankQuestionFormUI.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
 	GRADES ("StudentGrades.fxml");
 

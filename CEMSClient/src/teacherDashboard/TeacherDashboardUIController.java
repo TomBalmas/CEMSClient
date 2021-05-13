@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -59,11 +60,15 @@ public class TeacherDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane anchorLogin;
+	
+	@FXML
+	private StackPane popUpWindow;
 
 	private Node testBank;
 	private Node questionBank;
 	private Node activeTest;
 	private Node login;
+	private Node checkTest;
 
 	/**
 	 * clicking test bank will open the test bank page.
@@ -87,6 +92,7 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 	}
 	
+
 	/**
 	 * clicking view active test will open the active test page.
 	 *
@@ -96,6 +102,12 @@ public class TeacherDashboardUIController implements Initializable {
 	void viewActiveTestClicked(MouseEvent event) {
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTest);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
+  
+	@FXML
+	void checkTestClicked(MouseEvent event) {
+		GeneralUIMethods.loadPage(contentPaneAnchor, checkTest);
+		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
+
 	}
 
 	/**
@@ -108,16 +120,19 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
+
 	/**
 	 *initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		GeneralUIMethods.setPopupStackPane(popUpWindow);
 		try {
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 			activeTest = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TEST.getVal()));
 			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
+			checkTest = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TEST.getVal()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
