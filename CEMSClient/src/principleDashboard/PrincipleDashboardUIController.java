@@ -67,16 +67,24 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	private Node viewReports;
 	private Node createReport;
+	private Node activeTests;
 	private Node login;
 	private Node questionBank;
 	private FXMLLoader questionBankLoader;
 	private Node testBank;
 	private FXMLLoader testBankLoader;
 
-
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
 
+		try {
+			contentPaneAnchr.getChildren().clear();
+			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()));
+			contentPaneAnchr.getChildren().addAll(activeTests);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	

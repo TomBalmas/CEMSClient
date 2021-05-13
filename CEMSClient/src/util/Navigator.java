@@ -11,12 +11,16 @@ public enum Navigator {
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
 	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
+	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
+	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
+	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml");
 	VIEW_REPORTS ("ViewReports.fxml"),
 	CREATE_REPORT ("CreateReport.fxml"),
 	BLANK_QUESTION_FORM ("BlankQuestionFormUI.fxml"),
 	ADDING_NEW_TEST ("AddingNewTestUI.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
 	GRADES ("StudentGrades.fxml");
+
   
 	private final String val;
 
