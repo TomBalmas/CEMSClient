@@ -59,7 +59,7 @@ public class PrincipleDashboardUIController {
 
 		try {
 			contentPaneAnchr.getChildren().clear();
-			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ActiveTests.getVal()));
+			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()));
 			contentPaneAnchr.getChildren().addAll(activeTests);
 		} catch (IOException e) {
 			e.printStackTrace();
