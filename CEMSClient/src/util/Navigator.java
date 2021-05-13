@@ -12,6 +12,7 @@ public enum Navigator {
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
 	TEST_BANK ("/teacherDashboard/bankUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
+	VIEW_ACTIVE_TEST ("/teacherDashboard/ViewActiveTest.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
 	VIEW_REPORTS ("ViewReports.fxml"),
 	CREATE_REPORT ("CreateReport.fxml"),
