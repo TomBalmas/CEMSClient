@@ -20,7 +20,7 @@ public enum Navigator {
 	CREATE_REPORT ("CreateReport.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
 	GRADES ("StudentGrades.fxml");
-
+  
   
 	private final String val;
 

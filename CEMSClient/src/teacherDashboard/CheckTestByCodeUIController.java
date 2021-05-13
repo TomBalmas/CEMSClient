@@ -47,7 +47,7 @@ public class CheckTestByCodeUIController {
     private Node viewReports;
     /**
      * clicking submit goes to the screen view reports at principle dashboard to 2.2.1
-     */
+     */    
     @FXML
     void clickSubmit(MouseEvent event) {
     	List<JFXButton> l = new ArrayList<JFXButton>();
