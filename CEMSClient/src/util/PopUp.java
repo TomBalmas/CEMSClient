@@ -22,7 +22,6 @@ public class PopUp {
 	    }
 	    JFXDialogLayout dialogLayout = new JFXDialogLayout();
 	    JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
-	    //nodeToBeBlurred.setDisable(true);
 	    EventHandler<MouseEvent> handler = MouseEvent::consume;
 	    nodeToBeBlurred.addEventFilter(MouseEvent.ANY, handler);
 	    controls.forEach(controlButton -> {
