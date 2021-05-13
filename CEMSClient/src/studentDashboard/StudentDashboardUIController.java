@@ -88,7 +88,8 @@ public class StudentDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		GeneralUIMethods.setPopupStackPane(popUpWindow);
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		GeneralUIMethods.setSideBar(menuVBox);
 		try {
 			grades = FXMLLoader.load(getClass().getResource(Navigator.GRADES.getVal()));
 			takeTest = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()));

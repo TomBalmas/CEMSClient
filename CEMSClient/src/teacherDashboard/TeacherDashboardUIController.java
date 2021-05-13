@@ -130,7 +130,8 @@ public class TeacherDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		GeneralUIMethods.setPopupStackPane(popUpWindow);
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		GeneralUIMethods.setSideBar(menuVBox);
 		try {
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));

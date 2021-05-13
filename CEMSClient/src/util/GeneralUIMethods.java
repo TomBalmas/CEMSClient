@@ -15,6 +15,7 @@ public class GeneralUIMethods {
 
 	private static int menuMovementLeftToRight = 1280 - 283 + 1;
 	public static StackPane sp;
+	public static VBox sideBar;
 
 	/**
 	 * moves object on the screen "layoutX" pixels in "time" seconds.
@@ -75,14 +76,22 @@ public class GeneralUIMethods {
 	/*
 	 * Return the stack pane of the popup
 	 */
-	public static StackPane getPopupStackPane() {
+	public static StackPane getPopupPane() {
 		return sp;
 	}
 
 	/*
 	 * Set the stack pane of the popup
 	 */
-	public static void setPopupStackPane(StackPane sp) {
+	public static void setPopupPane(StackPane sp) {
 		GeneralUIMethods.sp = sp;
+	}
+	
+	public static void setSideBar(VBox sideBar) {
+		GeneralUIMethods.sideBar = sideBar;
+	}
+	
+	public static VBox getSideBar() {
+		return sideBar;
 	}
 }
