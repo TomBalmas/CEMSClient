@@ -33,6 +33,9 @@ public class ScheduledTestsController {
     
     @FXML
     private JFXTimePicker changeTimeField;
+    
+    @FXML
+    private Label addNewTestLbl;
 
 	@FXML
 	void changeDateClicked(MouseEvent event) {

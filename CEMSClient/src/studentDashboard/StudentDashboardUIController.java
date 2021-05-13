@@ -60,15 +60,18 @@ public class StudentDashboardUIController implements Initializable {
 	 * clicking grades will open the grades page.
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void gradesPage(MouseEvent event) {
+	void gradesPage(MouseEvent event) throws IOException {
+		grades = FXMLLoader.load(getClass().getResource(Navigator.GRADES.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, grades);
 		GeneralUIMethods.setMenuStyle(gradesBtn, menuVBox);
 	}
 
 	@FXML
-	void takeTestPage(MouseEvent event) {
+	void takeTestPage(MouseEvent event) throws IOException {
+		takeTest = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, takeTest);
 		GeneralUIMethods.setMenuStyle(takeTestBtn, menuVBox);
 	}
@@ -77,9 +80,11 @@ public class StudentDashboardUIController implements Initializable {
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void signOutClicked(MouseEvent event) {
+	void signOutClicked(MouseEvent event) throws IOException {
+		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
@@ -90,14 +95,6 @@ public class StudentDashboardUIController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-		try {
-			grades = FXMLLoader.load(getClass().getResource(Navigator.GRADES.getVal()));
-			takeTest = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()));
-			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

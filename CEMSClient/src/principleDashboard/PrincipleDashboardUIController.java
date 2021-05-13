@@ -87,20 +87,25 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load create report page
+	 * @throws IOException 
 	 *
 	 */
 	@FXML
-	void createReportClicked(MouseEvent event) {
+	void createReportClicked(MouseEvent event) throws IOException {
+		createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, createReport);
 		GeneralUIMethods.setMenuStyle(createReportBtn, menuVBox);
 	}
 
 	/**
 	 * load question bank page
+	 * @throws IOException 
 	 *
 	 */
 	@FXML
-	void questionBankClicked(MouseEvent event) {
+	void questionBankClicked(MouseEvent event) throws IOException {
+		questionBankLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
+		questionBank = questionBankLoader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 		QuestionBankUIController controller = questionBankLoader.getController();
@@ -109,10 +114,13 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load test bank page
+	 * @throws IOException 
 	 *
 	 */
 	@FXML
-	void testBankClicked(MouseEvent event) {
+	void testBankClicked(MouseEvent event) throws IOException {
+		testBankLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()));
+		testBank = testBankLoader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 		TestBankUIController controller = testBankLoader.getController();
@@ -121,10 +129,12 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load view reports page
+	 * @throws IOException 
 	 *
 	 */
 	@FXML
-	void viewReportsClicked(MouseEvent event) {
+	void viewReportsClicked(MouseEvent event) throws IOException {
+		viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, viewReports);
 		GeneralUIMethods.setMenuStyle(viewReportsBtn, menuVBox);
 	}
@@ -133,9 +143,11 @@ public class PrincipleDashboardUIController implements Initializable {
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void signOutClicked(MouseEvent event) {
+	void signOutClicked(MouseEvent event) throws IOException {
+		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
@@ -146,18 +158,6 @@ public class PrincipleDashboardUIController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-		try {
-			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
-			createReport = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
-			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
-			questionBankLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			questionBank = questionBankLoader.load();
-			testBankLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			testBank = testBankLoader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

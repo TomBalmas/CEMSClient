@@ -71,6 +71,7 @@ public class GeneralUIMethods {
 	 * @param page
 	 */
 	public static void loadPage(AnchorPane anchor, Node page) {
+		anchor.getChildren().clear();
 		anchor.getChildren().setAll(page);
 	}
 
