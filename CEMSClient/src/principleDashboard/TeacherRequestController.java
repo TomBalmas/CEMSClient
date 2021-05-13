@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class TeacherTestController {
+public class TeacherRequestController {
 
 	
 	    @FXML

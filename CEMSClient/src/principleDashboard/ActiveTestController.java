@@ -46,7 +46,7 @@ public class ActiveTestController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherRequest.fxml"));
 			Node request = loader.load();
-			TeacherTestController controller = loader.getController();
+			TeacherRequestController controller = loader.getController();
 			controller.getTeacherName().setText(teacherName);
 			controller.getTextArea().setText(requestMsg);
 			
