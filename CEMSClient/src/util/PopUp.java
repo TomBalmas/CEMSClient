@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.events.JFXDialogEvent;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
@@ -21,10 +22,12 @@ public class PopUp {
 	    }
 	    JFXDialogLayout dialogLayout = new JFXDialogLayout();
 	    JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
-
+	    EventHandler<MouseEvent> handler = MouseEvent::consume;
+	    nodeToBeBlurred.addEventFilter(MouseEvent.ANY, handler);
 	    controls.forEach(controlButton -> {
 	        controlButton.getStyleClass().add("dialog-button");
 	        controlButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+	        	nodeToBeBlurred.removeEventFilter(MouseEvent.ANY, handler);
 	            dialog.close();
 	        });
 	    });
