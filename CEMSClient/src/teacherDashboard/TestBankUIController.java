@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.Navigator;
 
-public class BankUIController {
+public class TestBankUIController {
 	
     @FXML
     private AnchorPane contentPaneAnchor;
