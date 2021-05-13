@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -47,6 +48,9 @@ public class StudentDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
+	
+	@FXML
+	private StackPane popUpWindow;
 
 	private Node grades;
 	private Node takeTest;
@@ -84,6 +88,7 @@ public class StudentDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		GeneralUIMethods.setPopupStackPane(popUpWindow);
 		try {
 			grades = FXMLLoader.load(getClass().getResource(Navigator.GRADES.getVal()));
 			takeTest = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()));
