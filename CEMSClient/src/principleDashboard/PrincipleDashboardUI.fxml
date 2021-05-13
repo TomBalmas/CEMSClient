@@ -44,5 +44,6 @@
          </children></VBox>
       <AnchorPane fx:id="contentPaneAnchor" layoutX="292.0" layoutY="10.0" prefHeight="800.0" prefWidth="1000.0" />
       <StackPane fx:id="error" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="300.0" />
+      <StackPane fx:id="popUp" layoutX="510.0" layoutY="310.0" prefHeight="150.0" prefWidth="400.0" />
    </children>
 </AnchorPane>

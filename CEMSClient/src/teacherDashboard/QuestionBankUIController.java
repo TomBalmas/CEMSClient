@@ -27,9 +27,11 @@ public class QuestionBankUIController {
 
 	@FXML
 	private Label questionBankLbl;
-	private Node blankQuestionForm;
+
 	@FXML
 	private JFXTreeTableView<?> questionBankTable;
+
+	private Node blankQuestionForm;
 
 	/**
 	 * clicking add a new question will go to blank question for page.
@@ -50,7 +52,5 @@ public class QuestionBankUIController {
 	public JFXButton getAddAnewQuestionBtn() {
 		return addAnewQuestionBtn;
 	}
-
-
 
 }

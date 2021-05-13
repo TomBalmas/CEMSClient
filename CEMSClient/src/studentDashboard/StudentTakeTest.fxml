@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,7 +19,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="testCodeField" layoutX="416.0" layoutY="224.0" />
       <JFXRadioButton fx:id="manualBtn" layoutX="416.0" layoutY="297.0" selected="true" text="Manual">
          <font>
             <Font size="24.0" />
@@ -35,5 +34,6 @@
             <Font size="24.0" />
          </font>
       </JFXButton>
+      <JFXTextField fx:id="testCodeField" layoutX="433.0" layoutY="247.0" promptText="Code" />
    </children>
 </AnchorPane>

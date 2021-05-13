@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -59,6 +60,9 @@ public class TeacherDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane anchorLogin;
+	
+	@FXML
+	private StackPane popUpWindow;
 
 	private Node testBank;
 	private Node questionBank;
@@ -103,11 +107,13 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
+
 	/**
 	 *initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		GeneralUIMethods.setPopupStackPane(popUpWindow);
 		try {
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
