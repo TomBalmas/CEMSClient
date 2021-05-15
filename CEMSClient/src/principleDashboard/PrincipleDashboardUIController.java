@@ -72,6 +72,12 @@ public class PrincipleDashboardUIController implements Initializable {
 	private Node testBank;
 	private FXMLLoader testBankLoader;
 
+	/**
+	 * load active test page
+	 * @throws IOException 
+	 *
+	 */
+	
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
 
@@ -79,6 +85,7 @@ public class PrincipleDashboardUIController implements Initializable {
 			contentPaneAnchor.getChildren().clear();
 			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()));
 			contentPaneAnchor.getChildren().addAll(activeTests);
+			GeneralUIMethods.setMenuStyle(activeTestRequestsBtn,menuVBox);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

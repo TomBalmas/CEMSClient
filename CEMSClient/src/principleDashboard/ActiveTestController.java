@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+
+
 public class ActiveTestController implements Initializable {
 
 	@FXML
@@ -24,7 +26,13 @@ public class ActiveTestController implements Initializable {
 
 	// -------------------------------------------------------
 
-	VBox vBoxScrollPane = new VBox();
+	VBox vBoxScrollPane = new VBox(); //VBox for inserting teacher requests.
+	
+	/**
+	 * 	In initialize we call the addTeacherRequest function to add extra time
+	 *  requests from different teachers.
+	 *	
+	 */
 	
 	
 	@Override
@@ -38,6 +46,13 @@ public class ActiveTestController implements Initializable {
 
 	}
 
+	/**
+	 * 	The function gets the name of the teacher and his request.
+	 *  Then it creates a request window that goes into the Vbox and then puts the updated Vbox into the scrollpane.
+	 *  This way the request of the same teacher can appear in the window of the principal so that he can approve requests for extra time.
+	 *
+	 */	
+	
 	public void addTeacherRequest(String teacherName, String requestMsg) {
 
 		try {
