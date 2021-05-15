@@ -23,7 +23,7 @@
       <JFXRadioButton fx:id="answer2Btn" layoutX="65.0" layoutY="256.0" prefHeight="19.0" prefWidth="161.0" text="Answer 2" />
       <JFXRadioButton fx:id="answer3Btn" layoutX="65.0" layoutY="306.0" prefHeight="19.0" prefWidth="161.0" text="Answer 3" />
       <JFXRadioButton fx:id="answer4Btn" layoutX="65.0" layoutY="361.0" prefHeight="19.0" prefWidth="161.0" text="Answer 4" />
-      <JFXTextArea fx:id="teacherNotesTxt" layoutX="468.0" layoutY="14.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for teacher" />
-      <JFXTextArea fx:id="studentNotesTxt" layoutX="468.0" layoutY="228.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for student" />
+      <JFXTextArea fx:id="teacherNotesTxt" layoutX="461.0" layoutY="226.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for teacher" />
+      <JFXTextArea fx:id="studentNotesTxt" layoutX="461.0" layoutY="14.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for student" />
    </children>
 </AnchorPane>
