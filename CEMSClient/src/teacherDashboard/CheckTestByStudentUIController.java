@@ -1,7 +1,6 @@
 package teacherDashboard;
 
 import javafx.fxml.FXML;
-import util.GeneralUIMethods;
 
 public class CheckTestByStudentUIController {
 

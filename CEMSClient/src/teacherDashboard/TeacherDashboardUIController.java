@@ -60,23 +60,26 @@ public class TeacherDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane anchorLogin;
-	
+
 	@FXML
 	private StackPane popUpWindow;
 
 	private Node testBank;
 	private Node questionBank;
-	private Node activeTest;
+	private Node activeTests;
 	private Node login;
-	private Node checkTest;
+	private Node checkTests;
+	private Node scheduledTests;
 
 	/**
 	 * clicking test bank will open the test bank page.
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void testBankClicked(MouseEvent event) {
+	void testBankClicked(MouseEvent event) throws IOException {
+		testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
@@ -85,58 +88,67 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking question bank will open the question bank page.
 	 *
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void questionBankClicked(MouseEvent event) {
+	void questionBankClicked(MouseEvent event) throws IOException {
+		questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 		GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 		GeneralUIMethods.setMenuStyle(questionBankBtn, menuVBox);
 	}
-	
 
 	/**
 	 * clicking view active test will open the active test page.
 	 *
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void viewActiveTestClicked(MouseEvent event) {
-		GeneralUIMethods.loadPage(contentPaneAnchor, activeTest);
+	void viewActiveTestClicked(MouseEvent event) throws IOException {
+		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
-	
+
+	/**
+	 * clicking check tests will go to the check tests screen
+	 * 
+	 * @param event
+	 * @throws IOException 
+	 */
 	@FXML
-	void checkTestClicked(MouseEvent event) {
-		GeneralUIMethods.loadPage(contentPaneAnchor, checkTest);
+	void checkTestsClicked(MouseEvent event) throws IOException {
+		checkTests = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TESTS.getVal()));
+		GeneralUIMethods.loadPage(contentPaneAnchor, checkTests);
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
+	
+    @FXML
+    void scheduledTestsClicked(MouseEvent event) throws IOException {
+		scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
+    	GeneralUIMethods.loadPage(contentPaneAnchor, scheduledTests);
+		GeneralUIMethods.setMenuStyle(scheduledTestsBtn, menuVBox);
+    }
 
 	/**
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
+	 * @throws IOException 
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event){
+	void clickSignOut(MouseEvent event) throws IOException {
+		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
 
-
 	/**
-	 *initializes all the FXML files for easier access.
+	 * initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		GeneralUIMethods.setPopupStackPane(popUpWindow);
-		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			activeTest = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TEST.getVal()));
-			login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
-			checkTest = FXMLLoader.load(getClass().getResource(Navigator.CHECK_TEST.getVal()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		GeneralUIMethods.setSideBar(menuVBox);
 	}
 }

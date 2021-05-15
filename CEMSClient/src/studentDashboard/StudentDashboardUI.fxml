@@ -33,6 +33,7 @@
             </JFXButton>
          </children></VBox>
       <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" />
-      <StackPane fx:id="popUp" layoutX="510.0" layoutY="310.0" prefHeight="150.0" prefWidth="400.0" />
+      <StackPane fx:id="popUpWindow" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" />
+      <StackPane fx:id="popUpWindow1" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" />
    </children>
 </AnchorPane>

@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import util.GeneralUIMethods;
 import util.Navigator;
 
 public class TestBankUIController {
@@ -44,10 +45,10 @@ public class TestBankUIController {
     void addNewTest(MouseEvent event) {
 		try {
 			addNewTest = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
-			contentPaneAnchor.getChildren().setAll(addNewTest);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		GeneralUIMethods.loadPage(contentPaneAnchor, addNewTest);
     }
 
 }
