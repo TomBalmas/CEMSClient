@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.QuestionController">
+   <children>
+      <Label fx:id="questionNumLbl" layoutX="14.0" layoutY="14.0" text="Question #:" underline="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="contantTxt" layoutX="10.0" layoutY="50.0" prefHeight="141.0" prefWidth="443.0" promptText="question content" />
+      <Label fx:id="pointsLbl" layoutX="124.0" layoutY="14.0" text="# Points">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXRadioButton fx:id="answer1Btn" layoutX="65.0" layoutY="211.0" prefHeight="19.0" prefWidth="161.0" text="Answer 1" />
+      <JFXRadioButton fx:id="answer2Btn" layoutX="65.0" layoutY="256.0" prefHeight="19.0" prefWidth="161.0" text="Answer 2" />
+      <JFXRadioButton fx:id="answer3Btn" layoutX="65.0" layoutY="306.0" prefHeight="19.0" prefWidth="161.0" text="Answer 3" />
+      <JFXRadioButton fx:id="answer4Btn" layoutX="65.0" layoutY="361.0" prefHeight="19.0" prefWidth="161.0" text="Answer 4" />
+      <JFXTextArea fx:id="studentNotesTxt" layoutX="468.0" layoutY="14.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for student" />
+   </children>
+</AnchorPane>

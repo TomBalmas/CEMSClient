@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TestFormController">
+   <children>
+      <ScrollPane fx:id="scrollPane" layoutX="219.0" layoutY="7.0" prefHeight="787.0" prefWidth="767.0" />
+      <JFXButton fx:id="editBtn" layoutX="80.0" layoutY="176.0" prefHeight="30.0" prefWidth="76.0" text="Edit">
+         <font>
+            <Font size="24.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="backBtn" layoutX="68.0" layoutY="727.0" prefHeight="51.0" prefWidth="96.0" text="Back">
+         <font>
+            <Font size="24.0" />
+         </font></JFXButton>
+      <Label fx:id="timeLbl" layoutX="60.0" layoutY="74.0" text="Time: XX:XX">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="downloadBtn" layoutX="54.0" layoutY="581.0" style="-fx-background-color: #a6d6d6;" text="Download Word File" />
+      <JFXButton fx:id="uploadBtn" layoutX="62.0" layoutY="632.0" style="-fx-background-color: #a6d6d6;" text="Upload Word File" />
+      <JFXButton fx:id="finishBtn" layoutX="80.0" layoutY="688.0" style="-fx-background-color: #4aa96c;" text="Finish Test" />
+   </children>
+</AnchorPane>
