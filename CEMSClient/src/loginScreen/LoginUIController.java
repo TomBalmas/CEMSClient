@@ -6,13 +6,17 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import client.ClientController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -42,6 +46,16 @@ public class LoginUIController {
 	private String PRINCIPLE = "p";// ---------need to receive the string from DB---------
 
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
+	
+	public void start(Stage stage) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.LOGIN.getVal()));
+		Parent root = loader.load();
+		Scene scene = new Scene(root);
+		stage.setTitle("CEMS");
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
+	}
 
 	/**
 	 * clicking login with a correct user name and password will open the relevant
@@ -51,6 +65,8 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
+		ClientController.accept("LOGIN-" + usernameTxt.getText() + ", " + passwordTxt.getText());
+		
 		if (!GeneralUIMethods.validateCode(usernameTxt, TEACHER) && !GeneralUIMethods.validateCode(usernameTxt, STUDENT)
 				&& !GeneralUIMethods.validateCode(usernameTxt, PRINCIPLE))
 			return;
