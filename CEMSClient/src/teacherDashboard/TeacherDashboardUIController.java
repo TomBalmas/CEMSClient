@@ -83,7 +83,7 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
-
+  
 	/**
 	 * clicking question bank will open the question bank page.
 	 *
