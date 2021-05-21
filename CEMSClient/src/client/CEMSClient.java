@@ -34,7 +34,7 @@ public class CEMSClient extends ObservableClient {
 		String[] str = ((String) msg).split("-");
 		switch (str[0]) {
 		case "LOGIN":
-			String[] role = ((String) msg).split(":");
+			String[] role = ((String) str[1]).split(":");
 			ClientController.setRoleFrame(role[0]);
 		default:
 			break;
