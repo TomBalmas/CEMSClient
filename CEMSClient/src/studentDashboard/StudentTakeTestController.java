@@ -1,6 +1,8 @@
 package studentDashboard;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -8,23 +10,39 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import teacherDashboard.TestFormController;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class StudentTakeTestController {
+public class StudentTakeTestController implements Initializable {
+
 
     @FXML
     private AnchorPane contentPaneAnchor;
 
     @FXML
-    private JFXRadioButton manualBtn;
+    private AnchorPane tableViewAnchor;
+
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
     @FXML
     private JFXRadioButton computedBtn;
+
+    @FXML
+    private ToggleGroup testGroup;
+
+    @FXML
+    private JFXRadioButton manualBtn;
+
+    @FXML
+    private Label codeLbl;
 
     @FXML
     private JFXTextField testCodeField;
@@ -32,7 +50,12 @@ public class StudentTakeTestController {
     @FXML
     private JFXButton beginTestBtn;
 
+    @FXML
+    private Label takeTestLbl;
 
+    @FXML
+    private Label testOptLbl;
+    
 	@FXML
 	void beginTestClicked(MouseEvent event) {
 		try {
@@ -46,10 +69,24 @@ public class StudentTakeTestController {
 			controller.getFinishBtn().setVisible(true);
 			controller.getEditBtn().setVisible(false);
 			controller.getBackBtn().setVisible(false);
+			if(testGroup.getSelectedToggle().equals(computedBtn)) {
+				controller.getDownloadBtn().setVisible(false);
+				controller.getUploadBtn().setVisible(false);
+			}
+			controller.setFlag(true);
+//			controller.addQuestionToTestForm(); 	//need to get questions from DB
+//			controller.addQuestionToTestForm(); 	//need to get questions from DB
+//			controller.addQuestionToTestForm(); 	//need to get questions from DB
 			GeneralUIMethods.loadPage(contentPaneAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		manualBtn.setToggleGroup(testGroup);
+		computedBtn.setToggleGroup(testGroup);
 	}
 
 }

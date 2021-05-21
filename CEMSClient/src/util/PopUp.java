@@ -16,32 +16,33 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class PopUp {
-	public static void showMaterialDialog(StackPane root, AnchorPane nodeToBeBlurred, VBox sideBar, List<JFXButton> controls, String header, String body) {
-	    BoxBlur blur = new BoxBlur(3, 3, 3);
-	    if (controls.isEmpty()) {
-	        controls.add(new JFXButton("Okay"));
-	    }
-	    JFXDialogLayout dialogLayout = new JFXDialogLayout();
-	    JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
-	    EventHandler<MouseEvent> handler = MouseEvent::consume;
-	    nodeToBeBlurred.addEventFilter(MouseEvent.ANY, handler);
-	    sideBar.addEventFilter(MouseEvent.ANY, handler);
-	    controls.forEach(controlButton -> {
-	        controlButton.getStyleClass().add("dialog-button");
-	        controlButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
-	        	nodeToBeBlurred.removeEventFilter(MouseEvent.ANY, handler);
-	        	sideBar.removeEventFilter(MouseEvent.ANY, handler);
-	            dialog.close();
-	        });
-	    });
+	public static void showMaterialDialog(StackPane root, AnchorPane nodeToBeBlurred, VBox sideBar,
+			List<JFXButton> controls, String header, String body) {
+		BoxBlur blur = new BoxBlur(3, 3, 3);
+		if (controls.isEmpty()) {
+			controls.add(new JFXButton("Okay"));
+		}
+		JFXDialogLayout dialogLayout = new JFXDialogLayout();
+		JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
+		EventHandler<MouseEvent> handler = MouseEvent::consume;
+		nodeToBeBlurred.addEventFilter(MouseEvent.ANY, handler);
+		sideBar.addEventFilter(MouseEvent.ANY, handler);
+		controls.forEach(controlButton -> {
+			controlButton.getStyleClass().add("dialog-button");
+			controlButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+				nodeToBeBlurred.removeEventFilter(MouseEvent.ANY, handler);
+				sideBar.removeEventFilter(MouseEvent.ANY, handler);
+				dialog.close();
+			});
+		});
 
-	    dialogLayout.setHeading(new Label(header));
-	    dialogLayout.setBody(new Label(body));
-	    dialogLayout.setActions(controls);
-	    dialog.show();
-	    dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
-	        nodeToBeBlurred.setEffect(null);
-	    });
-	    nodeToBeBlurred.setEffect(blur);
+		dialogLayout.setHeading(new Label(header));
+		dialogLayout.setBody(new Label(body));
+		dialogLayout.setActions(controls);
+		dialog.show();
+		dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
+			nodeToBeBlurred.setEffect(null);
+		});
+		nodeToBeBlurred.setEffect(blur);
 	}
 }

@@ -14,6 +14,7 @@ public class LoginUI extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.LOGIN.getVal()));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("util/style.css");
 		stage.setTitle("CEMS");
 		stage.setResizable(false);
 		stage.setScene(scene);

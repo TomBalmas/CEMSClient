@@ -5,14 +5,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import util.GeneralUIMethods;
 import util.Navigator;
 
 public class TestFormController implements Initializable {
@@ -21,13 +26,28 @@ public class TestFormController implements Initializable {
 	private ScrollPane scrollPane;
 
 	@FXML
+	private AnchorPane filterAnchor;
+
+	@FXML
+	private AnchorPane insideFilterAnchor;
+
+	@FXML
+	private Label testTitleLbl;
+
+	@FXML
+	private Label instructionsLbl;
+
+	@FXML
+	private JFXTextArea instTxt;
+
+	@FXML
+	private Label timeLbl;
+
+	@FXML
 	private JFXButton editBtn;
 
 	@FXML
 	private JFXButton backBtn;
-
-	@FXML
-	private Label timeLbl;
 
 	@FXML
 	private JFXButton downloadBtn;
@@ -38,7 +58,15 @@ public class TestFormController implements Initializable {
 	@FXML
 	private JFXButton finishBtn;
 
+	@FXML
+	private AnchorPane AnchorPaneContent;
+
 	private VBox vbox = new VBox();
+	private boolean flag = false; // flag to decide student/teacher
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
 
 	// getters start
 
@@ -84,10 +112,20 @@ public class TestFormController implements Initializable {
 			uploadBtn.setVisible(false);
 			finishBtn.setVisible(false);
 			addTitleToTest();
-			vbox.setSpacing(20);
-			addQuestionToTestForm();
-			addQuestionToTestForm();
-			addQuestionToTestForm();
+			vbox.setSpacing(10);
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						addQuestionToTestForm();
+						addQuestionToTestForm();
+						addQuestionToTestForm();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,7 +138,12 @@ public class TestFormController implements Initializable {
 	 *
 	 */
 	public void addQuestionToTestForm() throws IOException {
-		Node question = FXMLLoader.load(getClass().getResource(Navigator.QUESTION.getVal()));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
+		Node question = loader.load();
+		QuestionController controller = loader.getController();
+		System.out.println(flag);
+		if (flag)
+			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
 		scrollPane.setContent(vbox);
 	}
@@ -114,6 +157,12 @@ public class TestFormController implements Initializable {
 		Node element = FXMLLoader.load(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
 		vbox.getChildren().add(element);
 		scrollPane.setContent(vbox);
+	}
+
+	@FXML
+	void backClicked(MouseEvent event) throws IOException {
+		Node page = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
+		GeneralUIMethods.loadPage(AnchorPaneContent, page);
 	}
 
 }

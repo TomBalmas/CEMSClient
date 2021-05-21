@@ -136,9 +136,10 @@ public class TeacherDashboardUIController implements Initializable {
 	 * 
 	 * @param event
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event) throws IOException {
+	void clickSignOut(MouseEvent event) throws IOException, InterruptedException {
 		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}

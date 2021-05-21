@@ -2,19 +2,40 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="requestPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.TeacherRequestController">
    <children>
-      <Label fx:id="teacherName" alignment="CENTER" layoutX="151.0" layoutY="28.0" prefHeight="17.0" prefWidth="149.0" text="Test">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-      <JFXTextArea fx:id="textArea" layoutX="29.0" layoutY="66.0" prefHeight="175.0" prefWidth="411.0" />
-      <JFXButton fx:id="btnDisapprove" layoutX="40.0" layoutY="251.0" prefHeight="32.0" prefWidth="110.0" text="Disapprove" />
-      <JFXButton fx:id="btnAprove" layoutX="310.0" layoutY="251.0" prefHeight="32.0" prefWidth="110.0" text="Approve" />
+      <VBox alignment="CENTER" prefHeight="300.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="teacherName" alignment="CENTER" contentDisplay="CENTER" text="Test" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="textArea" prefHeight="224.0" prefWidth="480.0" styleClass="requestTxtArea" />
+            <HBox alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnDisapprove" alignment="CENTER" contentDisplay="CENTER" text="Disapprove" textAlignment="CENTER">
+                     <styleClass>
+                        <String fx:value="disaprove" />
+                        <String fx:value="fGradeLbl" />
+                     </styleClass>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAprove" alignment="CENTER" contentDisplay="CENTER" text="Approve" textAlignment="CENTER">
+                     <styleClass>
+                        <String fx:value="approve" />
+                        <String fx:value="aGradeLbl" />
+                     </styleClass>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

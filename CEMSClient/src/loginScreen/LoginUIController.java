@@ -18,24 +18,23 @@ import util.Navigator;
 
 public class LoginUIController {
 
-	@FXML
-	private JFXTextField usernameTxt;
+    @FXML
+    private AnchorPane anchorLogin;
 
-	@FXML
-	private JFXPasswordField passwordTxt;
+    @FXML
+    private JFXTextField usernameTxt;
 
-	@FXML
-	private JFXButton loginBtn;
+    @FXML
+    private JFXPasswordField passwordTxt;
 
-	@FXML
-	private Label welcomeLbl;
+    @FXML
+    private JFXButton loginBtn;
 
-	@FXML
-	private VBox menuVBox;
+    @FXML
+    private Label welcomeLbl;
 
-	@FXML
-	private AnchorPane anchorLogin;
-
+    @FXML
+    private VBox menuVBox;
 	private Node dashBoard;
 	private String TEACHER = "t";// ---------need to receive the string from DB---------
 	private String STUDENT = "s";// ---------need to receive the string from DB---------
@@ -48,9 +47,10 @@ public class LoginUIController {
 	 * menu according to the user's permissions.
 	 * 
 	 * @param event
+	 * @throws InterruptedException 
 	 */
 	@FXML
-	void clickLogin(Event event) {
+	void clickLogin(Event event) throws InterruptedException {
 		if (!GeneralUIMethods.validateCode(usernameTxt, TEACHER) && !GeneralUIMethods.validateCode(usernameTxt, STUDENT)
 				&& !GeneralUIMethods.validateCode(usernameTxt, PRINCIPLE))
 			return;

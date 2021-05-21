@@ -26,61 +26,71 @@ import util.Navigator;
 
 public class BlankQuestionFormUIController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private Label newQuestionFormLbl;
+    @FXML
+    private JFXButton backBtn;
 
-	@FXML
-	private JFXTextArea questionContentTxt;
+    @FXML
+    private JFXButton saveBtn;
 
-	@FXML
-	private Label chooseAnswersLbl;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private JFXButton backBtn;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private JFXButton saveBtn;
+    @FXML
+    private Label newQuestionFormLbl;
 
-	@FXML
-	private JFXRadioButton answer1Btn;
+    @FXML
+    private Label chooseAnswersLbl1;
 
-	@FXML
-	private JFXTextArea answer1Txt;
+    @FXML
+    private JFXTextArea questionContentTxt;
 
-	@FXML
-	private JFXRadioButton answer2Btn;
+    @FXML
+    private AnchorPane insideFilterAnchor1;
 
-	@FXML
-	private JFXTextArea answer2Txt;
+    @FXML
+    private Label chooseAnswersLbl;
 
-	@FXML
-	private JFXRadioButton answer3Btn;
+    @FXML
+    private JFXRadioButton answer1Btn;
 
-	@FXML
-	private JFXTextArea answer3Txt;
+    @FXML
+    private JFXRadioButton answer2Btn;
 
-	@FXML
-	private JFXRadioButton answer4Btn;
+    @FXML
+    private JFXRadioButton answer3Btn;
 
-	@FXML
-	private JFXTextArea answer4Txt;
+    @FXML
+    private JFXRadioButton answer4Btn;
 
-	@FXML
-	private Label correctAnswer1Lbl;
+    @FXML
+    private Label correctAnswer3Lbl;
 
-	@FXML
-	private Label correctAnswer2Lbl;
+    @FXML
+    private Label correctAnswer2Lbl;
 
-	@FXML
-	private Label correctAnswer3Lbl;
+    @FXML
+    private Label correctAnswer1Lbl;
 
-	@FXML
-	private StackPane questionSaved;
-	@FXML
-	private Label correctAnswer4Lbl;
+    @FXML
+    private Label correctAnswer4Lbl;
+
+    @FXML
+    private JFXTextArea answer4Txt;
+
+    @FXML
+    private JFXTextArea answer3Txt;
+
+    @FXML
+    private JFXTextArea answer2Txt;
+
+    @FXML
+    private JFXTextArea answer1Txt;
 
 	private Node questionBank;
 	// toggle group for allowing one choice of radio button
@@ -93,11 +103,12 @@ public class BlankQuestionFormUIController implements Initializable {
 
 	@FXML
 	void clickSave() {
+		String questionID = "345"; //--------TODO: fetch from db
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
 		System.out.println(GeneralUIMethods.getPopupPane());
 		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
-				"question Id:");
+				"question Id: " + questionID);
 		if (list.get(0).isPressed())
 			clickBack();
 	}

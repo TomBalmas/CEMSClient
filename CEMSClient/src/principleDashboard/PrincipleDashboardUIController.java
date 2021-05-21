@@ -3,10 +3,12 @@ package principleDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +19,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import teacherDashboard.TestBankUIController;
+import javafx.util.Duration;
 import teacherDashboard.QuestionBankUIController;
+import teacherDashboard.TestBankUIController;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -151,9 +154,10 @@ public class PrincipleDashboardUIController implements Initializable {
 	 * 
 	 * @param event
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
 	@FXML
-	void signOutClicked(MouseEvent event) throws IOException {
+	void signOutClicked(MouseEvent event) throws IOException, InterruptedException {
 		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
