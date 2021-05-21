@@ -46,6 +46,10 @@ public class StudentTakeTestController {
 			controller.getFinishBtn().setVisible(true);
 			controller.getEditBtn().setVisible(false);
 			controller.getBackBtn().setVisible(false);
+			controller.setFlag(true);
+			controller.addQuestionToTestForm(); 	//need to get questions from DB
+			controller.addQuestionToTestForm(); 	//need to get questions from DB
+			controller.addQuestionToTestForm(); 	//need to get questions from DB
 			GeneralUIMethods.loadPage(contentPaneAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
