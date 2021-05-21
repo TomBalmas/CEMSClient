@@ -123,6 +123,13 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
+	@FXML
+	void testReportsClicked(MouseEvent event) throws IOException {
+		checkTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+		GeneralUIMethods.loadPage(contentPaneAnchor, checkTests);
+		GeneralUIMethods.setMenuStyle(testReportsBtn, menuVBox);
+
+	}
 	
     @FXML
     void scheduledTestsClicked(MouseEvent event) throws IOException {
@@ -138,7 +145,7 @@ public class TeacherDashboardUIController implements Initializable {
 	 * @throws IOException 
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event) throws IOException {
+	void signOutClicked(MouseEvent event) throws IOException {
 		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
 	}
