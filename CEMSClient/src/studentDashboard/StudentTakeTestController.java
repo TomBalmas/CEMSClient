@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,62 +23,68 @@ import util.Navigator;
 
 public class StudentTakeTestController implements Initializable {
 
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private JFXRadioButton computedBtn;
 
-    @FXML
-    private JFXRadioButton computedBtn;
+	@FXML
+	private ToggleGroup testGroup;
 
-    @FXML
-    private ToggleGroup testGroup;
+	@FXML
+	private JFXRadioButton manualBtn;
 
-    @FXML
-    private JFXRadioButton manualBtn;
+	@FXML
+	private Label codeLbl;
 
-    @FXML
-    private Label codeLbl;
+	@FXML
+	private JFXTextField testCodeField;
 
-    @FXML
-    private JFXTextField testCodeField;
+	@FXML
+	private JFXButton beginTestBtn;
 
-    @FXML
-    private JFXButton beginTestBtn;
+	@FXML
+	private Label takeTestLbl;
 
-    @FXML
-    private Label takeTestLbl;
+	@FXML
+	private Label testOptLbl;
 
-    @FXML
-    private Label testOptLbl;
-    
 	@FXML
 	void beginTestClicked(MouseEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-			Node test;
-			test = loader.load();
+			Node test = loader.load();
 			TestFormController controller = loader.getController();
-			controller.getTimeLbl().setVisible(true);
-			controller.getDownloadBtn().setVisible(true);
-			controller.getUploadBtn().setVisible(true);
-			controller.getFinishBtn().setVisible(true);
 			controller.getEditBtn().setVisible(false);
 			controller.getBackBtn().setVisible(false);
-			if(testGroup.getSelectedToggle().equals(computedBtn)) {
-				controller.getDownloadBtn().setVisible(false);
-				controller.getUploadBtn().setVisible(false);
+			controller.getTestSideBarAnchor().setVisible(true);
+			if (testGroup.getSelectedToggle().equals(manualBtn)) {
+				controller.getDownloadBtn().setVisible(true);
+				controller.getUploadBtn().setVisible(true);
+				controller.getUploadFileAnchor().setVisible(true);
+				controller.setFlag(true);
 			}
-			controller.setFlag(true);
+			else 
+				controller.getUploadFileAnchor().setVisible(false);
 //			controller.addQuestionToTestForm(); 	//need to get questions from DB
 //			controller.addQuestionToTestForm(); 	//need to get questions from DB
 //			controller.addQuestionToTestForm(); 	//need to get questions from DB
-			GeneralUIMethods.loadPage(contentPaneAnchor, test);
+			GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), test);
+			
+			//Set the correct view for the student
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
+				}
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

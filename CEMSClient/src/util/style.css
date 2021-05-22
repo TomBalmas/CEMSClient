@@ -1,18 +1,40 @@
 .body {
 	-fx-background-color: #e7e7e7;
-	-fx-text-fill: white;
+	
 	-fx-alignment: CENTER;
-	-fx-z-index: 1;
+	-fx-z-index: 1.0;
+}
+
+.body ScrollPane {
+	-fx-box-border: transparent;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.body VBox {
+
+}
+
+.uploadFileTxtArea {
+	-fx-border-width: 3.0px;
+	-fx-border-color: gray;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-style: dashed;
+}
+
+.uploadFileTxtArea *.text {
+    -fx-text-alignment: center;
 }
 
 .sideBar {
 	 -fx-background-color: #393E46;
-	 -fx-z-index: 2;
+	 -fx-z-index: 2.0;
 }
 
 .sideBarButton {
 	-fx-background-color: #393E46;
-	-fx-font-size: 22px;
+	-fx-font-size: 22.0px;
 }
 
 .clickedButton {
@@ -20,15 +42,15 @@
 }
 
 .button {
-	-fx-width: 100%;
-	-fx-height: 35px;
+	-fx-width: 100.0%;
+	-fx-height: 35.0px;
 	-fx-color: white;
 }
 
 .filterButton {
 	-fx-background-color: #fff0d9;
 	-fx-border-color: #fec973;
-	-fx-border-radius: 4px;
+	-fx-border-radius: 4.0px;
 }
 
 .deleteButton {
@@ -36,11 +58,15 @@
 }
 
 .finishTestBtn {
-	-fx-background-color: #4aa96c;
+	-fx-background-color: #E5F8ED;
+	-fx-pref-width: 200.0;
+	-fx-pref-width: 40.0;
+	-fx-border-radius: 4.0px;
+	-fx-border-color: #8CDFAF;
 }
 
 .fileBtn {
-	-fx-background-color: #a6d6d6;
+	-fx-background-color: #FFF0D9;
 }
 
 .signOut {
@@ -49,24 +75,34 @@
 
 .paneBorder {
 	-fx-background-color: white;
-	-fx-background-radius: 9px;
-	-fx-border-radius: 9px;
+	-fx-background-radius: 9.0px;
+	-fx-border-radius: 9.0px;
 }
-
 
 .paddingAnchor {
 
 }
 
+.grayPane{
+	-fx-background-color: #f0f1f1;
+	-fx-background-radius: 9.0px 9.0px 0.0 0.0;
+	-fx-border-radius: 9.0px 9.0px 0.0 0.0;
+    -fx-background-insets: 10.0px;
+}
+
+.insideGrayPane {
+	-fx-background-color: white;
+}
+
 .GradeLbl {
-	-fx-width: 40px;
-	-fx-height: 40px;
-	-fx-min-width:60;
-	-fx-min-height:60;
-	-fx-background-radius: 12px;
-	-fx-border-radius: 12px;
+	-fx-width: 40.0px;
+	-fx-height: 40.0px;
+	-fx-min-width:60.0;
+	-fx-min-height:60.0;
+	-fx-background-radius: 12.0px;
+	-fx-border-radius: 12.0px;
 	-fx-font-color: #060824;
-	-fx-font-size: 28px;
+	-fx-font-size: 28.0px;
 	-fx-font-weight: bold;
 	-fx-text-aligment: center;
 }
@@ -82,38 +118,38 @@
 }
 
 .approve {
-	-fx-min-width: 240;
-	-fx-min-height: 20;
-	-fx-background-radius: 0 0 12px 0;
-	-fx-border-radius: 0 0 12px 0;
+	-fx-min-width: 290.0;
+	-fx-min-height: 20.0;
+	-fx-background-radius: 0.0 0.0 12.0px 0.0;
+	-fx-border-radius: 0.0 0.0 12.0px 0.0;
 }
 
 .disaprove {
-	-fx-min-width: 240;
-	-fx-min-height: 20;
-	-fx-background-radius: 0 0 0 12px;
-	-fx-border-radius: 0 0 0 12px;
+	-fx-min-width: 290.0;
+	-fx-min-height: 20.0;
+	-fx-background-radius: 0.0 0.0 0.0 12.0px;
+	-fx-border-radius: 0.0 0.0 0.0 12.0px;
 }
 
 .txtArea {
 	-fx-background-color: #f0f1f1;
 	-fx-border-color: #dce0e0;
-	-fx-background-radius: 12px 12px 12px 12px;
-	-fx-border-radius: 12px 12px 12px 12px;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
 }
 
 .requestTxtArea {
 	-fx-background-color: #f0f1f1;
 	-fx-border-color: #dce0e0;
-	-fx-background-radius: 12px 12px 0 0;
-	-fx-border-radius: 12px 12px 0 0;
+	-fx-background-radius: 12.0px 12.0px 0.0 0.0;
+	-fx-border-radius: 12.0px 12.0px 0.0 0.0;
 }
 
 .questionTxtArea {
 	-fx-background-color: #f0f1f1;
 	-fx-border-color: #dce0e0;
-	-fx-background-radius: 12px 12px 12px 12px;
-	-fx-border-radius: 12px 12px 12px 12px;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
 }
 
 

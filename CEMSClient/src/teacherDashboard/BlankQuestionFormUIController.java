@@ -106,7 +106,6 @@ public class BlankQuestionFormUIController implements Initializable {
 		String questionID = "345"; //--------TODO: fetch from db
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
-		System.out.println(GeneralUIMethods.getPopupPane());
 		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
 				"question Id: " + questionID);
 		if (list.get(0).isPressed())

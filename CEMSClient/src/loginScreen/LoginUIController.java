@@ -1,6 +1,8 @@
 package loginScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -12,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -20,6 +23,9 @@ public class LoginUIController {
 
     @FXML
     private AnchorPane anchorLogin;
+
+	@FXML
+    private StackPane popupStackPane;
 
     @FXML
     private JFXTextField usernameTxt;
@@ -51,6 +57,10 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) throws InterruptedException {
+		List<JFXButton> list = new ArrayList<JFXButton>();
+		list.add(new JFXButton("Okay"));
+		util.PopUp.showMaterialDialog(popupStackPane, null, menuVBox, list, "Question Saved",
+				"question Id: " + "blah");
 		if (!GeneralUIMethods.validateCode(usernameTxt, TEACHER) && !GeneralUIMethods.validateCode(usernameTxt, STUDENT)
 				&& !GeneralUIMethods.validateCode(usernameTxt, PRINCIPLE))
 			return;
@@ -67,6 +77,9 @@ public class LoginUIController {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
 				} else if (GeneralUIMethods.validateCode(usernameTxt, STUDENT)) {
 					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+				}
+				else {
+
 				}
 				anchorLogin.getChildren().setAll(dashBoard);
 			} catch (IOException e1) {
