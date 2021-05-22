@@ -144,6 +144,7 @@ public class TeacherDashboardUIController implements Initializable {
 	 * 
 	 * @param event
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
 	@FXML
 	void signOutClicked(MouseEvent event) throws IOException {

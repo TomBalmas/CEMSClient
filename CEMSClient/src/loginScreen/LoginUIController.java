@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.GeneralUIMethods;
@@ -25,24 +26,26 @@ import util.Navigator;
 
 public class LoginUIController {
 
-	@FXML
-	private JFXTextField usernameTxt;
+    @FXML
+    private AnchorPane anchorLogin;
 
 	@FXML
-	private JFXPasswordField passwordTxt;
+    private StackPane popupStackPane;
 
-	@FXML
-	private JFXButton loginBtn;
+    @FXML
+    private JFXTextField usernameTxt;
 
-	@FXML
-	private Label welcomeLbl;
+    @FXML
+    private JFXPasswordField passwordTxt;
 
-	@FXML
-	private VBox menuVBox;
+    @FXML
+    private JFXButton loginBtn;
 
-	@FXML
-	private AnchorPane anchorLogin;
+    @FXML
+    private Label welcomeLbl;
 
+    @FXML
+    private VBox menuVBox;
 	private Node dashBoard;
 
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
@@ -62,12 +65,18 @@ public class LoginUIController {
 	 * menu according to the user's permissions.
 	 * 
 	 * @param event
+	 * @throws InterruptedException 
 	 */
 	@FXML
-	void clickLogin(Event event) {
-		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
-			//------------------------ need to add notice to enter all arguments (case: text field is empty)------------------------
-			return;
+
+	void clickLogin(Event event) throws InterruptedException {
+		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty()){
+	  		List<JFXButton> list = new ArrayList<JFXButton>();
+    		list.add(new JFXButton("Okay"));
+    		util.PopUp.showMaterialDialog(popupStackPane, null, menuVBox, list, "Question Saved",
+				"question Id: " + "blah");
+	  		return;
+    }
 		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 		String role = ClientController.getRoleFrame();
 		if (!role.equals("null")) {
@@ -98,7 +107,11 @@ public class LoginUIController {
 				loginBtn.setVisible(false);
 			});
 		} else {
-			//------------------------ need to add pop up screen (case: wrong user name or password) ------------------------
+        List<JFXButton> list = new ArrayList<JFXButton>();
+       	list.add(new JFXButton("Okay"));
+    		util.PopUp.showMaterialDialog(popupStackPane, null, menuVBox, list, "Question Saved",
+				"question Id: " + "blah");
+	  		return;
 		}
 	}
 
