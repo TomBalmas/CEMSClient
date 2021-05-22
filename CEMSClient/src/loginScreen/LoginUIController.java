@@ -64,7 +64,7 @@ public class LoginUIController {
 	void clickLogin(Event event) {
 		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 		String role = ClientController.getRoleFrame();
-		if (role.equals("Teacher") || role.equals("Student") || role.equals("Principle")) {
+		if (!role.equals("null")) {
 			GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 				try {
 					if (role.equals("Teacher")) {
