@@ -1,5 +1,8 @@
 package client;
 
+import common.Principle;
+import common.Student;
+import common.Teacher;
 import ocsf.client.ObservableClient;
 
 public class CEMSClient extends ObservableClient {
@@ -31,14 +34,12 @@ public class CEMSClient extends ObservableClient {
 
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		String[] str = ((String) msg).split("-");
-		switch (str[0]) {
-		case "LOGIN":
-			String[] role = ((String) str[1]).split(":");
-			ClientController.setRoleFrame(role[0]);
-		default:
-			break;
-		}
-}
+		if (msg instanceof Teacher)
+			ClientController.setRoleFrame("Teacher");
+		else if (msg instanceof Student)
+			ClientController.setRoleFrame("Student");
+		else if (msg instanceof Principle)
+			ClientController.setRoleFrame("Principle");
+	}
 
 }
