@@ -149,6 +149,7 @@ public class TeacherDashboardUIController implements Initializable {
 	void signOutClicked(MouseEvent event) throws IOException {
 		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
+		GeneralUIMethods.closeConnection();
 	}
 
 	/**

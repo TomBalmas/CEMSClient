@@ -1,11 +1,14 @@
 package loginScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import client.CEMSClient;
 import client.ClientController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -62,9 +65,12 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
+		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+			//------------------------ need to add notice to enter all arguments (case: text field is empty)------------------------
+			return;
 		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 		String role = ClientController.getRoleFrame();
-		if (role.equals("Teacher") || role.equals("Student") || role.equals("Principle")) {
+		if (!role.equals("null")) {
 			GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 				try {
 					if (role.equals("Teacher")) {
@@ -91,8 +97,9 @@ public class LoginUIController {
 			GeneralUIMethods.moveItem(loginBtn, 0, 0.55, (e) -> {
 				loginBtn.setVisible(false);
 			});
+		} else {
+			//------------------------ need to add pop up screen (case: wrong user name or password) ------------------------
 		}
-		return;
 	}
 
 }
