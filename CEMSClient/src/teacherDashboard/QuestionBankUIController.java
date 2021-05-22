@@ -1,12 +1,20 @@
 package teacherDashboard;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 
+import client.CEMSClient;
+import client.ClientController;
+import common.Teacher;
+import common.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -14,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class QuestionBankUIController {
+public class QuestionBankUIController implements Initializable {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -49,5 +57,18 @@ public class QuestionBankUIController {
 	public JFXButton getAddAnewQuestionBtn() {
 		return addAnewQuestionBtn;
 	}
+	
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Teacher teacher=(Teacher) ClientController.getActiveUser();
+		try {
+		System.out.println(teacher.getEmail());
+		}catch(Exception e) {
+			System.out.println(e.toString());
+			
+		}
+		ClientController.accept("TEST_BANK-"+ teacher.getFields().toString() );
+	}
+	}
 
-}

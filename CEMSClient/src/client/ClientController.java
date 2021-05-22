@@ -2,10 +2,13 @@ package client;
 
 import java.io.IOException;
 
+import common.User;
+
 public class ClientController {
 
 	private static CEMSClient client;
 	private static String roleFrame = null;
+
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -31,5 +34,8 @@ public class ClientController {
 	public static void setRoleFrame(String roleFrame) {
 		ClientController.roleFrame = roleFrame;
 	}
+	public static User getActiveUser() {
+        return client.getActiveUser();
+    }
 
 }
