@@ -28,9 +28,12 @@ public class CEMSClient extends ObservableClient {
 	 * @throws Exception
 	 */
 	public void handleMessageFromClientUI(String msg) throws Exception {
-		String[] str = msg.split("-");
-		if (str[0].equals("LOGIN"))
+		if(msg.startsWith("LOGIN"))
 			openConnection();
+		else if (msg.equals("SIGN_OUT")) {
+			closeConnection();
+			return;
+		}
 		awaitResponse = true;
 		sendToServer(msg);
 		while (awaitResponse) {
@@ -40,7 +43,7 @@ public class CEMSClient extends ObservableClient {
 
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		if(msg == null)
+		if (msg == null)
 			ClientController.setRoleFrame("null");
 		if (msg instanceof User)
 			if (msg instanceof Teacher) {
