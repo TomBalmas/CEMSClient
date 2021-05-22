@@ -168,6 +168,7 @@ public class TestFormController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
+
 		if (flag)
 			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
@@ -184,6 +185,12 @@ public class TestFormController implements Initializable {
 		vbox.getChildren().add(element);
 		scrollPane.setContent(vbox);
 	}
+	
+    @FXML
+    void backClicked(MouseEvent event) throws IOException {
+    	Node page = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
+    	GeneralUIMethods.loadPage(AnchorPaneContent, page);
+    }
 
 	/**
 	 * back to previouse screen

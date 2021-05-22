@@ -1,25 +1,19 @@
 package loginScreen;
 
+import client.ClientController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.Navigator;
 
 public class LoginUI extends Application {
+	
+	private LoginUIController controller;
+	private ClientController client;
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.LOGIN.getVal()));
-		Parent root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("util/style.css");
-		stage.setTitle("CEMS");
-		stage.setResizable(false);
-		stage.setScene(scene);
-		stage.show();
-
+		client = new ClientController("localhost", 5555);
+		controller = new LoginUIController();
+		controller.start(stage);
 	}
 
 	public static void main(String[] args) {

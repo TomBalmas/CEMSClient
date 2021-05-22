@@ -2,6 +2,7 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,6 +13,10 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import client.CEMSClient;
+import client.ClientController;
+import common.Teacher;
+import common.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class QuestionBankUIController implements Initializable{
+public class QuestionBankUIController implements Initializable {
 
 
     @FXML
@@ -97,8 +102,16 @@ public class QuestionBankUIController implements Initializable{
     }
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		selectCbox.setItems(options);
+	public void initialize(URL arg0, ResourceBundle arg1) {
+    selectCbox.setItems(options);
+		Teacher teacher=(Teacher) ClientController.getActiveUser();
+		try {
+		System.out.println(teacher.getEmail());
+		}catch(Exception e) {
+			System.out.println(e.toString());
+			
+		}
+		ClientController.accept("TEST_BANK-"+ teacher.getFields().toString() );
+	}
 	}
 
-}

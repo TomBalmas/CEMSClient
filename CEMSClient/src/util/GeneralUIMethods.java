@@ -3,10 +3,12 @@ package util;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
+import client.ClientController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
@@ -154,5 +156,12 @@ public class GeneralUIMethods {
 		if(textField.getText().equals(string))
 			return true;
 		return false;
+	}
+	
+	/**
+	 * closes the connection of the client to the server
+	 */
+	public static void closeConnection() {
+		ClientController.accept("SIGN_OUT");
 	}
 }

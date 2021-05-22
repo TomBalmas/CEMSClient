@@ -38,4 +38,8 @@ public enum Navigator {
 	public String getVal() {
 		return val;
 	}
+	
+	public String toString() {
+		return this.name();
+	}
 }

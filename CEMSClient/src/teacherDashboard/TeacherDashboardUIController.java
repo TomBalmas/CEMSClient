@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
+import client.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,7 +84,7 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
-
+  
 	/**
 	 * clicking question bank will open the question bank page.
 	 *
@@ -123,6 +124,13 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
+	@FXML
+	void testReportsClicked(MouseEvent event) throws IOException {
+		checkTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+		GeneralUIMethods.loadPage(contentPaneAnchor, checkTests);
+		GeneralUIMethods.setMenuStyle(testReportsBtn, menuVBox);
+
+	}
 	
     @FXML
     void scheduledTestsClicked(MouseEvent event) throws IOException {
@@ -139,9 +147,10 @@ public class TeacherDashboardUIController implements Initializable {
 	 * @throws InterruptedException 
 	 */
 	@FXML
-	void clickSignOut(MouseEvent event) throws IOException, InterruptedException {
+	void signOutClicked(MouseEvent event) throws IOException {
 		login = FXMLLoader.load(getClass().getResource(Navigator.LOGIN.getVal()));
 		GeneralUIMethods.signOut(contentPaneAnchor, anchorLogin, menuVBox, login);
+		GeneralUIMethods.closeConnection();
 	}
 
 	/**

@@ -46,7 +46,7 @@
                </VBox.margin>
             </JFXButton>
          </children></VBox>
-      <AnchorPane fx:id="contentPaneAnchor" layoutX="292.0" layoutY="10.0" prefHeight="800.0" prefWidth="1000.0" styleClass="body" />
+      <AnchorPane fx:id="contentPaneAnchor" layoutX="292.0" layoutY="10.0" onMouseClicked="#signOutClicked" prefHeight="800.0" prefWidth="1000.0" styleClass="body" />
       <StackPane fx:id="popUpWindow" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" />
    </children>
 </AnchorPane>
