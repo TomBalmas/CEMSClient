@@ -38,7 +38,7 @@ public class ActiveTestController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 			
-		vBoxScrollPane.setPadding(new Insets(25,25,25,25));
+		vBoxScrollPane.setPadding(new Insets(0,0,0,210));
 		addTeacherRequest("vered","tom");
 		addTeacherRequest("vered","tom");
 		addTeacherRequest("vered","tom");

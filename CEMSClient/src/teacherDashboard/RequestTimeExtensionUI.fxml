@@ -2,36 +2,32 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.RequestTimeExtensionUIController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.RequestTimeExtensionUIController">
    <children>
-      <Label fx:id="studentsTestLbl" alignment="CENTER" text="Request time extension for test:" textFill="#280505">
+      <Label fx:id="studentsTestLbl" alignment="CENTER" layoutX="176.0" layoutY="44.0" prefHeight="84.0" prefWidth="539.0" text="Request time extension for test:" textFill="#280505">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="reasonForRequestTxt" layoutY="70.0" prefHeight="130.0" prefWidth="624.0" wrapText="true">
+      <Label fx:id="enterTestLbl" alignment="CENTER" layoutX="14.0" layoutY="128.0" prefHeight="84.0" prefWidth="348.0" text="Enter test code:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="testCodeTxt" layoutX="344.0" layoutY="153.0" prefHeight="4.0" prefWidth="337.0" />
+      <JFXTextArea fx:id="reasonForRequestTxt" layoutX="110.0" layoutY="284.0" prefHeight="213.0" prefWidth="624.0" promptText="Question Content:" text="Enter reason for request:" wrapText="true">
          <font>
             <Font size="26.0" />
          </font>
       </JFXTextArea>
-      <JFXButton fx:id="senfForApprovalBtn" layoutY="205.0" onMouseClicked="#clicksenfForApproval" text="Send for approval ">
+      <JFXButton fx:id="senfForApprovalBtn" layoutX="318.0" layoutY="619.0" onMouseClicked="#clicksenfForApproval" prefHeight="65.0" prefWidth="328.0" text="Send for approval ">
          <font>
-            <Font size="19.0" />
+            <Font size="30.0" />
          </font>
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass>
       </JFXButton>
-      <Label layoutY="35.0" text="Enter reason for request:">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

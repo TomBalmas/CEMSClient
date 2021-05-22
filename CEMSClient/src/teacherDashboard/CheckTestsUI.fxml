@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#submitClicked" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.CheckTestsUIController">
    <children>
-      <JFXButton fx:id="submitBtn" layoutX="850.0" layoutY="717.0" onMouseClicked="#submitClicked" styleClass="clickedButton" text="Check">
+      <Label fx:id="checkTestLbl" alignment="CENTER" layoutX="333.0" layoutY="28.0" prefHeight="84.0" prefWidth="348.0" text="Check Tests" textFill="#280505">
          <font>
-            <Font size="19.0" />
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="testTbl" layoutX="156.0" layoutY="228.0" prefHeight="386.0" prefWidth="730.0" />
+      <Label fx:id="serachLbl" alignment="CENTER" layoutX="75.0" layoutY="86.0" prefHeight="84.0" prefWidth="348.0" text="Search:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="searchTxt" layoutX="332.0" layoutY="111.0" prefHeight="4.0" prefWidth="337.0" />
+      <Label fx:id="serachLbl1" alignment="CENTER" layoutX="106.0" layoutY="159.0" prefHeight="84.0" prefWidth="348.0" text="Unchecked exams:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="serachLbl2" alignment="CENTER" layoutX="507.0" layoutY="636.0" prefHeight="84.0" prefWidth="253.0" text="Enter test code:" textFill="#280505">
+         <font>
+            <Font name="System Italic" size="29.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="testCodeTxt" layoutX="741.0" layoutY="655.0" prefHeight="46.0" prefWidth="227.0" />
+      <JFXButton fx:id="submitBtn" layoutX="797.0" layoutY="714.0" onMouseClicked="#submitClicked" text="Submit">
+         <font>
+            <Font size="30.0" />
          </font>
       </JFXButton>
-      <AnchorPane fx:id="filterAnchor" layoutX="83.0" layoutY="60.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="checkTestLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Check Tests">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
-                  <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="757.0" layoutY="72.0" onMouseClicked="#filterBtn" text="Filter" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on a test you wish to want to check">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="73.0" layoutY="196.0" prefHeight="502.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
-         <children>
-            <JFXTreeTableView fx:id="testTbl" layoutY="30.0" prefHeight="296.0" prefWidth="855.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>

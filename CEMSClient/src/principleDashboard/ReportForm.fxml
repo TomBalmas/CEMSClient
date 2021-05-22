@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import java.lang.String?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -9,65 +8,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ReportFormController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ReportFormController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="73.0" layoutY="72.0" prefHeight="189.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="testNameLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Report for #student#">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="avarageLbl" layoutY="41.0" prefHeight="28.0" prefWidth="94.0" styleClass="pageLabel" text="Average">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="medianLbl" layoutX="173.0" layoutY="41.0" prefHeight="21.0" prefWidth="132.0" styleClass="pageLabel" text="Median">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="86.0" text="100" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="GradeLbl" />
-                        <String fx:value="aGradeLbl" />
-                     </styleClass>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="178.0" layoutY="86.0" text="40" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="GradeLbl" />
-                        <String fx:value="fGradeLbl" />
-                     </styleClass>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="240.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0">
-         <children>
-            <BarChart fx:id="histograma" horizontalGridLinesVisible="false" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </BarChart>
-         </children>
-      </AnchorPane>
-      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="702.0" text="Back">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass>
-      </JFXButton>
-      <JFXButton fx:id="deleteBtn" layoutX="141.0" layoutY="702.0" text="Delete">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass></JFXButton>
+      <Label fx:id="testNameTxt" alignment="CENTER" layoutX="441.0" layoutY="153.0" text="Test Name">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="avarageTxt" layoutX="149.0" layoutY="208.0" text="Avarage: X">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="medianTxt" layoutX="152.0" layoutY="238.0" text="Median: Y">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="152.0" layoutY="287.0" text="Distribution:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="histograma" horizontalGridLinesVisible="false" layoutX="275.0" layoutY="287.0" prefHeight="282.0" prefWidth="584.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <JFXButton fx:id="backBtn" layoutX="159.0" layoutY="620.0" prefHeight="55.0" prefWidth="88.0" text="Back" />
+      <JFXButton fx:id="deleteBtn" layoutX="275.0" layoutY="620.0" prefHeight="55.0" prefWidth="88.0" text="Delete" />
    </children>
 </AnchorPane>

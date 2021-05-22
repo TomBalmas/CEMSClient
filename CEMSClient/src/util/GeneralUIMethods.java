@@ -5,12 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -49,7 +47,6 @@ public class GeneralUIMethods {
 	 */
 	public static void signOut(AnchorPane contentPaneAnchor, AnchorPane anchorLogin, VBox menuVBox, Node login) {
 		contentPaneAnchor.getChildren().clear();
-		menuVBox.toFront();
 		moveItem(menuVBox, menuMovementLeftToRight, 1, (e) -> {
 			loadPage(anchorLogin, login);
 		});
@@ -79,50 +76,6 @@ public class GeneralUIMethods {
 		anchor.getChildren().clear();
 		anchor.getChildren().setAll(page);
 	}
-	
-	/**
-	 * load sidebar with fadein effect
-	 * 
-	 * @param anchor
-	 * @param page
-	 */
-	public static void loadSideBarWithEffect(VBox sideBar) {
-//		SequentialTransition slideshow = new SequentialTransition();
-//		for (Node component : sideBar.getChildren()) {
-//		    SequentialTransition seq = new SequentialTransition();
-//		    FadeTransition fade = new FadeTransition(Duration.millis(1000), component);
-//		    fade.setFromValue(0);
-//		    fade.setToValue(1);
-//		    PauseTransition stop = new PauseTransition(Duration.millis(3000));
-//		    seq.getChildren().addAll(fade, stop);
-//		    slideshow.getChildren().add(seq);
-//		}
-//		slideshow.play();
-		
-//		
-//		VBox node = new VBox();
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                for (Node component : sideBar.getChildren()) {
-//                	component.setOpacity(0);
-//                	node.getChildren().add(component);
-//                }
-//            }
-//        });
-//		VBox node = new VBox();
-//		int i = 0;
-//        for (Node component : sideBar.getChildren()) {
-//        	component.setOpacity(0);
-//        	node.getChildren().add(component);
-//        }
-//		FadeTransition ft = new FadeTransition(Duration.millis(200), node);
-//		ft.setFromValue(0.0);
-//		ft.setToValue(1.0);
-//		ft.play();
-	}
-	
 
 	/*
 	 * Return the stack pane of the popup

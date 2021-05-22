@@ -3,51 +3,56 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.CreateReportController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.CreateReportController">
    <children>
-      <AnchorPane fx:id="filterAnchor" prefHeight="225.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
+      <Label alignment="CENTER" layoutX="371.0" layoutY="106.0" prefHeight="89.0" prefWidth="259.0" text="Create New Report" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="selectTypelbl" layoutX="393.0" layoutY="187.0" text="Select Type" />
+      <JFXComboBox fx:id="selectTypeCbox" layoutX="485.0" layoutY="183.0" prefHeight="25.0" prefWidth="123.0" visibleRowCount="3" />
+      <AnchorPane fx:id="student1Pane" layoutX="161.0" layoutY="236.0" prefHeight="500.0" prefWidth="750.0" visible="false">
          <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Create New Report">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="selectTypeCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by student name/last name" styleClass="searchRow" />
-                  <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
-                  <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" visible="false" />
-                  <JFXDatePicker fx:id="startCoursesDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" visible="false" />
-                  <JFXDatePicker fx:id="finishCoursesDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="134.0" onMouseClicked="#filterBtn" text="Filter">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
+            <JFXTreeTableView fx:id="studentTbl" layoutX="114.0" layoutY="22.0" prefHeight="412.0" prefWidth="522.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="125.0" layoutY="270.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
+      <AnchorPane fx:id="student2pane" layoutX="161.0" layoutY="236.0" prefHeight="500.0" prefWidth="750.0" visible="false">
          <children>
-            <JFXTreeTableView fx:id="tblView" layoutY="12.0" prefHeight="400.0" prefWidth="730.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <Label layoutX="228.0" layoutY="14.0" text="Start Date" />
+            <JFXDatePicker fx:id="startDP" layoutX="323.0" layoutY="10.0" />
+            <Label layoutX="228.0" layoutY="52.0" text="Finish Date" />
+            <JFXDatePicker fx:id="finishDP" layoutX="323.0" layoutY="48.0" />
+            <Label layoutX="301.0" layoutY="93.0" text="Courses" underline="true">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <JFXTreeTableView fx:id="coursesTbl" layoutX="143.0" layoutY="125.0" prefHeight="280.0" prefWidth="398.0" />
+            <JFXButton fx:id="backBtn" layoutX="38.0" layoutY="445.0" text="Back" />
+            <JFXButton fx:id="createStudentBtn" layoutX="667.0" layoutY="445.0" text="Create" />
          </children>
       </AnchorPane>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" onMouseClicked="#createReportBtn" text="Create">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="btn" />
-         </styleClass>
-      </JFXButton>
+      <AnchorPane fx:id="teacherPane" layoutX="161.0" layoutY="236.0" prefHeight="500.0" prefWidth="750.0" visible="false">
+         <children>
+            <JFXTreeTableView fx:id="teacherTbl" layoutX="114.0" layoutY="22.0" prefHeight="412.0" prefWidth="522.0" />
+            <JFXButton fx:id="createTeacherBtn" layoutX="651.0" layoutY="450.0" text="Create" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="coursesPane" layoutX="161.0" layoutY="236.0" prefHeight="500.0" prefWidth="750.0" visible="false">
+         <children>
+            <JFXTreeTableView fx:id="coursesTbl" layoutX="94.0" layoutY="130.0" prefHeight="345.0" prefWidth="417.0" />
+            <Label layoutX="231.0" layoutY="17.0" text="Start Date" />
+            <JFXDatePicker fx:id="finishCoursesDP" layoutX="303.0" layoutY="68.0" />
+            <Label layoutX="225.0" layoutY="72.0" text="Finish Date" />
+            <JFXDatePicker fx:id="startCoursesDP" layoutX="303.0" layoutY="13.0" />
+            <JFXButton fx:id="createCoursesBtn" layoutX="620.0" layoutY="450.0" text="Create" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
