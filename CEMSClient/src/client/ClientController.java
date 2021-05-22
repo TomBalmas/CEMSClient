@@ -9,6 +9,7 @@ public class ClientController {
 	private static CEMSClient client;
 	private static String roleFrame = null;
 
+
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
 	}

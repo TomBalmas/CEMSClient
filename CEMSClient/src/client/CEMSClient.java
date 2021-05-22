@@ -7,7 +7,6 @@ import common.User;
 import ocsf.client.ObservableClient;
 
 public class CEMSClient extends ObservableClient {
-
 	private User activeUser;
 	private ClientController controller;
 	private static boolean awaitResponse = false;
@@ -57,5 +56,8 @@ public class CEMSClient extends ObservableClient {
 				activeUser = (Principle) msg;
 			}
 	}
+	public User getActiveUser() {
+        return activeUser;
+    }
 
 }
