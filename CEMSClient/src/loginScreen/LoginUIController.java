@@ -1,14 +1,11 @@
 package loginScreen;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import client.CEMSClient;
 import client.ClientController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -65,40 +62,59 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
-		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
-			//------------------------ need to add notice to enter all arguments (case: text field is empty)------------------------
-			return;
-		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
-		String role = ClientController.getRoleFrame();
-		if (!role.equals("null")) {
-			GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
-				try {
-					if (role.equals("Teacher")) {
-						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-					} else if (role.equals("Principle")) {
-						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-					} else if (role.equals("Student")) {
-						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-					}
-					anchorLogin.getChildren().setAll(dashBoard);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			});
-			GeneralUIMethods.moveItem(usernameTxt, 0, 0.55, (e) -> {
-				usernameTxt.setVisible(false);
-			});
-			GeneralUIMethods.moveItem(passwordTxt, 0, 0.55, (e) -> {
-				passwordTxt.setVisible(false);
-			});
-			GeneralUIMethods.moveItem(welcomeLbl, 0, 0.55, (e) -> {
-				welcomeLbl.setVisible(false);
-			});
-			GeneralUIMethods.moveItem(loginBtn, 0, 0.55, (e) -> {
-				loginBtn.setVisible(false);
-			});
+		if (usernameTxt.getText().equals("backdoor")) {	//enter the client screens without involving the server
+			try {
+				if (passwordTxt.getText().equals("t"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+				else if (passwordTxt.getText().equals("p"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
+				else if (passwordTxt.getText().equals("s"))
+					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+				else
+					return;
+				anchorLogin.getChildren().setAll(dashBoard);
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+			;
 		} else {
-			//------------------------ need to add pop up screen (case: wrong user name or password) ------------------------
+			if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+				// ------------------------ need to add notice to enter all arguments (case:
+				// text field is empty)------------------------
+				return;
+			ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
+			String role = ClientController.getRoleFrame();
+			if (!role.equals("null")) {
+				GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
+					try {
+						if (role.equals("Teacher")) {
+							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+						} else if (role.equals("Principle")) {
+							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
+						} else if (role.equals("Student")) {
+							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+						}
+						anchorLogin.getChildren().setAll(dashBoard);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				});
+				GeneralUIMethods.moveItem(usernameTxt, 0, 0.55, (e) -> {
+					usernameTxt.setVisible(false);
+				});
+				GeneralUIMethods.moveItem(passwordTxt, 0, 0.55, (e) -> {
+					passwordTxt.setVisible(false);
+				});
+				GeneralUIMethods.moveItem(welcomeLbl, 0, 0.55, (e) -> {
+					welcomeLbl.setVisible(false);
+				});
+				GeneralUIMethods.moveItem(loginBtn, 0, 0.55, (e) -> {
+					loginBtn.setVisible(false);
+				});
+			} else {
+				// ------------------------ need to add pop up screen (case: wrong user name or
+				// password) ------------------------
+			}
 		}
 	}
 

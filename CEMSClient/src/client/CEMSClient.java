@@ -27,7 +27,7 @@ public class CEMSClient extends ObservableClient {
 	 * @throws Exception
 	 */
 	public void handleMessageFromClientUI(String msg) throws Exception {
-		if(msg.startsWith("LOGIN"))
+		if (msg.startsWith("LOGIN"))
 			openConnection();
 		else if (msg.equals("SIGN_OUT")) {
 			closeConnection();
