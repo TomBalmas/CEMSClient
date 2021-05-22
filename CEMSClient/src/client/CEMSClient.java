@@ -11,7 +11,7 @@ public class CEMSClient extends ObservableClient {
 	private User activeUser;
 	private ClientController controller;
 	private static boolean awaitResponse = false;
-	
+
 	public User getActiveUser() {
 		return activeUser;
 	}
@@ -40,18 +40,19 @@ public class CEMSClient extends ObservableClient {
 
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		if (msg instanceof Teacher) {
-			ClientController.setRoleFrame("Teacher");
-			activeUser = (Teacher)msg;
-		}
-		else if (msg instanceof Student) {
-			ClientController.setRoleFrame("Student");
-			activeUser = (Student)msg;
-		}
-		else if (msg instanceof Principle) {
-			ClientController.setRoleFrame("Principle");
-			activeUser = (Principle)msg;
-		}
+		if(msg == null)
+			ClientController.setRoleFrame("null");
+		if (msg instanceof User)
+			if (msg instanceof Teacher) {
+				ClientController.setRoleFrame("Teacher");
+				activeUser = (Teacher) msg;
+			} else if (msg instanceof Student) {
+				ClientController.setRoleFrame("Student");
+				activeUser = (Student) msg;
+			} else if (msg instanceof Principle) {
+				ClientController.setRoleFrame("Principle");
+				activeUser = (Principle) msg;
+			}
 	}
 
 }
