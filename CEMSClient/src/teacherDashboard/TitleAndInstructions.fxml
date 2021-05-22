@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="312.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TitleAndInstructionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TitleAndInstructionsController">
    <children>
-      <Label fx:id="testTitleLbl" layoutX="421.0" layoutY="6.0" text="Test Title">
+      <Label fx:id="testTitleLbl" layoutX="316.0" layoutY="27.0" text="Test Title">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="instructionsLbl" layoutX="14.0" layoutY="51.0" text="Instructions:">
+      <Label fx:id="instructionsLbl" layoutX="37.0" layoutY="119.0" text="instructions:">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="instructionsTxtArea" layoutX="10.0" layoutY="81.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <JFXTextArea fx:id="instructionsTxtArea" layoutX="168.0" layoutY="114.0" prefHeight="298.0" prefWidth="520.0" />
    </children>
 </AnchorPane>

@@ -1,49 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentGradesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentGradesController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="62.0" prefHeight="225.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="View grades">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="selectFieldCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Field" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by anything" styleClass="searchRow" />
-                  <Label layoutY="41.0" prefHeight="21.0" prefWidth="132.0" styleClass="pageLabel" text="Field" />
-                  <Label fx:id="startDPlbl" layoutX="353.0" layoutY="41.0" text="Tests from" />
-                  <JFXDatePicker fx:id="testsFromDP" layoutX="353.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
-                  <Label fx:id="endDPlbl" layoutX="582.0" layoutY="41.0" text="Till" />
-                  <JFXDatePicker fx:id="testTillDP" layoutX="584.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
-                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="134.0" onMouseClicked="#filterBtn" text="Filter">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-                  <JFXComboBox fx:id="selectCourseCbox" layoutX="173.0" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Course" styleClass="selector" visibleRowCount="3" />
-                  <Label layoutX="173.0" layoutY="41.0" prefHeight="21.0" prefWidth="132.0" styleClass="pageLabel" text="Course" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="265.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder">
-         <children>
-            <JFXTreeTableView fx:id="gradesTable" layoutY="12.0" prefHeight="400.0" prefWidth="730.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-         </children>
-      </AnchorPane>
+      <JFXTreeTableView fx:id="gradesTable" layoutX="173.0" layoutY="150.0" prefHeight="478.0" prefWidth="676.0" />
+      <JFXComboBox fx:id="courseFilter" layoutX="309.0" layoutY="114.0" onMouseClicked="#courseFilterClick" />
+      <JFXComboBox fx:id="filedFilter" layoutX="173.0" layoutY="114.0" onMouseClicked="#filedFilterClick" />
+      <JFXDatePicker fx:id="dpEnd" layoutX="692.0" layoutY="114.0" onMouseClicked="#dpFilter" prefHeight="31.0" prefWidth="157.0" />
+      <JFXDatePicker fx:id="dpBegin" layoutX="500.0" layoutY="114.0" prefHeight="31.0" prefWidth="157.0" />
+      <Label layoutX="457.0" layoutY="51.0" text="Grades">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

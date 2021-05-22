@@ -1,58 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ViewReportsController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="10.0" layoutY="10.0" prefHeight="225.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="View Reports">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="selectTypeCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by anything" styleClass="searchRow" />
-                  <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
-                  <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" />
-                  <JFXDatePicker fx:id="startReportCreatedDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
-                  <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" />
-                  <JFXDatePicker fx:id="endReportCreatedDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
-                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="134.0" onMouseClicked="#filterBtn" text="Filter">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="125.0" layoutY="270.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
-         <children>
-            <JFXTreeTableView fx:id="reportTable" layoutY="12.0" prefHeight="400.0" prefWidth="730.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-         </children>
-      </AnchorPane>
-      <JFXButton fx:id="deleteBtn" layoutX="63.0" layoutY="736.0" onMouseClicked="#deleteReportBtn" text="Delete Selected">
-         <styleClass>
-            <String fx:value="deleteButton" />
-            <String fx:value="btn" />
-         </styleClass></JFXButton>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" onMouseClicked="#viewReportsBtn" text="View">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="btn" />
-         </styleClass>
-      </JFXButton>
+      <Label layoutX="410.0" layoutY="70.0" text="View Reports">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <JFXTreeTableView fx:id="reportTable" layoutX="126.0" layoutY="161.0" prefHeight="446.0" prefWidth="712.0" />
+      <JFXButton fx:id="deleteBtn" layoutX="126.0" layoutY="653.0" prefHeight="43.0" prefWidth="128.0" style="-fx-background-color: #e84545;" text="Delete Selected" />
    </children>
 </AnchorPane>

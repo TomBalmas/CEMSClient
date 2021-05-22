@@ -1,34 +1,20 @@
 package principleDashboard;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 public class ReportFormController {
 
     @FXML
-    private AnchorPane contentPaneAnchor;
+    private Label testNameTxt;
 
     @FXML
-    private AnchorPane filterAnchor;
+    private Label avarageTxt;
 
     @FXML
-    private AnchorPane insideFilterAnchor;
-
-    @FXML
-    private Label testNameLbl;
-
-    @FXML
-    private Label avarageLbl;
-
-    @FXML
-    private Label medianLbl;
-
-    @FXML
-    private AnchorPane tableViewAnchor;
+    private Label medianTxt;
 
     @FXML
     private BarChart<?, ?> histograma;

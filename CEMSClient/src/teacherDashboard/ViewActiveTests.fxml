@@ -1,160 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.ViewActiveTestsController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="40.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="viewActiveTestsLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="View Active Tests">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
-                  <JFXButton fx:id="filterButton" layoutX="757.0" layoutY="72.0" onMouseClicked="#filterBtn" text="Filter">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on a test you wish to ask for time extension or lock it">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="196.0" prefHeight="278.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0">
-         <children>
-            <JFXTreeTableView fx:id="activeTestsTbl" layoutY="10.0" prefHeight="275.0" prefWidth="855.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="testDetailsAnchor" layoutX="63.0" layoutY="486.0" prefHeight="284.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0">
-         <children>
-            <AnchorPane fx:id="requestTimeAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="875.0" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="studentsTestLbl" alignment="CENTER" text="Request time extension for test:" textFill="#280505">
-                     <font>
-                        <Font name="System Bold" size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXTextArea fx:id="reasonForRequestTxt" focusColor="#aeaeae00" layoutY="70.0" prefHeight="130.0" prefWidth="825.0" styleClass="txtArea" unFocusColor="#4d4d4d00" wrapText="true">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </JFXTextArea>
-                  <JFXButton fx:id="senfForApprovalBtn" layoutY="205.0" onMouseClicked="#clicksendForApproval" text="Send for approval ">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="button" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label layoutY="35.0" text="Enter reason for request:">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="lockTestAnchor" prefHeight="275.0" prefWidth="875.0" styleClass="paddingAnchor" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="testSelectedLbl1" alignment="TOP_LEFT" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Lock test #test_name# #code#">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="enterCodeLbl" layoutY="103.0" text="Enter Code:">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="enterCodeField" layoutX="110.0" layoutY="96.0" onKeyReleased="#checkCode" />
-                  <JFXButton fx:id="lockBtn" layoutX="303.0" layoutY="85.0" onMouseClicked="#lockClicked" text="Lock">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="button" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label fx:id="msgLbl" layoutY="45.0" text="Please confirm your action and enter the test code below">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="selectedTestAnchor" prefHeight="275.0" prefWidth="875.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="testSelectedLbl" alignment="TOP_LEFT" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Test selected">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="timeLeftLbl" layoutY="132.0" text="Time Left:">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="lequestTimeExtensionBtn" layoutX="150.0" layoutY="180.0" onMouseClicked="#requestTimeExtensionClicked" text="Request Time Extension" textAlignment="CENTER">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="blue" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label fx:id="finishTimeLbl" layoutY="90.0" text="Finish Time:">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="lockTestBtn" layoutY="180.0" onMouseClicked="#lockTestClicked" text="Lock Test" textAlignment="CENTER">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="red" />
-                     </styleClass>
-                  </JFXButton>
-                  <JFXTextField fx:id="timeLeftField" layoutX="110.0" layoutY="123.0" />
-                  <JFXTextField fx:id="finishTimeField" layoutX="110.0" layoutY="80.0" />
-                  <Label fx:id="testCodeLbl" layoutY="48.0" text="Test code">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="testCodeField" layoutX="110.0" layoutY="47.0" />
-                  <JFXButton fx:id="viewTestBtn" layoutX="430.0" layoutY="180.0" onMouseClicked="#viewTestClicked" text="View test" textAlignment="CENTER">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="blue" />
-                     </styleClass>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+      <Label fx:id="viewActiveTestsLbl" layoutX="358.0" layoutY="53.0" text="View Active Tests">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeLeftLbl" layoutX="139.0" layoutY="407.0" text="Time Left:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="lequestTimeExtensionBtn" layoutX="347.0" layoutY="481.0" onMouseClicked="#requestTimeExtension" text="Request Time Extension">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="finishTimeLbl" layoutX="574.0" layoutY="407.0" text="Finish Time:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="lockTestBtn" layoutX="347.0" layoutY="539.0" onMouseClicked="#lockTestClicked" prefHeight="51.0" prefWidth="284.0" text="Lock Test">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="enterCodeLbl" layoutX="428.0" layoutY="606.0" text="Enter Code:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="enterCodeField" layoutX="422.0" layoutY="641.0" onKeyReleased="#checkCode" />
+      <JFXButton fx:id="lockBtn" layoutX="406.0" layoutY="674.0" onMouseClicked="#lockClicked" prefHeight="51.0" prefWidth="169.0" text="Lock">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <JFXTreeTableView fx:id="activeTestsTbl" layoutX="100.0" layoutY="104.0" prefHeight="301.0" prefWidth="780.0" />
+      <JFXTextField fx:id="timeLeftField" layoutX="242.0" layoutY="409.0" />
+      <JFXTextField fx:id="finishTimeField" layoutX="699.0" layoutY="411.0" />
    </children>
 </AnchorPane>

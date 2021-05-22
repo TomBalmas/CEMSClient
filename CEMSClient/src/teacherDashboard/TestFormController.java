@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,83 +21,41 @@ import util.Navigator;
 
 public class TestFormController implements Initializable {
 
-    @FXML
-    private AnchorPane AnchorPaneContent;
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private AnchorPane testSideBarAnchor;
-
-    @FXML
-    private AnchorPane insideTestSideBarAnchor;
-
-    @FXML
-    private AnchorPane uploadFileAnchor;
+	@FXML
+	private ScrollPane scrollPane;
 
 	@FXML
-    private AnchorPane questionAnchor;
+	private JFXButton editBtn;
 
 	@FXML
-    private Label questionLbl;
+	private JFXButton backBtn;
 
-    @FXML
-    private AnchorPane insideQuestionAnchor;
+	@FXML
+	private Label timeLbl;
 
-    @FXML
-    private Label questionAnsweredLbl;
+	@FXML
+	private JFXButton downloadBtn;
 
-    @FXML
-    private JFXButton editBtn;
+	@FXML
+	private JFXButton uploadBtn;
 
-    @FXML
-    private JFXButton downloadBtn;
-
-    @FXML
-    private JFXButton uploadBtn;
-
-    @FXML
-    private JFXButton finishBtn;
-
-    @FXML
-    private JFXButton backBtn;
-
-    @FXML
-    private AnchorPane timeAnchor;
-
-    @FXML
-    private Label timeLbl;
-
-    @FXML
-    private AnchorPane timeValueAnchor;
-
-    @FXML
-    private Label timeLbl1;
+	@FXML
+	private JFXButton finishBtn;
+	
+	@FXML
+	private AnchorPane AnchorPaneContent;
 
 	private VBox vbox = new VBox();
-	private boolean flag = false; // flag to decide student/teacher
+	private boolean flag = false;	//flag to decide student/teacher
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
 
 	// getters start
-	
-    public AnchorPane getAnchorPaneContent() {
-		return AnchorPaneContent;
-	}
 
 	public ScrollPane getScrollPane() {
 		return scrollPane;
-	}
-	
-    public AnchorPane getTestSideBarAnchor() {
-		return testSideBarAnchor;
-	}
-    
-    public AnchorPane getUploadFileAnchor() {
-		return uploadFileAnchor;
 	}
 
 	public JFXButton getEditBtn() {
@@ -134,25 +91,12 @@ public class TestFormController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+			timeLbl.setVisible(false);
 			downloadBtn.setVisible(false);
 			uploadBtn.setVisible(false);
+			finishBtn.setVisible(false);
 			addTitleToTest();
-			vbox.setSpacing(10);
-			//scrollPane.setTranslateX(-280); //TODO - execute this code only if user instanceof teacher
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						addQuestionToTestForm();
-						addQuestionToTestForm();
-						addQuestionToTestForm();
-						if (flag)
-							finishBtn.setVisible(false);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			});
+			vbox.setSpacing(20);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -168,8 +112,7 @@ public class TestFormController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
-
-		if (flag)
+		if(flag)
 			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
 		scrollPane.setContent(vbox);
@@ -192,42 +135,4 @@ public class TestFormController implements Initializable {
     	GeneralUIMethods.loadPage(AnchorPaneContent, page);
     }
 
-	/**
-	 * back to previouse screen
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	void backClicked(MouseEvent event) throws IOException {
-		Node page = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
-		GeneralUIMethods.loadPage(AnchorPaneContent, page);
-	}
-	
-	/**
-	 * download word file
-	 */
-    @FXML
-    void downloadFileClicked(MouseEvent event) {
-
-    } 
-
-	/**
-	 * upload file
-	 */
-    @FXML
-	void uploadFileClicked(MouseEvent event) {
-    	uploadBtn.setVisible(false);
-    	finishBtn.setVisible(true);
-    }
-
-
-	/**
-	 * finish test clicked, load dashboard
-	 */
-    @FXML
-    void finishTestClicked(MouseEvent event) throws IOException {
-		Node page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-		GeneralUIMethods.loadPage(AnchorPaneContent, page);
-    }
-    
 }

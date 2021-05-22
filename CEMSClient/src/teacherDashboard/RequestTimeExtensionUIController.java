@@ -13,28 +13,23 @@ import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 
 public class RequestTimeExtensionUIController {
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private Label studentsTestLbl;
 
-    @FXML
-    private Label studentsTestLbl;
+	@FXML
+	private Label enterTestLbl;
 
-    @FXML
-    private JFXTextArea reasonForRequestTxt;
+	@FXML
+	private JFXTextArea testCodeTxt;
 
-    @FXML
-    private JFXButton senfForApprovalBtn;
-    
-    AnchorPane selectedTest;
+	@FXML
+	private JFXTextArea reasonForRequestTxt;
 
-	public AnchorPane getSelectedTest() {
-		return selectedTest;
-	}
-
-	public void setSelectedTest(AnchorPane selectedTest) {
-		this.selectedTest = selectedTest;
-	}
+	@FXML
+	private JFXButton senfForApprovalBtn;
 
 	/**
 	 * this method shows the popup that the request for time extension is approved

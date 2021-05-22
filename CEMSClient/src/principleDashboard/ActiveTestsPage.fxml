@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ActiveTestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ActiveTestController">
    <children>
-      <Label alignment="CENTER" prefHeight="65.0" prefWidth="1000.0" text="Active Test Requests">
+      <Label alignment="CENTER" layoutX="4.0" layoutY="24.0" prefHeight="85.0" prefWidth="994.0" text="Active Test Requests">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollPane" layoutY="70.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="710.0" prefWidth="950.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" />
+      <ScrollPane fx:id="scrollPane" layoutX="35.0" layoutY="127.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="653.0" prefWidth="947.0" />
    </children>
 </AnchorPane>
