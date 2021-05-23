@@ -10,8 +10,8 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 
 import client.ClientController;
+import common.Question;
 import common.Teacher;
-import common.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,23 +46,23 @@ public class QuestionBankUIController implements Initializable {
 	@FXML
 
 	void clickAddAnewQuestion(MouseEvent event) {
-	     try {
-	            blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
-	        } catch (IOException e1) {
-	            e1.printStackTrace();
-	        }
-	        GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
+		try {
+			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		GeneralUIMethods.loadPage(contentPaneAnchor, blankQuestionForm);
 	}
 
 	public JFXButton getAddAnewQuestionBtn() {
 		return addAnewQuestionBtn;
 	}
-	
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Teacher teacher=(Teacher) ClientController.getActiveUser();
-		ClientController.accept("QUESTION_BANK-"+ teacher.getFields().toString());
+		Teacher teacher = (Teacher) ClientController.getActiveUser();
+		ClientController.accept("QUESTION_BANK-" + teacher.getFields().toString());
+		ArrayList<Question> arr = ClientController.getQuestions();
+		//-------------------- need to implement fill table --------------------
 	}
-	}
-
+}

@@ -1,8 +1,12 @@
 package client;
 
+import java.util.ArrayList;
+
 import common.Principle;
+import common.Question;
 import common.Student;
 import common.Teacher;
+import common.Test;
 import common.User;
 import ocsf.client.ObservableClient;
 
@@ -40,21 +44,34 @@ public class CEMSClient extends ObservableClient {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
 		if (msg == null)
 			ClientController.setRoleFrame("null");
-		if (msg instanceof User)
-			if (msg instanceof Teacher) {
-				ClientController.setRoleFrame("Teacher");
-				activeUser = (Teacher) msg;
-			} else if (msg instanceof Student) {
-				ClientController.setRoleFrame("Student");
-				activeUser = (Student) msg;
-			} else if (msg instanceof Principle) {
-				ClientController.setRoleFrame("Principle");
-				activeUser = (Principle) msg;
+		else {
+			// case of login
+			if (msg instanceof User) {
+				if (msg instanceof Teacher) {
+					ClientController.setRoleFrame("Teacher");
+					activeUser = (Teacher) msg;
+				} else if (msg instanceof Student) {
+					ClientController.setRoleFrame("Student");
+					activeUser = (Student) msg;
+				} else if (msg instanceof Principle) {
+					ClientController.setRoleFrame("Principle");
+					activeUser = (Principle) msg;
+				}
 			}
+			else if (msg instanceof ArrayList<?>) {
+				//get questions from question bank
+				if (((ArrayList<?>) msg).get(0) instanceof Question)
+					ClientController.setQuestions((ArrayList<Question>) msg);
+				//get tests from test bank
+				else if(((ArrayList<?>) msg).get(0) instanceof Test)
+					ClientController.setTests((ArrayList<Test>) msg);
+			}
+		}
 	}
 
 }
