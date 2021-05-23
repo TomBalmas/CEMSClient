@@ -56,8 +56,6 @@ public class CEMSClient extends ObservableClient {
 				activeUser = (Principle) msg;
 			}
 	}
-	public User getActiveUser() {
-        return activeUser;
-    }
+
 
 }

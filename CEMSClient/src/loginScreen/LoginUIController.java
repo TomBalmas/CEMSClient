@@ -1,14 +1,12 @@
 package loginScreen;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import client.CEMSClient;
 import client.ClientController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
