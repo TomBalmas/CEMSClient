@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentDashboardUIController">
+<AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="body" stylesheets="@../util/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentDashboardUIController">
    <children>
-      <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" style="-fx-background-color: #393E46;">
+      <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" styleClass="body" stylesheets="@../util/Style.css" />
+      <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
          <children>
-            <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="58.0" prefWidth="1.0" text=" " textFill="WHITE" />
             <ImageView fx:id="logoImg" fitHeight="157.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="studentDashboardLbl" alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Student Dashboard" textFill="WHITE">
                <font>
@@ -24,16 +24,15 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <JFXButton fx:id="gradesBtn" onMouseClicked="#gradesPage" prefHeight="83.0" prefWidth="283.0" text="Grades" textFill="WHITE" />
-            <JFXButton fx:id="takeTestBtn" onMouseClicked="#takeTestPage" prefHeight="83.0" prefWidth="283.0" text="Take Test" textFill="WHITE" />
-            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="gradesBtn" onMouseClicked="#gradesPage" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Grades" textFill="WHITE" />
+            <JFXButton fx:id="takeTestBtn" onMouseClicked="#takeTestPage" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Take Test" textFill="WHITE" />
+            <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="60.0" prefWidth="294.0" text="dark mode" textFill="WHITE" visible="false" />
+            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOut" text="Sign Out" textFill="WHITE">
                <VBox.margin>
                   <Insets top="275.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
-      <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" />
-      <StackPane fx:id="popUpWindow" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" />
-      <StackPane fx:id="popUpWindow1" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" />
+      <StackPane fx:id="popUpWindow" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" stylesheets="@../util/Style.css" />
    </children>
 </AnchorPane>

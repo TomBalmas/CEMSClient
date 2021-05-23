@@ -1,0 +1,153 @@
+.body {
+	-fx-background-color: #e7e7e7;
+	
+	-fx-alignment: CENTER;
+	-fx-z-index: 1.0;
+}
+
+.body ScrollPane {
+	-fx-box-border: transparent;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.body VBox {
+
+}
+
+.uploadFileTxtArea {
+	-fx-border-width: 3.0px;
+	-fx-border-color: gray;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-style: dashed;
+}
+
+.uploadFileTxtArea *.text {
+    -fx-text-alignment: center;
+}
+
+.sideBar {
+	 -fx-background-color: #393E46;
+	 -fx-z-index: 2.0;
+}
+
+.sideBarButton {
+	-fx-background-color: #393E46;
+	-fx-font-size: 22.0px;
+}
+
+.clickedButton {
+	-fx-background-color: #00ADB5;
+}
+
+.button {
+	-fx-width: 100.0%;
+	-fx-height: 35.0px;
+	-fx-color: white;
+}
+
+.filterButton {
+	-fx-background-color: #fff0d9;
+	-fx-border-color: #fec973;
+	-fx-border-radius: 4.0px;
+}
+
+.deleteButton {
+	-fx-background-color: #e84545;
+}
+
+.finishTestBtn {
+	-fx-background-color: #E5F8ED;
+	-fx-pref-width: 200.0;
+	-fx-pref-width: 40.0;
+	-fx-border-radius: 4.0px;
+	-fx-border-color: #8CDFAF;
+}
+
+.fileBtn {
+	-fx-background-color: #FFF0D9;
+}
+
+.signOut {
+	-fx-background-color: #333333;
+}
+
+.paneBorder {
+	-fx-background-color: white;
+	-fx-background-radius: 9.0px;
+	-fx-border-radius: 9.0px;
+}
+
+.paddingAnchor {
+
+}
+
+.grayPane{
+	-fx-background-color: #f0f1f1;
+	-fx-background-radius: 9.0px 9.0px 0.0 0.0;
+	-fx-border-radius: 9.0px 9.0px 0.0 0.0;
+    -fx-background-insets: 10.0px;
+}
+
+.insideGrayPane {
+	-fx-background-color: white;
+}
+
+.GradeLbl {
+	-fx-width: 40.0px;
+	-fx-height: 40.0px;
+	-fx-min-width:60.0;
+	-fx-min-height:60.0;
+	-fx-background-radius: 12.0px;
+	-fx-border-radius: 12.0px;
+	-fx-font-color: #060824;
+	-fx-font-size: 28.0px;
+	-fx-font-weight: bold;
+	-fx-text-aligment: center;
+}
+
+.aGradeLbl {
+	-fx-background-color: #e5f8ed;
+	-fx-border-color: #77d9a1;
+}
+
+.fGradeLbl {
+	-fx-background-color: #ffe8e6;
+	-fx-border-color: #f6827a;
+}
+
+.approve {
+	-fx-min-width: 290.0;
+	-fx-min-height: 20.0;
+	-fx-background-radius: 0.0 0.0 12.0px 0.0;
+	-fx-border-radius: 0.0 0.0 12.0px 0.0;
+}
+
+.disaprove {
+	-fx-min-width: 290.0;
+	-fx-min-height: 20.0;
+	-fx-background-radius: 0.0 0.0 0.0 12.0px;
+	-fx-border-radius: 0.0 0.0 0.0 12.0px;
+}
+
+.txtArea {
+	-fx-background-color: #f0f1f1;
+	-fx-border-color: #dce0e0;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
+}
+
+.requestTxtArea {
+	-fx-background-color: #f0f1f1;
+	-fx-border-color: #dce0e0;
+	-fx-background-radius: 12.0px 12.0px 0.0 0.0;
+	-fx-border-radius: 12.0px 12.0px 0.0 0.0;
+}
+
+.questionTxtArea {
+	-fx-background-color: #f0f1f1;
+	-fx-border-color: #dce0e0;
+	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
+	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
+}

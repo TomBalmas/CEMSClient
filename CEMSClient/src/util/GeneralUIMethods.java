@@ -45,6 +45,7 @@ public class GeneralUIMethods {
 	 * @param login
 	 */
 	public static void signOut(AnchorPane contentPaneAnchor, AnchorPane anchorLogin, VBox menuVBox, Node login) {
+		menuVBox.toFront();
 		contentPaneAnchor.getChildren().clear();
 		moveItem(menuVBox, menuMovementLeftToRight, 1, (e) -> {
 			loadPage(anchorLogin, login);
