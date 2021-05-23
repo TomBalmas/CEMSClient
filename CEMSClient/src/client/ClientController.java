@@ -1,13 +1,18 @@
 package client;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import common.Question;
+import common.Test;
 import common.User;
 
 public class ClientController {
 
 	private static CEMSClient client;
 	private static String roleFrame = null;
+	private static ArrayList<Question> questions = null;
+	private static ArrayList<Test> tests = null;
 
 
 	public ClientController(String host, int port) {
@@ -43,6 +48,22 @@ public class ClientController {
 	
 	public static User getActiveUser() {
 		return client.getActiveUser();
+	}
+	
+	public static ArrayList<Question> getQuestions() {
+		return questions;
+	}
+
+	public static void setQuestions(ArrayList<Question> questions) {
+		ClientController.questions = questions;
+	}
+	
+	public static ArrayList<Test> getTests() {
+		return tests;
+	}
+
+	public static void setTests(ArrayList<Test> tests) {
+		ClientController.tests = tests;
 	}
 
 }
