@@ -24,44 +24,44 @@ import util.Navigator;
 
 public class PrincipleDashboardUIController implements Initializable {
 
-	@FXML
-	private AnchorPane anchorLogin;
+    @FXML
+    private AnchorPane anchorLogin;
 
-	@FXML
-	private VBox menuVBox;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private JFXToggleButton darkModeToggleBtn;
+    @FXML
+    private VBox menuVBox;
 
-	@FXML
-	private ImageView logoImg;
+    @FXML
+    private ImageView logoImg;
 
-	@FXML
-	private Label teacherDashboardLbl;
+    @FXML
+    private Label teacherDashboardLbl;
 
-	@FXML
-	private JFXButton activeTestRequestsBtn;
+    @FXML
+    private JFXButton activeTestRequestsBtn;
 
-	@FXML
-	private JFXButton viewReportsBtn;
+    @FXML
+    private JFXButton viewReportsBtn;
 
-	@FXML
-	private JFXButton createReportBtn;
+    @FXML
+    private JFXButton createReportBtn;
 
-	@FXML
-	private JFXButton testBankBtn;
+    @FXML
+    private JFXButton testBankBtn;
 
-	@FXML
-	private JFXButton questionBankBtn;
+    @FXML
+    private JFXButton questionBankBtn;
 
-	@FXML
-	private JFXButton signOutBtn;
+    @FXML
+    private JFXToggleButton darkModeToggleBtn;
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private JFXButton signOutBtn;
 
-	@FXML
-	private StackPane popUpWindow;
+    @FXML
+    private StackPane popUpWindow;
 
 	private Node viewReports;
 	private Node createReport;

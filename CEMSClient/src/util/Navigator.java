@@ -6,26 +6,31 @@ package util;
  */
 public enum Navigator {
 	LOGIN ("/loginScreen/LoginUI.fxml"),
+	
 	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
-	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
-	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
-	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
-	CHECK_TESTS ("/teacherDashboard/CheckTestsUI.fxml"),
-	TEST_BANK ("/teacherDashboard/TestBankUI.fxml"),
-	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
-	VIEW_ACTIVE_TESTS ("/teacherDashboard/ViewActiveTests.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
-	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
-	QUESTION ("/teacherDashboard/Question.fxml"),
-	TITLE_AND_INSTRUCTIONS ("/teacherDashboard/TitleAndInstructions.fxml"),
-	TEST_FORM("/teacherDashboard/TestForm.fxml"),
-	REQUEST_TIME_EXTENSION ("/teacherDashboard/RequestTimeExtensionUI.fxml"),
-	SCHEDULED_TESTS ("/teacherDashboard/ScheduledTests.fxml"),
+	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
+	REPORT_CHART ("/principleDashboard/ReportForm.fxml"),
 	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
-	CREATE_REPORT ("CreateReport.fxml"),
+	
+	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
+	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
+	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),
+	CHECK_TESTS ("/teacherDashboard/CheckTestsUI.fxml"),
+	QUESTION ("/teacherDashboard/Question.fxml"),
+	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
+	SCHEDULED_TESTS ("/teacherDashboard/ScheduledTests.fxml"),
+	TEST_BANK ("/teacherDashboard/TestBankUI.fxml"),
+	TEST_FORM("/teacherDashboard/TestForm.fxml"),
+	TITLE_AND_INSTRUCTIONS ("/teacherDashboard/TitleAndInstructions.fxml"),
+	VIEW_ACTIVE_TESTS ("/teacherDashboard/ViewActiveTests.fxml"),
+	
+	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
+	GRADES ("StudentGrades.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
-	GRADES ("StudentGrades.fxml");
-
+	STUDENT_TEST("/studentDashboard/ActiveTest.fxml");
+	
+	
   
 	private final String val;
 

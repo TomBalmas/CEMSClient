@@ -36,6 +36,11 @@ public class TestBankUIController {
     public JFXButton getAddNewTestButton() {
 		return addNewTestButton;
 	}
+    
+    @FXML
+    void filterBtn(MouseEvent event) {
+
+    }
 
 	/**clicking add new test opens question bank screen
      * 
