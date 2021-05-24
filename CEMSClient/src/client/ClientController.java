@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import common.ActiveTest;
 import common.Question;
 import common.ScheduledTest;
 import common.Test;
@@ -15,12 +16,14 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
+	private static ArrayList<ActiveTest> activeTest;
+	private static boolean testDeleted;
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
 	}
 
-	/**
+	/**  
 	 * UI request to server
 	 * format: REQUEST_NAME-arg0,arg1,arg2
 	 * 
@@ -51,6 +54,14 @@ public class ClientController {
 		return client.getActiveUser();
 	}
 	
+	public static boolean getTestDeleted() {
+		return testDeleted;
+	}
+
+	public static void setTestDeleted(boolean testDeleted) {
+		ClientController.testDeleted = testDeleted;
+	}
+
 	public static ArrayList<Question> getQuestions() {
 		return questions;
 	}
@@ -75,4 +86,14 @@ public class ClientController {
 		ClientController.scheduledTests = scheduledTests;
 	}
 
+	public static void setActiveTest(ArrayList<ActiveTest> activeTest){
+		
+		ClientController.activeTest = activeTest;	
+	}
+	
+	public static ArrayList<ActiveTest> getActiveTest() {
+		
+		return activeTest;
+		
+	}
 }
