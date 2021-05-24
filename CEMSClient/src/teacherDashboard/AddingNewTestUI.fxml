@@ -2,14 +2,14 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentPaneAnchor" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.AddingNewTestUIController">
    <children>
-      <JFXTreeTableView fx:id="questionTable" layoutX="142.0" layoutY="247.0" prefHeight="400.0" prefWidth="729.0" />
       <JFXButton fx:id="backBtn" layoutX="176.0" layoutY="708.0" onMouseClicked="#clickBack" prefHeight="41.0" prefWidth="157.0" text="Back">
          <font>
             <Font size="14.0" />
@@ -31,5 +31,14 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
+      <TableView fx:id="questionTable" layoutX="142.0" layoutY="247.0" prefHeight="400.0" prefWidth="729.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="textCol" prefWidth="75.0" text="Text" />
+            <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="viewCol" prefWidth="148.0" text="View Question" />
+            <TableColumn fx:id="selectCol" prefWidth="112.0" text="Select Question" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
