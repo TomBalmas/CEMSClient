@@ -1,14 +1,18 @@
 package teacherDashboard;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class QuestionFormUIController {
+public class QuestionFormUIController implements Initializable {
 
     @FXML
     private AnchorPane contentPaneAnchor;
@@ -85,6 +89,12 @@ public class QuestionFormUIController {
     void clickSave(MouseEvent event) {
 
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		authorTxtArea.setText(null);
+		
+	}
 
 }
 
