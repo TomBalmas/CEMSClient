@@ -27,7 +27,7 @@
             <JFXButton fx:id="questionBankBtn" onMouseClicked="#questionBankClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Question Bank" textFill="WHITE" />
             <JFXButton fx:id="testBankBtn" onMouseClicked="#testBankClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Test Bank" textFill="WHITE" />
             <JFXButton fx:id="viewActiveTestsBtn" onMouseClicked="#viewActiveTestClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="View Active Tests" textFill="WHITE" />
-            <JFXButton fx:id="scheduledTestsBtn" onMouseClicked="#scheduledTestsClicked" prefHeight="70.0" prefWidth="290.0" styleClass="sideBarButton" text="Scheduled Tests" textFill="WHITE" />
+            <JFXButton fx:id="scheduledTestsBtn" onMouseClicked="#scheduledTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Scheduled Tests" textFill="WHITE" />
             <JFXButton fx:id="testReportsBtn" onMouseClicked="#testReportsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Test Reports" textFill="WHITE" />
             <JFXButton fx:id="checkTestsBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Check Tests" textFill="WHITE" />
             <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="60.0" prefWidth="289.0" text="dark mode" textFill="WHITE" visible="false" />

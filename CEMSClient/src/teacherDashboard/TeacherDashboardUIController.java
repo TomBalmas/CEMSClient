@@ -76,20 +76,22 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking test bank will open the test bank page.
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void testBankClicked(MouseEvent event) throws IOException {
 		testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
+		contentPaneAnchor.getChildren().clear();
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
+
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
-  
+
 	/**
 	 * clicking question bank will open the question bank page.
 	 *
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void questionBankClicked(MouseEvent event) throws IOException {
@@ -102,7 +104,7 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking view active test will open the active test page.
 	 *
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) throws IOException {
@@ -115,7 +117,7 @@ public class TeacherDashboardUIController implements Initializable {
 	 * clicking check tests will go to the check tests screen
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void checkTestsClicked(MouseEvent event) throws IOException {
@@ -124,6 +126,7 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
 
 	}
+
 	@FXML
 	void testReportsClicked(MouseEvent event) throws IOException {
 		checkTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
@@ -131,19 +134,19 @@ public class TeacherDashboardUIController implements Initializable {
 		GeneralUIMethods.setMenuStyle(testReportsBtn, menuVBox);
 
 	}
-	
-    @FXML
-    void scheduledTestsClicked(MouseEvent event) throws IOException {
+
+	@FXML
+	void scheduledTestsClicked(MouseEvent event) throws IOException {
 		scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
-    	GeneralUIMethods.loadPage(contentPaneAnchor, scheduledTests);
+		GeneralUIMethods.loadPage(contentPaneAnchor, scheduledTests);
 		GeneralUIMethods.setMenuStyle(scheduledTestsBtn, menuVBox);
-    }
+	}
 
 	/**
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void signOutClicked(MouseEvent event) throws IOException {
