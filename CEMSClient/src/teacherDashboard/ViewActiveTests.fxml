@@ -7,6 +7,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -42,7 +44,14 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="196.0" prefHeight="306.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0">
          <children>
-            <JFXTreeTableView fx:id="activeTestsTbl" layoutY="10.0" prefHeight="275.0" prefWidth="855.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TableView fx:id="activeTestsTbl" layoutX="-2.0" prefHeight="271.0" prefWidth="867.0">
+              <columns>
+                <TableColumn fx:id="diCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="testNameCol" prefWidth="75.0" text="Test Name" />
+                  <TableColumn fx:id="testDuartionCol" prefWidth="92.0" text="Test Duartion" />
+                  <TableColumn fx:id="fieldCol" prefWidth="64.0" text="Field" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="testDetailsAnchor" layoutX="63.0" layoutY="520.0" prefHeight="223.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0">
