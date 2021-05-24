@@ -165,8 +165,12 @@ public class TestBankUIController implements Initializable {
 			editBtn.setText("Edit");
 			setDateBtn.setText("Set Date");
 			viewBtn.setText("View");
+			viewBtn.setMaxWidth(Double.MAX_VALUE);
+			setDateBtn.setMaxWidth(Double.MAX_VALUE);
+			editBtn.setMaxWidth(Double.MAX_VALUE);
+			deleteBtn.setMaxWidth(Double.MAX_VALUE);
 			deleteBtn.setStyle("-fx-background-color: red;");
-			editBtn.setStyle("-fx-background-color: green;");
+			editBtn.setStyle("-fx-background-color: teal;");
 			setDateBtn.setStyle("-fx-background-color: cyan;");
 			viewBtn.setStyle("-fx-background-color: orange;");
 		}
