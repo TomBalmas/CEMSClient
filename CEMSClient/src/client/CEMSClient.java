@@ -2,6 +2,7 @@ package client;
 
 import java.util.ArrayList;
 
+import common.ActiveTest;
 import common.Principle;
 import common.Question;
 import common.Student;
@@ -25,7 +26,7 @@ public class CEMSClient extends ObservableClient {
 	}
 
 	/**
-	 * receives message from the UI and sends it to the server
+	 * receives message from the UI and sends it to the server  
 	 * 
 	 * @param msg
 	 * @throws Exception
@@ -68,6 +69,8 @@ public class CEMSClient extends ObservableClient {
 				// get tests from test bank
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
+				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
+					ClientController.setActiveTest((ArrayList<ActiveTest>) msg);
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))

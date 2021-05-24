@@ -10,6 +10,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import client.ClientController;
+import common.ActiveTest;
+import common.Teacher;
+import common.Test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,122 +21,133 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 
 public class ViewActiveTestsController implements Initializable {
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private Label viewActiveTestsLbl;
+	@FXML
+	private Label viewActiveTestsLbl;
 
-    @FXML
-    private JFXTextField searchField;
+	@FXML
+	private JFXTextField searchField;
 
-    @FXML
-    private JFXButton searchButton;
+	@FXML
+	private JFXButton searchButton;
 
-    @FXML
-    private Label timeLeftLbl1;
+	@FXML
+	private Label timeLeftLbl1;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private TableView<?> activeTestsTbl;
+	@FXML
+	private TableView<rowTableActiveTest> activeTestsTbl;
 
-    @FXML
-    private TableColumn<?, ?> diCol;
+	@FXML
+	private TableColumn<?, ?> idCol;
 
-    @FXML
-    private TableColumn<?, ?> testNameCol;
+	@FXML
+	private TableColumn<?, ?> testNameCol;
 
-    @FXML
-    private TableColumn<?, ?> testDuartionCol;
+	@FXML
+	private TableColumn<?, ?> AuthorNameCol;
 
-    @FXML
-    private TableColumn<?, ?> fieldCol;
+	@FXML
+	private TableColumn<?, ?> CourseCol;
 
-    @FXML
-    private AnchorPane testDetailsAnchor;
+	@FXML
+	private TableColumn<?, ?> fieldCol1;
 
-    @FXML
-    private AnchorPane requestTimeAnchor;
+	@FXML
+	private TableColumn<?, ?> startTimeCol;
 
-    @FXML
-    private Label studentsTestLbl;
+	@FXML
+	private TableColumn<?, ?> endTimeCol;
 
-    @FXML
-    private JFXTextArea reasonForRequestTxt;
+	@FXML
+	private AnchorPane testDetailsAnchor;
 
-    @FXML
-    private JFXButton senfForApprovalBtn;
+	@FXML
+	private AnchorPane requestTimeAnchor;
 
-    @FXML
-    private AnchorPane lockTestAnchor;
+	@FXML
+	private Label studentsTestLbl;
 
-    @FXML
-    private Label enterCodeLbl;
+	@FXML
+	private JFXTextArea reasonForRequestTxt;
 
-    @FXML
-    private JFXTextField enterCodeField;
+	@FXML
+	private JFXButton senfForApprovalBtn;
 
-    @FXML
-    private JFXButton lockBtn;
+	@FXML
+	private AnchorPane lockTestAnchor;
 
-    @FXML
-    private Label msgLbl;
+	@FXML
+	private Label enterCodeLbl;
 
-    @FXML
-    private JFXButton backBtn;
+	@FXML
+	private JFXTextField enterCodeField;
 
-    @FXML
-    private Label testSelectedLbl1;
+	@FXML
+	private JFXButton lockBtn;
 
-    @FXML
-    private AnchorPane selectedTestAnchor;
+	@FXML
+	private Label msgLbl;
 
-    @FXML
-    private Label testSelectedLbl;
+	@FXML
+	private JFXButton backBtn;
 
-    @FXML
-    private Label timeLeftLbl;
+	@FXML
+	private Label testSelectedLbl1;
 
-    @FXML
-    private JFXButton lequestTimeExtensionBtn;
+	@FXML
+	private AnchorPane selectedTestAnchor;
 
-    @FXML
-    private Label finishTimeLbl;
+	@FXML
+	private Label testSelectedLbl;
 
-    @FXML
-    private JFXButton lockTestBtn;
+	@FXML
+	private Label timeLeftLbl;
 
-    @FXML
-    private JFXTextField timeLeftField;
+	@FXML
+	private JFXButton lequestTimeExtensionBtn;
 
-    @FXML
-    private JFXTextField finishTimeField;
+	@FXML
+	private Label finishTimeLbl;
 
-    @FXML
-    private Label testCodeLbl;
+	@FXML
+	private JFXButton lockTestBtn;
 
-    @FXML
-    private JFXTextField testCodeField;
+	@FXML
+	private JFXTextField timeLeftField;
 
-    @FXML
-    private JFXButton viewTestBtn;
-    
+	@FXML
+	private JFXTextField finishTimeField;
+
+	@FXML
+	private Label testCodeLbl;
+
+	@FXML
+	private JFXTextField testCodeField;
+
+	@FXML
+	private JFXButton viewTestBtn;
+
 	private Node requestTimeExtension, viewTest;
-	private String CODE = "Toosick22";	//-----------need to compare the code with a code from the DB----------- *1
+	private String CODE = "Toosick22"; // -----------need to compare the code with a code from the DB----------- *1
 
 	/**
 	 * clicking lock will open pop up screen that confirms the lock.
@@ -150,8 +165,8 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	/**
-	 * clicking lock test will reveal "enter code" segment and
-	 * another lock button for extra step of safety before locking a test.
+	 * clicking lock test will reveal "enter code" segment and another lock button
+	 * for extra step of safety before locking a test.
 	 * 
 	 * @param event
 	 */
@@ -161,28 +176,30 @@ public class ViewActiveTestsController implements Initializable {
 		lockTestAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
 	}
-	
+
 	/**
-	 * clicking a test on the table will enable the lock test button
-	 * and disable the lock and "enter code" segment for extra safety.
+	 * clicking a test on the table will enable the lock test button and disable the
+	 * lock and "enter code" segment for extra safety.
 	 * 
 	 * @param event
 	 */
 	@FXML
-	void activeTestClicked(MouseEvent event) {//-----------need to complete the method, action: clicking a test on the table----------- *2
+	void activeTestClicked(MouseEvent event) {// -----------need to complete the method, action: clicking a test on the
+												// table----------- *2
 		lockBtn.setVisible(false);
 		enterCodeField.setVisible(false);
 		enterCodeLbl.setVisible(false);
 		lockTestBtn.setDisable(false);
 		lockBtn.setDisable(false);
 	}
-	
+
 	/**
 	 * validates that the code in the text field is the same as a given string.
 	 */
 	@FXML
 	void checkCode() {
-		if(GeneralUIMethods.validateCode(enterCodeField, CODE))	//-----------need to compare the code with a code from the DB----------- *1
+		if (GeneralUIMethods.validateCode(enterCodeField, CODE)) // -----------need to compare the code with a code from
+																	// the DB----------- *1
 			lockBtn.setDisable(false);
 		else
 			lockBtn.setDisable(true);
@@ -199,7 +216,7 @@ public class ViewActiveTestsController implements Initializable {
 		requestTimeAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
 	}
-	
+
 	/**
 	 * this method shows the popup that the request for time extension is approved
 	 * need to connect to active test screen
@@ -211,11 +228,11 @@ public class ViewActiveTestsController implements Initializable {
 		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
 				l, "Request sent for principles approval", "");
 	}
-	
-    @FXML
-    void viewTestClicked(MouseEvent event) {
-    	Node viewTestPage = null;
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+
+	@FXML
+	void viewTestClicked(MouseEvent event) {
+		Node viewTestPage = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 		try {
 			viewTestPage = loader.load();
 		} catch (IOException e) {
@@ -223,20 +240,71 @@ public class ViewActiveTestsController implements Initializable {
 		}
 		TestFormController testController = loader.getController();
 		testController.getEditBtn().setVisible(false);
-    	GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
-    }
+		GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
+	}
 
-    //-----------TODO--------------
-    @FXML
-    void searchBtnClicked(MouseEvent event) {
+	// -----------TODO--------------
+	@FXML
+	void searchBtnClicked(MouseEvent event) {
 
-    }
-    
-    //-----------TODO--------------
-    @FXML
-    void backBtnClicked(MouseEvent event) {
+	}
 
-    }
+	// -----------TODO--------------
+	@FXML
+	void backBtnClicked(MouseEvent event) {
+
+	}
+		//  
+	public class rowTableActiveTest {
+
+		private int ID;
+		private String testName;
+		private String authorName;
+		private String course;
+		private String field;
+		private String startTimeTest;
+		private String endTimeTest;
+
+		public rowTableActiveTest(ActiveTest activeTest) {
+
+			ID = activeTest.getID();
+			testName = activeTest.getTestName();
+			authorName = activeTest.getAuthorName();
+			course = activeTest.getCourse();
+			field = activeTest.getField();
+			startTimeTest = activeTest.getStartTimeTest();
+			endTimeTest = activeTest.getEndTimeTest();
+		}
+
+		public int getID() {
+			return ID;
+		}
+
+		public String getTestName() {
+			return testName;
+		}
+
+		public String getAuthorName() {
+			return authorName;
+		}
+
+		public String getCourse() {
+			return course;
+		}
+
+		public String getField() {
+			return field;
+		}
+
+		public String getStartTimeTest() {
+			return startTimeTest;
+		}
+
+		public String getEndTimeTest() {
+			return endTimeTest;
+		}
+
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -248,6 +316,27 @@ public class ViewActiveTestsController implements Initializable {
 			e.printStackTrace();
 		}
 
-	}
+		
+		ArrayList<ActiveTest> arr = null;
 
+		if (ClientController.getRoleFrame().equals("Teacher")) {
+			ClientController.accept("ACTIVE_TEST-");
+			arr = ClientController.getActiveTest();
+		}
+
+		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
+		AuthorNameCol.setCellValueFactory(new PropertyValueFactory<>("authorName"));
+		CourseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
+		fieldCol1.setCellValueFactory(new PropertyValueFactory<>("field"));
+		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTimeTest"));
+		endTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTimeTest"));
+
+		for (int i = 0; i < arr.size(); i++) {
+			rowTableActiveTest tr = new rowTableActiveTest(arr.get(i));
+			activeTestsTbl.getItems().add(tr);
+
+		}
+
+	}
 }
