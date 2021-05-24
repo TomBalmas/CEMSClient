@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import common.ActiveTest;
 import common.Principle;
 import common.Question;
+import common.ScheduledTest;
 import common.Student;
 import common.Teacher;
 import common.Test;
@@ -69,6 +70,8 @@ public class CEMSClient extends ObservableClient {
 				// get tests from test bank
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
+				else if(((ArrayList<?>) msg).get(0) instanceof ScheduledTest)
+					ClientController.setScheduledTests((ArrayList<ScheduledTest>) msg);
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
 					ClientController.setActiveTest((ArrayList<ActiveTest>) msg);
 			} else if (msg instanceof String) {

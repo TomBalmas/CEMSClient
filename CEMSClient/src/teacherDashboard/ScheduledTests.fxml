@@ -12,14 +12,14 @@
          <children>
             <TableView fx:id="scheduledTestsTbl" layoutY="-1.0" prefHeight="405.0" prefWidth="874.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="ID" />
-                <TableColumn prefWidth="75.0" text="Title" />
-                  <TableColumn prefWidth="75.0" text="Author" />
-                  <TableColumn prefWidth="75.0" text="Date" />
-                  <TableColumn prefWidth="100.0" text="Starting Time" />
-                  <TableColumn prefWidth="75.0" text="Duration" />
-                  <TableColumn prefWidth="75.0" text="View" />
-                  <TableColumn prefWidth="75.0" text="Reschedule" />
+                <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="titleCol" prefWidth="75.0" text="Title" />
+                  <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
+                  <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
+                  <TableColumn fx:id="startingTimeCol" prefWidth="100.0" text="Starting Time" />
+                  <TableColumn fx:id="durationCol" prefWidth="75.0" text="Duration" />
+                  <TableColumn fx:id="viewCol" prefWidth="75.0" text="View" />
+                  <TableColumn fx:id="rescheduleCol" prefWidth="90.0" text="Reschedule" />
               </columns>
             </TableView>
          </children>
