@@ -211,11 +211,10 @@ public class QuestionBankUIController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		selectCbox.setItems(filterBySelectBox);
-  ArrayList<Question> arr = new ArrayList<>();
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields().toString());
-			 arr = ClientController.getQuestions();
+			ArrayList<Question> arr = ClientController.getQuestions();
 			
 		}
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
