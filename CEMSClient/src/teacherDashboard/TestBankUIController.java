@@ -66,9 +66,6 @@ public class TestBankUIController implements Initializable {
 
     @FXML
     private AnchorPane tableViewAnchor;
-
-    @FXML
-    private JFXTreeTableView<?> testTable;
   
 	@FXML
 	private Label testBankLbl;
@@ -181,6 +178,7 @@ public class TestBankUIController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		selectCbox.setItems(filterBySelectBox);
 		ArrayList<Test> arr = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
@@ -197,11 +195,6 @@ public class TestBankUIController implements Initializable {
 		for (int i = 0; i < arr.size(); i++)
 			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTestName(),
 					arr.get(i).getAuthorName(), arr.get(i).getCourse(), arr.get(i).getField()));
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		selectCbox.setItems(filterBySelectBox);
 	}
 
 }
