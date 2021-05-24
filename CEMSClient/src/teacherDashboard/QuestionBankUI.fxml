@@ -4,9 +4,10 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -40,7 +41,16 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="200.0" prefHeight="520.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <JFXTreeTableView fx:id="questionBankTable" layoutY="12.0" prefHeight="450.0" prefWidth="875.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TableView fx:id="questionBankTable" layoutX="-4.0" prefHeight="527.0" prefWidth="884.0">
+              <columns>
+                <TableColumn fx:id="IDCol" prefWidth="146.0" text="ID" />
+                <TableColumn fx:id="authorCol" prefWidth="136.0" text="author" />
+                  <TableColumn fx:id="fieldCol" prefWidth="135.0" text="field" />
+                  <TableColumn fx:id="viewCol" prefWidth="114.0" text="view" />
+                  <TableColumn fx:id="editCol" text="edit" />
+                  <TableColumn fx:id="deleteCol" prefWidth="272.0" text="delete" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <JFXButton fx:id="addAnewQuestionBtn" layoutX="744.0" layoutY="730.0" onMouseClicked="#clickAddAnewQuestion" text="Add a new question">
