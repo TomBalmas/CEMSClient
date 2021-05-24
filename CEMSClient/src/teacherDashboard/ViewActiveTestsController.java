@@ -9,13 +9,14 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
@@ -47,7 +48,19 @@ public class ViewActiveTestsController implements Initializable {
     private AnchorPane tableViewAnchor;
 
     @FXML
-    private JFXTreeTableView<?> activeTestsTbl;
+    private TableView<?> activeTestsTbl;
+
+    @FXML
+    private TableColumn<?, ?> diCol;
+
+    @FXML
+    private TableColumn<?, ?> testNameCol;
+
+    @FXML
+    private TableColumn<?, ?> testDuartionCol;
+
+    @FXML
+    private TableColumn<?, ?> fieldCol;
 
     @FXML
     private AnchorPane testDetailsAnchor;

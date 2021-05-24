@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Test;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -117,4 +118,16 @@ public class GeneralUIMethods {
 	public static void closeConnection() {
 		ClientController.accept("SIGN_OUT");
 	}
+	
+	
+	
+	
+	//public static void buildTestForm(Test test) {
+		
+	//}
+	
+	
+	
+	
+	
 }
