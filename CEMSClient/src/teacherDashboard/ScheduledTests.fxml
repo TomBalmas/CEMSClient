@@ -1,82 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTimePicker?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.ScheduledTestsController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="73.0" layoutY="50.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="scheduledTestsLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Scheduled Tests">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
-                  <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="757.0" layoutY="72.0" onMouseClicked="#filterBtn" text="Filter" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
-                  <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on a test you wish to want to schedule and then set the time">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="196.0" prefHeight="405.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <JFXTreeTableView fx:id="scheduledTestsTbl" layoutY="30.0" prefHeight="296.0" prefWidth="855.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TableView fx:id="scheduledTestsTbl" layoutY="-1.0" prefHeight="405.0" prefWidth="874.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="ID" />
+                <TableColumn prefWidth="75.0" text="Title" />
+                  <TableColumn prefWidth="75.0" text="Date" />
+                  <TableColumn prefWidth="100.0" text="Starting Time" />
+                  <TableColumn prefWidth="75.0" text="View" />
+                  <TableColumn prefWidth="75.0" text="Reschedule" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="setTestTimeAnchor" layoutX="63.0" layoutY="613.0" prefHeight="134.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0">
-         <children>
-            <AnchorPane fx:id="insideFilterAnchor1" prefHeight="275.0" prefWidth="875.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-               <children>
-                  <Label fx:id="testCodeLbl" layoutX="-2.0" layoutY="41.0" text="Test code">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="testCodeField" layoutY="63.0" />
-                  <Label fx:id="testSelectedLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Schedule test selected">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="changeDateBtn" layoutX="690.0" layoutY="60.0" onMouseClicked="#changeDateClicked" styleClass="clickedButton" text="Schedule test">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXDatePicker fx:id="changeDateField" layoutX="250.0" layoutY="65.0" prefHeight="31.0" prefWidth="188.0" />
-                  <JFXTimePicker fx:id="changeTimeField" layoutX="484.0" layoutY="65.0" prefWidth="171.0" />
-                  <Label fx:id="testCodeLbl1" layoutX="250.0" layoutY="41.0" text="Date">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="testCodeLbl11" layoutX="486.0" layoutY="41.0" text="Time">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+      <Label fx:id="scheduledTestsLbl" alignment="TOP_LEFT" layoutX="412.0" layoutY="110.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="177.0" styleClass="pageTitle" text="Scheduled Tests">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
