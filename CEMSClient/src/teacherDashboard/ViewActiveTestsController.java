@@ -254,7 +254,7 @@ public class ViewActiveTestsController implements Initializable {
 	void backBtnClicked(MouseEvent event) {
 
 	}
-		// 
+		//  
 	public class rowTableActiveTest {
 
 		private int ID;

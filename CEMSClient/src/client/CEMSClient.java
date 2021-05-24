@@ -26,7 +26,7 @@ public class CEMSClient extends ObservableClient {
 	}
 
 	/**
-	 * receives message from the UI and sends it to the server 
+	 * receives message from the UI and sends it to the server  
 	 * 
 	 * @param msg
 	 * @throws Exception
