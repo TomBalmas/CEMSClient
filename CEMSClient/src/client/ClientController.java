@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import common.ActiveTest;
 import common.Question;
 import common.Test;
 import common.User;
@@ -13,6 +14,7 @@ public class ClientController {
 	private static String roleFrame = null;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
+	private static ArrayList<ActiveTest> activeTest;
 
 
 	public ClientController(String host, int port) {
@@ -66,4 +68,14 @@ public class ClientController {
 		ClientController.tests = tests;
 	}
 
+	public static void setActiveTest(ArrayList<ActiveTest> activeTest){
+		
+		ClientController.activeTest = activeTest;	
+	}
+	
+	public static ArrayList<ActiveTest> getActiveTest() {
+		
+		return activeTest;
+		
+	}
 }
