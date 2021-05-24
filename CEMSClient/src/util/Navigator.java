@@ -12,7 +12,7 @@ public enum Navigator {
 	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
 	REPORT_CHART ("/principleDashboard/ReportForm.fxml"),
 	VIEW_REPORTS ("/principleDashboard/ViewReports.fxml"),
-	
+	QUESTION_FORM ("/teacherDashboard/QuestionForm.fxml"),
 	TEACHER_DASHBOARD ("/teacherDashboard/TeacherDashboardUI.fxml"),
 	ADDING_NEW_TEST ("/teacherDashboard/AddingNewTestUI.fxml"),
 	BLANK_QUESTION_FORM ("/teacherDashboard/BlankQuestionFormUI.fxml"),

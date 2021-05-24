@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.ClientController;
-import common.Teacher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -52,8 +51,7 @@ public class ScheduledTestsController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Teacher teacher = (Teacher)ClientController.getActiveUser();
-		
+		ClientController.accept("SCHEDULED_TESTS-" + ClientController.getActiveUser().getSSN());
 	}
 
 }

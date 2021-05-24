@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
@@ -46,17 +45,17 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" accessibleRole="TABLE_VIEW" layoutX="63.0" layoutY="200.0" prefHeight="520.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
          <children>
-            <TableView fx:id="testTable" prefHeight="520.0" prefWidth="875.0">
+            <TableView fx:id="testTable" accessibleRole="PARENT" prefHeight="520.0" prefWidth="875.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="IDcol" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="testNameCol" prefWidth="75.0" text="Test Name" />
-                  <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
-                  <TableColumn fx:id="courseCol" prefWidth="75.0" text="Course" />
-                  <TableColumn fx:id="fieldCol" prefWidth="75.0" text="Field" />
-                  <TableColumn fx:id="editCol" prefWidth="75.0" text="Edit" />
-                  <TableColumn fx:id="setDateCol" prefWidth="75.0" text="Set Date" />
-                  <TableColumn fx:id="viewCol" prefWidth="75.0" text="View" />
-                  <TableColumn fx:id="deleteCol" prefWidth="75.0" text="Delete" />
+                <TableColumn fx:id="IDcol" prefWidth="60.0" text="ID" />
+                <TableColumn fx:id="testNameCol" prefWidth="215.0" text="Test Name" />
+                  <TableColumn fx:id="authorCol" prefWidth="71.0" text="Author" />
+                  <TableColumn fx:id="courseCol" prefWidth="94.0" text="Course" />
+                  <TableColumn fx:id="fieldCol" prefWidth="102.0" text="Field" />
+                  <TableColumn fx:id="editCol" prefWidth="67.0" text="Edit" />
+                  <TableColumn fx:id="setDateCol" prefWidth="86.0" text="Set Date" />
+                  <TableColumn fx:id="viewCol" prefWidth="83.0" text="View" />
+                  <TableColumn fx:id="deleteCol" prefWidth="96.0" text="Delete" />
               </columns>
             </TableView>
          </children>

@@ -2,19 +2,27 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTreeTableView;
 
+import client.ClientController;
+import common.Question;
+import common.Teacher;
+import common.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
@@ -26,7 +34,22 @@ public class AddingNewTestUIController implements Initializable {
 	private AnchorPane contentPaneAnchor;
 
 	@FXML
-	private JFXTreeTableView<?> questionTable;
+	private TableView<QuestionRow> questionTable;
+
+	@FXML
+	private TableColumn<?, ?> idCol;
+
+	@FXML
+	private TableColumn<?, ?> textCol;
+
+	@FXML
+	private TableColumn<?, ?> authorCol;
+
+	@FXML
+	private TableColumn<?, ?> viewCol;
+
+	@FXML
+	private TableColumn<?, ?> selectCol;
 
 	@FXML
 	private JFXButton backBtn;
@@ -42,8 +65,47 @@ public class AddingNewTestUIController implements Initializable {
 
 	private Node testBank;
 
-	ObservableList fields = FXCollections.observableArrayList("Math", "History");// -------------need to fill the fields
-																					// with a query--------------
+	ObservableList fields = FXCollections.observableArrayList();
+
+	public class QuestionRow {
+		private Integer ID;
+		private String author;
+		private String text;
+		private JFXButton viewBtn;
+		private CheckBox checkBox;
+
+		public QuestionRow(Question question) {
+			ID = question.getID();
+			author = question.getAuthor();
+			text = question.getQuestionText();
+			viewBtn = new JFXButton();
+			viewBtn.setText("View");
+			viewBtn.setStyle("-fx-background-color: teal;");
+			checkBox = new CheckBox();
+			checkBox.setText("Select");
+		}
+
+		public JFXButton getViewBtn() {
+			return viewBtn;
+		}
+
+		public CheckBox getCheckBox() {
+			return checkBox;
+		}
+
+		public Integer getID() {
+			return ID;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+	}
 
 	/**
 	 * initialize a combo box with the relevant fields
@@ -51,7 +113,37 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ArrayList<Question> picked = new ArrayList<>();
+
+		if (ClientController.getRoleFrame().equals("Teacher")) {
+			Teacher teacher = (Teacher) ClientController.getActiveUser();
+			fields.addAll(teacher.getFields());
+		}
 		selectFieldComboBox.setItems(fields);
+		selectFieldComboBox.setOnAction(event -> {
+			questionTable.getItems().clear();
+			ClientController.accept("QUESTION_BANK-[" + selectFieldComboBox.getValue() + "]");
+			ArrayList<Question> questions = ClientController.getQuestions();
+			idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+			textCol.setCellValueFactory(new PropertyValueFactory<>("text"));
+			authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+			viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
+			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
+			for (Question q : questions) {
+				QuestionRow qr = new QuestionRow(q);
+				questionTable.getItems().add(qr);
+				qr.getCheckBox().setOnAction(eventCheck -> {
+					if (qr.getCheckBox().isSelected())
+						picked.add(q);
+					else
+						picked.remove(q);
+					for (Question qe : picked)
+						System.out.println(qe.getID());
+				});
+			}
+
+		});
+
 	}
 
 	/**
@@ -83,14 +175,15 @@ public class AddingNewTestUIController implements Initializable {
 			test = loader.load();
 			TestFormController controller = loader.getController();
 			controller.getEditBtn().setVisible(false);
-			controller.addQuestionToTestForm();		//need to get questions from DB
-			controller.addQuestionToTestForm();		//need to get questions from DB
-			controller.addQuestionToTestForm();		//need to get questions from DB
+			controller.addQuestionToTestForm(); // need to get questions from DB
+			controller.addQuestionToTestForm(); // need to get questions from DB
+			controller.addQuestionToTestForm(); // need to get questions from DB
 			GeneralUIMethods.loadPage(contentPaneAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// -------------need to implement an if statement that will block passage if no questions were selected--------------
+		// -------------need to implement an if statement that will block passage if no
+		// questions were selected--------------
 	}
 
 }

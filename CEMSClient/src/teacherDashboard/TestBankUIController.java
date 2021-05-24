@@ -15,6 +15,8 @@ import common.Teacher;
 import common.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,43 +31,43 @@ import util.GeneralUIMethods;
 import util.Navigator;
 
 public class TestBankUIController implements Initializable {
-	
-    @FXML
-    private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
+
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
 	@FXML
 	private AnchorPane anchorLogin;
-	
+
 	@FXML
 	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private JFXComboBox<?> selectCbox;
+	@FXML
+	private JFXComboBox<?> selectCbox;
 
-    @FXML
-    private JFXTextField searchField;
+	@FXML
+	private JFXTextField searchField;
 
-    @FXML
-    private Label startDPlbl;
+	@FXML
+	private Label startDPlbl;
 
-    @FXML
-    private JFXDatePicker startCoursesDP;
+	@FXML
+	private JFXDatePicker startCoursesDP;
 
-    @FXML
-    private Label endDPlbl;
+	@FXML
+	private Label endDPlbl;
 
-    @FXML
-    private JFXDatePicker finishCoursesDP;
+	@FXML
+	private JFXDatePicker finishCoursesDP;
 
-    @FXML
-    private JFXButton searchBtn;
-  
+	@FXML
+	private JFXButton searchBtn;
+
 	@FXML
 	private Label testBankLbl;
 
@@ -107,21 +109,22 @@ public class TestBankUIController implements Initializable {
 	public JFXButton getAddNewTestButton() {
 		return addNewTestButton;
 	}
-    
+
 	// ----------TODO: add teachers for priciple
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
-    
-    @FXML
-    void searchBtnClicked(MouseEvent event) {
 
-    }
+	@FXML
+	void searchBtnClicked(MouseEvent event) {
 
-	/**clicking add new test opens question bank screen
-     * 
-     * @param event
-     */
-    @FXML
-    void addNewTest(MouseEvent event) {
+	}
+
+	/**
+	 * clicking add new test opens question bank screen
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void addNewTest(MouseEvent event) {
 		try {
 			addNewTest = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 		} catch (IOException e) {
@@ -162,8 +165,12 @@ public class TestBankUIController implements Initializable {
 			editBtn.setText("Edit");
 			setDateBtn.setText("Set Date");
 			viewBtn.setText("View");
+			viewBtn.setMaxWidth(Double.MAX_VALUE);
+			setDateBtn.setMaxWidth(Double.MAX_VALUE);
+			editBtn.setMaxWidth(Double.MAX_VALUE);
+			deleteBtn.setMaxWidth(Double.MAX_VALUE);
 			deleteBtn.setStyle("-fx-background-color: red;");
-			editBtn.setStyle("-fx-background-color: green;");
+			editBtn.setStyle("-fx-background-color: teal;");
 			setDateBtn.setStyle("-fx-background-color: cyan;");
 			viewBtn.setStyle("-fx-background-color: orange;");
 		}
@@ -256,19 +263,17 @@ public class TestBankUIController implements Initializable {
 		for (int i = 0; i < arr.size(); i++) {
 			TestRow tr = new TestRow(arr.get(i));
 			testTable.getItems().add(tr);
-			
+			tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+				@Override
+				public void handle(ActionEvent event) {
+					TestRow toDelete = tr;
+					ClientController.accept("DELETE_TEST-" + tr.test.getID());
+					if (!ClientController.getTestDeleted())
+						System.out.println("not working");
+					testTable.getItems().remove(toDelete);
+				}
+			});
 		}
-		// ------------------------------ double click option here:
-//		testTable.setRowFactory(tv -> {
-//			TableRow<TestRow> row = new TableRow<>();
-//			row.setOnMouseClicked(event -> {
-//				if (event.getClickCount() == 2 && (!row.isEmpty())) {
-//					TestRow rowData = row.getItem();
-//					System.out.println("Double click on: " + rowData.getTestId());
-//				}
-//			});
-//			return row;
-//		});
 
 	}
 
