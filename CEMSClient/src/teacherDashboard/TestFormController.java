@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import client.ClientController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -137,8 +138,8 @@ public class TestFormController implements Initializable {
 			uploadBtn.setVisible(false);
 			addTitleToTest();
 			vbox.setSpacing(10);
-			// scrollPane.setTranslateX(-280); //TODO - execute this code only if user
-			// instanceof teacher
+			//if (ClientController.getRoleFrame().equals("Teacher")) - works only with user
+			//	scrollPane.setTranslateX(-280);
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
@@ -146,8 +147,6 @@ public class TestFormController implements Initializable {
 						addQuestionToTestForm();
 						addQuestionToTestForm();
 						addQuestionToTestForm();
-						if (flag)
-							finishBtn.setVisible(false);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

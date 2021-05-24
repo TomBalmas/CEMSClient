@@ -65,17 +65,15 @@ public class StudentTakeTestController implements Initializable {
 			controller.getEditBtn().setVisible(false);
 			controller.getBackBtn().setVisible(false);
 			controller.getTestSideBarAnchor().setVisible(true);
+			controller.setFlag(true);
 			if (testGroup.getSelectedToggle().equals(manualBtn)) {
 				controller.getDownloadBtn().setVisible(true);
 				controller.getUploadBtn().setVisible(true);
 				controller.getUploadFileAnchor().setVisible(true);
-				controller.setFlag(true);
+				controller.getFinishBtn().setVisible(false);
 			}
 			else 
 				controller.getUploadFileAnchor().setVisible(false);
-//			controller.addQuestionToTestForm(); 	//need to get questions from DB
-//			controller.addQuestionToTestForm(); 	//need to get questions from DB
-//			controller.addQuestionToTestForm(); 	//need to get questions from DB
 			GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), test);
 			
 			//Set the correct view for the student

@@ -22,7 +22,6 @@ import util.GeneralUIMethods;
 import util.Navigator;
 
 public class ViewActiveTestsController implements Initializable {
-
     @FXML
     private AnchorPane contentPaneAnchor;
 
@@ -39,7 +38,7 @@ public class ViewActiveTestsController implements Initializable {
     private JFXTextField searchField;
 
     @FXML
-    private JFXButton filterButton;
+    private JFXButton searchButton;
 
     @FXML
     private Label timeLeftLbl1;
@@ -69,9 +68,6 @@ public class ViewActiveTestsController implements Initializable {
     private AnchorPane lockTestAnchor;
 
     @FXML
-    private Label testSelectedLbl1;
-
-    @FXML
     private Label enterCodeLbl;
 
     @FXML
@@ -82,6 +78,12 @@ public class ViewActiveTestsController implements Initializable {
 
     @FXML
     private Label msgLbl;
+
+    @FXML
+    private JFXButton backBtn;
+
+    @FXML
+    private Label testSelectedLbl1;
 
     @FXML
     private AnchorPane selectedTestAnchor;
@@ -130,6 +132,8 @@ public class ViewActiveTestsController implements Initializable {
 		buttonsList.add(new JFXButton("Okay"));
 		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
 				buttonsList, "Test " + CODE + " is now locked!", "");
+		lockBtn.setText("Locked");
+		lockBtn.setDisable(true);
 	}
 
 	/**
@@ -140,13 +144,9 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void lockTestClicked(MouseEvent event) {
+		backBtn.setVisible(true);
 		lockTestAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
-//		lockBtn.setVisible(true);
-//		enterCodeField.setVisible(true);
-//		enterCodeLbl.setVisible(true);
-//		lockTestBtn.setDisable(true);
-//		lockBtn.setDisable(true);
 	}
 	
 	/**
@@ -182,9 +182,9 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void requestTimeExtensionClicked(MouseEvent event) {
+		backBtn.setVisible(true);
 		requestTimeAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
-		//GeneralUIMethods.loadPage(contentPaneAnchor, requestTimeExtension);
 	}
 	
 	/**
@@ -201,19 +201,34 @@ public class ViewActiveTestsController implements Initializable {
 	
     @FXML
     void viewTestClicked(MouseEvent event) {
-    	GeneralUIMethods.loadPage(contentPaneAnchor, viewTest);
+    	Node viewTestPage = null;
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+		try {
+			viewTestPage = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		TestFormController testController = loader.getController();
+		testController.getEditBtn().setVisible(false);
+    	GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
     }
 
+    //-----------TODO--------------
     @FXML
-    void filterBtn(MouseEvent event) {
+    void searchBtnClicked(MouseEvent event) {
+
+    }
+    
+    //-----------TODO--------------
+    @FXML
+    void backBtnClicked(MouseEvent event) {
 
     }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-//		lockBtn.setVisible(false);
-//		enterCodeField.setVisible(false);
-//		enterCodeLbl.setVisible(false);
+		backBtn.toFront();
+		lockBtn.setDisable(true);
 		try {
 			viewTest = FXMLLoader.load(getClass().getResource(Navigator.TEST_FORM.getVal()));
 		} catch (IOException e) {

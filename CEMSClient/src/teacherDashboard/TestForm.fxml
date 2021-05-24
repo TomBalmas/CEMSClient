@@ -17,17 +17,17 @@
          <children>
             <AnchorPane fx:id="insideTestSideBarAnchor" prefHeight="800.0" prefWidth="273.0">
                <children>
-                  <JFXButton fx:id="uploadBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#uploadFileClicked" text="Upload Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="fileBtn" />
-                     </styleClass>
-                  </JFXButton>
                   <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
                         <String fx:value="finishTestBtn" />
+                     </styleClass>
+                  </JFXButton>
+                  <JFXButton fx:id="uploadBtn" layoutX="10.0" layoutY="737.0" onMouseClicked="#uploadFileClicked" prefWidth="40.0" text="Upload Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="clickedButton" />
+                        <String fx:value="fileBtn" />
                      </styleClass>
                   </JFXButton>
                   <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="61.0" onMouseClicked="#backClicked" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="61.0">

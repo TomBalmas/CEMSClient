@@ -2,11 +2,17 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTreeTableView;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.util.ArrayList;
 import client.ClientController;
 import common.Teacher;
 import common.Test;
@@ -24,13 +30,46 @@ import util.GeneralUIMethods;
 import util.Navigator;
 
 public class TestBankUIController implements Initializable {
+	
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
+
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
 	@FXML
 	private AnchorPane anchorLogin;
 
+    @FXML
+    private JFXComboBox<?> selectCbox;
+
+    @FXML
+    private JFXTextField searchField;
+
+    @FXML
+    private Label startDPlbl;
+
+    @FXML
+    private JFXDatePicker startCoursesDP;
+
+    @FXML
+    private Label endDPlbl;
+
+    @FXML
+    private JFXDatePicker finishCoursesDP;
+
+    @FXML
+    private JFXButton searchBtn;
+
+    @FXML
+    private AnchorPane tableViewAnchor;
+
+    @FXML
+    private JFXTreeTableView<?> testTable;
+  
 	@FXML
 	private Label testBankLbl;
 
@@ -60,19 +99,21 @@ public class TestBankUIController implements Initializable {
 	public JFXButton getAddNewTestButton() {
 		return addNewTestButton;
 	}
+    
+	// ----------TODO: add teachers for priciple
+	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
+    
+    @FXML
+    void searchBtnClicked(MouseEvent event) {
 
-	@FXML
-	void filterBtn(MouseEvent event) {
+    }
 
-	}
-
-	/**
-	 * clicking add new test opens question bank screen
-	 * 
-	 * @param event
-	 */
-	@FXML
-	void addNewTest(MouseEvent event) {
+	/**clicking add new test opens question bank screen
+     * 
+     * @param event
+     */
+    @FXML
+    void addNewTest(MouseEvent event) {
 		try {
 			addNewTest = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 		} catch (IOException e) {
@@ -156,6 +197,11 @@ public class TestBankUIController implements Initializable {
 		for (int i = 0; i < arr.size(); i++)
 			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTestName(),
 					arr.get(i).getAuthorName(), arr.get(i).getCourse(), arr.get(i).getField()));
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		selectCbox.setItems(filterBySelectBox);
 	}
 
 }
