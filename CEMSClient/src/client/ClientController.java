@@ -21,7 +21,7 @@ public class ClientController {
 		client = new CEMSClient(host, port, this);
 	}
 
-	/**
+	/** 
 	 * UI request to server
 	 * format: REQUEST_NAME-arg0,arg1,arg2
 	 * 
