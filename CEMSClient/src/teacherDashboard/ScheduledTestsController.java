@@ -33,7 +33,7 @@ public class ScheduledTestsController {
     private JFXTextField searchField;
 
     @FXML
-    private JFXButton filterButton;
+    private JFXButton searchBtn;
 
     @FXML
     private Label timeLeftLbl1;
@@ -75,7 +75,7 @@ public class ScheduledTestsController {
     private Label testCodeLbl11;
 
     @FXML
-    void filterBtn(MouseEvent event) {
+    void searchBtnClicked(MouseEvent event) {
 
     }
 

@@ -47,10 +47,14 @@
 	-fx-color: white;
 }
 
-.filterButton {
+.filterButton, .searchButton {
 	-fx-background-color: #fff0d9;
 	-fx-border-color: #fec973;
 	-fx-border-radius: 4.0px;
+}
+
+.filterButton .glyph-icon{
+	-fx-fill: #fec973;
 }
 
 .deleteButton {

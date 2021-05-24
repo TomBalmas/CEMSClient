@@ -53,6 +53,12 @@ public class CreateReportController implements Initializable {
 
     @FXML
     private JFXButton filterButton;
+    
+    @FXML
+    private Label selectCourseLbl;
+
+    @FXML
+    private JFXComboBox<?> selectCourseCbox;
 
     @FXML
     private AnchorPane tableViewAnchor;
@@ -81,18 +87,24 @@ public class CreateReportController implements Initializable {
 				finishCoursesDP.setVisible(false);
 				startDPlbl.setVisible(false);
 				endDPlbl.setVisible(false);
+				selectCourseCbox.setVisible(true);
+				selectCourseLbl.setVisible(true);
 				searchField.setPromptText("Search by student name/last name");
 			} else if (selectTypeCbox.getValue().equals("Courses")) {
 				startCoursesDP.setVisible(true);
 				finishCoursesDP.setVisible(true);
 				startDPlbl.setVisible(true);
 				endDPlbl.setVisible(true);
+				selectCourseCbox.setVisible(false);
+				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by field/course name or code");
 			} else {
 				startCoursesDP.setVisible(false);
 				finishCoursesDP.setVisible(false);
 				startDPlbl.setVisible(false);
 				endDPlbl.setVisible(false);
+				selectCourseCbox.setVisible(false);
+				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by teacher name/last name");
 			}
 

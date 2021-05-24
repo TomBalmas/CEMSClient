@@ -59,7 +59,7 @@ public class QuestionBankUIController implements Initializable {
 	private JFXDatePicker finishCoursesDP;
 
 	@FXML
-	private JFXButton filterButton;
+	private JFXButton searchBtn;
 
 	@FXML
 	private AnchorPane tableViewAnchor;
@@ -71,12 +71,12 @@ public class QuestionBankUIController implements Initializable {
 	private JFXButton addAnewQuestionBtn;
 
 	private Node blankQuestionForm;
-	private ObservableList options = FXCollections.observableArrayList("Anyone", "You", "Others"); // ----------TODO:
-																									// add teachers for
-																									// priciple
+	
+	// ----------TODO: add teachers for priciple
+	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 
 	@FXML
-	void filterBtn(MouseEvent event) {
+	void searchBtnClicked(MouseEvent event) {
 
 	}
 
@@ -101,7 +101,7 @@ public class QuestionBankUIController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		selectCbox.setItems(options);
+		selectCbox.setItems(filterBySelectBox);
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields().toString());

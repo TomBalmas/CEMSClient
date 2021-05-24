@@ -34,6 +34,8 @@
                         <String fx:value="btn" />
                      </styleClass>
                   </JFXButton>
+                  <Label fx:id="selectCourseLbl" layoutX="182.0" layoutY="41.0" prefHeight="21.0" styleClass="pageLabel" text="Select course" visible="false" />
+                  <JFXComboBox fx:id="selectCourseCbox" layoutX="182.0" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select course" styleClass="selector" visible="false" visibleRowCount="3" />
                </children>
             </AnchorPane>
          </children>
