@@ -14,8 +14,10 @@
               <columns>
                 <TableColumn prefWidth="75.0" text="ID" />
                 <TableColumn prefWidth="75.0" text="Title" />
+                  <TableColumn prefWidth="75.0" text="Author" />
                   <TableColumn prefWidth="75.0" text="Date" />
                   <TableColumn prefWidth="100.0" text="Starting Time" />
+                  <TableColumn prefWidth="75.0" text="Duration" />
                   <TableColumn prefWidth="75.0" text="View" />
                   <TableColumn prefWidth="75.0" text="Reschedule" />
               </columns>

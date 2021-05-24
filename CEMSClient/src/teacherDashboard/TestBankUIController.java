@@ -193,7 +193,7 @@ public class TestBankUIController implements Initializable {
 		fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
 		for (int i = 0; i < arr.size(); i++)
-			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTestName(),
+			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTitle(),
 					arr.get(i).getAuthorName(), arr.get(i).getCourse(), arr.get(i).getField()));
 	}
 
