@@ -13,6 +13,7 @@ public class ClientController {
 	private static String roleFrame = null;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
+	private static boolean testDeleted;
 
 
 	public ClientController(String host, int port) {
@@ -50,6 +51,14 @@ public class ClientController {
 		return client.getActiveUser();
 	}
 	
+	public static boolean getTestDeleted() {
+		return testDeleted;
+	}
+
+	public static void setTestDeleted(boolean testDeleted) {
+		ClientController.testDeleted = testDeleted;
+	}
+
 	public static ArrayList<Question> getQuestions() {
 		return questions;
 	}
