@@ -110,7 +110,7 @@ public class TestBankUIController implements Initializable {
 		return addNewTestButton;
 	}
 
-	// ----------TODO: add teachers for priciple
+	// ----------TODO: add teachers for principle
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 
 	@FXML

@@ -258,7 +258,7 @@ public class ViewActiveTestsController implements Initializable {
 	public class rowTableActiveTest {
 
 		private int ID;
-		private String testName;
+		private String title;
 		private String authorName;
 		private String course;
 		private String field;
@@ -268,7 +268,7 @@ public class ViewActiveTestsController implements Initializable {
 		public rowTableActiveTest(ActiveTest activeTest) {
 
 			ID = activeTest.getID();
-			testName = activeTest.getTestName();
+			title = activeTest.getTitle();
 			authorName = activeTest.getAuthorName();
 			course = activeTest.getCourse();
 			field = activeTest.getField();
@@ -281,7 +281,7 @@ public class ViewActiveTestsController implements Initializable {
 		}
 
 		public String getTestName() {
-			return testName;
+			return title;
 		}
 
 		public String getAuthorName() {
