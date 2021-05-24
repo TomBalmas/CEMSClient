@@ -2,25 +2,23 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.util.ArrayList;
 import client.ClientController;
 import common.Teacher;
 import common.Test;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -67,9 +65,6 @@ public class TestBankUIController implements Initializable {
 
     @FXML
     private JFXButton searchBtn;
-
-    @FXML
-    private AnchorPane tableViewAnchor;
   
 	@FXML
 	private Label testBankLbl;
@@ -154,7 +149,7 @@ public class TestBankUIController implements Initializable {
 
 		public TestRow(Test test) {
 			this.test = test;
-			this.testName = test.getTestName();
+			this.testName = test.getTitle();
 			this.testId = test.getID();
 			this.author = test.getAuthorName();
 			this.course = test.getCourse();
@@ -253,9 +248,6 @@ public class TestBankUIController implements Initializable {
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
-		for (int i = 0; i < arr.size(); i++)
-			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTitle(),
-					arr.get(i).getAuthorName(), arr.get(i).getCourse(), arr.get(i).getField()));
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("deleteBtn"));
 		setDateCol.setCellValueFactory(new PropertyValueFactory<>("setDateBtn"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
