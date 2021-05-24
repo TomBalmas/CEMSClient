@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.SetTestDateController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.SetTestDateController">
    <children>
       <Label layoutX="404.0" layoutY="140.0" text="Set Date For Test">
          <font>
@@ -29,6 +28,6 @@
       <JFXDatePicker fx:id="dateDP" layoutX="163.0" layoutY="400.0" />
       <JFXTimePicker fx:id="timeTP" layoutX="344.0" layoutY="400.0" />
       <JFXTextField fx:id="codeTxt" layoutX="530.0" layoutY="400.0" />
-      <JFXButton fx:id="setBtn" layoutX="678.0" layoutY="400.0" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
+      <JFXButton fx:id="setDateBtn" layoutX="678.0" layoutY="400.0" onMouseClicked="#setDateClicked" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
    </children>
 </AnchorPane>
