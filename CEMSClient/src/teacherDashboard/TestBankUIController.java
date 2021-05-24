@@ -253,6 +253,9 @@ public class TestBankUIController implements Initializable {
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
+		for (int i = 0; i < arr.size(); i++)
+			testTable.getItems().add(new TestRow(arr.get(i).getID(), arr.get(i).getTitle(),
+					arr.get(i).getAuthorName(), arr.get(i).getCourse(), arr.get(i).getField()));
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("deleteBtn"));
 		setDateCol.setCellValueFactory(new PropertyValueFactory<>("setDateBtn"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
@@ -274,6 +277,7 @@ public class TestBankUIController implements Initializable {
 //			});
 //			return row;
 //		});
+
 	}
 
 }
