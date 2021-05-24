@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.Question;
+import common.ScheduledTest;
 import common.Test;
 import common.User;
 
@@ -13,7 +14,7 @@ public class ClientController {
 	private static String roleFrame = null;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
-
+	private static ArrayList<ScheduledTest> scheduledTests = null;
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -64,6 +65,14 @@ public class ClientController {
 
 	public static void setTests(ArrayList<Test> tests) {
 		ClientController.tests = tests;
+	}
+	
+	public static ArrayList<ScheduledTest> getScheduledTests() {
+		return scheduledTests;
+	}
+
+	public static void setScheduledTests(ArrayList<ScheduledTest> scheduledTests) {
+		ClientController.scheduledTests = scheduledTests;
 	}
 
 }
