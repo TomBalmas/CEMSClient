@@ -187,7 +187,7 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * back to previouse screen
+	 * back to previous screen
 	 * 
 	 * @throws IOException
 	 */
