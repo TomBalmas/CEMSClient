@@ -10,10 +10,12 @@ import java.util.Set;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.Question;
 import common.Teacher;
+import common.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,88 +37,96 @@ import util.Navigator;
 
 public class AddingNewTestUIController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane setParametersAnchor;
+	@FXML
+	private AnchorPane setParametersAnchor;
 
-    @FXML
-    private AnchorPane insidesetParametersAnchor;
+	@FXML
+	private AnchorPane insidesetParametersAnchor;
 
-    @FXML
-    private AnchorPane parameterTitleAnchor;
+	@FXML
+	private AnchorPane parameterTitleAnchor;
 
-    @FXML
-    private AnchorPane insideparameterTitleAnchor;
+	@FXML
+	private AnchorPane insideparameterTitleAnchor;
 
-    @FXML
-    private TableView<QuestionRow> questionTable;
+	@FXML
+	private TableView<QuestionRow> questionTable;
 
-    @FXML
-    private TableColumn<?, ?> selectCol;
+	@FXML
+	private TableColumn<?, ?> selectCol;
 
-    @FXML
-    private TableColumn<?, ?> idCol;
+	@FXML
+	private TableColumn<?, ?> idCol;
 
-    @FXML
-    private TableColumn<?, ?> authorCol;
+	@FXML
+	private TableColumn<?, ?> authorCol;
 
-    @FXML
-    private TableColumn<?, ?> textCol;
+	@FXML
+	private TableColumn<?, ?> textCol;
 
-    @FXML
-    private TableColumn<?, ?> viewCol;
+	@FXML
+	private TableColumn<?, ?> viewCol;
 
-    @FXML
-    private VBox labelsVBox;
+	@FXML
+	private VBox labelsVBox;
 
-    @FXML
-    private VBox parametersVBox;
+	@FXML
+	private VBox parametersVBox;
 
-    @FXML
-    private JFXComboBox<?> selectFieldComboBox;
+	@FXML
+	private JFXComboBox<?> selectFieldComboBox;
 
-    @FXML
-    private JFXComboBox<?> selectFieldComboBox1;
+	@FXML
+	private JFXComboBox<?> selectFieldComboBox1;
 
-    @FXML
-    private JFXTextArea teacherInstructionsTxtArea;
+	@FXML
+	private JFXTextField titleTxt;
 
-    @FXML
-    private JFXTextArea studentInstructionsTxtArea1;
+	@FXML
+	private JFXTextField durationTxt;
 
-    @FXML
-    private AnchorPane testAnchor;
+	@FXML
+	private JFXTextArea teacherInstructionsTxtArea;
 
-    @FXML
-    private ScrollPane testScrollPane;
+	@FXML
+	private JFXTextArea studentInstructionsTxtArea1;
 
-    @FXML
-    private Label headTitleLbl;
+	@FXML
+	private AnchorPane testAnchor;
 
-    @FXML
-    private JFXButton backBtn1;
+	@FXML
+	private ScrollPane testScrollPane;
 
-    @FXML
-    private JFXButton backBtn2;
+	@FXML
+	private Label headTitleLbl;
 
-    @FXML
-    private JFXButton backBtn3;
+	@FXML
+	private JFXButton backBtn1;
 
-    @FXML
-    private JFXButton finishBtn;
+	@FXML
+	private JFXButton backBtn2;
 
-    @FXML
-    private JFXButton previewTestBtn;
+	@FXML
+	private JFXButton backBtn3;
 
-    @FXML
-    private JFXButton continueWithParametersBtn;
+	@FXML
+	private JFXButton finishBtn;
 
+	@FXML
+	private JFXButton previewTestBtn;
 
+	@FXML
+	private JFXButton continueWithParametersBtn;
+
+	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Node testBank;
+	private Set<Question> pickedQuestions;
 
 	ObservableList fields = FXCollections.observableArrayList();
+	ObservableList courses = FXCollections.observableArrayList();// -----------TODO
 
 	public class QuestionRow {
 		private String id;
@@ -163,12 +173,13 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Set<Question> picked = new HashSet<>();
+		pickedQuestions = new HashSet<>();
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			String[] fieldsSplit = teacher.getFields().split("~");
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
+
 		}
 		selectFieldComboBox.setItems(fields);
 		selectFieldComboBox.setOnAction(event -> {
@@ -183,22 +194,22 @@ public class AddingNewTestUIController implements Initializable {
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
-				if (picked.contains(q))
+				if (pickedQuestions.contains(q))
 					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
 					if (qr.getCheckBox().isSelected())
-						picked.add(q);
+						pickedQuestions.add(q);
 					else
-						picked.remove(q);
+						pickedQuestions.remove(q);
 					System.out.print("[");
-					for (Question qe : picked) {
+					for (Question qe : pickedQuestions) {
 						System.out.print(qe.getID());
 						System.out.print(",");
 					}
 					System.out.print("]\n");
 				});
 			}
-			picked.clear();
+			pickedQuestions.clear();
 		});
 	}
 
@@ -216,30 +227,29 @@ public class AddingNewTestUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
 
-    @FXML
-    void clickBack2(MouseEvent event) {
-    	backBtn1.setVisible(true);
-    	backBtn2.setVisible(false);
-    	continueWithParametersBtn.setVisible(true);
-    	previewTestBtn.setVisible(false);
-    	parametersVBox.setVisible(true);
-    	questionTable.setVisible(false);
-    	labelsVBox.setVisible(true);
-    	headTitleLbl.setText("Set parameters");    	
-    }
+	@FXML
+	void clickBack2(MouseEvent event) {
+		backBtn1.setVisible(true);
+		backBtn2.setVisible(false);
+		continueWithParametersBtn.setVisible(true);
+		previewTestBtn.setVisible(false);
+		parametersVBox.setVisible(true);
+		questionTable.setVisible(false);
+		labelsVBox.setVisible(true);
+		headTitleLbl.setText("Set parameters");
+	}
 
-    @FXML
-    void clickBack3(MouseEvent event) {
-    	backBtn2.setVisible(true);
-    	backBtn3.setVisible(false);
-    	previewTestBtn.setVisible(true);
-    	finishBtn.setVisible(false);
-    	questionTable.setVisible(true);
-    	headTitleLbl.setText("Choose questions to add to the test");
-    	testAnchor.setVisible(false);
-    }
+	@FXML
+	void clickBack3(MouseEvent event) {
+		backBtn2.setVisible(true);
+		backBtn3.setVisible(false);
+		previewTestBtn.setVisible(true);
+		finishBtn.setVisible(false);
+		questionTable.setVisible(true);
+		headTitleLbl.setText("Choose questions to add to the test");
+		testAnchor.setVisible(false);
+	}
 
 	/**
 	 * clicking continue will move to blank test form only if at least one question
@@ -250,35 +260,57 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	void clickFinish(MouseEvent event) {
 		try {
+			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
+			for (Question q : pickedQuestions) {
+				sb.append(q.getID());
+				sb.append("~");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			Test finishedTest = new Test("id", ClientController.getActiveUser().getName(), testTitle, course,
+					Integer.parseInt(duration), 100 / pickedQuestions.size(), studentInst, teacherInst, sb.toString(),
+					field); // TODO - get id from query and change points per question to double
+
+			// TODO - add query for adding test to table
+			
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
-    @FXML
-    void clickContinueWithParameters(MouseEvent event) {
-    	backBtn1.setVisible(false);
-    	backBtn2.setVisible(true);
-    	continueWithParametersBtn.setVisible(false);
-    	previewTestBtn.setVisible(true);
-    	parametersVBox.setVisible(false);
-    	questionTable.setVisible(true);
-    	labelsVBox.setVisible(false);
-    	headTitleLbl.setText("Choose questions to add to the test");
-    }
-    
-    @FXML
-    void clickPreviewTest(MouseEvent event) {
-    	backBtn2.setVisible(false);
-    	backBtn3.setVisible(true);
-    	previewTestBtn.setVisible(false);
-    	finishBtn.setVisible(true);
-    	questionTable.setVisible(false);
-    	headTitleLbl.setText("Preview the test");
-    	testAnchor.setVisible(true);
+	/**
+	 * testTitle, duration, course, studentInst, teacherInst
+	 */
+	@FXML
+	void clickContinueWithParameters(MouseEvent event) {
+		backBtn1.setVisible(false);
+		backBtn2.setVisible(true);
+		continueWithParametersBtn.setVisible(false);
+		previewTestBtn.setVisible(true);
+		parametersVBox.setVisible(false);
+		questionTable.setVisible(true);
+		labelsVBox.setVisible(false);
+		headTitleLbl.setText("Choose questions to add to the test");
+		testTitle = titleTxt.getText();
+		duration = durationTxt.getText();
+		field = selectFieldComboBox.getValue().toString();
+		// course = selectFieldComboBox1.getValue().toString(); ---- TODO later
+		studentInst = studentInstructionsTxtArea1.getText();
+		teacherInst = teacherInstructionsTxtArea.getText();
+
+	}
+
+	@FXML
+	void clickPreviewTest(MouseEvent event) {
+		backBtn2.setVisible(false);
+		backBtn3.setVisible(true);
+		previewTestBtn.setVisible(false);
+		finishBtn.setVisible(true);
+		questionTable.setVisible(false);
+		headTitleLbl.setText("Preview the test");
+		testAnchor.setVisible(true);
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			Region test = loader.load();
@@ -289,16 +321,20 @@ public class AddingNewTestUIController implements Initializable {
 			controller.getScrollPane().setTranslateX(20);
 			controller.getScrollPane().setTranslateY(-230);
 			controller.getEditBtn().setVisible(false);
-			controller.addQuestionToTestForm(); // need to get questions from DB
-			controller.addQuestionToTestForm(); // need to get questions from DB
-			controller.addQuestionToTestForm(); // need to get questions from DB
+			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
+			int i = 1;
+			for (Question q : pickedQuestions) {
+				controller.addQuestionToTestForm(q, i, (double) 100 / pickedQuestions.size()); // adding questions to
+																								// preview
+				i++;
+			}
 			GeneralUIMethods.loadPage(testAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		// -------------need to implement an if statement that will block passage if no
 		// questions were selected--------------
-    }
-
+	}
 
 }

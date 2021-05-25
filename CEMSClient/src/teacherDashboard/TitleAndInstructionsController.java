@@ -15,4 +15,18 @@ public class TitleAndInstructionsController {
     @FXML
     private JFXTextArea instructionsTxtArea;
 
+	public Label getTestTitleLbl() {
+		return testTitleLbl;
+	}
+
+	public Label getInstructionsLbl() {
+		return instructionsLbl;
+	}
+
+	public JFXTextArea getInstructionsTxtArea() {
+		return instructionsTxtArea;
+	}
+    
+    
+
 }

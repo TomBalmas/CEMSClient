@@ -48,8 +48,8 @@
                                  <children>
                                     <JFXComboBox fx:id="selectFieldComboBox" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
                                     <JFXComboBox fx:id="selectFieldComboBox1" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
-                                    <JFXTextField prefWidth="155.0" promptText="Title" />
-                                    <JFXTextField prefWidth="155.0" promptText="Duration" />
+                                    <JFXTextField fx:id="titleTxt" prefWidth="155.0" promptText="Title" />
+                                    <JFXTextField fx:id="durationTxt" prefWidth="155.0" promptText="Duration" />
                                     <JFXTextArea fx:id="teacherInstructionsTxtArea" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea" />
                                     <JFXTextArea fx:id="studentInstructionsTxtArea1" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea" />
                                  </children>

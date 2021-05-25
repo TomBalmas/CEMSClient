@@ -8,26 +8,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.SetTestDateController">
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.SetTestDateController">
    <children>
-      <Label layoutX="404.0" layoutY="140.0" text="Set Date For Test">
+      <Label layoutX="330.0" layoutY="82.0" text="Set Date For Test">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="383.0" layoutY="265.0" text="Test Name:">
+      <Label layoutX="309.0" layoutY="207.0" text="Test Name:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="testNameLbl" layoutX="515.0" layoutY="265.0" text="testName">
+      <Label fx:id="testNameLbl" layoutX="441.0" layoutY="207.0" text="testName">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <JFXDatePicker fx:id="dateDP" layoutX="163.0" layoutY="400.0" />
-      <JFXTimePicker fx:id="timeTP" layoutX="344.0" layoutY="400.0" />
-      <JFXTextField fx:id="codeTxt" layoutX="530.0" layoutY="400.0" />
-      <JFXButton fx:id="setDateBtn" layoutX="678.0" layoutY="400.0" onMouseClicked="#setDateClicked" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
+      <JFXDatePicker fx:id="dateDP" layoutX="89.0" layoutY="342.0" />
+      <JFXTimePicker fx:id="timeTP" layoutX="270.0" layoutY="342.0" />
+      <JFXTextField fx:id="codeTxt" layoutX="456.0" layoutY="342.0" />
+      <JFXButton fx:id="setDateBtn" layoutX="604.0" layoutY="342.0" onMouseClicked="#setDateClicked" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
    </children>
 </AnchorPane>
