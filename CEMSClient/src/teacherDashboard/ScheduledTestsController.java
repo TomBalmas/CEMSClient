@@ -19,46 +19,46 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import teacherDashboard.TestBankUIController.TestRow;
 
-public class ScheduledTestsController implements Initializable{
-    @FXML
-    private AnchorPane contentPaneAnchor;
+public class ScheduledTestsController implements Initializable {
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private TableView<scheduleTestRow> scheduledTestsTbl;
+	@FXML
+	private TableView<scheduleTestRow> scheduledTestsTbl;
 
-    @FXML
-    private TableColumn<?, ?> idCol;
+	@FXML
+	private TableColumn<?, ?> idCol;
 
-    @FXML
-    private TableColumn<?, ?> titleCol;
+	@FXML
+	private TableColumn<?, ?> titleCol;
 
-    @FXML
-    private TableColumn<?, ?> authorCol;
+	@FXML
+	private TableColumn<?, ?> authorCol;
 
-    @FXML
-    private TableColumn<?, ?> dateCol;
+	@FXML
+	private TableColumn<?, ?> dateCol;
 
-    @FXML
-    private TableColumn<?, ?> startingTimeCol;
+	@FXML
+	private TableColumn<?, ?> startingTimeCol;
 
-    @FXML
-    private TableColumn<?, ?> durationCol;
+	@FXML
+	private TableColumn<?, ?> durationCol;
 
-    @FXML
-    private TableColumn<?, ?> viewCol;
+	@FXML
+	private TableColumn<?, ?> viewCol;
 
-    @FXML
-    private TableColumn<?, ?> rescheduleCol;
+	@FXML
+	private TableColumn<?, ?> rescheduleCol;
 
-    @FXML
-    private Label scheduledTestsLbl;
-    
-    public class scheduleTestRow {
+	@FXML
+	private Label scheduledTestsLbl;
+
+	public class scheduleTestRow {
 		private String title;
-		private int testId;
+		private String testId;
 		private String author;
 		private Date date;
 		private Time startingTime;
@@ -90,11 +90,11 @@ public class ScheduledTestsController implements Initializable{
 			this.title = title;
 		}
 
-		public int getTestId() {
+		public String getTestId() {
 			return testId;
 		}
 
-		public void setTestId(int testId) {
+		public void setTestId(String testId) {
 			this.testId = testId;
 		}
 
@@ -161,12 +161,12 @@ public class ScheduledTestsController implements Initializable{
 		public void setScheduledTest(ScheduledTest scheduledTest) {
 			this.scheduledTest = scheduledTest;
 		}
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ClientController.accept("SCHEDULED_TESTS-" + ClientController.getActiveUser().getSSN());
-		ArrayList<ScheduledTest> scheduledTestsArray = ClientController.getScheduledTests();
+		ArrayList<ScheduledTest> scheduledTests = ClientController.getScheduledTests();
 		idCol.setCellValueFactory(new PropertyValueFactory<>("TestId"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -175,9 +175,11 @@ public class ScheduledTestsController implements Initializable{
 		durationCol.setCellValueFactory(new PropertyValueFactory<>("Duration"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		rescheduleCol.setCellValueFactory(new PropertyValueFactory<>("Rechedule"));
-		for (int i = 0; i < scheduledTestsArray.size(); i++) {
-			scheduleTestRow tr = new scheduleTestRow(scheduledTestsArray.get(i));
-			scheduledTestsTbl.getItems().add(tr);
+		if (scheduledTests != null) {
+			for (int i = 0; i < scheduledTests.size(); i++) {
+				scheduleTestRow tr = new scheduleTestRow(scheduledTests.get(i));
+				scheduledTestsTbl.getItems().add(tr);
+			}
 		}
 	}
 

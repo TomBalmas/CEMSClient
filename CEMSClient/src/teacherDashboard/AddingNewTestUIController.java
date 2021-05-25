@@ -68,14 +68,14 @@ public class AddingNewTestUIController implements Initializable {
 	ObservableList fields = FXCollections.observableArrayList();
 
 	public class QuestionRow {
-		private Integer ID;
+		private String id;
 		private String author;
 		private String text;
 		private JFXButton viewBtn;
 		private CheckBox checkBox;
 
 		public QuestionRow(Question question) {
-			ID = question.getID();
+			id = question.getID();
 			author = question.getAuthor();
 			text = question.getQuestionText();
 			viewBtn = new JFXButton();
@@ -93,8 +93,8 @@ public class AddingNewTestUIController implements Initializable {
 			return checkBox;
 		}
 
-		public Integer getID() {
-			return ID;
+		public String getID() {
+			return id;
 		}
 
 		public String getAuthor() {

@@ -140,7 +140,7 @@ public class TestBankUIController implements Initializable {
 	 */
 	public class TestRow {
 		private String testName;
-		private int testId;
+		private String testId;
 		private String author;
 		private String course;
 		private String field;
@@ -191,11 +191,11 @@ public class TestBankUIController implements Initializable {
 			return test;
 		}
 
-		public int getTestId() {
+		public String getTestId() {
 			return testId;
 		}
 
-		public void setTestId(int testId) {
+		public void setTestId(String testId) {
 			this.testId = testId;
 		}
 
@@ -244,11 +244,11 @@ public class TestBankUIController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		selectCbox.setItems(filterBySelectBox);
-		ArrayList<Test> arr = null;
+		ArrayList<Test> tests = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			ClientController.accept("TEST_BANK-" + teacher.getFields().toString());
-			arr = ClientController.getTests();
+			tests = ClientController.getTests();
 		}
 		IDcol.setCellValueFactory(new PropertyValueFactory<>("testId"));
 		authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -260,21 +260,22 @@ public class TestBankUIController implements Initializable {
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("editBtn"));
 
-		for (int i = 0; i < arr.size(); i++) {
-			TestRow tr = new TestRow(arr.get(i));
-			testTable.getItems().add(tr);
-			tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
-				@Override
-				public void handle(ActionEvent event) {
-					TestRow toDelete = tr;
-					ClientController.accept("DELETE_TEST-" + tr.test.getID());
-					if (!ClientController.getTestDeleted())
-						System.out.println("not working");
-					testTable.getItems().remove(toDelete);
-				}
-			});
+		if (tests != null) {
+			for (int i = 0; i < tests.size(); i++) {
+				TestRow tr = new TestRow(tests.get(i));
+				testTable.getItems().add(tr);
+				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+					@Override
+					public void handle(ActionEvent event) {
+						TestRow toDelete = tr;
+						ClientController.accept("DELETE_TEST-" + tr.test.getID());
+						if (!ClientController.getTestDeleted())
+							System.out.println("not working");
+						testTable.getItems().remove(toDelete);
+					}
+				});
+			}
 		}
-
 	}
 
 }
