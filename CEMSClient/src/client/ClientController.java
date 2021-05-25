@@ -16,7 +16,7 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
-	private static ArrayList<ActiveTest> activeTest;
+	private static ArrayList<ActiveTest> activeTests;
 	private static boolean testDeleted;
 
 	public ClientController(String host, int port) {
@@ -86,14 +86,14 @@ public class ClientController {
 		ClientController.scheduledTests = scheduledTests;
 	}
 
-	public static void setActiveTest(ArrayList<ActiveTest> activeTest){
+	public static void setActiveTests(ArrayList<ActiveTest> activeTest){
 		
-		ClientController.activeTest = activeTest;	
+		ClientController.activeTests = activeTest;	
 	}
 	
-	public static ArrayList<ActiveTest> getActiveTest() {
+	public static ArrayList<ActiveTest> getActiveTests() {
 		
-		return activeTest;
+		return activeTests;
 		
 	}
 }
