@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
-
 import client.ClientController;
 import common.Question;
 import common.Teacher;
@@ -70,38 +69,36 @@ public class QuestionBankUIController implements Initializable {
 	@FXML
 	private AnchorPane tableViewAnchor;
 
+	@FXML
+	private TableView<questionRow> questionBankTable;
 
-    @FXML
-    private TableView<questionRow> questionBankTable;
+	@FXML
+	private TableColumn<?, ?> IDCol;
 
-    @FXML
-    private TableColumn<?, ?> IDCol;
+	@FXML
+	private TableColumn<?, ?> authorCol;
 
-    @FXML
-    private TableColumn<?, ?> authorCol;
+	@FXML
+	private TableColumn<?, ?> fieldCol;
 
-    @FXML
-    private TableColumn<?, ?> fieldCol;
+	@FXML
+	private TableColumn<?, ?> viewCol;
 
-    @FXML
-    private TableColumn<?, ?> viewCol;
+	@FXML
+	private TableColumn<?, ?> editCol;
 
-    @FXML
-    private TableColumn<?, ?> editCol;
-
-    @FXML
-    private TableColumn<?, ?> deleteCol;
+	@FXML
+	private TableColumn<?, ?> deleteCol;
 
 	@FXML
 	private JFXButton addAnewQuestionBtn;
 
 	private Node blankQuestionForm;
 	private Node QuestionForm;
-  
+
 	// ----------TODO: add teachers for priciple
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 
-	
 	@FXML
 	void searchBtnClicked(MouseEvent event) {
 
@@ -127,30 +124,28 @@ public class QuestionBankUIController implements Initializable {
 	}
 
 	public class questionRow {
-		private int Id;
+		private String id;
 		private String author;
 		private String field;
-		private JFXButton  ViewBtn;
-	
-		private JFXButton  DeleteBtn;
-		private JFXButton  EditBtn;
+		private JFXButton ViewBtn;
+
+		private JFXButton DeleteBtn;
+		private JFXButton EditBtn;
 		private Question question;
 
 		public questionRow(Question question) {
-			this.question=question;
-			Id=question.getID();
-			author=question.getAuthor();
-			field=question.getField();
-			this.ViewBtn = new JFXButton ("View");
-			this.DeleteBtn = new JFXButton ();
-			this.EditBtn = new JFXButton ();
+			this.question = question;
+			id = question.getID();
+			author = question.getAuthor();
+			field = question.getField();
+			this.ViewBtn = new JFXButton("View");
+			this.DeleteBtn = new JFXButton();
+			this.EditBtn = new JFXButton();
 			this.DeleteBtn.setText("Delete");
 			this.EditBtn.setText("Edit");
-			
+
 			ViewBtn.setMaxWidth(Double.MAX_VALUE);
-			
-		
-			
+
 			DeleteBtn.setMaxWidth(Double.MAX_VALUE);
 			EditBtn.setMaxWidth(Double.MAX_VALUE);
 			DeleteBtn.setStyle("-fx-background-color: TEAL;");
@@ -158,11 +153,9 @@ public class QuestionBankUIController implements Initializable {
 			ViewBtn.setStyle("-fx-background-color: TEAL;");
 		}
 
-		public int getID() {
-			return Id;
+		public String getID() {
+			return id;
 		}
-
-		
 
 		public String getAuthor() {
 			return author;
@@ -179,6 +172,7 @@ public class QuestionBankUIController implements Initializable {
 		public void setField(String field) {
 			this.field = field;
 		}
+
 		public JFXButton getViewBtn() {
 			return ViewBtn;
 		}
@@ -203,20 +197,16 @@ public class QuestionBankUIController implements Initializable {
 			this.EditBtn = editBtn;
 		}
 
-		
-
-	
-
 	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		selectCbox.setItems(filterBySelectBox);
-		ArrayList<Question> arr = null;
+		ArrayList<Question> questions = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields().toString());
-			arr = ClientController.getQuestions();
-			
+			questions = ClientController.getQuestions();
 		}
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
 		PropertyValueFactory fieldfactory = new PropertyValueFactory<>("field");
@@ -225,16 +215,13 @@ public class QuestionBankUIController implements Initializable {
 		fieldCol.setCellValueFactory(fieldfactory);
 		IDCol.setCellValueFactory(IDfactory);
 		authorCol.setCellValueFactory(authorFactory);
-		//viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
+		// viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		viewCol.setCellValueFactory(viewFactory);
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("EditBtn"));
-	
-		
-
-			for (int i = 0; i < arr.size(); i++)
-			{
-				questionRow qr = new questionRow(arr.get(i));
+		if (questions != null) {
+			for (int i = 0; i < questions.size(); i++) {
+				questionRow qr = new questionRow(questions.get(i));
 				questionBankTable.getItems().add(qr);
 				tableViewAnchor.setMouseTransparent(false);
 				qr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
@@ -248,12 +235,10 @@ public class QuestionBankUIController implements Initializable {
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				});
-		
+
 			}
-			
-					
-	}
-	     
+		}
+
 	}
 
-
+}
