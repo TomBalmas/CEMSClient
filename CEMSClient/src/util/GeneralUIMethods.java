@@ -90,6 +90,7 @@ public class GeneralUIMethods {
 	 */
 	public static void setPopupPane(StackPane sp) {
 		GeneralUIMethods.sp = sp;
+		sp.toBack();
 	}
 	
 	public static void setSideBar(VBox sideBar) {

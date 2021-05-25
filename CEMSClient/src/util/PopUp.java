@@ -33,6 +33,9 @@ public class PopUp {
 		// Create the popup
 		JFXDialogLayout dialogLayout = new JFXDialogLayout();
 		JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
+		
+		// Bring popup to the front!!! WOO-HOO!!!
+		root.toFront();
 
 		// Blur the background and prevent from user to access anywhere but the popup
 		EventHandler<MouseEvent> handler = MouseEvent::consume;
@@ -62,6 +65,8 @@ public class PopUp {
 		dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
 			if (nodeToBeBlurred != null)
 				nodeToBeBlurred.setEffect(null);
+			// Bring popup to the back!!! BOO-HOO!!!
+			root.toBack();
 		});
 	}
 }
