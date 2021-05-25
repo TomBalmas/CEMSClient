@@ -247,7 +247,7 @@ public class TestBankUIController implements Initializable {
 		ArrayList<Test> tests = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
-			ClientController.accept("TEST_BANK-" + teacher.getFields().toString());
+			ClientController.accept("TEST_BANK-" + teacher.getFields());
 			tests = ClientController.getTests();
 		}
 		IDcol.setCellValueFactory(new PropertyValueFactory<>("testId"));
