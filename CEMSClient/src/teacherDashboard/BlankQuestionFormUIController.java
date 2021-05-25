@@ -43,13 +43,13 @@ public class BlankQuestionFormUIController implements Initializable {
     @FXML
     private Label newQuestionFormLbl;
 
-    @FXML
+	@FXML
     private Label chooseAnswersLbl1;
 
     @FXML
     private JFXTextArea questionContentTxt;
 
-    @FXML
+	@FXML
     private AnchorPane insideFilterAnchor1;
 
     @FXML
@@ -61,7 +61,7 @@ public class BlankQuestionFormUIController implements Initializable {
     @FXML
     private JFXRadioButton answer2Btn;
 
-    @FXML
+	@FXML
     private JFXRadioButton answer3Btn;
 
     @FXML
@@ -159,4 +159,22 @@ public class BlankQuestionFormUIController implements Initializable {
 		correctAnswer3Lbl.setVisible(false);
 		correctAnswer4Lbl.setVisible(false);
 	}
+	
+    public Label getNewQuestionFormLbl() {
+		return newQuestionFormLbl;
+	}
+
+    public JFXTextArea getQuestionContentTxt() {
+		return questionContentTxt;
+	}
+    
+    public ArrayList<JFXTextArea> getAnswerTextFields() {
+    	ArrayList<JFXTextArea> answers = new ArrayList<JFXTextArea>();
+    	answers.add(answer1Txt);
+    	answers.add(answer2Txt);
+    	answers.add(answer3Txt);
+    	answers.add(answer4Txt);
+    	return answers;
+	}
+
 }
