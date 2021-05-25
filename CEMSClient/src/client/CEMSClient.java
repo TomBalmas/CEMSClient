@@ -27,7 +27,7 @@ public class CEMSClient extends ObservableClient {
 	}
 
 	/**
-	 * receives message from the UI and sends it to the server  
+	 * receives message from the UI and sends it to the server
 	 * 
 	 * @param msg
 	 * @throws Exception
@@ -64,16 +64,27 @@ public class CEMSClient extends ObservableClient {
 					activeUser = (Principle) msg;
 				}
 			} else if (msg instanceof ArrayList<?>) {
-				// get questions from question bank
-				if (((ArrayList<?>) msg).get(0) instanceof Question)
+				if (((ArrayList<?>) msg).isEmpty()) {
+					ClientController.setActiveTest(null);
+					ClientController.setQuestions(null);
+					ClientController.setScheduledTests(null);
+					ClientController.setTests(null);
+				}
+
+				// get questions from questions DB
+				else if (((ArrayList<?>) msg).get(0) instanceof Question)
 					ClientController.setQuestions((ArrayList<Question>) msg);
-				// get tests from test bank
+				// get tests from test DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
-				else if(((ArrayList<?>) msg).get(0) instanceof ScheduledTest)
+				// get scheduled tests from scheduled_tests DB
+				else if (((ArrayList<?>) msg).get(0) instanceof ScheduledTest) {
 					ClientController.setScheduledTests((ArrayList<ScheduledTest>) msg);
+				}
+				// get active tests from active_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
 					ClientController.setActiveTest((ArrayList<ActiveTest>) msg);
+
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))

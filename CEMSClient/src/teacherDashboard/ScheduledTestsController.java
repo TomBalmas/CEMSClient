@@ -167,6 +167,7 @@ public class ScheduledTestsController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ClientController.accept("SCHEDULED_TESTS-" + ClientController.getActiveUser().getSSN());
 		ArrayList<ScheduledTest> scheduledTests = ClientController.getScheduledTests();
+		scheduledTestsTbl.getItems().clear();
 		idCol.setCellValueFactory(new PropertyValueFactory<>("TestId"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -176,8 +177,8 @@ public class ScheduledTestsController implements Initializable {
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		rescheduleCol.setCellValueFactory(new PropertyValueFactory<>("Rechedule"));
 		if (scheduledTests != null) {
-			for (int i = 0; i < scheduledTests.size(); i++) {
-				scheduleTestRow tr = new scheduleTestRow(scheduledTests.get(i));
+			for (ScheduledTest test : scheduledTests) {
+				scheduleTestRow tr = new scheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
 			}
 		}
