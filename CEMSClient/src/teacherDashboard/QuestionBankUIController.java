@@ -205,7 +205,7 @@ public class QuestionBankUIController implements Initializable {
 		ArrayList<Question> questions = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
-			ClientController.accept("QUESTION_BANK-" + teacher.getFields().toString());
+			ClientController.accept("QUESTION_BANK-" + teacher.getFields());
 			questions = ClientController.getQuestions();
 		}
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
