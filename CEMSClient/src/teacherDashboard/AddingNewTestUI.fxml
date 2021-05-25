@@ -2,43 +2,145 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contentPaneAnchor" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.AddingNewTestUIController">
    <children>
-      <JFXButton fx:id="backBtn" layoutX="176.0" layoutY="708.0" onMouseClicked="#clickBack" prefHeight="41.0" prefWidth="157.0" text="Back">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="continueBtn" layoutX="671.0" layoutY="708.0" onMouseClicked="#clickContinue" prefHeight="41.0" prefWidth="157.0" text="Continue">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <Label fx:id="instructionsLbl" layoutX="142.0" layoutY="196.0" prefHeight="41.0" prefWidth="340.0" text="Choose questions to add to the test:">
+      <AnchorPane fx:id="setParametersAnchor" layoutX="30.0" layoutY="30.0" prefHeight="680.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
+         <children>
+            <AnchorPane fx:id="insidesetParametersAnchor" prefHeight="80.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <AnchorPane fx:id="parameterTitleAnchor" layoutY="40.0" prefHeight="605.0" prefWidth="422.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="12.0">
+                     <children>
+                        <AnchorPane fx:id="insideparameterTitleAnchor" layoutX="47.0" layoutY="40.0" prefHeight="552.0" styleClass="insideGrayPane" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0">
+                           <children>
+                              <TableView fx:id="questionTable" prefHeight="533.0" prefWidth="776.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="10.0">
+                                <columns>
+                                    <TableColumn fx:id="selectCol" editable="false" prefWidth="60.0" text="Select" />
+                                  <TableColumn fx:id="idCol" prefWidth="65.0" text="ID" />
+                                    <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
+                                  <TableColumn fx:id="textCol" prefWidth="375.0" text="Content" />
+                                    <TableColumn fx:id="viewCol" prefWidth="148.0" text="View Question" />
+                                </columns>
+                              </TableView>
+                              <VBox fx:id="labelsVBox" prefHeight="553.0" prefWidth="150.0" spacing="46.0" AnchorPane.leftAnchor="10.0">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Field" />
+                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Course" />
+                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Title" />
+                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Duration" />
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="parametersVBox" fillWidth="false" prefHeight="525.0" prefWidth="776.0" spacing="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <JFXComboBox fx:id="selectFieldComboBox" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
+                                    <JFXComboBox fx:id="selectFieldComboBox1" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
+                                    <JFXTextField prefWidth="155.0" promptText="Title" />
+                                    <JFXTextField prefWidth="155.0" promptText="Duration" />
+                                    <JFXTextArea fx:id="teacherInstructionsTxtArea" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea" />
+                                    <JFXTextArea fx:id="studentInstructionsTxtArea1" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <AnchorPane fx:id="testAnchor" maxHeight="553.0" maxWidth="799.0" prefHeight="553.0" prefWidth="799.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ScrollPane fx:id="testScrollPane" maxHeight="553.0" maxWidth="799.0" prefHeight="553.0" prefWidth="799.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <Label fx:id="headTitleLbl" text="Set test parmeters" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="13.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <styleClass>
+                        <String fx:value="paneBorder" />
+                        <String fx:value="grayPane" />
+                     </styleClass>
+                  </AnchorPane>
+                  <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Add a new test">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="backBtn1" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack1" text="Back1">
          <font>
             <Font size="19.0" />
          </font>
-      </Label>
-      <JFXComboBox fx:id="selectFieldComboBox" layoutX="428.0" layoutY="132.0" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
-      <Label fx:id="addNewTestLbl" layoutX="380.0" layoutY="57.0" prefHeight="53.0" prefWidth="255.0" text="Add a new test">
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="backBtn2" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack2" text="Back2" visible="false">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font size="19.0" />
          </font>
-      </Label>
-      <TableView fx:id="questionTable" layoutX="142.0" layoutY="247.0" prefHeight="400.0" prefWidth="729.0">
-        <columns>
-          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="textCol" prefWidth="75.0" text="Text" />
-            <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
-            <TableColumn fx:id="viewCol" prefWidth="148.0" text="View Question" />
-            <TableColumn fx:id="selectCol" prefWidth="112.0" text="Select Question" />
-        </columns>
-      </TableView>
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="backBtn3" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack3" text="Back3" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="finishBtn" layoutX="781.0" layoutY="740.0" onMouseClicked="#clickFinish" prefHeight="41.0" prefWidth="157.0" text="Finish" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="previewTestBtn" layoutX="781.0" layoutY="740.0" onMouseClicked="#clickPreviewTest" prefHeight="41.0" prefWidth="157.0" text="Preview test" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="continueWithParametersBtn" layoutX="835.0" layoutY="740.0" onMouseClicked="#clickContinueWithParameters" text="Continue">
+         <font>
+            <Font size="19.0" />
+         </font>
+         <styleClass>
+            <String fx:value="clickedButton" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
    </children>
 </AnchorPane>

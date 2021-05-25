@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -138,8 +139,9 @@ public class TestFormController implements Initializable {
 			uploadBtn.setVisible(false);
 			addTitleToTest();
 			vbox.setSpacing(10);
-			//if (ClientController.getRoleFrame().equals("Teacher")) - works only with user
-			//	scrollPane.setTranslateX(-280);
+			//FIX FOR BACKDOOR - REMOVE getRoleFrame
+			if (ClientController.getRoleFrame().equals("Teacher"))
+				scrollPane.setTranslateX(-280);
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
@@ -180,8 +182,9 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 */
 	public void addTitleToTest() throws IOException {
-		Node element = FXMLLoader.load(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
+		Region element = FXMLLoader.load(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
 		vbox.getChildren().add(element);
+		element.prefWidthProperty().bind(scrollPane.widthProperty());
 		scrollPane.setContent(vbox);
 	}
 
