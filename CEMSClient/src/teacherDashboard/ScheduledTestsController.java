@@ -60,8 +60,8 @@ public class ScheduledTestsController implements Initializable {
 		private String title;
 		private String testId;
 		private String author;
-		private Date date;
-		private Time startingTime;
+		private String date;
+		private String startingTime;
 		private int duration;
 		private JFXButton viewBtn;
 		private JFXButton setDateBtn;
@@ -106,19 +106,19 @@ public class ScheduledTestsController implements Initializable {
 			this.author = author;
 		}
 
-		public Date getDate() {
+		public String getDate() {
 			return date;
 		}
 
-		public void setDate(Date date) {
+		public void setDate(String date) {
 			this.date = date;
 		}
 
-		public Time getStartingTime() {
+		public String getStartingTime() {
 			return startingTime;
 		}
 
-		public void setStartingTime(Time startingTime) {
+		public void setStartingTime(String startingTime) {
 			this.startingTime = startingTime;
 		}
 
@@ -176,8 +176,8 @@ public class ScheduledTestsController implements Initializable {
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		rescheduleCol.setCellValueFactory(new PropertyValueFactory<>("Rechedule"));
 		if (scheduledTests != null) {
-			for (int i = 0; i < scheduledTests.size(); i++) {
-				scheduleTestRow tr = new scheduleTestRow(scheduledTests.get(i));
+			for (ScheduledTest test : scheduledTests) {
+				scheduleTestRow tr = new scheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
 			}
 		}

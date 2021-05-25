@@ -146,7 +146,8 @@ public class ViewActiveTestsController implements Initializable {
 	@FXML
 	private JFXButton viewTestBtn;
 
-	private Node requestTimeExtension, viewTest;
+	private Node requestTimeExtension;
+	private Node viewTest;
 	private String CODE = "Toosick22"; // -----------need to compare the code with a code from the DB----------- *1
 
 	/**
@@ -254,7 +255,8 @@ public class ViewActiveTestsController implements Initializable {
 	void backBtnClicked(MouseEvent event) {
 
 	}
-		//  
+
+	//
 	public class rowTableActiveTest {
 
 		private String id;
@@ -263,7 +265,7 @@ public class ViewActiveTestsController implements Initializable {
 		private String course;
 		private String field;
 		private String startTimeTest;
-		private String endTimeTest;
+		private String finishTime;
 
 		public rowTableActiveTest(ActiveTest activeTest) {
 
@@ -273,7 +275,10 @@ public class ViewActiveTestsController implements Initializable {
 			course = activeTest.getCourse();
 			field = activeTest.getField();
 			startTimeTest = activeTest.getStartTimeTest();
-			endTimeTest = activeTest.getEndTimeTest();
+			finishTime = activeTest.getFinishTime();
+		}
+		public String getFinishTime() {
+			return finishTime;
 		}
 
 		public String getID() {
@@ -300,10 +305,6 @@ public class ViewActiveTestsController implements Initializable {
 			return startTimeTest;
 		}
 
-		public String getEndTimeTest() {
-			return endTimeTest;
-		}
-
 	}
 
 	@Override
@@ -316,12 +317,11 @@ public class ViewActiveTestsController implements Initializable {
 			e.printStackTrace();
 		}
 
-		
-		ArrayList<ActiveTest> arr = null;
+		ArrayList<ActiveTest> activeTests = null;
 
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-			ClientController.accept("ACTIVE_TEST-");
-			arr = ClientController.getActiveTest();
+			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN());
+			activeTests = ClientController.getActiveTests();
 		}
 
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -330,13 +330,12 @@ public class ViewActiveTestsController implements Initializable {
 		CourseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		fieldCol1.setCellValueFactory(new PropertyValueFactory<>("field"));
 		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTimeTest"));
-		endTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTimeTest"));
-
-		for (int i = 0; i < arr.size(); i++) {
-			rowTableActiveTest tr = new rowTableActiveTest(arr.get(i));
-			activeTestsTbl.getItems().add(tr);
-
-		}
+		endTimeCol.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		if (activeTests != null)
+			for (ActiveTest activeTest : activeTests) {
+				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
+				activeTestsTbl.getItems().add(tr);
+			}
 
 	}
 }

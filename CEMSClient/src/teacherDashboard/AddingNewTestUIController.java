@@ -3,7 +3,9 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -161,15 +163,17 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ArrayList<Question> picked = new ArrayList<>();
+		Set<Question> picked = new HashSet<>();
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
-			fields.addAll(teacher.getFields());
+			String[] fieldsSplit = teacher.getFields().split("~");
+			for (String oneField : fieldsSplit)
+				fields.add(oneField);
 		}
 		selectFieldComboBox.setItems(fields);
 		selectFieldComboBox.setOnAction(event -> {
 			questionTable.getItems().clear();
-			ClientController.accept("QUESTION_BANK-[" + selectFieldComboBox.getValue() + "]");
+			ClientController.accept("QUESTION_BANK-" + selectFieldComboBox.getValue());
 			ArrayList<Question> questions = ClientController.getQuestions();
 			idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 			textCol.setCellValueFactory(new PropertyValueFactory<>("text"));
@@ -179,15 +183,22 @@ public class AddingNewTestUIController implements Initializable {
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
+				if (picked.contains(q))
+					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
 					if (qr.getCheckBox().isSelected())
 						picked.add(q);
 					else
 						picked.remove(q);
-					for (Question qe : picked)
-						System.out.println(qe.getID());
+					System.out.print("[");
+					for (Question qe : picked) {
+						System.out.print(qe.getID());
+						System.out.print(",");
+					}
+					System.out.print("]\n");
 				});
 			}
+			picked.clear();
 		});
 	}
 
