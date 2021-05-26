@@ -314,20 +314,10 @@ public class AddingNewTestUIController implements Initializable {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			System.out.println(sb.toString());
-
-			Test finishedTest = new Test("id", ClientController.getActiveUser().getName(), testTitle, course,
-					Integer.parseInt(duration), 100 / pickedQuestions.size(), studentInst, teacherInst, sb.toString(),
-					field); // TODO - get id from query and change points per question to double
-			// author,title,course,duration,pointsPerQuestion,studentInstructions,TeacherInstructions,questions,field
-			ClientController.accept("ADD_TEST-" + finishedTest.getAuthorName() + "," + finishedTest.getTitle() + ","
-					+ finishedTest.getCourse() + "," + finishedTest.getTestDuration() + ","
-					+ finishedTest.getPointsPerQuestion() + "," + finishedTest.getStudentInstructions() + ","
-					+ finishedTest.getTeacherInstructions() + "," + sb.toString() + ","
-					+ field);
-			System.out.println(ClientController.getId());
-			
-
-			// TODO - add query for adding test to table
+			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getName() + "," + testTitle + ","
+					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+					+ teacherInst + "," + sb.toString() + "," + field);
+			System.out.println(ClientController.getId()); // TODO - add popup test added
 
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
@@ -380,8 +370,7 @@ public class AddingNewTestUIController implements Initializable {
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
 			for (Question q : pickedQuestions) {
-				controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // adding questions to
-																						// preview
+				controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // adding questions to preview
 				i++;
 			}
 			GeneralUIMethods.loadPage(testAnchor, test);
