@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class CheckTestsUIController implements Initializable {
 
@@ -98,9 +99,7 @@ public class CheckTestsUIController implements Initializable {
 			e1.printStackTrace();
 		}
 		list.get(1).setOnAction(e -> GeneralUIMethods.loadPage(contentPaneAnchor, viewReports));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				list, "Test realesed", "Students can view the tests");
-
+		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Test realesed", "Students can view the tests", contentPaneAnchor, list, null);
 	}
 
 	public class rowTableCheckTests {

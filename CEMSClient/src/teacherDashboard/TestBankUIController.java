@@ -3,7 +3,13 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -29,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class TestBankUIController implements Initializable {
 
@@ -264,14 +271,31 @@ public class TestBankUIController implements Initializable {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
+				
+				//Schedule button
+				tr.getSetDateBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+					}
+				});
+				
+				//Delete button
 				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						TestRow toDelete = tr;
-						ClientController.accept("DELETE_TEST-" + tr.test.getID());
-						if (!ClientController.isTestDeleted())
-							System.out.println("not working");
-						testTable.getItems().remove(toDelete);
+						JFXButton yesBtn = new JFXButton("Yes");
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+							ClientController.accept("DELETE_TEST-" + tr.test.getID());
+							if (!ClientController.isTestDeleted())
+								System.out.println("not working");
+							testTable.getItems().remove(toDelete);
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+						});
+						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
+								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
 					}
 				});
 			}

@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,9 +21,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class BlankQuestionFormUIController implements Initializable {
 
@@ -110,13 +113,13 @@ public class BlankQuestionFormUIController implements Initializable {
 
 	@FXML
 	void clickSave() {
-		String questionID = "345"; //--------TODO: fetch from db
-		List<JFXButton> list = new ArrayList<JFXButton>();
-		list.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
-				"question Id: OVER 9000");
-		if (list.get(0).isPressed())
+		String questionID = "OVER 9000"; //--------TODO: fetch from db
+		JFXButton okayBtn = new JFXButton("Okay");
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 			clickBack();
+		});
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Question Saved", "question Id: " + questionID,
+				contentPaneAnchor, Arrays.asList(okayBtn), null);
 	}
 
 	/**

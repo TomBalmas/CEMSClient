@@ -12,14 +12,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import util.GeneralUIMethods;
+import util.PopUp;
 
 public class SetTestDateController {
 
     @FXML
     private AnchorPane contentPaneAnchor;
 
-    @FXML
+	@FXML
     private Label testNameLbl;
 
     @FXML
@@ -38,8 +40,11 @@ public class SetTestDateController {
     void setDateClicked(MouseEvent event) {
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				list, "Date and time changed successfully!", "");
+		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success", "Date and time changed successfully!", contentPaneAnchor, null, null);	
     }
+
+    public AnchorPane getContentPaneAnchor() {
+		return contentPaneAnchor;
+	}
 
 }

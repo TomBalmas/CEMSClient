@@ -73,9 +73,6 @@ public class AddingNewTestUIController implements Initializable {
 	private TableColumn<?, ?> viewCol;
 
 	@FXML
-	private VBox labelsVBox;
-
-	@FXML
 	private VBox parametersVBox;
 
 	@FXML
@@ -199,7 +196,7 @@ public class AddingNewTestUIController implements Initializable {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
 				
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
@@ -330,7 +327,6 @@ public class AddingNewTestUIController implements Initializable {
 		previewTestBtn.setVisible(true);
 		parametersVBox.setVisible(false);
 		questionTable.setVisible(true);
-		labelsVBox.setVisible(false);
 		headTitleLbl.setText("Choose questions to add to the test");
 		testTitle = titleTxt.getText();
 		duration = durationTxt.getText();

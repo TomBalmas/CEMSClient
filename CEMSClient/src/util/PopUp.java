@@ -1,5 +1,7 @@
 package util;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
@@ -8,34 +10,76 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.events.JFXDialogEvent;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import teacherDashboard.SetTestDateController;
 
 public class PopUp {
+
+	public enum TYPE {
+		ALERT, SUCCESS, INFORM, ERROR;
+	}
+
 	/*
 	 * Class for generic popup
-	 * @param StackPane - where the popup will be
-	 * @param AnchorPane - blur
-	 * @param VBox - where to prevent outside clicks
-	 * @param List<JFXButton> - buttons inside the popup
-	 * @param String - popup title
-	 * @param String - popup body
 	 */
-	public static void showMaterialDialog(StackPane root, AnchorPane nodeToBeBlurred, VBox sideBar,
-			List<JFXButton> controls, String header, String body) {
-		if (controls.isEmpty()) // If no button was entered, add okay button
-			controls.add(new JFXButton("Okay"));
+	public static boolean showMaterialDialog(TYPE type, String header, String body, AnchorPane nodeToBeBlurred,
+			List<JFXButton> btnsList, FXMLLoader o) {
 
-		// Create the popup
+		// Initialize
+		StackPane root = GeneralUIMethods.getPopupPane();
+		VBox sideBar = GeneralUIMethods.getSideBar();
+		boolean returnValue = false;
+		AnchorPane fxmlPopUp = null;
 		JFXDialogLayout dialogLayout = new JFXDialogLayout();
-		JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
-		
+
 		// Bring popup to the front!!! WOO-HOO!!!
 		root.toFront();
+
+		if(null == btnsList)
+			btnsList = new ArrayList<JFXButton>();
+		if (btnsList.isEmpty()) // If no button was entered, add okay button
+			btnsList.add(new JFXButton("Okay"));
+
+		switch (type) {
+		case ALERT:
+			System.out.println(btnsList);
+//			JFXButton noBtn = new JFXButton("No");
+//			btnsList.add(noBtn);
+			break;
+		case ERROR:
+			break;
+		case SUCCESS:
+			break;
+		default:
+			break;
+		}
+		
+		//Load fxml popup
+		if(null != o) {
+			try {
+				fxmlPopUp = o.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			SetTestDateController controller = ((FXMLLoader) o).getController();
+			//root.prefWidthProperty().bind(controller.getContentPaneAnchor().widthProperty());
+			//root.prefHeightProperty().bind(controller.getContentPaneAnchor().heightProperty());
+			fxmlPopUp.toFront();
+			dialogLayout.setBody(controller.getContentPaneAnchor());
+		}
+		else {
+			dialogLayout.setBody(new Label(body));
+			dialogLayout.setHeading(new Label(header));
+		}
+		
+		// Create the popup
+		JFXDialog dialog = new JFXDialog(root, dialogLayout, JFXDialog.DialogTransition.TOP);
 
 		// Blur the background and prevent from user to access anywhere but the popup
 		EventHandler<MouseEvent> handler = MouseEvent::consume;
@@ -47,7 +91,7 @@ public class PopUp {
 		sideBar.addEventFilter(MouseEvent.ANY, handler);
 
 		// On button click, remove bluring and filters
-		controls.forEach(controlButton -> {
+		btnsList.forEach(controlButton -> {
 			controlButton.getStyleClass().add("dialog-button");
 			controlButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
 				if (nodeToBeBlurred != null)
@@ -58,15 +102,15 @@ public class PopUp {
 		});
 
 		// Set popup parameters and display it
-		dialogLayout.setHeading(new Label(header));
-		dialogLayout.setBody(new Label(body));
-		dialogLayout.setActions(controls);
+		dialogLayout.setActions(btnsList);
 		dialog.show();
 		dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
 			if (nodeToBeBlurred != null)
 				nodeToBeBlurred.setEffect(null);
 			// Bring popup to the back!!! BOO-HOO!!!
-			root.toBack();
+			if (type != TYPE.ALERT)
+				root.toBack();
 		});
+		return false;
 	}
 }

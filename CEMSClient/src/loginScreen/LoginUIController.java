@@ -1,8 +1,6 @@
 package loginScreen;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -22,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class LoginUIController {
 
@@ -119,9 +118,9 @@ public class LoginUIController {
 					loginBtn.setVisible(false);
 				});
 			} else {
-				List<JFXButton> list = new ArrayList<JFXButton>();
-				list.add(new JFXButton("Okay"));
-				util.PopUp.showMaterialDialog(popupStackPane, null, menuVBox, list, "Error!", "Wrong username or password.");
+				GeneralUIMethods.setPopupPane(popupStackPane);
+				GeneralUIMethods.setSideBar(menuVBox);
+				PopUp.showMaterialDialog(PopUp.TYPE.ALERT,"Error!", "Wrong username or password.", null, null, null);
 			}
 		}
 	}
