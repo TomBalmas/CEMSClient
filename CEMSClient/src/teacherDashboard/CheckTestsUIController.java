@@ -128,7 +128,6 @@ public class CheckTestsUIController implements Initializable {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
 		tests = ClientController.getFinishedTests();
-		
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("testID"));
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 		startingTime.setCellValueFactory(new PropertyValueFactory<>("startingTime"));
