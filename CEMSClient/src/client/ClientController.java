@@ -18,6 +18,9 @@ public class ClientController {
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
 	private static boolean testDeleted;
+	private static boolean testScheduled;
+
+
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -54,7 +57,15 @@ public class ClientController {
 		return client.getActiveUser();
 	}
 	
-	public static boolean getTestDeleted() {
+	public static boolean isTestScheduled() {
+		return testScheduled;
+	}
+
+	public static void setTestScheduled(boolean testScheduled) {
+		ClientController.testScheduled = testScheduled;
+	}
+	
+	public static boolean isTestDeleted() {
 		return testDeleted;
 	}
 

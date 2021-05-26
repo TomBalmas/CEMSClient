@@ -269,7 +269,7 @@ public class TestBankUIController implements Initializable {
 					public void handle(ActionEvent event) {
 						TestRow toDelete = tr;
 						ClientController.accept("DELETE_TEST-" + tr.test.getID());
-						if (!ClientController.getTestDeleted())
+						if (!ClientController.isTestDeleted())
 							System.out.println("not working");
 						testTable.getItems().remove(toDelete);
 					}
