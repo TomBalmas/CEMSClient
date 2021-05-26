@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -128,7 +129,6 @@ public class QuestionBankUIController implements Initializable {
 		private String author;
 		private String field;
 		private JFXButton ViewBtn;
-
 		private JFXButton DeleteBtn;
 		private JFXButton EditBtn;
 		private Question question;
@@ -196,6 +196,14 @@ public class QuestionBankUIController implements Initializable {
 		public void setEditBtn(JFXButton editBtn) {
 			this.EditBtn = editBtn;
 		}
+		
+		public Question getQuestion() {
+			return question;
+		}
+
+		public void setQuestion(Question question) {
+			this.question = question;
+		}
 
 	}
 
@@ -228,7 +236,14 @@ public class QuestionBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							QuestionForm = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+							//QuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+							QuestionForm = loader.load();
+							BlankQuestionFormUIController controller = loader.getController();
+							controller.getNewQuestionFormLbl().setText("Viewing question " + qr.getID() + " by " + qr.getAuthor());
+							controller.getQuestionContentTxt().setText(qr.getQuestion().getQuestionText());
+							for(int j = 0; j < 4; j++)
+								controller.getAnswerTextFields().get(j).setText(qr.getQuestion().getAnswers().get(j));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}

@@ -63,14 +63,15 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setRoleFrame("Principle");
 					activeUser = (Principle) msg;
 				}
-			} else if (msg instanceof ArrayList<?>) {
+			}
+			// case of filling a table
+			else if (msg instanceof ArrayList<?>) {
 				if (((ArrayList<?>) msg).isEmpty()) {
-					ClientController.setActiveTest(null);
+					ClientController.setActiveTests(null);
 					ClientController.setQuestions(null);
 					ClientController.setScheduledTests(null);
 					ClientController.setTests(null);
 				}
-
 				// get questions from questions DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Question)
 					ClientController.setQuestions((ArrayList<Question>) msg);
@@ -83,15 +84,17 @@ public class CEMSClient extends ObservableClient {
 				}
 				// get active tests from active_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
-					ClientController.setActiveTest((ArrayList<ActiveTest>) msg);
-				
-				
+					ClientController.setActiveTests((ArrayList<ActiveTest>) msg);
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))
 					ClientController.setTestDeleted(true);
-				else
+				else if (str.equals("notDeleted"))
 					ClientController.setTestDeleted(false);
+				else if (str.equals("scheduled"))
+					ClientController.setTestScheduled(true);
+				else if(str.equals("notScheduled"))
+					ClientController.setTestScheduled(false);
 			}
 
 		}

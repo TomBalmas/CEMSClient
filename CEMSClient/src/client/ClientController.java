@@ -18,10 +18,12 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
-	private static ArrayList<ActiveTest> activeTest;
 	private static ArrayList<TestToBeChecked> checkTests;
 	private static boolean testDeleted;
-	
+	private static ArrayList<ActiveTest> activeTests;
+	private static boolean testDeleted;
+	private static boolean testScheduled;
+
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -56,8 +58,16 @@ public class ClientController {
 	public static User getActiveUser() {
 		return client.getActiveUser();
 	}
+	
+	public static boolean isTestScheduled() {
+		return testScheduled;
+	}
 
-	public static boolean getTestDeleted() {
+	public static void setTestScheduled(boolean testScheduled) {
+		ClientController.testScheduled = testScheduled;
+	}
+	
+	public static boolean isTestDeleted() {
 		return testDeleted;
 	}
 
@@ -89,24 +99,13 @@ public class ClientController {
 		ClientController.scheduledTests = scheduledTests;
 	}
 
-	public static void setActiveTest(ArrayList<ActiveTest> activeTest) {
-
-		ClientController.activeTest = activeTest;
-	}
-
-	public static ArrayList<ActiveTest> getActiveTest() {
-
-		return activeTest;
+	public static void setActiveTests(ArrayList<ActiveTest> activeTest){
+		
+		ClientController.activeTests = activeTest;	
 	}
 	
-	public static void setTestToBeChecked(ArrayList<TestToBeChecked> checkTests) {
-
-		ClientController.checkTests = checkTests;
-	}
-
-	public static ArrayList<TestToBeChecked> getTestToBeChecked() {
-		
-		return checkTests;
+	public static ArrayList<ActiveTest> getActiveTests() {
+		return activeTests;
 	}
 	
 }
