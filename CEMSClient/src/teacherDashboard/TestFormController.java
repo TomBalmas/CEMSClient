@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import client.ClientController;
+import common.Question;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -134,29 +135,17 @@ public class TestFormController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			downloadBtn.setVisible(false);
-			uploadBtn.setVisible(false);
-			addTitleToTest();
-			vbox.setSpacing(10);
-			//FIX FOR BACKDOOR - REMOVE getRoleFrame
-			if (ClientController.getRoleFrame().equals("Teacher"))
-				scrollPane.setTranslateX(-280);
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						addQuestionToTestForm();
-						addQuestionToTestForm();
-						addQuestionToTestForm();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		downloadBtn.setVisible(false);
+		uploadBtn.setVisible(false);
+		vbox.setSpacing(10);
+		// FIX FOR BACKDOOR - REMOVE getRoleFrame
+		if (ClientController.getRoleFrame().equals("Teacher"))
+			scrollPane.setTranslateX(-280);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+			}
+		});
 	}
 
 	/**
@@ -165,14 +154,20 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 *
 	 */
-	public void addQuestionToTestForm() throws IOException {
+	public void addQuestionToTestForm(Question q, int questionNumber, double points) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
-
 		if (flag)
 			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
+		controller.getQuestionNumLbl().setText("Question: " + questionNumber);
+		controller.getPointsLbl().setText(String.format("Points: %.2f", points));
+		controller.getContantTxt().setText(q.getQuestionText());
+		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
+		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
+		controller.getAnswer3Btn().setText(q.getAnswers().get(2));
+		controller.getAnswer4Btn().setText(q.getAnswers().get(3));
 		scrollPane.setContent(vbox);
 	}
 
@@ -181,8 +176,16 @@ public class TestFormController implements Initializable {
 	 * 
 	 * @throws IOException
 	 */
-	public void addTitleToTest() throws IOException {
-		Region element = FXMLLoader.load(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
+	public void addTitleAndInstructionsToTest(String title,String teacherInst,String studentInst) throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
+		Region element = loader.load();
+		TitleAndInstructionsController cont = loader.getController();
+		cont.getInstructionsTxtArea().appendText("Teacher instructions:\n");
+		cont.getInstructionsTxtArea().appendText(teacherInst);
+		cont.getInstructionsTxtArea().appendText("\nStudent instructions:\n");
+		cont.getInstructionsTxtArea().appendText(studentInst);
+		cont.getTestTitleLbl().setText(title);
 		vbox.getChildren().add(element);
 		element.prefWidthProperty().bind(scrollPane.widthProperty());
 		scrollPane.setContent(vbox);
