@@ -1,6 +1,8 @@
 package loginScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -15,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.GeneralUIMethods;
@@ -22,24 +25,27 @@ import util.Navigator;
 
 public class LoginUIController {
 
-	@FXML
-	private JFXTextField usernameTxt;
+    @FXML
+    private AnchorPane anchorLogin;
 
-	@FXML
-	private JFXPasswordField passwordTxt;
+    @FXML
+    private JFXTextField usernameTxt;
 
-	@FXML
-	private JFXButton loginBtn;
+    @FXML
+    private JFXPasswordField passwordTxt;
 
-	@FXML
-	private Label welcomeLbl;
+    @FXML
+    private JFXButton loginBtn;
 
-	@FXML
-	private VBox menuVBox;
+    @FXML
+    private Label welcomeLbl;
 
-	@FXML
-	private AnchorPane anchorLogin;
+    @FXML
+    private VBox menuVBox;
 
+    @FXML
+    private StackPane popupStackPane;
+    
 	private Node dashBoard;
 
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
@@ -113,8 +119,9 @@ public class LoginUIController {
 					loginBtn.setVisible(false);
 				});
 			} else {
-				// ------------------------ need to add pop up screen (case: wrong user name or
-				// password) ------------------------
+				List<JFXButton> list = new ArrayList<JFXButton>();
+				list.add(new JFXButton("Okay"));
+				util.PopUp.showMaterialDialog(popupStackPane, null, menuVBox, list, "Error!", "Wrong username or password.");
 			}
 		}
 	}

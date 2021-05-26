@@ -162,6 +162,5 @@ public class TeacherDashboardUIController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-		popUpWindow.toBack();
 	}
 }

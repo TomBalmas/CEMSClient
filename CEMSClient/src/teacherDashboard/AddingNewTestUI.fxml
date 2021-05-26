@@ -33,25 +33,14 @@
                                     <TableColumn fx:id="viewCol" prefWidth="148.0" text="View Question" />
                                 </columns>
                               </TableView>
-                              <VBox fx:id="labelsVBox" prefHeight="553.0" prefWidth="150.0" spacing="46.0" AnchorPane.leftAnchor="10.0">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <children>
-                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Field" />
-                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Course" />
-                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Title" />
-                                    <Label prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Duration" />
-                                 </children>
-                              </VBox>
                               <VBox fx:id="parametersVBox" fillWidth="false" prefHeight="525.0" prefWidth="776.0" spacing="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
                                  <children>
-                                    <JFXComboBox fx:id="selectFieldComboBox" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
-                                    <JFXComboBox fx:id="selectFieldComboBox1" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
-                                    <JFXTextField fx:id="titleTxt" prefWidth="155.0" promptText="Title" />
-                                    <JFXTextField fx:id="durationTxt" prefWidth="155.0" promptText="Duration" />
-                                    <JFXTextArea fx:id="teacherInstructionsTxtArea" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea" />
-                                    <JFXTextArea fx:id="studentInstructionsTxtArea1" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea" />
+                                    <JFXComboBox fx:id="selectFieldComboBox" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
+                                    <JFXComboBox fx:id="selectFieldComboBox1" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
+                                    <JFXTextField labelFloat="true" prefWidth="155.0" promptText="Title" />
+                                    <JFXTextField labelFloat="true" prefWidth="155.0" promptText="Duration" />
+                                    <JFXTextArea fx:id="teacherInstructionsTxtArea" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea" />
+                                    <JFXTextArea fx:id="studentInstructionsTxtArea1" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

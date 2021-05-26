@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 
@@ -25,6 +26,7 @@ import util.Navigator;
 
 public class BlankQuestionFormUIController implements Initializable {
 
+
     @FXML
     private AnchorPane contentPaneAnchor;
 
@@ -41,15 +43,21 @@ public class BlankQuestionFormUIController implements Initializable {
     private AnchorPane insideFilterAnchor;
 
     @FXML
-    private Label newQuestionFormLbl;
+    private Label chooseAnswersLbl11;
+
+    @FXML
+    private JFXComboBox<String> fieldCBox;
 
 	@FXML
+    private Label newQuestionFormLbl;
+
+    @FXML
     private Label chooseAnswersLbl1;
 
     @FXML
     private JFXTextArea questionContentTxt;
 
-	@FXML
+    @FXML
     private AnchorPane insideFilterAnchor1;
 
     @FXML
@@ -61,7 +69,7 @@ public class BlankQuestionFormUIController implements Initializable {
     @FXML
     private JFXRadioButton answer2Btn;
 
-	@FXML
+    @FXML
     private JFXRadioButton answer3Btn;
 
     @FXML
@@ -106,7 +114,7 @@ public class BlankQuestionFormUIController implements Initializable {
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
 		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
-				"question Id: " + questionID);
+				"question Id: OVER 9000");
 		if (list.get(0).isPressed())
 			clickBack();
 	}
@@ -175,6 +183,23 @@ public class BlankQuestionFormUIController implements Initializable {
     	answers.add(answer3Txt);
     	answers.add(answer4Txt);
     	return answers;
+	}
+    
+    public ArrayList<JFXRadioButton> getAnswerBtns() {
+    	ArrayList<JFXRadioButton> answersBtns = new ArrayList<JFXRadioButton>();
+    	answersBtns.add(answer1Btn);
+    	answersBtns.add(answer2Btn);
+    	answersBtns.add(answer3Btn);
+    	answersBtns.add(answer4Btn);
+    	return answersBtns;
+	}
+
+    public JFXButton getSaveBtn() {
+		return saveBtn;
+	}
+    
+    public JFXComboBox<?> getFieldCBox() {
+		return fieldCBox;
 	}
 
 }

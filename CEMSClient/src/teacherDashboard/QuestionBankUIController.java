@@ -96,6 +96,7 @@ public class QuestionBankUIController implements Initializable {
 
 	private Node blankQuestionForm;
 	private Node QuestionForm;
+	private BlankQuestionFormUIController blankQuestionFormUIController;
 
 	// ----------TODO: add teachers for priciple
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
@@ -227,30 +228,45 @@ public class QuestionBankUIController implements Initializable {
 		viewCol.setCellValueFactory(viewFactory);
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("EditBtn"));
+		
 		if (questions != null) {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow qr = new questionRow(questions.get(i));
 				questionBankTable.getItems().add(qr);
 				tableViewAnchor.setMouseTransparent(false);
-				qr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							//QuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
-							BlankQuestionFormUIController controller = loader.getController();
-							controller.getNewQuestionFormLbl().setText("Viewing question " + qr.getID() + " by " + qr.getAuthor());
-							controller.getQuestionContentTxt().setText(qr.getQuestion().getQuestionText());
+							JFXButton buttonText = (JFXButton) event.getSource();
+							blankQuestionFormUIController = loader.getController();
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
+							blankQuestionFormUIController.getQuestionContentTxt().setText(qr.getQuestion().getQuestionText());
+							blankQuestionFormUIController.getAnswerBtns().get(qr.getQuestion().getCorrectAnswer()).setSelected(true);
 							for(int j = 0; j < 4; j++)
-								controller.getAnswerTextFields().get(j).setText(qr.getQuestion().getAnswers().get(j));
+								blankQuestionFormUIController.getAnswerTextFields().get(j).setText(qr.getQuestion().getAnswers().get(j));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
+				};
+				
+				qr.getViewBtn().setOnAction(e ->{
+					btnEventHandler.handle(e);
+				    {
+				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						for(int p = 0; p < 4; p++) {
+							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
+							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
+							blankQuestionFormUIController.getSaveBtn().setVisible(false);
+						}
+						
+				    };
 				});
-
+				qr.getEditBtn().setOnAction(btnEventHandler);
 			}
 		}
 

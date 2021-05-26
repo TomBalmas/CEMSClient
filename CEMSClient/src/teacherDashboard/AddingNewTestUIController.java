@@ -18,6 +18,8 @@ import common.Teacher;
 import common.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -115,12 +117,14 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXButton finishBtn;
 
+
 	@FXML
 	private JFXButton previewTestBtn;
 
 	@FXML
 	private JFXButton continueWithParametersBtn;
-
+	private Node QuestionForm;
+	private BlankQuestionFormUIController blankQuestionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Node testBank;
 	private Set<Question> pickedQuestions;
@@ -194,6 +198,41 @@ public class AddingNewTestUIController implements Initializable {
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
+				
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
+					@Override
+					public void handle(ActionEvent event) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+							QuestionForm = loader.load();
+							JFXButton buttonText = (JFXButton) event.getSource();
+							blankQuestionFormUIController = loader.getController();
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
+							blankQuestionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
+							blankQuestionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
+							//blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField()); //---TODO:fix
+							//(q.getField().toString());
+							for(int j = 0; j < 4; j++)
+								blankQuestionFormUIController.getAnswerTextFields().get(j).setText(q.getAnswers().get(j));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
+					}
+				};
+				
+				qr.getViewBtn().setOnAction(e ->{
+					btnEventHandler.handle(e);
+				    {
+				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						for(int p = 0; p < 4; p++) {
+							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
+							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
+							blankQuestionFormUIController.getSaveBtn().setVisible(false);
+						}
+				    };
+				});
+				
 				if (pickedQuestions.contains(q))
 					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
@@ -228,28 +267,28 @@ public class AddingNewTestUIController implements Initializable {
 		}
 	}
 
-	@FXML
-	void clickBack2(MouseEvent event) {
-		backBtn1.setVisible(true);
-		backBtn2.setVisible(false);
-		continueWithParametersBtn.setVisible(true);
-		previewTestBtn.setVisible(false);
-		parametersVBox.setVisible(true);
-		questionTable.setVisible(false);
-		labelsVBox.setVisible(true);
-		headTitleLbl.setText("Set parameters");
-	}
+    @FXML
+    void clickBack2(MouseEvent event) {
+    	backBtn1.setVisible(true);
+    	backBtn2.setVisible(false);
+    	continueWithParametersBtn.setVisible(true);
+    	previewTestBtn.setVisible(false);
+    	parametersVBox.setVisible(true);
+    	questionTable.setVisible(false);
+    	headTitleLbl.setText("Set parameters");    	
+    }
 
-	@FXML
-	void clickBack3(MouseEvent event) {
-		backBtn2.setVisible(true);
-		backBtn3.setVisible(false);
-		previewTestBtn.setVisible(true);
-		finishBtn.setVisible(false);
-		questionTable.setVisible(true);
-		headTitleLbl.setText("Choose questions to add to the test");
-		testAnchor.setVisible(false);
-	}
+    @FXML
+    void clickBack3(MouseEvent event) {
+    	backBtn2.setVisible(true);
+    	backBtn3.setVisible(false);
+    	previewTestBtn.setVisible(true);
+    	finishBtn.setVisible(false);
+    	questionTable.setVisible(true);
+    	headTitleLbl.setText("Choose questions to add to the test");
+    	testAnchor.setVisible(false);
+    }
+
 
 	/**
 	 * clicking continue will move to blank test form only if at least one question

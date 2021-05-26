@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import java.lang.String?>
@@ -32,70 +33,76 @@
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
+                  <Label fx:id="chooseAnswersLbl11" alignment="CENTER" layoutY="40.0" textFill="#280505" visible="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXComboBox fx:id="fieldCBox" labelFloat="true" layoutY="53.0" prefWidth="150.0" promptText="Select field" />
                   <Label fx:id="newQuestionFormLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="New Question Form">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="chooseAnswersLbl1" alignment="CENTER" layoutY="40.0" text="Question content" textFill="#280505">
+                  <Label fx:id="chooseAnswersLbl1" alignment="CENTER" layoutY="120.0" text="Question content" textFill="#280505" visible="false">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="questionContentTxt" focusColor="#405aa800" layoutY="70.0" prefHeight="180.0" styleClass="questionTxtArea" unFocusColor="#4d4d4d00" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0">
+                  <JFXTextArea fx:id="questionContentTxt" focusColor="#415aa6" labelFloat="true" layoutY="119.0" prefHeight="200.0" promptText="Question content" styleClass="questionTxtArea" unFocusColor="#4d4d4d" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </JFXTextArea>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="insideFilterAnchor1" layoutY="315.0" prefHeight="350.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+            <AnchorPane fx:id="insideFilterAnchor1" layoutX="25.0" layoutY="347.0" prefHeight="300.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
                <children>
-                  <Label fx:id="chooseAnswersLbl" alignment="CENTER" text="Choose the correct answer:" textFill="#280505">
+                  <Label fx:id="chooseAnswersLbl" alignment="CENTER" layoutY="15.0" text="Choose the correct answer:" textFill="#280505">
                      <font>
                         <Font name="System Italic" size="20.0" />
                      </font>
                   </Label>
                   <JFXRadioButton fx:id="answer1Btn" layoutX="8.0" layoutY="47.0" prefHeight="44.0" prefWidth="654.0" />
-                  <JFXRadioButton fx:id="answer2Btn" layoutX="8.0" layoutY="107.0" prefHeight="45.0" prefWidth="654.0" />
-                  <JFXRadioButton fx:id="answer3Btn" layoutX="8.0" layoutY="165.0" prefHeight="45.0" prefWidth="654.0" />
-                  <JFXRadioButton fx:id="answer4Btn" layoutX="8.0" layoutY="221.0" prefHeight="45.0" prefWidth="654.0" />
-                  <Label fx:id="correctAnswer3Lbl" layoutX="670.0" layoutY="187.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+                  <JFXRadioButton fx:id="answer2Btn" layoutX="8.0" layoutY="113.0" prefHeight="45.0" prefWidth="654.0" />
+                  <JFXRadioButton fx:id="answer3Btn" layoutX="8.0" layoutY="169.0" prefHeight="45.0" prefWidth="654.0" />
+                  <JFXRadioButton fx:id="answer4Btn" layoutX="8.0" layoutY="231.0" prefHeight="45.0" prefWidth="654.0" />
+                  <Label fx:id="correctAnswer3Lbl" layoutX="712.0" layoutY="191.0" prefHeight="24.0" text="Correct answer" textFill="#0f9d58">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="correctAnswer2Lbl" layoutX="670.0" layoutY="123.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+                  <Label fx:id="correctAnswer2Lbl" layoutX="712.0" layoutY="129.0" prefHeight="24.0" text="Correct answer" textFill="#0f9d58">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="correctAnswer1Lbl" layoutX="670.0" layoutY="68.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+                  <Label fx:id="correctAnswer1Lbl" layoutX="712.0" layoutY="68.0" prefHeight="24.0" text="Correct answer" textFill="#0f9d58">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="correctAnswer4Lbl" layoutX="670.0" layoutY="241.0" prefHeight="24.0" prefWidth="116.0" text="Correct answer" textFill="#43f849">
+                  <Label fx:id="correctAnswer4Lbl" layoutX="712.0" layoutY="251.0" prefHeight="24.0" text="Correct answer" textFill="#0f9d58">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="answer4Txt" layoutX="35.0" layoutY="220.0" prefHeight="24.0" prefWidth="632.0" promptText="answer 4">
+                  <JFXTextArea fx:id="answer4Txt" layoutX="35.0" layoutY="230.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 4">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer3Txt" layoutX="35.0" layoutY="165.0" prefHeight="45.0" prefWidth="629.0" promptText="answer 3">
+                  <JFXTextArea fx:id="answer3Txt" layoutX="35.0" layoutY="169.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 3">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer2Txt" layoutX="37.0" layoutY="101.0" prefHeight="45.0" prefWidth="628.0" promptText="answer 2">
+                  <JFXTextArea fx:id="answer2Txt" layoutX="37.0" layoutY="107.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 2">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer1Txt" layoutX="35.0" layoutY="45.0" prefHeight="44.0" prefWidth="626.0" promptText="answer 1">
+                  <JFXTextArea fx:id="answer1Txt" layoutX="35.0" layoutY="45.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 1">
                      <font>
                         <Font size="15.0" />
                      </font>

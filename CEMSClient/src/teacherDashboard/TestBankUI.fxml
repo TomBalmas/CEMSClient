@@ -45,7 +45,7 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" accessibleRole="TABLE_VIEW" layoutX="63.0" layoutY="200.0" prefHeight="520.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
          <children>
-            <TableView fx:id="testTable" accessibleRole="PARENT" prefHeight="520.0" prefWidth="875.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="testTable" accessibleRole="PARENT" prefHeight="520.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
                 <TableColumn fx:id="IDcol" prefWidth="60.0" text="ID" />
                 <TableColumn fx:id="testNameCol" prefWidth="215.0" text="Test Name" />
