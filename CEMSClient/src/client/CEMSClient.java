@@ -3,6 +3,7 @@ package client;
 import java.util.ArrayList;
 
 import common.ActiveTest;
+import common.Course;
 import common.FinishedTest;
 import common.Principle;
 import common.Question;
@@ -89,6 +90,10 @@ public class CEMSClient extends ObservableClient {
 				//get finished tests from finished_tests DB
 				else if(((ArrayList<?>)msg).get(0) instanceof FinishedTest)
 					ClientController.setFinishedTests((ArrayList<FinishedTest>) msg);
+				//get courses by field 
+				else if(((ArrayList<?>)msg).get(0) instanceof Course)
+					ClientController.setCourses((ArrayList<Course>) msg);
+				
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))
@@ -99,6 +104,10 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTestScheduled(true);
 				else if(str.equals("notScheduled"))
 					ClientController.setTestScheduled(false);
+				else if(str.startsWith("testAdded")) {
+					String[] tmp = str.split(":");
+					ClientController.setId(tmp[1]);
+				}
 			}
 
 		}

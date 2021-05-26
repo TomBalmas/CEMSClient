@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.ActiveTest;
+import common.Course;
 import common.FinishedTest;
 import common.Question;
 import common.ScheduledTest;
@@ -21,7 +22,8 @@ public class ClientController {
 	private static ArrayList<ActiveTest> activeTests;
 	private static boolean testScheduled;
 	private static ArrayList<FinishedTest> finishedTests = null;
-
+	private static ArrayList<Course> courses = null;
+	private static String id =null;
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -56,7 +58,7 @@ public class ClientController {
 	public static User getActiveUser() {
 		return client.getActiveUser();
 	}
-	
+
 	public static boolean isTestScheduled() {
 		return testScheduled;
 	}
@@ -64,7 +66,7 @@ public class ClientController {
 	public static void setTestScheduled(boolean testScheduled) {
 		ClientController.testScheduled = testScheduled;
 	}
-	
+
 	public static boolean isTestDeleted() {
 		return testDeleted;
 	}
@@ -97,11 +99,11 @@ public class ClientController {
 		ClientController.scheduledTests = scheduledTests;
 	}
 
-	public static void setActiveTests(ArrayList<ActiveTest> activeTest){
-		
-		ClientController.activeTests = activeTest;	
+	public static void setActiveTests(ArrayList<ActiveTest> activeTest) {
+
+		ClientController.activeTests = activeTest;
 	}
-	
+
 	public static ArrayList<ActiveTest> getActiveTests() {
 		return activeTests;
 	}
@@ -109,10 +111,27 @@ public class ClientController {
 	public static ArrayList<FinishedTest> getFinishedTests() {
 		return finishedTests;
 	}
-	
+
 	public static void setFinishedTests(ArrayList<FinishedTest> finishedTests) {
 		ClientController.finishedTests = finishedTests;
 	}
 
+	public static ArrayList<Course> getCourses() {
+		return courses;
+	}
+
+	public static void setCourses(ArrayList<Course> courses) {
+		ClientController.courses = courses;
+	}
+
+	public static String getId() {
+		return id;
+	}
+
+	public static void setId(String id) {
+		ClientController.id = id;
+	}
 	
+	
+
 }

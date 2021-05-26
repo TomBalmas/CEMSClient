@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.QuestionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.QuestionController">
    <children>
       <Label fx:id="questionNumLbl" layoutX="10.0" layoutY="14.0" text="Question #:" underline="true">
          <font>
@@ -23,7 +23,5 @@
       <JFXRadioButton fx:id="answer2Btn" layoutX="15.0" layoutY="262.0" prefHeight="19.0" prefWidth="437.0" text="Answer 2" />
       <JFXRadioButton fx:id="answer3Btn" layoutX="15.0" layoutY="311.0" prefHeight="19.0" prefWidth="437.0" text="Answer 3" />
       <JFXRadioButton fx:id="answer4Btn" layoutX="15.0" layoutY="361.0" prefHeight="19.0" prefWidth="437.0" text="Answer 4" />
-      <JFXTextArea fx:id="teacherNotesTxt" layoutX="678.0" layoutY="211.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for teacher" />
-      <JFXTextArea fx:id="studentNotesTxt" layoutX="678.0" layoutY="12.0" prefHeight="179.0" prefWidth="268.0" promptText="Notes for student" />
    </children>
 </AnchorPane>

@@ -154,7 +154,7 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 *
 	 */
-	public void addQuestionToTestForm(Question q, int questionNumber, double points) throws IOException {
+	public void addQuestionToTestForm(Question q, int questionNumber, int points) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
@@ -162,7 +162,7 @@ public class TestFormController implements Initializable {
 			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
 		controller.getQuestionNumLbl().setText("Question: " + questionNumber);
-		controller.getPointsLbl().setText(String.format("Points: %.2f", points));
+		controller.getPointsLbl().setText(String.format("Points: %d", points));
 		controller.getContantTxt().setText(q.getQuestionText());
 		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
 		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
@@ -176,8 +176,8 @@ public class TestFormController implements Initializable {
 	 * 
 	 * @throws IOException
 	 */
-	public void addTitleAndInstructionsToTest(String title,String teacherInst,String studentInst) throws IOException {
-		
+	public void addTitleAndInstructionsToTest(String title, String teacherInst, String studentInst) throws IOException {
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
 		Region element = loader.load();
 		TitleAndInstructionsController cont = loader.getController();
