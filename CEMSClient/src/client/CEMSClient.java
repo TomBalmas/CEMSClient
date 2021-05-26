@@ -85,7 +85,6 @@ public class CEMSClient extends ObservableClient {
 				// get active tests from active_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
 					ClientController.setActiveTests((ArrayList<ActiveTest>) msg);
-
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))

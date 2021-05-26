@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.ActiveTest;
+import common.TestToBeChecked;
 import common.Question;
 import common.ScheduledTest;
 import common.Test;
 import common.User;
+import teacherDashboard.CheckTestsUIController;
 
 public class ClientController {
 
@@ -16,19 +18,19 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
+	private static ArrayList<TestToBeChecked> checkTests;
+	private static boolean testDeleted;
 	private static ArrayList<ActiveTest> activeTests;
 	private static boolean testDeleted;
 	private static boolean testScheduled;
-
 
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
 	}
 
-	/**  
-	 * UI request to server
-	 * format: REQUEST_NAME-arg0,arg1,arg2
+	/**
+	 * UI request to server format: REQUEST_NAME-arg0,arg1,arg2
 	 * 
 	 * @param str
 	 */
@@ -52,7 +54,7 @@ public class ClientController {
 	public static void setRoleFrame(String roleFrame) {
 		ClientController.roleFrame = roleFrame;
 	}
-	
+
 	public static User getActiveUser() {
 		return client.getActiveUser();
 	}
@@ -80,7 +82,7 @@ public class ClientController {
 	public static void setQuestions(ArrayList<Question> questions) {
 		ClientController.questions = questions;
 	}
-	
+
 	public static ArrayList<Test> getTests() {
 		return tests;
 	}
@@ -88,7 +90,7 @@ public class ClientController {
 	public static void setTests(ArrayList<Test> tests) {
 		ClientController.tests = tests;
 	}
-	
+
 	public static ArrayList<ScheduledTest> getScheduledTests() {
 		return scheduledTests;
 	}
@@ -103,8 +105,7 @@ public class ClientController {
 	}
 	
 	public static ArrayList<ActiveTest> getActiveTests() {
-		
 		return activeTests;
-		
 	}
+	
 }
