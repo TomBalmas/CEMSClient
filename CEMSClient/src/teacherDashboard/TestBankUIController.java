@@ -4,12 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -31,6 +26,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
@@ -168,18 +165,21 @@ public class TestBankUIController implements Initializable {
 			setDateBtn = new JFXButton();
 			deleteBtn = new JFXButton();
 			editBtn = new JFXButton();
-			deleteBtn.setText("Delete");
+			
+			Image image = new Image(getClass().getResourceAsStream("/util/images/delete1.png"));
+			deleteBtn.setGraphic(new ImageView(image));
+//			deleteBtn.setText("Delete");
 			editBtn.setText("Edit");
 			setDateBtn.setText("Set Date");
 			viewBtn.setText("View");
-			viewBtn.setMaxWidth(Double.MAX_VALUE);
-			setDateBtn.setMaxWidth(Double.MAX_VALUE);
-			editBtn.setMaxWidth(Double.MAX_VALUE);
-			deleteBtn.setMaxWidth(Double.MAX_VALUE);
-			deleteBtn.setStyle("-fx-background-color: red;");
-			editBtn.setStyle("-fx-background-color: teal;");
-			setDateBtn.setStyle("-fx-background-color: cyan;");
-			viewBtn.setStyle("-fx-background-color: orange;");
+//			viewBtn.setMaxWidth(Double.MAX_VALUE);
+//			setDateBtn.setMaxWidth(Double.MAX_VALUE);
+//			editBtn.setMaxWidth(Double.MAX_VALUE);
+//			deleteBtn.setMaxWidth(Double.MAX_VALUE);
+//			deleteBtn.setStyle("-fx-background-color: red;");
+//			editBtn.setStyle("-fx-background-color: teal;");
+//			setDateBtn.setStyle("-fx-background-color: cyan;");
+//			viewBtn.setStyle("-fx-background-color: orange;");
 		}
 
 		public JFXButton getViewBtn() {

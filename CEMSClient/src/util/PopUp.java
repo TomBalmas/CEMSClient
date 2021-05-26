@@ -48,7 +48,6 @@ public class PopUp {
 
 		switch (type) {
 		case ALERT:
-			System.out.println(btnsList);
 //			JFXButton noBtn = new JFXButton("No");
 //			btnsList.add(noBtn);
 			break;

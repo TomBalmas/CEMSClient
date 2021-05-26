@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,15 @@ public class LoginUIController {
     private AnchorPane anchorLogin;
 
     @FXML
+    private FontAwesomeIconView lockIcon;
+
+    @FXML
+    private FontAwesomeIconView userIcon;
+
+    @FXML
+    private StackPane popupStackPane;
+
+    @FXML
     private JFXTextField usernameTxt;
 
     @FXML
@@ -41,9 +51,6 @@ public class LoginUIController {
 
     @FXML
     private VBox menuVBox;
-
-    @FXML
-    private StackPane popupStackPane;
     
 	private Node dashBoard;
 
@@ -81,8 +88,7 @@ public class LoginUIController {
 				anchorLogin.getChildren().setAll(dashBoard);
 			} catch (IOException e2) {
 				e2.printStackTrace();
-			}
-			;
+			};
 		} else {
 			if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
 				// ------------------------ need to add notice to enter all arguments (case:
@@ -105,17 +111,13 @@ public class LoginUIController {
 						e1.printStackTrace();
 					}
 				});
-				GeneralUIMethods.moveItem(usernameTxt, 0, 0.55, (e) -> {
+				GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
 					usernameTxt.setVisible(false);
-				});
-				GeneralUIMethods.moveItem(passwordTxt, 0, 0.55, (e) -> {
 					passwordTxt.setVisible(false);
-				});
-				GeneralUIMethods.moveItem(welcomeLbl, 0, 0.55, (e) -> {
 					welcomeLbl.setVisible(false);
-				});
-				GeneralUIMethods.moveItem(loginBtn, 0, 0.55, (e) -> {
 					loginBtn.setVisible(false);
+					userIcon.setVisible(false);
+					lockIcon.setVisible(false);
 				});
 			} else {
 				GeneralUIMethods.setPopupPane(popupStackPane);
