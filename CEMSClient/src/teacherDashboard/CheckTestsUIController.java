@@ -10,9 +10,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
-import common.TestToBeChecked;
+import common.FinishedTest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -23,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class CheckTestsUIController {
+public class CheckTestsUIController implements Initializable {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -107,20 +108,16 @@ public class CheckTestsUIController {
 		private String testID;
 		private String date;
 		private String startingTime;
-		private String testCode;
 		private String title;
 		private String course;
-		private String pointsPErQuestion;
 
-		public rowTableCheckTests(TestToBeChecked checkTest) {
+		public rowTableCheckTests(FinishedTest checkTest) {
 
 			this.testID = checkTest.getID();
 			this.date = checkTest.getDate();
 			this.startingTime = checkTest.getStartingTime();
-			this.testCode = checkTest.getTestCode();
 			this.title = checkTest.getTitle();
 			this.course = checkTest.getCourse();
-			this.pointsPErQuestion = checkTest.getPointsPErQuestion();
 
 		}
 
@@ -128,10 +125,10 @@ public class CheckTestsUIController {
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		ArrayList<TestToBeChecked> tests = null;
-		ClientController.accept("CHECK_TESTS-");
-		tests = ClientController.getTestToBeChecked();
-
+		ArrayList<FinishedTest> tests = null;
+		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
+		tests = ClientController.getFinishedTests();
+		
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("testID"));
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 		startingTime.setCellValueFactory(new PropertyValueFactory<>("startingTime"));
@@ -140,8 +137,7 @@ public class CheckTestsUIController {
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		pointsPerQuestinCol.setCellValueFactory(new PropertyValueFactory<>("pointsPErQuestion"));
 
-		
-		for (TestToBeChecked test : tests) {
+		for (FinishedTest test : tests) {
 			rowTableCheckTests row = new rowTableCheckTests(test);
 			testTbl.getItems().add(row);
 		}

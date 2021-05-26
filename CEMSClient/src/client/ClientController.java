@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.ActiveTest;
-import common.TestToBeChecked;
+import common.FinishedTest;
 import common.Question;
 import common.ScheduledTest;
 import common.Test;
 import common.User;
-import teacherDashboard.CheckTestsUIController;
 
 public class ClientController {
 
@@ -18,11 +17,10 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
-	private static ArrayList<TestToBeChecked> checkTests;
 	private static boolean testDeleted;
 	private static ArrayList<ActiveTest> activeTests;
-	private static boolean testDeleted;
 	private static boolean testScheduled;
+	private static ArrayList<FinishedTest> finishedTests = null;
 
 
 	public ClientController(String host, int port) {
@@ -107,5 +105,14 @@ public class ClientController {
 	public static ArrayList<ActiveTest> getActiveTests() {
 		return activeTests;
 	}
+
+	public static ArrayList<FinishedTest> getFinishedTests() {
+		return finishedTests;
+	}
+	
+	public static void setFinishedTests(ArrayList<FinishedTest> finishedTests) {
+		ClientController.finishedTests = finishedTests;
+	}
+
 	
 }

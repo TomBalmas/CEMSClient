@@ -3,6 +3,7 @@ package client;
 import java.util.ArrayList;
 
 import common.ActiveTest;
+import common.FinishedTest;
 import common.Principle;
 import common.Question;
 import common.ScheduledTest;
@@ -85,6 +86,9 @@ public class CEMSClient extends ObservableClient {
 				// get active tests from active_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
 					ClientController.setActiveTests((ArrayList<ActiveTest>) msg);
+				//get finished tests from finished_tests DB
+				else if(((ArrayList<?>)msg).get(0) instanceof FinishedTest)
+					ClientController.setFinishedTests((ArrayList<FinishedTest>) msg);
 			} else if (msg instanceof String) {
 				String str = (String) msg;
 				if (str.equals("deleted"))
