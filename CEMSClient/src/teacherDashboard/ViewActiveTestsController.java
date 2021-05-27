@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class ViewActiveTestsController implements Initializable {
 	@FXML
@@ -157,10 +159,7 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void lockClicked(MouseEvent event) {
-		List<JFXButton> buttonsList = new ArrayList<JFXButton>();
-		buttonsList.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				buttonsList, "Test " + CODE + " is now locked!", "");
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!", contentPaneAnchor, null, null);	
 		lockBtn.setText("Locked");
 		lockBtn.setDisable(true);
 	}
@@ -226,8 +225,7 @@ public class ViewActiveTestsController implements Initializable {
 	void clicksendForApproval(MouseEvent event) {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				l, "Request sent for principles approval", "");
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!", contentPaneAnchor, null, null);	
 	}
 
 	@FXML

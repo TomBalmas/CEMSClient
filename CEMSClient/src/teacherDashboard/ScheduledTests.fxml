@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,26 +11,41 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.ScheduledTestsController">
    <children>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="196.0" prefHeight="405.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="180.0" prefHeight="577.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <TableView fx:id="scheduledTestsTbl" layoutY="-1.0" prefHeight="405.0" prefWidth="874.0">
+            <TableView fx:id="scheduledTestsTbl" prefHeight="405.0" prefWidth="874.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="titleCol" prefWidth="75.0" text="Title" />
-                  <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
-                  <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="startingTimeCol" prefWidth="100.0" text="Starting Time" />
-                  <TableColumn fx:id="durationCol" prefWidth="75.0" text="Duration" />
-                  <TableColumn fx:id="viewCol" prefWidth="75.0" text="View" />
-                  <TableColumn fx:id="rescheduleCol" prefWidth="90.0" text="Reschedule" />
+                <TableColumn fx:id="idCol" prefWidth="70.0" text="ID" />
+                <TableColumn fx:id="titleCol" prefWidth="132.0" text="Title" />
+                  <TableColumn fx:id="authorCol" prefWidth="134.0" text="Author" />
+                  <TableColumn fx:id="dateCol" prefWidth="102.0" text="Date" />
+                  <TableColumn fx:id="startingTimeCol" prefWidth="143.0" text="Starting Time" />
+                  <TableColumn fx:id="durationCol" prefWidth="90.0" text="Duration" />
+                  <TableColumn fx:id="rescheduleCol" prefWidth="106.0" text="Reschedule" />
+                  <TableColumn fx:id="viewCol" prefWidth="76.0" text="View" />
               </columns>
             </TableView>
          </children>
       </AnchorPane>
-      <Label fx:id="scheduledTestsLbl" alignment="TOP_LEFT" layoutX="412.0" layoutY="110.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="177.0" styleClass="pageTitle" text="Scheduled Tests">
-         <font>
-            <Font name="System Bold" size="23.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="60.0" prefHeight="131.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <Label fx:id="checkTestLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Scheduled Tests">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="searchField" layoutY="40.0" prefHeight="31.0" prefWidth="740.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
+                  <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="761.0" layoutY="40.0" onMouseClicked="#filterBtn" text="Search" textAlignment="CENTER">
+                     <styleClass>
+                        <String fx:value="filterButton" />
+                        <String fx:value="btn" />
+                     </styleClass>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
