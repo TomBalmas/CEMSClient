@@ -11,8 +11,13 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 
+import client.ClientController;
+import common.Teacher;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -98,25 +103,83 @@ public class BlankQuestionFormUIController implements Initializable {
 
     @FXML
     private JFXTextArea answer1Txt;
+    private int correctAnswer;
+
+
+	public int getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	public void setCorrectAnswer(int correctAnswer) {
+		this.correctAnswer = correctAnswer;
+	}
 
 	private Node questionBank;
 	// toggle group for allowing one choice of radio button
 	final ToggleGroup group = new ToggleGroup();
+	private int selectedAnswer=0;
+	private String author;
+	ObservableList fields = FXCollections.observableArrayList();
+
+
+
+
 
 	@FXML
-	void clickBack() {
-		GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
+	void clickBack() throws IOException {
+		
+		Node page;
+		try {
+			page = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
+			GeneralUIMethods.loadPage(contentPaneAnchor, page);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	
+		//GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 	}
 
 	@FXML
-	void clickSave() {
-		String questionID = "345"; //--------TODO: fetch from db
+	void clickSave() throws IOException {
+		
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",
-				"question Id: OVER 9000");
 		if (list.get(0).isPressed())
 			clickBack();
+		ArrayList<JFXTextArea> answers = getAnswerTextFields();
+		Teacher teacher = (Teacher) ClientController.getActiveUser();
+		//query to add question to dataBase
+		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
+		{
+			
+			//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
+			String queryAddQuestion= "ADD_QUESTION-" + teacher.getName() + "," + getQuestionContentTxt().getText() + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
+			answers.get(0).getText() + "," +  answers.get(1).getText() + "," +  answers.get(2).getText() + "," +  answers.get(3).getText();
+			ClientController.accept(queryAddQuestion);
+			//show popup
+			String toShow="Question ID: " ;
+			toShow=toShow.concat(ClientController.getNewQuestionId());
+			util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",toShow);
+				
+			  System.out.println(ClientController.isQuestionAdded());
+		}
+		//query for editing question
+		else {
+			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" "); 
+			ArrayList<JFXTextArea> answersArray = getAnswerTextFields();
+			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacher.getName() + "," +getQuestionContentTxt().getText() + "," + getCorrectAnswer() +"," +fieldCBox.getPromptText().toString()+ "," +
+	    	answersArray.get(0).getText() + "," +  answersArray.get(1).getText() + "," +  answersArray.get(2).getText() + "," +  answersArray.get(3).getText();
+			ClientController.accept(queryEditQuestion );
+			boolean answerEdit =  ClientController.isQuestionEdited();
+			System.out.println(answerEdit);
+		 
+		
+			
+			
+		}
+		
 	}
 
 	/**
@@ -125,6 +188,12 @@ public class BlankQuestionFormUIController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			Teacher teacher = (Teacher) ClientController.getActiveUser();
+			String[] fieldsSplit = teacher.getFields().split("~");
+			for (String oneField : fieldsSplit)
+				fields.add(oneField);
+			getFieldCBox().setItems(fields);
+			
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -144,12 +213,16 @@ public class BlankQuestionFormUIController implements Initializable {
 					setToggleGroupNotVisible();
 					if (button.equals(answer1Btn))
 						correctAnswer1Lbl.setVisible(true);
+						correctAnswer=1;
 					if (button.equals(answer2Btn))
 						correctAnswer2Lbl.setVisible(true);
+						correctAnswer=2;
 					if (button.equals(answer3Btn))
 						correctAnswer3Lbl.setVisible(true);
+						correctAnswer=3;
 					if (button.equals(answer4Btn))
 						correctAnswer4Lbl.setVisible(true);
+						correctAnswer=4;
 
 				}
 
@@ -201,5 +274,13 @@ public class BlankQuestionFormUIController implements Initializable {
     public JFXComboBox<?> getFieldCBox() {
 		return fieldCBox;
 	}
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+   
 
 }
