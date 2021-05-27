@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -25,10 +26,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class TestBankUIController implements Initializable {
 
@@ -161,18 +165,21 @@ public class TestBankUIController implements Initializable {
 			setDateBtn = new JFXButton();
 			deleteBtn = new JFXButton();
 			editBtn = new JFXButton();
-			deleteBtn.setText("Delete");
+			
+			Image image = new Image(getClass().getResourceAsStream("/util/images/delete1.png"));
+			deleteBtn.setGraphic(new ImageView(image));
+//			deleteBtn.setText("Delete");
 			editBtn.setText("Edit");
 			setDateBtn.setText("Set Date");
 			viewBtn.setText("View");
-			viewBtn.setMaxWidth(Double.MAX_VALUE);
-			setDateBtn.setMaxWidth(Double.MAX_VALUE);
-			editBtn.setMaxWidth(Double.MAX_VALUE);
-			deleteBtn.setMaxWidth(Double.MAX_VALUE);
-			deleteBtn.setStyle("-fx-background-color: red;");
-			editBtn.setStyle("-fx-background-color: teal;");
-			setDateBtn.setStyle("-fx-background-color: cyan;");
-			viewBtn.setStyle("-fx-background-color: orange;");
+//			viewBtn.setMaxWidth(Double.MAX_VALUE);
+//			setDateBtn.setMaxWidth(Double.MAX_VALUE);
+//			editBtn.setMaxWidth(Double.MAX_VALUE);
+//			deleteBtn.setMaxWidth(Double.MAX_VALUE);
+//			deleteBtn.setStyle("-fx-background-color: red;");
+//			editBtn.setStyle("-fx-background-color: teal;");
+//			setDateBtn.setStyle("-fx-background-color: cyan;");
+//			viewBtn.setStyle("-fx-background-color: orange;");
 		}
 
 		public JFXButton getViewBtn() {
@@ -264,14 +271,31 @@ public class TestBankUIController implements Initializable {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
+				
+				//Schedule button
+				tr.getSetDateBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+					}
+				});
+				
+				//Delete button
 				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						TestRow toDelete = tr;
-						ClientController.accept("DELETE_TEST-" + tr.test.getID());
-						if (!ClientController.isTestDeleted())
-							System.out.println("not working");
-						testTable.getItems().remove(toDelete);
+						JFXButton yesBtn = new JFXButton("Yes");
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+							ClientController.accept("DELETE_TEST-" + tr.test.getID());
+							if (!ClientController.isTestDeleted())
+								System.out.println("not working");
+							testTable.getItems().remove(toDelete);
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+						});
+						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
+								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
 					}
 				});
 			}

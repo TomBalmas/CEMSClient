@@ -37,8 +37,8 @@
                                  <children>
                                     <JFXComboBox fx:id="selectFieldComboBox" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
                                     <JFXComboBox fx:id="selectFieldComboBox1" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
-                                    <JFXTextField labelFloat="true" prefWidth="155.0" promptText="Title" />
-                                    <JFXTextField labelFloat="true" prefWidth="155.0" promptText="Duration" />
+                                    <JFXTextField fx:id="titleTxt" labelFloat="true" prefWidth="155.0" promptText="Title" />
+                                    <JFXTextField fx:id="durationTxt" labelFloat="true" prefWidth="155.0" promptText="Duration" />
                                     <JFXTextArea fx:id="teacherInstructionsTxtArea" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea" />
                                     <JFXTextArea fx:id="studentInstructionsTxtArea1" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea" />
                                  </children>

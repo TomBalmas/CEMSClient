@@ -3,21 +3,26 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginScreen.LoginUIController">
+<AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginScreen.LoginUIController">
    <children>
+      <FontAwesomeIconView fx:id="lockIcon" glyphName="LOCK" layoutX="376.0" layoutY="409.0" size="20" wrappingWidth="20.0" />
+      <FontAwesomeIconView fx:id="userIcon" glyphName="USER" layoutX="374.0" layoutY="340.0" size="20" wrappingWidth="20.0" />
+      <StackPane fx:id="popupStackPane" layoutX="300.0" layoutY="300.0" prefHeight="150.0" prefWidth="400.0" />
       <JFXTextField fx:id="usernameTxt" labelFloat="true" layoutX="400.0" layoutY="316.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Username" />
       <JFXPasswordField fx:id="passwordTxt" labelFloat="true" layoutX="400.0" layoutY="386.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Password" />
-      <JFXButton fx:id="loginBtn" layoutX="400.0" layoutY="455.0" onMouseClicked="#clickLogin" prefHeight="35.0" prefWidth="203.0" style="-fx-background-color: #00ADB5;" text="Login" />
+      <JFXButton fx:id="loginBtn" layoutX="400.0" layoutY="455.0" onAction="#clickLogin" prefHeight="35.0" prefWidth="203.0" styleClass="clickedButton" text="Login" />
       <Label fx:id="welcomeLbl" alignment="CENTER" layoutX="400.0" layoutY="240.0" prefHeight="38.0" prefWidth="203.0" text="WELCOME">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <VBox fx:id="menuVBox" layoutX="997.0" prefHeight="800.0" prefWidth="283.0" style="-fx-background-color: #393E46;" />
+      <VBox id="sideBar" fx:id="menuVBox" layoutX="997.0" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" />
    </children>
 </AnchorPane>

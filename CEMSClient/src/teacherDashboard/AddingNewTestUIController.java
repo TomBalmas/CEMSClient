@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Course;
 import common.Question;
 import common.Teacher;
 import common.Test;
@@ -73,9 +74,6 @@ public class AddingNewTestUIController implements Initializable {
 	private TableColumn<?, ?> viewCol;
 
 	@FXML
-	private VBox labelsVBox;
-
-	@FXML
 	private VBox parametersVBox;
 
 	@FXML
@@ -117,7 +115,6 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXButton finishBtn;
 
-
 	@FXML
 	private JFXButton previewTestBtn;
 
@@ -130,7 +127,7 @@ public class AddingNewTestUIController implements Initializable {
 	private Set<Question> pickedQuestions;
 
 	ObservableList fields = FXCollections.observableArrayList();
-	ObservableList courses = FXCollections.observableArrayList();// -----------TODO
+	ObservableList courses = FXCollections.observableArrayList();
 
 	public class QuestionRow {
 		private String id;
@@ -195,44 +192,55 @@ public class AddingNewTestUIController implements Initializable {
 			authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
 			viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
+			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldComboBox.getValue());
+			courses.clear();
+			for (Course course : ClientController.getCourses())
+				courses.add(course.getCourseName());
+			selectFieldComboBox1.setItems(courses);
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
-				
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
+
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and
+																								// DB
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+							FXMLLoader loader = new FXMLLoader(
+									getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							JFXButton buttonText = (JFXButton) event.getSource();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
+									buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
-							//blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField()); //---TODO:fix
-							//(q.getField().toString());
-							for(int j = 0; j < 4; j++)
-								blankQuestionFormUIController.getAnswerTextFields().get(j).setText(q.getAnswers().get(j));
+							// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
+							// //---TODO:fix
+							// (q.getField().toString());
+							for (int j = 0; j < 4; j++)
+								blankQuestionFormUIController.getAnswerTextFields().get(j)
+										.setText(q.getAnswers().get(j));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				};
-				
-				qr.getViewBtn().setOnAction(e ->{
+
+				qr.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
-				    {
-				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
-						for(int p = 0; p < 4; p++) {
+					{
+						blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						for (int p = 0; p < 4; p++) {
 							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
 							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							blankQuestionFormUIController.getSaveBtn().setVisible(false);
 						}
-				    };
+					}
+					;
 				});
-				
+
 				if (pickedQuestions.contains(q))
 					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
@@ -250,6 +258,7 @@ public class AddingNewTestUIController implements Initializable {
 			}
 			pickedQuestions.clear();
 		});
+
 	}
 
 	/**
@@ -267,28 +276,27 @@ public class AddingNewTestUIController implements Initializable {
 		}
 	}
 
-    @FXML
-    void clickBack2(MouseEvent event) {
-    	backBtn1.setVisible(true);
-    	backBtn2.setVisible(false);
-    	continueWithParametersBtn.setVisible(true);
-    	previewTestBtn.setVisible(false);
-    	parametersVBox.setVisible(true);
-    	questionTable.setVisible(false);
-    	headTitleLbl.setText("Set parameters");    	
-    }
+	@FXML
+	void clickBack2(MouseEvent event) {
+		backBtn1.setVisible(true);
+		backBtn2.setVisible(false);
+		continueWithParametersBtn.setVisible(true);
+		previewTestBtn.setVisible(false);
+		parametersVBox.setVisible(true);
+		questionTable.setVisible(false);
+		headTitleLbl.setText("Set parameters");
+	}
 
-    @FXML
-    void clickBack3(MouseEvent event) {
-    	backBtn2.setVisible(true);
-    	backBtn3.setVisible(false);
-    	previewTestBtn.setVisible(true);
-    	finishBtn.setVisible(false);
-    	questionTable.setVisible(true);
-    	headTitleLbl.setText("Choose questions to add to the test");
-    	testAnchor.setVisible(false);
-    }
-
+	@FXML
+	void clickBack3(MouseEvent event) {
+		backBtn2.setVisible(true);
+		backBtn3.setVisible(false);
+		previewTestBtn.setVisible(true);
+		finishBtn.setVisible(false);
+		questionTable.setVisible(true);
+		headTitleLbl.setText("Choose questions to add to the test");
+		testAnchor.setVisible(false);
+	}
 
 	/**
 	 * clicking continue will move to blank test form only if at least one question
@@ -305,12 +313,12 @@ public class AddingNewTestUIController implements Initializable {
 				sb.append("~");
 			}
 			sb.deleteCharAt(sb.length() - 1);
-			Test finishedTest = new Test("id", ClientController.getActiveUser().getName(), testTitle, course,
-					Integer.parseInt(duration), 100 / pickedQuestions.size(), studentInst, teacherInst, sb.toString(),
-					field); // TODO - get id from query and change points per question to double
+			System.out.println(sb.toString());
+			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getName() + "," + testTitle + ","
+					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+					+ teacherInst + "," + sb.toString() + "," + field);
+			System.out.println(ClientController.getId()); // TODO - add popup test added
 
-			// TODO - add query for adding test to table
-			
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
 
@@ -330,15 +338,14 @@ public class AddingNewTestUIController implements Initializable {
 		previewTestBtn.setVisible(true);
 		parametersVBox.setVisible(false);
 		questionTable.setVisible(true);
-		labelsVBox.setVisible(false);
+		parametersVBox.setVisible(false);
 		headTitleLbl.setText("Choose questions to add to the test");
 		testTitle = titleTxt.getText();
 		duration = durationTxt.getText();
 		field = selectFieldComboBox.getValue().toString();
-		// course = selectFieldComboBox1.getValue().toString(); ---- TODO later
-		studentInst = studentInstructionsTxtArea1.getText();
-		teacherInst = teacherInstructionsTxtArea.getText();
-
+		course = selectFieldComboBox1.getValue().toString();
+		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
+		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
 	}
 
 	@FXML
@@ -363,8 +370,7 @@ public class AddingNewTestUIController implements Initializable {
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
 			for (Question q : pickedQuestions) {
-				controller.addQuestionToTestForm(q, i, (double) 100 / pickedQuestions.size()); // adding questions to
-																								// preview
+				controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // adding questions to preview
 				i++;
 			}
 			GeneralUIMethods.loadPage(testAnchor, test);

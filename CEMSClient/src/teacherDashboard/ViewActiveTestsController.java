@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class ViewActiveTestsController implements Initializable {
 	@FXML
@@ -157,10 +159,7 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void lockClicked(MouseEvent event) {
-		List<JFXButton> buttonsList = new ArrayList<JFXButton>();
-		buttonsList.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				buttonsList, "Test " + CODE + " is now locked!", "");
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!", contentPaneAnchor, null, null);	
 		lockBtn.setText("Locked");
 		lockBtn.setDisable(true);
 	}
@@ -226,8 +225,7 @@ public class ViewActiveTestsController implements Initializable {
 	void clicksendForApproval(MouseEvent event) {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
-		util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(),
-				l, "Request sent for principles approval", "");
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!", contentPaneAnchor, null, null);	
 	}
 
 	@FXML
@@ -256,7 +254,11 @@ public class ViewActiveTestsController implements Initializable {
 
 	}
 
-	//
+	
+	/**
+	 * Internal class to define a row in tableView.
+	 *
+	 */
 	public class rowTableActiveTest {
 
 		private String id;
@@ -276,7 +278,9 @@ public class ViewActiveTestsController implements Initializable {
 			field = activeTest.getField();
 			startTimeTest = activeTest.getStartTimeTest();
 			finishTime = activeTest.getFinishTime();
+
 		}
+
 		public String getFinishTime() {
 			return finishTime;
 		}
@@ -320,10 +324,12 @@ public class ViewActiveTestsController implements Initializable {
 		ArrayList<ActiveTest> activeTests = null;
 
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN());
-			activeTests = ClientController.getActiveTests();
+			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN()); // Request from the
+																									// client(query) to
+																									// the server.
+			activeTests = ClientController.getActiveTests(); // Receiving a query from the server.
 		}
-
+		//Insert into columns of the table, columns from DB.
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
 		AuthorNameCol.setCellValueFactory(new PropertyValueFactory<>("authorName"));
@@ -336,6 +342,18 @@ public class ViewActiveTestsController implements Initializable {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
 			}
+		//An event lets us click on a row in the table to see details like ID, Finish Time and Time Left.
+		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getClickCount() >= 1) {
+				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
+					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
+					testCodeField.setText(selected.getID());
+					// timeLeftField.setText(selected.get); // TODO: in the future
+					finishTimeField.setText(selected.getFinishTime());
+				}
+			}
+
+		});
 
 	}
 }

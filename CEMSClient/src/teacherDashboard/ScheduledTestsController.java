@@ -1,12 +1,11 @@
 package teacherDashboard;
 
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ScheduledTest;
@@ -16,10 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.TestBankUIController.TestRow;
 
 public class ScheduledTestsController implements Initializable {
+
 	@FXML
 	private AnchorPane contentPaneAnchor;
 
@@ -48,13 +48,25 @@ public class ScheduledTestsController implements Initializable {
 	private TableColumn<?, ?> durationCol;
 
 	@FXML
-	private TableColumn<?, ?> viewCol;
-
-	@FXML
 	private TableColumn<?, ?> rescheduleCol;
 
 	@FXML
-	private Label scheduledTestsLbl;
+	private TableColumn<?, ?> viewCol;
+
+	@FXML
+	private AnchorPane filterAnchor;
+
+	@FXML
+	private AnchorPane insideFilterAnchor;
+
+	@FXML
+	private Label checkTestLbl;
+
+	@FXML
+	private JFXTextField searchField;
+
+	@FXML
+	private JFXButton filterButton;
 
 	public class scheduleTestRow {
 		private String title;
@@ -181,6 +193,11 @@ public class ScheduledTestsController implements Initializable {
 				scheduledTestsTbl.getItems().add(tr);
 			}
 		}
+	}
+	
+	@FXML
+	void filterBtn(MouseEvent event) {
+		//TODO -- implement filter
 	}
 
 }

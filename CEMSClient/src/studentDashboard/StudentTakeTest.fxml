@@ -11,11 +11,11 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentDashboard.StudentTakeTestController">
    <children>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="277.0" layoutY="211.0" prefHeight="427.0" prefWidth="446.0" styleClass="paneBorder" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="277.0" AnchorPane.topAnchor="211.0">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="277.0" layoutY="240.0" prefHeight="320.0" prefWidth="372.0" styleClass="paneBorder" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="351.0" AnchorPane.topAnchor="240.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="157.0" prefWidth="874.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <JFXRadioButton fx:id="computedBtn" layoutX="4.0" layoutY="210.0" prefHeight="68.0" prefWidth="150.0" selected="true" text="Computed">
+                  <JFXRadioButton fx:id="computedBtn" layoutY="169.0" prefWidth="150.0" selected="true" text="Computed">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -26,7 +26,7 @@
                         <ToggleGroup fx:id="testGroup" />
                      </toggleGroup>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="manualBtn" layoutX="220.0" layoutY="210.0" prefHeight="68.0" prefWidth="93.0" text="Manual" toggleGroup="$testGroup">
+                  <JFXRadioButton fx:id="manualBtn" layoutX="183.0" layoutY="169.0" prefWidth="93.0" text="Manual" toggleGroup="$testGroup">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -34,13 +34,13 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </opaqueInsets>
                   </JFXRadioButton>
-                  <Label fx:id="codeLbl" layoutX="3.0" layoutY="49.0" text="Enter Code">
+                  <Label fx:id="codeLbl" layoutY="49.0" text="Enter Code">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="testCodeField" layoutX="3.0" layoutY="77.0" pickOnBounds="false" promptText="Code" />
-                  <JFXButton fx:id="beginTestBtn" layoutX="313.0" layoutY="365.0" onMouseClicked="#beginTestClicked" styleClass="clickedButton" text="Begin Test">
+                  <JFXTextField fx:id="testCodeField" layoutY="77.0" pickOnBounds="false" promptText="Code" />
+                  <JFXButton fx:id="beginTestBtn" layoutX="232.0" layoutY="251.0" onMouseClicked="#beginTestClicked" styleClass="clickedButton" text="Begin Test">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -50,7 +50,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="testOptLbl" layoutX="3.0" layoutY="182.0" text="Test option">
+                  <Label fx:id="testOptLbl" layoutY="141.0" text="Test option">
                      <font>
                         <Font size="19.0" />
                      </font>

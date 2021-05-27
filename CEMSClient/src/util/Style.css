@@ -155,3 +155,83 @@
 	-fx-background-radius: 12.0px 12.0px 12.0px 12.0px;
 	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
 }
+
+.table-view {
+    -fx-background-color: transparent;  
+}
+
+.table-view .column-header{     
+    -fx-background-color: transparent;    /* made transparent */
+    -fx-size: 45.0px;
+    -fx-min-height: 45.0px;  
+    -fx-cursor: hand;
+}
+
+.table-view .column-header-background, .table-view .column-drag-header {
+	-fx-background-radius: 5.0 5.0 0.0 0.0;
+	-fx-background-color: #DAD9DD;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 1.083333em;
+    -fx-font-weight: bold;  
+    -fx-text-fill: #595869;
+    -fx-alignment: center-left;
+    
+    /*-fx-padding: 10.0 0.0 10.0 5.0;*/
+}
+
+.table-row-cell {
+    -fx-background-color: transparent; 
+    -fx-border-width: 2 0 0 0;
+    -fx-border-color: white;
+    -fx-padding: 15.0 0.0 13.0 0.0;
+    -fx-pref-height: 65.0px;
+    -fx-text-fill: #595869;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell:filled:even{
+    -fx-background-color: #F0F0F1;
+}
+.table-row-cell:filled:odd{
+    -fx-background-color: #F0F0F1;
+}
+
+.table-view:row-selection .table-row-cell:filled:hover, .table-row-cell:filled:focused {
+    -fx-background-color: #E9E8EB;
+}
+.table-view:row-selection .table-row-cell:filled:hover .text, .table-row-cell:filled:focused .text, .table-view .table-cell{
+    -fx-text-fill: #595869;     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
