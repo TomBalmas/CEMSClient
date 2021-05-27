@@ -254,7 +254,11 @@ public class ViewActiveTestsController implements Initializable {
 
 	}
 
-	//
+	
+	/**
+	 * Internal class to define a row in tableView.
+	 *
+	 */
 	public class rowTableActiveTest {
 
 		private String id;
@@ -274,7 +278,9 @@ public class ViewActiveTestsController implements Initializable {
 			field = activeTest.getField();
 			startTimeTest = activeTest.getStartTimeTest();
 			finishTime = activeTest.getFinishTime();
+
 		}
+
 		public String getFinishTime() {
 			return finishTime;
 		}
@@ -318,10 +324,12 @@ public class ViewActiveTestsController implements Initializable {
 		ArrayList<ActiveTest> activeTests = null;
 
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN());
-			activeTests = ClientController.getActiveTests();
+			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN()); // Request from the
+																									// client(query) to
+																									// the server.
+			activeTests = ClientController.getActiveTests(); // Receiving a query from the server.
 		}
-
+		//Insert into columns of the table, columns from DB.
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
 		AuthorNameCol.setCellValueFactory(new PropertyValueFactory<>("authorName"));
@@ -334,6 +342,18 @@ public class ViewActiveTestsController implements Initializable {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
 			}
+		//An event lets us click on a row in the table to see details like ID, Finish Time and Time Left.
+		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getClickCount() >= 1) {
+				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
+					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
+					testCodeField.setText(selected.getID());
+					// timeLeftField.setText(selected.get); // TODO: in the future
+					finishTimeField.setText(selected.getFinishTime());
+				}
+			}
+
+		});
 
 	}
 }
