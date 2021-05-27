@@ -99,7 +99,8 @@ public class CheckTestsUIController implements Initializable {
 			e1.printStackTrace();
 		}
 		list.get(1).setOnAction(e -> GeneralUIMethods.loadPage(contentPaneAnchor, viewReports));
-		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Test realesed", "Students can view the tests", contentPaneAnchor, list, null);
+		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Test realesed", "Students can view the tests", contentPaneAnchor,
+				list, null);
 	}
 
 	public class rowTableCheckTests {
@@ -134,12 +135,12 @@ public class CheckTestsUIController implements Initializable {
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		pointsPerQuestinCol.setCellValueFactory(new PropertyValueFactory<>("pointsPErQuestion"));
-
-		for (FinishedTest test : tests) {
-			rowTableCheckTests row = new rowTableCheckTests(test);
-			testTbl.getItems().add(row);
+		if (tests != null) {
+			for (FinishedTest test : tests) {
+				rowTableCheckTests row = new rowTableCheckTests(test);
+				testTbl.getItems().add(row);
+			}
 		}
-
 	}
 
 }
