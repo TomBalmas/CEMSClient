@@ -23,14 +23,14 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="selectCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Anyone" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutX="137.0" layoutY="62.0" prefHeight="31.0" prefWidth="610.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
+                  <JFXComboBox fx:id="selectCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Anyone" styleClass="selector" visibleRowCount="3" AnchorPane.topAnchor="62.0" />
+                  <JFXTextField fx:id="searchField" layoutX="137.0" layoutY="62.0" prefHeight="31.0" prefWidth="590.0" promptText="Search by question code or subject, course" styleClass="searchRow" AnchorPane.topAnchor="62.0" />
                   <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Created by" />
                   <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" visible="false" />
                   <JFXDatePicker fx:id="startCoursesDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
                   <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" visible="false" />
                   <JFXDatePicker fx:id="finishCoursesDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <JFXButton fx:id="searchBtn" layoutX="757.0" layoutY="63.0" onMouseClicked="#searchBtnClicked" text="Search">
+                  <JFXButton fx:id="searchBtn" layoutX="739.0" layoutY="63.0" onMouseClicked="#searchBtnClicked" text="Search">
                      <styleClass>
                         <String fx:value="searchButton" />
                         <String fx:value="btn" />
@@ -47,12 +47,12 @@
          <children>
             <TableView fx:id="questionBankTable" layoutX="-4.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="IDCol" prefWidth="146.0" text="ID" />
-                <TableColumn fx:id="authorCol" prefWidth="136.0" text="author" />
-                  <TableColumn fx:id="fieldCol" prefWidth="135.0" text="field" />
-                  <TableColumn fx:id="viewCol" prefWidth="114.0" text="view" />
-                  <TableColumn fx:id="editCol" text="edit" />
-                  <TableColumn fx:id="deleteCol" prefWidth="272.0" text="delete" />
+                <TableColumn fx:id="IDCol" prefWidth="146.0" style="-fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="authorCol" prefWidth="246.0" style="-fx-alignment: CENTER;" text="Author" />
+                  <TableColumn fx:id="fieldCol" prefWidth="273.0" style="-fx-alignment: CENTER;" text="Field" />
+                  <TableColumn fx:id="viewCol" prefWidth="62.0" style="-fx-alignment: CENTER;" text="View" />
+                  <TableColumn fx:id="editCol" prefWidth="66.0" style="-fx-alignment: CENTER;" text="Edit" />
+                  <TableColumn fx:id="deleteCol" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Delete" />
               </columns>
             </TableView>
          </children>

@@ -13,6 +13,8 @@ import com.jfoenix.controls.JFXTextField;
 import client.ClientController;
 import common.Question;
 import common.Teacher;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,14 +23,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -139,19 +139,21 @@ public class QuestionBankUIController implements Initializable {
 			id = question.getID();
 			author = question.getAuthor();
 			field = question.getField();
-			this.ViewBtn = new JFXButton("View");
+			this.ViewBtn = new JFXButton();
 			this.DeleteBtn = new JFXButton();
 			this.EditBtn = new JFXButton();
-			this.DeleteBtn.setText("Delete");
-			this.EditBtn.setText("Edit");
+			
+			DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
+			EditBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
+			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			DeleteBtn.setStyle("-fx-fill: red !important;");
 
-			ViewBtn.setMaxWidth(Double.MAX_VALUE);
-
-			DeleteBtn.setMaxWidth(Double.MAX_VALUE);
-			EditBtn.setMaxWidth(Double.MAX_VALUE);
-			DeleteBtn.setStyle("-fx-background-color: TEAL;");
-			EditBtn.setStyle("-fx-background-color: TEAL;");
-			ViewBtn.setStyle("-fx-background-color: TEAL;");
+//			ViewBtn.setMaxWidth(Double.MAX_VALUE);
+//			DeleteBtn.setMaxWidth(Double.MAX_VALUE);
+//			EditBtn.setMaxWidth(Double.MAX_VALUE);
+//			DeleteBtn.setStyle("-fx-background-color: TEAL;");
+//			EditBtn.setStyle("-fx-background-color: TEAL;");
+//			ViewBtn.setStyle("-fx-background-color: TEAL;");
 		}
 
 		public String getID() {
