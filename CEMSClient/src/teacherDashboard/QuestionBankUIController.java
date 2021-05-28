@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,6 +36,7 @@ import sun.awt.SunHints.Value;
 import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class QuestionBankUIController implements Initializable {
 
@@ -289,18 +291,35 @@ public class QuestionBankUIController implements Initializable {
 					}
 				};
 				
-				//event handler for  deletion form table and DB
-				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { 
+				//Event handler for deletion from table and DB
+				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
-				    	ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
-				    	if (!ClientController.isQuestionDeleted())
-							System.out.println("not working");
-				    	questionBankTable.getItems().remove(questionRow);
-						
-				    };
+						JFXButton yesBtn = new JFXButton("Yes");
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+					    	ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
+					    	if (!ClientController.isQuestionDeleted())
+								System.out.println("not working");
+					    	questionBankTable.getItems().remove(questionRow);
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The question " + questionRow.getID() + " has been deleted", contentPaneAnchor, null, null);
+						});
+						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this question?",
+								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
+					}
 				});
 				
+				//event handler for deletion form table and DB
+//				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { 
+//					@Override
+//					public void handle(ActionEvent event) {
+//				    	ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
+//				    	if (!ClientController.isQuestionDeleted())
+//							System.out.println("not working");
+//				    	questionBankTable.getItems().remove(questionRow);
+//						
+//				    };
+//				});
+//				
 				
 				//event handler for view button 
 				questionRow.getViewBtn().setOnAction(e ->{

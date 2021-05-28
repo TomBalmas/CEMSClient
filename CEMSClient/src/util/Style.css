@@ -22,6 +22,10 @@
 	-fx-border-style: dashed;
 }
 
+.uploadFileTxtArea:hover {
+	
+}
+
 .uploadFileTxtArea *.text {
     -fx-text-alignment: center;
 }
@@ -46,13 +50,16 @@
 	-fx-color: white;
 }
 
-.filterButton, .searchButton {
+.filterButton, .searchButton, .fileBtn {
 	-fx-background-color: #fff0d9;
 	-fx-border-color: #fec973;
 	-fx-border-radius: 4.0px;
+	-fx-text-fill: #fec973;
+	-fx-fill: #fec973;
+	-fx-font-weight: bold;
 }
 
-.filterButton .glyph-icon{
+.filterButton, .searchButton, .fileBtn .glyph-icon {
 	-fx-fill: #fec973;
 }
 
@@ -66,10 +73,6 @@
 	-fx-pref-width: 40.0;
 	-fx-border-radius: 4.0px;
 	-fx-border-color: #8CDFAF;
-}
-
-.fileBtn {
-	-fx-background-color: #FFF0D9;
 }
 
 .signOut {
@@ -95,6 +98,29 @@
 
 .insideGrayPane {
 	-fx-background-color: white;
+}
+
+.fileGrayPane {
+	-fx-background-color: #f0f1f1;
+	-fx-background-radius: 9.0px 9.0px 9.0px 9.0px;
+	-fx-border-radius: 9.0px 9.0px 9.0px 9.0px;
+    -fx-background-insets: 10.0px 0 10.0px 0;	
+}
+
+.fileGrayPane Label, .fileGrayPane .glyph-icon {
+	-fx-text-fill: #595869;
+	-fx-fill: #595869;
+	-fx-font-weight: bold;
+}
+
+.fileCommentsTxtArea {
+	-fx-background-color: white;
+	-fx-background-radius: 9.0px 9.0px 9.0px 9.0px;
+	-fx-border-radius: 9.0px 9.0px 9.0px 9.0px;
+	-fx-border-width: 2px;
+    -fx-background-insets: 10.0px;	
+    -fx-border-color: #595869;
+    -fx-text-fill: gray;
 }
 
 .GradeLbl {
@@ -216,11 +242,11 @@
 }
 
 .table-view .glyph-icon:hover {
-	-fx-fill: black;
+	-fx-fill: white;
 }
 
 .table-view .glyph-icon:hover {
-	-fx-fill: black;
+	-fx-fill: white;
 }
 
 .table-view .glyph-icon .glyphicon-trash {
@@ -232,32 +258,13 @@
 	-fx-background-color: white;
 }
 
+.table-view JFXButton:hover {
+	-fx-background-color: #595869;
+	-fx-text-fill: white;
+	-fx-fill: white;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.table-view JFXButton:hover .glyph-icon {
+	-fx-text-fill: white;
+	-fx-fill: white;
+}

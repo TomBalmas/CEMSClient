@@ -4,9 +4,11 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorPaneContent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../util/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TestFormController">
@@ -21,14 +23,20 @@
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
-                        <String fx:value="finishTestBtn" />
+                        <String fx:value="finishTestBtn" />                       
                      </styleClass>
+                     <graphic>
+					 	<FontAwesomeIconView glyphName="PAPER_PLANE" size="16.0" />
+					 </graphic>                    
                   </JFXButton>
-                  <JFXButton fx:id="uploadBtn" layoutX="10.0" layoutY="737.0" onMouseClicked="#uploadFileClicked" prefWidth="40.0" text="Upload Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="uploadBtn" layoutX="10.0" layoutY="737.0" onMouseClicked="#uploadFileClicked" text="Upload Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="fileBtn" />
                      </styleClass>
+                     <graphic>
+					 	<FontAwesomeIconView glyphName="UPLOAD" size="16.0" />
+					 </graphic>                     
                   </JFXButton>
                   <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="61.0" onMouseClicked="#backClicked" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="61.0">
                      <font>
@@ -39,7 +47,7 @@
                         <String fx:value="button" />
                      </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="downloadBtn" layoutX="59.0" layoutY="425.0" onMouseClicked="#downloadFileClicked" text="Download Word File">
+                  <JFXButton fx:id="downloadBtn" layoutX="59.0" layoutY="370.0" onMouseClicked="#downloadFileClicked" text="Download Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
@@ -49,7 +57,7 @@
                   <AnchorPane fx:id="uploadFileAnchor" layoutY="500.0" prefHeight="215.0" prefWidth="300.0" styleClass="uploadFileTxtArea" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                      <children>
                         <FontAwesomeIconView glyphName="UPLOAD" size="25" textAlignment="CENTER" translateY="40.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="30.0" />
-                        <JFXTextArea editable="false" focusColor="#405aa800" nodeOrientation="LEFT_TO_RIGHT" prefHeight="136.0" prefWidth="249.0" text="Drag and drop here&#10;your submission file" unFocusColor="#4d4d4d00" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                        <JFXTextArea fx:id="uploadFileTxtArea" editable="false" focusColor="#405aa800" nodeOrientation="LEFT_TO_RIGHT" prefHeight="136.0" prefWidth="249.0" text="Drag and drop here&#10;your submission file" unFocusColor="#4d4d4d00" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -99,6 +107,33 @@
                         <String fx:value="paneBorder" />
                         <String fx:value="grayPane" />
                      </styleClass>
+                  </AnchorPane>
+                  <AnchorPane fx:id="fileUploadedAnchor" layoutX="12.0" layoutY="490.0" visible="false" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane fx:id="timeAnchor1" prefHeight="62.0" prefWidth="280.0">
+                                 <children>
+                                    <Label fx:id="fileNameLbl" layoutX="61.0" layoutY="14.0" text="File name" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <FontAwesomeIconView fx:id="deleteFileBtn" glyphName="TRASH" layoutX="226.0" layoutY="38.0" size="22" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="paneBorder" />
+                                    <String fx:value="fileGrayPane" />
+                                 </styleClass>
+                              </AnchorPane>
+                              <JFXTextArea fx:id="fileCommentsTxtArea" focusColor="#405aa800" prefHeight="159.0" prefWidth="249.0" promptText="Comments" styleClass="fileCommentsTxtArea" unFocusColor="GREY">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </JFXTextArea>
+                           </children>
+                        </VBox>
+                     </children>
                   </AnchorPane>
                </children>
             </AnchorPane>

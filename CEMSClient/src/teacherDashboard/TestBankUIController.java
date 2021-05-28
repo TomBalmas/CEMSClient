@@ -167,26 +167,11 @@ public class TestBankUIController implements Initializable {
 			setDateBtn = new JFXButton();
 			deleteBtn = new JFXButton();
 			editBtn = new JFXButton();
-			
-			Image image = new Image(getClass().getResourceAsStream("/util/images/delete1.png"));
-			deleteBtn.setGraphic(new ImageView(image));
-			editBtn.setText("");
-			setDateBtn.setText("");
-			viewBtn.setText("");
 			setDateBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.CALENDAR_ALT));
 			deleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 			editBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
 			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			deleteBtn.setStyle("-fx-fill: red;");
-			
-//			viewBtn.setMaxWidth(Double.MAX_VALUE);
-//			setDateBtn.setMaxWidth(Double.MAX_VALUE);
-//			editBtn.setMaxWidth(Double.MAX_VALUE);
-//			deleteBtn.setMaxWidth(Double.MAX_VALUE);
-//			deleteBtn.setStyle("-fx-background-color: red;");
-//			editBtn.setStyle("-fx-background-color: teal;");
-//			setDateBtn.setStyle("-fx-background-color: cyan;");
-//			viewBtn.setStyle("-fx-background-color: orange;");
 		}
 
 		public JFXButton getViewBtn() {

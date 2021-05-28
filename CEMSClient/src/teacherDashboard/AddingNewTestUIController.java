@@ -16,6 +16,9 @@ import client.ClientController;
 import common.Course;
 import common.Question;
 import common.Teacher;
+import common.Test;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -140,8 +143,7 @@ public class AddingNewTestUIController implements Initializable {
 			author = question.getAuthor();
 			text = question.getQuestionText();
 			viewBtn = new JFXButton();
-			viewBtn.setText("View");
-			viewBtn.setStyle("-fx-background-color: teal;");
+			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			checkBox = new CheckBox();
 		}
 
@@ -252,21 +254,16 @@ public class AddingNewTestUIController implements Initializable {
 						if (pickedQuestions.size() == 0)
 							previewTestBtn.setDisable(true);
 					}
-
 					System.out.print("[");
 					for (Question qe : pickedQuestions) {
 						System.out.print(qe.getID());
 						System.out.print(",");
-
 					}
 					System.out.print("]\n");
 				});
 			}
 			pickedQuestions.clear();
 		});
-		
-		
-		
 
 	}
 
@@ -355,7 +352,6 @@ public class AddingNewTestUIController implements Initializable {
 		questionTable.setVisible(true);
 		parametersVBox.setVisible(false);
 		headTitleLbl.setText("Choose questions to add to the test");
-		
 	}
 
 	@FXML
