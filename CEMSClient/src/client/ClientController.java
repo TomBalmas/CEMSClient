@@ -15,12 +15,16 @@ public class ClientController {
 
 	private static CEMSClient client;
 	private static String roleFrame = null;
+	private static boolean  questionAdded;
+	private static boolean testDeleted;
+	private static boolean questionDeleted;
+	private static boolean questionEdited;
+	private static boolean testScheduled;
+	private static String newQuestionId;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<ScheduledTest> scheduledTests = null;
-	private static boolean testDeleted;
 	private static ArrayList<ActiveTest> activeTests;
-	private static boolean testScheduled;
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
 	private static String id =null;
@@ -74,6 +78,37 @@ public class ClientController {
 	public static void setTestDeleted(boolean testDeleted) {
 		ClientController.testDeleted = testDeleted;
 	}
+	
+	public static boolean isQuestionDeleted() {
+		return questionDeleted;
+	}
+
+	public static void setQuestionDeleted(boolean questionDeleted) {
+		ClientController.questionDeleted = questionDeleted;
+	}
+	
+	
+	public static boolean isQuestionEdited() {
+		return questionEdited;
+	}
+
+	public static void setQuestionEdited(boolean questionEdited) {
+		ClientController.questionEdited = questionEdited;
+	}
+	public static void setQuestionAdded(boolean questionAdded) {
+		ClientController.questionAdded= questionAdded;
+	}
+	public static boolean isQuestionAdded() {
+		return questionAdded;
+	}
+	public static String getNewQuestionId() {
+		return newQuestionId;
+	}
+
+	public static void setNewQuestionId(String newQuestionId) {
+		ClientController.newQuestionId = newQuestionId;
+	}
+
 
 	public static ArrayList<Question> getQuestions() {
 		return questions;
