@@ -144,6 +144,9 @@ public class QuestionFormUIController implements Initializable {
 		//GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 	}
 
+	/**
+	 *the method handles sending a query to DB for editing question  and adding a new question
+	 */
 	@FXML
 	void clickSave() throws IOException {
 		
@@ -151,9 +154,10 @@ public class QuestionFormUIController implements Initializable {
 		list.add(new JFXButton("Okay"));
 		if (list.get(0).isPressed())
 			clickBack();
-		ArrayList<JFXTextArea> answers = getAnswerTextFields();
+		//get data from UI 
 		Teacher teacher = (Teacher) ClientController.getActiveUser();
 		String teacherName = teacher.getName();
+		ArrayList<JFXTextArea> answers = getAnswerTextFields();
 		String questionContent=getQuestionContentTxt().getText();
 		String answer1 = answers.get(0).getText() ;
 		String answer2 = answers.get(1).getText() ;
@@ -162,45 +166,49 @@ public class QuestionFormUIController implements Initializable {
 		//query to add question to dataBase
 		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
 		{
-			String questionField= fieldCBox.getValue().toString();
-			//send query only if fields arent empty 
-			if( correctAnswer!=0 && !questionContent.isEmpty() && !questionField.isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
-			&& !answer3.isEmpty() && !answer4.isEmpty()) {
-				
-			//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-			String queryAddQuestion= "ADD_QUESTION-" + teacherName + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
-					answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
-			ClientController.accept(queryAddQuestion);
 			
-			//check if question added correctly
-			if(ClientController.isQuestionAdded()) {
+			//send query only if fields arent empty 
+			if( correctAnswer!=0  && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()  && !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty())
+			 {
+				//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
+				String queryAddQuestion= "ADD_QUESTION-" + teacherName + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
+						answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
+				ClientController.accept(queryAddQuestion);
 				
+				//check if question added correctly
+				if(ClientController.isQuestionAdded()) {
 				//show POP UP:
 				String toShow="Question ID: " ;
 				toShow=toShow.concat(ClientController.getNewQuestionId());
 				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Saved",toShow, contentPaneAnchor,list,null );
 				
 				}
-			}
+		
 			//handle empty fields
+			}
 			else {
-			
+				
 				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Saved","some fields are empty", contentPaneAnchor,list,null );
 			}
+			
+			
 			
 			
 		}
 		//query for editing question
 		else {
+		
 			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" "); 
-			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacherName + "," +questionContent + "," + correctAnswer +"," +fieldCBox.getPromptText().toString()+ "," +
-				answer1 + "," + answer2 + "," +  answer3 + "," +  answer4;
-			if( correctAnswer!=0 && !questionContent.isEmpty() && !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
+			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacherName + "," +getQuestionContentTxt().getText() + "," + correctAnswer +"," +fieldCBox.getPromptText().toString()+ "," +
+					answer1 + "," + answer2 + "," +  answer3 + "," + answer4;
+			if(  correctAnswer!=0 && !getQuestionContentTxt().getText().isEmpty() && !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
 					&& !answer3.isEmpty() && !answer4.isEmpty()) {//send query onlt if all fields are not empty 
 				ClientController.accept(queryEditQuestion );
 				boolean answerEdit =  ClientController.isQuestionEdited();
-				System.out.println(answerEdit);
-				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Edited", " " , contentPaneAnchor,null,null );
+				//check if answer edited correctly in DB
+				if(answerEdit) {
+					util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Edited", " " , contentPaneAnchor,null,null );
+				}
 			}
 			else {
 				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Edited", "Some fields are missing! " , contentPaneAnchor,null,null );
