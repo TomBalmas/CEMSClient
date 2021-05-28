@@ -16,7 +16,6 @@ import client.ClientController;
 import common.Course;
 import common.Question;
 import common.Teacher;
-import common.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -240,24 +239,34 @@ public class AddingNewTestUIController implements Initializable {
 					}
 					;
 				});
-
+				if (pickedQuestions.size() == 0)
+					previewTestBtn.setDisable(true);
 				if (pickedQuestions.contains(q))
 					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
-					if (qr.getCheckBox().isSelected())
+					if (qr.getCheckBox().isSelected()) {
 						pickedQuestions.add(q);
-					else
+						previewTestBtn.setDisable(false);
+					} else {
 						pickedQuestions.remove(q);
+						if (pickedQuestions.size() == 0)
+							previewTestBtn.setDisable(true);
+					}
+
 					System.out.print("[");
 					for (Question qe : pickedQuestions) {
 						System.out.print(qe.getID());
 						System.out.print(",");
+
 					}
 					System.out.print("]\n");
 				});
 			}
 			pickedQuestions.clear();
 		});
+		
+		
+		
 
 	}
 
@@ -332,6 +341,12 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
+		testTitle = titleTxt.getText();
+		duration = durationTxt.getText();
+		field = selectFieldComboBox.getValue().toString();
+		course = selectFieldComboBox1.getValue().toString();
+		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
+		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
 		backBtn1.setVisible(false);
 		backBtn2.setVisible(true);
 		continueWithParametersBtn.setVisible(false);
@@ -340,12 +355,7 @@ public class AddingNewTestUIController implements Initializable {
 		questionTable.setVisible(true);
 		parametersVBox.setVisible(false);
 		headTitleLbl.setText("Choose questions to add to the test");
-		testTitle = titleTxt.getText();
-		duration = durationTxt.getText();
-		field = selectFieldComboBox.getValue().toString();
-		course = selectFieldComboBox1.getValue().toString();
-		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
-		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
+		
 	}
 
 	@FXML
