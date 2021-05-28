@@ -32,7 +32,7 @@ import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
 
-public class BlankQuestionFormUIController implements Initializable {
+public class QuestionFormUIController implements Initializable {
 
 
     @FXML
@@ -110,7 +110,7 @@ public class BlankQuestionFormUIController implements Initializable {
 
 
 	public int getCorrectAnswer() {
-		return correctAnswer;
+		return correctAnswer=0;
 	}
 
 	public void setCorrectAnswer(int correctAnswer) {
@@ -144,6 +144,9 @@ public class BlankQuestionFormUIController implements Initializable {
 		//GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 	}
 
+	/**
+	 *the method handles sending a query to DB for editing question  and adding a new question
+	 */
 	@FXML
 	void clickSave() throws IOException {
 		
@@ -151,38 +154,68 @@ public class BlankQuestionFormUIController implements Initializable {
 		list.add(new JFXButton("Okay"));
 		if (list.get(0).isPressed())
 			clickBack();
-		ArrayList<JFXTextArea> answers = getAnswerTextFields();
+		//get data from UI 
 		Teacher teacher = (Teacher) ClientController.getActiveUser();
+		String teacherName = teacher.getName();
+		ArrayList<JFXTextArea> answers = getAnswerTextFields();
+		String questionContent=getQuestionContentTxt().getText();
+		String answer1 = answers.get(0).getText() ;
+		String answer2 = answers.get(1).getText() ;
+		String answer3 = answers.get(2).getText() ;
+		String answer4 = answers.get(3).getText() ;
 		//query to add question to dataBase
 		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
 		{
 			
-			//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-			String queryAddQuestion= "ADD_QUESTION-" + teacher.getName() + "," + getQuestionContentTxt().getText() + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
-			answers.get(0).getText() + "," +  answers.get(1).getText() + "," +  answers.get(2).getText() + "," +  answers.get(3).getText();
-			ClientController.accept(queryAddQuestion);
-			//show popup
-			String toShow="Question ID: " ;
-			toShow=toShow.concat(ClientController.getNewQuestionId());
-			util.PopUp.showMaterialDialog(GeneralUIMethods.getPopupPane(), contentPaneAnchor, GeneralUIMethods.getSideBar(), list, "Question Saved",toShow);
+			//send query only if fields arent empty 
+			if( correctAnswer!=0  && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()  && !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty())
+			 {
+				//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
+				String queryAddQuestion= "ADD_QUESTION-" + teacherName + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
+						answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
+				ClientController.accept(queryAddQuestion);
 				
-			  System.out.println(ClientController.isQuestionAdded());
+				//check if question added correctly
+				if(ClientController.isQuestionAdded()) {
+				//show POP UP:
+				String toShow="Question ID: " ;
+				toShow=toShow.concat(ClientController.getNewQuestionId());
+				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Saved",toShow, contentPaneAnchor,list,null );
+				
+				}
+		
+			//handle empty fields
+			}
+			else {
+				
+				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Saved","some fields are empty", contentPaneAnchor,list,null );
+			}
+			
+			
+			
+			
 		}
 		//query for editing question
 		else {
-			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" "); 
-			ArrayList<JFXTextArea> answersArray = getAnswerTextFields();
-			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacher.getName() + "," +getQuestionContentTxt().getText() + "," + getCorrectAnswer() +"," +fieldCBox.getPromptText().toString()+ "," +
-	    	answersArray.get(0).getText() + "," +  answersArray.get(1).getText() + "," +  answersArray.get(2).getText() + "," +  answersArray.get(3).getText();
-			ClientController.accept(queryEditQuestion );
-			boolean answerEdit =  ClientController.isQuestionEdited();
-			System.out.println(answerEdit);
-		 
 		
-			
+			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" "); 
+			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacherName + "," +getQuestionContentTxt().getText() + "," + correctAnswer +"," +fieldCBox.getPromptText().toString()+ "," +
+					answer1 + "," + answer2 + "," +  answer3 + "," + answer4;
+			if(  correctAnswer!=0 && !getQuestionContentTxt().getText().isEmpty() && !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
+					&& !answer3.isEmpty() && !answer4.isEmpty()) {//send query onlt if all fields are not empty 
+				ClientController.accept(queryEditQuestion );
+				boolean answerEdit =  ClientController.isQuestionEdited();
+				//check if answer edited correctly in DB
+				if(answerEdit) {
+					util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Edited", " " , contentPaneAnchor,null,null );
+				}
+			}
+			else {
+				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Edited", "Some fields are missing! " , contentPaneAnchor,null,null );
+			}
 			
 		}
-		
+		correctAnswer=0;
 	}
 
 	/**
@@ -214,18 +247,22 @@ public class BlankQuestionFormUIController implements Initializable {
 				if (group.getSelectedToggle() != null) {
 					JFXRadioButton button = (JFXRadioButton) group.getSelectedToggle();
 					setToggleGroupNotVisible();
-					if (button.equals(answer1Btn))
+					if (button.equals(answer1Btn)) {
 						correctAnswer1Lbl.setVisible(true);
 						correctAnswer=1;
-					if (button.equals(answer2Btn))
+					}
+					if (button.equals(answer2Btn)) {
 						correctAnswer2Lbl.setVisible(true);
 						correctAnswer=2;
-					if (button.equals(answer3Btn))
+					}
+					if (button.equals(answer3Btn)) {
 						correctAnswer3Lbl.setVisible(true);
 						correctAnswer=3;
-					if (button.equals(answer4Btn))
+					}
+					if (button.equals(answer4Btn)) {
 						correctAnswer4Lbl.setVisible(true);
 						correctAnswer=4;
+					}
 
 				}
 

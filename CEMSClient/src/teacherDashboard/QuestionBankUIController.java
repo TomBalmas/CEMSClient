@@ -100,7 +100,7 @@ public class QuestionBankUIController implements Initializable {
 
 	private Node blankQuestionForm;
 	private Node QuestionForm;
-	private BlankQuestionFormUIController blankQuestionFormUIController;
+	private QuestionFormUIController blankQuestionFormUIController;
 
 
 	// ----------TODO: add teachers for priciple
@@ -134,7 +134,7 @@ public class QuestionBankUIController implements Initializable {
 	void clickAddAnewQuestion(MouseEvent event) {
 	
 		try {
-			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 			
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -273,7 +273,7 @@ public class QuestionBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							JFXButton buttonText = (JFXButton) event.getSource();
 							blankQuestionFormUIController = loader.getController();

@@ -121,7 +121,7 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXButton continueWithParametersBtn;
 	private Node QuestionForm;
-	private BlankQuestionFormUIController blankQuestionFormUIController;
+	private QuestionFormUIController blankQuestionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Node testBank;
 	private Set<Question> pickedQuestions;
@@ -207,7 +207,7 @@ public class AddingNewTestUIController implements Initializable {
 					public void handle(ActionEvent event) {
 						try {
 							FXMLLoader loader = new FXMLLoader(
-									getClass().getResource(Navigator.BLANK_QUESTION_FORM.getVal()));
+									getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							JFXButton buttonText = (JFXButton) event.getSource();
 							blankQuestionFormUIController = loader.getController();
