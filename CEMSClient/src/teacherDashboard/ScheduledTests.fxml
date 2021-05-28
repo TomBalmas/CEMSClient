@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,14 +16,14 @@
          <children>
             <TableView fx:id="scheduledTestsTbl" prefHeight="405.0" prefWidth="874.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="70.0" text="ID" />
-                <TableColumn fx:id="titleCol" prefWidth="132.0" text="Title" />
-                  <TableColumn fx:id="authorCol" prefWidth="134.0" text="Author" />
-                  <TableColumn fx:id="dateCol" prefWidth="102.0" text="Date" />
-                  <TableColumn fx:id="startingTimeCol" prefWidth="143.0" text="Starting Time" />
-                  <TableColumn fx:id="durationCol" prefWidth="90.0" text="Duration" />
-                  <TableColumn fx:id="rescheduleCol" prefWidth="106.0" text="Reschedule" />
-                  <TableColumn fx:id="viewCol" prefWidth="76.0" text="View" />
+                <TableColumn fx:id="idCol" prefWidth="70.0" style="-fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="titleCol" prefWidth="132.0" style="-fx-alignment: CENTER;" text="Title" />
+                <TableColumn fx:id="authorCol" prefWidth="134.0" style="-fx-alignment: CENTER;" text="Author" />
+                <TableColumn fx:id="dateCol" prefWidth="102.0" style="-fx-alignment: CENTER;" text="Date" />
+                <TableColumn fx:id="startingTimeCol" prefWidth="143.0" style="-fx-alignment: CENTER;" text="Starting Time" />
+                <TableColumn fx:id="durationCol" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Duration" />
+                <TableColumn fx:id="rescheduleCol" prefWidth="106.0" style="-fx-alignment: CENTER;" text="Reschedule" />
+                <TableColumn fx:id="viewCol" prefWidth="74.0" style="-fx-alignment: CENTER;" text="View" />
               </columns>
             </TableView>
          </children>
@@ -36,12 +37,15 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutY="40.0" prefHeight="31.0" prefWidth="740.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
-                  <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="761.0" layoutY="40.0" onMouseClicked="#filterBtn" text="Search" textAlignment="CENTER">
+                  <JFXTextField fx:id="searchField" layoutY="40.0" prefHeight="31.0" prefWidth="715.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
+                  <JFXButton fx:id="searchBtn" layoutX="725.0" layoutY="40.0" onMouseClicked="#searchBtnClicked" text="Search">
                      <styleClass>
-                        <String fx:value="filterButton" />
+                        <String fx:value="searchButton" />
                         <String fx:value="btn" />
                      </styleClass>
+                     <graphic>
+					 	<FontAwesomeIconView glyphName="SEARCH" size="16.0" />
+					 </graphic>
                   </JFXButton>
                </children>
             </AnchorPane>

@@ -1,7 +1,6 @@
 .body {
 	-fx-background-color: #e7e7e7;
-	
-	-fx-alignment: CENTER;
+	-fx-alignment: center;
 	-fx-z-index: 1.0;
 }
 
@@ -176,8 +175,7 @@
     -fx-font-size: 1.083333em;
     -fx-font-weight: bold;  
     -fx-text-fill: #595869;
-    -fx-alignment: center-left;
-    
+    -fx-alignment: center;
     /*-fx-padding: 10.0 0.0 10.0 5.0;*/
 }
 
@@ -189,7 +187,11 @@
     -fx-pref-height: 65.0px;
     -fx-text-fill: #595869;
     -fx-font-weight: bold;
-    -fx-alignment: center-left;
+    -fx-alignment: center;
+}
+
+.table-view TableColumn {
+	-fx-alignment: center;
 }
 
 .table-row-cell:filled:even{
@@ -204,6 +206,30 @@
 }
 .table-view:row-selection .table-row-cell:filled:hover .text, .table-row-cell:filled:focused .text, .table-view .table-cell{
     -fx-text-fill: #595869;     
+}
+
+.table-view .glyph-icon {
+	-fx-font-family:"FontAwesome";
+	-fx-font-size: 20px;
+	-fx-text-fill: #595869;
+	-fx-fill: #595869;
+}
+
+.table-view .glyph-icon:hover {
+	-fx-fill: black;
+}
+
+.table-view .glyph-icon:hover {
+	-fx-fill: black;
+}
+
+.table-view .glyph-icon .glyphicon-trash {
+	-fx-text-fill: red;
+	-fx-fill: red;
+}
+
+.table-view JFXButton {
+	-fx-background-color: white;
 }
 
 

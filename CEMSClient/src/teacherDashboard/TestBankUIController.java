@@ -14,6 +14,8 @@ import com.jfoenix.controls.JFXTextField;
 import client.ClientController;
 import common.Teacher;
 import common.Test;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -168,10 +170,15 @@ public class TestBankUIController implements Initializable {
 			
 			Image image = new Image(getClass().getResourceAsStream("/util/images/delete1.png"));
 			deleteBtn.setGraphic(new ImageView(image));
-//			deleteBtn.setText("Delete");
-			editBtn.setText("Edit");
-			setDateBtn.setText("Set Date");
-			viewBtn.setText("View");
+			editBtn.setText("");
+			setDateBtn.setText("");
+			viewBtn.setText("");
+			setDateBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.CALENDAR_ALT));
+			deleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
+			editBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
+			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			deleteBtn.setStyle("-fx-fill: red;");
+			
 //			viewBtn.setMaxWidth(Double.MAX_VALUE);
 //			setDateBtn.setMaxWidth(Double.MAX_VALUE);
 //			editBtn.setMaxWidth(Double.MAX_VALUE);

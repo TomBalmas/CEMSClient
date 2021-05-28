@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ScheduledTest;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -66,7 +68,7 @@ public class ScheduledTestsController implements Initializable {
 	private JFXTextField searchField;
 
 	@FXML
-	private JFXButton filterButton;
+	private JFXButton searchBtn;
 
 	public class scheduleTestRow {
 		private String title;
@@ -88,10 +90,12 @@ public class ScheduledTestsController implements Initializable {
 			this.date = scheduledTest.getDate();
 			this.startingTime = scheduledTest.getStartingTime();
 			this.duration = scheduledTest.getDuration();
-			setDateBtn = new JFXButton("Resheduled");
-			viewBtn = new JFXButton("View");
-			setDateBtn.setStyle("-fx-background-color: cyan;");
-			viewBtn.setStyle("-fx-background-color: orange;");
+			setDateBtn = new JFXButton("");
+			viewBtn = new JFXButton("");
+			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			setDateBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.CALENDAR_ALT));
+//			setDateBtn.setStyle("-fx-background-color: cyan;");
+//			viewBtn.setStyle("-fx-background-color: orange;");
 		}
 
 		public String getTitle() {
@@ -196,7 +200,7 @@ public class ScheduledTestsController implements Initializable {
 	}
 	
 	@FXML
-	void filterBtn(MouseEvent event) {
+	void searchBtnClicked(MouseEvent event) {
 		//TODO -- implement filter
 	}
 
