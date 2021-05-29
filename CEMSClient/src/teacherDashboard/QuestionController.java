@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 
 public class QuestionController {
 
@@ -33,6 +34,12 @@ public class QuestionController {
 
 	@FXML
 	private JFXTextArea studentNotesTxt;
+	
+	final ToggleGroup group = new ToggleGroup();
+
+	public ToggleGroup getGroup() {
+		return group;
+	}
 
 	public Label getQuestionNumLbl() {
 		return questionNumLbl;
@@ -69,5 +76,4 @@ public class QuestionController {
 	public JFXTextArea getStudentNotesTxt() {
 		return studentNotesTxt;
 	}
-
 }

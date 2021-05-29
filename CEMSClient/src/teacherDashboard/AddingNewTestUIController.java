@@ -47,7 +47,7 @@ public class AddingNewTestUIController implements Initializable {
 
 	@FXML
 	private AnchorPane setParametersAnchor;
-
+ 
 	@FXML
 	private AnchorPane insidesetParametersAnchor;
 
