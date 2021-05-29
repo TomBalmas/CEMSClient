@@ -15,7 +15,7 @@
 
    <children>
       <ScrollPane fx:id="scrollPane" layoutX="10.0" layoutY="55.0" prefHeight="780.0" prefWidth="980.0" stylesheets="@../util/Style.css" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <AnchorPane fx:id="insideTestSideBarAnchor" prefHeight="800.0" prefWidth="273.0">
                <children>
@@ -47,13 +47,18 @@
                         <String fx:value="button" />
                      </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="downloadBtn" layoutX="59.0" layoutY="370.0" onMouseClicked="#downloadFileClicked" text="Download Word File" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="downloadBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="380.0" onMouseClicked="#downloadFileClicked" prefHeight="47.0" text="Download Word File" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
-                        <String fx:value="clickedButton" />
-                        <String fx:value="button" />
+                        <String fx:value="downloadFileButton" />
                         <String fx:value="file" />
                      </styleClass>
-                  </JFXButton>
+				     <graphic>
+						<FontAwesomeIconView glyphName="DOWNLOAD" size="21" translateX="-108.0" translateY="0.5" />
+					</graphic>
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+				  </JFXButton>
                   <AnchorPane fx:id="uploadFileAnchor" layoutY="500.0" prefHeight="215.0" prefWidth="300.0" styleClass="uploadFileTxtArea" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                      <children>
                         <FontAwesomeIconView glyphName="UPLOAD" size="25" textAlignment="CENTER" translateY="40.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="30.0" />
@@ -119,7 +124,11 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <FontAwesomeIconView fx:id="deleteFileBtn" glyphName="TRASH" layoutX="226.0" layoutY="38.0" size="22" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                                    <JFXButton fx:id="deleteFileBtn" text="" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="16.0">
+				                    	<graphic>
+									 		<FontAwesomeIconView glyphName="TRASH" layoutX="226.0" layoutY="38.0" size="22.0" />
+									 	</graphic>
+				                 	</JFXButton>
                                  </children>
                                  <styleClass>
                                     <String fx:value="paneBorder" />
