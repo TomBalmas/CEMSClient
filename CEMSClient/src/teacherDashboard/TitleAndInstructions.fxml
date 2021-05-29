@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -11,17 +12,24 @@
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="testTitleLbl" text="Test Title">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label fx:id="testTitleLbl" contentDisplay="CENTER" text="Test Title" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Label fx:id="instructionsLbl" text="Instructions:">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <JFXTextArea fx:id="instructionsTxtArea" />
+            <JFXTextArea fx:id="instructionsTxtArea">
+               <font>
+                  <Font size="20.0" />
+               </font></JFXTextArea>
          </children>
       </VBox>
    </children>
