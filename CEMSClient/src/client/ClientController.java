@@ -20,6 +20,8 @@ public class ClientController {
 	private static boolean questionDeleted;
 	private static boolean questionEdited;
 	private static boolean testScheduled;
+	private static String authorName = null;
+
 	private static String newQuestionId;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
@@ -166,6 +168,16 @@ public class ClientController {
 	public static void setId(String id) {
 		ClientController.id = id;
 	}
+	public static String getAuthorName() {
+		return authorName;
+	}
+
+	public static void setAuthorName(String authorName) {
+		ClientController.authorName = authorName;
+	}
+
+
+
 	
 	
 

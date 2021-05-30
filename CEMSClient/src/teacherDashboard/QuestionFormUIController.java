@@ -170,8 +170,10 @@ public class QuestionFormUIController implements Initializable {
 			//send query only if fields arent empty 
 			if( correctAnswer!=0  && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()  && !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty())
 			 {
+				Teacher connected = (Teacher) ClientController.getActiveUser();
+				
 				//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-				String queryAddQuestion= "ADD_QUESTION-" + teacherName + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
+				String queryAddQuestion= "ADD_QUESTION-" + connected.getSSN() + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
 						answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
 				ClientController.accept(queryAddQuestion);
 				
