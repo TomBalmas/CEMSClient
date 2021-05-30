@@ -47,11 +47,11 @@
               <columns>
                 <TableColumn fx:id="testIDCol" prefWidth="75.0" text="Test ID" />
                   <TableColumn fx:id="courseCol" prefWidth="96.0" text="Course" />
-                  <TableColumn fx:id="testCodeCol" prefWidth="98.0" text="Test Code" />
-                  <TableColumn fx:id="titleCol" prefWidth="117.0" text="Title" />
+                  <TableColumn fx:id="titleCol" prefWidth="98.0" text="Title" />
+                  <TableColumn fx:id="dateCol" prefWidth="117.0" text="Date" />
                   <TableColumn fx:id="startingTime" prefWidth="119.0" text="Starting Time" />
-                  <TableColumn fx:id="pointsPerQuestinCol" prefWidth="154.0" text="Points per Question" />
-                <TableColumn fx:id="dateCol" prefWidth="99.0" text="Date" />
+                  <TableColumn fx:id="studentSSNCol" prefWidth="154.0" text="Student SSN" />
+                <TableColumn fx:id="GradeCol" prefWidth="99.0" text="Grade" />
                   <TableColumn fx:id="statusCol" prefWidth="96.0" text="Status" />
               </columns>
             </TableView>

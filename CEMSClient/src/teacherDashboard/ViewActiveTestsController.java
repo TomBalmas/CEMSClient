@@ -3,7 +3,6 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,8 +12,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ActiveTest;
-import common.Teacher;
-import common.Test;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -175,6 +171,7 @@ public class ViewActiveTestsController implements Initializable {
 		backBtn.setVisible(true);
 		lockTestAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
+		
 	}
 
 	/**
@@ -215,8 +212,9 @@ public class ViewActiveTestsController implements Initializable {
 		backBtn.setVisible(true);
 		requestTimeAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
+		
 	}
-
+	
 	/**
 	 * this method shows the popup that the request for time extension is approved
 	 * need to connect to active test screen
@@ -226,6 +224,7 @@ public class ViewActiveTestsController implements Initializable {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
 		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!", contentPaneAnchor, null, null);	
+		//reasonForRequestTxt
 	}
 
 	@FXML
@@ -249,9 +248,18 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	// -----------TODO--------------
+	
+	
+	/**
+	 * Pressing the back button on the Lock Test or Request Time Extension anchorPanes returns 
+	 * to the Test Selected anchorPane.
+	 */
 	@FXML
 	void backBtnClicked(MouseEvent event) {
-
+		lockTestAnchor.setVisible(false);
+		requestTimeAnchor.setVisible(false);
+		backBtn.setVisible(false);
+		selectedTestAnchor.setVisible(true);
 	}
 
 	
