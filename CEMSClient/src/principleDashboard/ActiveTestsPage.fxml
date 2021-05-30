@@ -12,6 +12,6 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollPane" layoutY="70.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="710.0" prefWidth="950.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" />
+      <ScrollPane fx:id="scrollPane" layoutY="70.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="710.0" prefWidth="950.0" styleClass="body" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" />
    </children>
 </AnchorPane>

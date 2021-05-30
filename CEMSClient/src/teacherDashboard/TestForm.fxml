@@ -15,7 +15,7 @@
 
    <children>
       <ScrollPane fx:id="scrollPane" layoutX="10.0" layoutY="55.0" prefHeight="780.0" prefWidth="980.0" stylesheets="@../util/Style.css" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <AnchorPane fx:id="insideTestSideBarAnchor" prefHeight="800.0" prefWidth="273.0">
                <children>

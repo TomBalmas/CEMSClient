@@ -68,7 +68,6 @@ public class SetTestDateController implements Initializable {
 				setDateBtn.setDisable(true);
 		});
 		
-
 	}
 
 }

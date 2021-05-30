@@ -270,7 +270,8 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null, loader);
+						//PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
 							ClientController.accept("SCHEDULE_TEST-" + tr.getTestId() + ","
@@ -278,14 +279,12 @@ public class TestBankUIController implements Initializable {
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
-								if (ClientController.isTestScheduled())
 									PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success",
 											"Tests scheduled successfully", contentPaneAnchor, null, null);
 								else
 									PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Failed", "Tests schedule failed",
 											contentPaneAnchor, null, null);
 						});
-
 					}
 				});
 

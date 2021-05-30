@@ -33,17 +33,13 @@ public class ActiveTestController implements Initializable {
 	 *  requests from different teachers.
 	 *	
 	 */
-	
-	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-			
-		vBoxScrollPane.setPadding(new Insets(25,25,25,25));
+	public void initialize(URL location, ResourceBundle resources) {	
+		//vBoxScrollPane.setPadding(new Insets(25,25,25,25));
 		addTeacherRequest("vered","tom");
 		addTeacherRequest("vered","tom");
 		addTeacherRequest("vered","tom");
-	
-
+		addTeacherRequest("vered","tom");
 	}
 
 	/**
