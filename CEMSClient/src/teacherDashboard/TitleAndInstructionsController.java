@@ -25,8 +25,6 @@ public class TitleAndInstructionsController {
 
 	public JFXTextArea getInstructionsTxtArea() {
 		return instructionsTxtArea;
-	}
-    
-    
+	}  
 
 }

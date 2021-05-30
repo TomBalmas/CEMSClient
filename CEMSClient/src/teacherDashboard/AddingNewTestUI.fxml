@@ -26,11 +26,11 @@
                            <children>
                               <TableView fx:id="questionTable" prefHeight="533.0" prefWidth="776.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="10.0">
                                 <columns>
-                                    <TableColumn fx:id="selectCol" editable="false" prefWidth="60.0" text="Select" />
-                                  <TableColumn fx:id="idCol" prefWidth="65.0" text="ID" />
-                                    <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
-                                  <TableColumn fx:id="textCol" prefWidth="375.0" text="Content" />
-                                    <TableColumn fx:id="viewCol" prefWidth="148.0" text="View Question" />
+                                   <TableColumn fx:id="selectCol" editable="false" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Select" />
+                                   <TableColumn fx:id="idCol" prefWidth="65.0" style="-fx-alignment: CENTER;" text="ID" />
+                                   <TableColumn fx:id="authorCol" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Author" />
+                                   <TableColumn fx:id="textCol" prefWidth="426.0" style="-fx-alignment: CENTER;" text="Content" />
+                                   <TableColumn fx:id="viewCol" prefWidth="148.0" style="-fx-alignment: CENTER;" text="View Question" />
                                 </columns>
                               </TableView>
                               <VBox fx:id="parametersVBox" fillWidth="false" prefHeight="525.0" prefWidth="776.0" spacing="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
@@ -77,25 +77,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="backBtn1" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack1" text="Back1">
-         <font>
-            <Font size="19.0" />
-         </font>
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass>
-      </JFXButton>
-      <JFXButton fx:id="backBtn2" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack2" text="Back2" visible="false">
-         <font>
-            <Font size="19.0" />
-         </font>
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass>
-      </JFXButton>
-      <JFXButton fx:id="backBtn3" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack3" text="Back3" visible="false">
+      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="740.0" onMouseClicked="#clickBack" text="Back">
          <font>
             <Font size="19.0" />
          </font>
