@@ -124,6 +124,12 @@ public class CEMSClient extends ObservableClient {
 					String[] tmp = str.split(":");
 					ClientController.setId(tmp[1]);
 				}
+				else {
+					//getting author name from query
+					String[] toSplit = ((String) msg).split(":"); 
+					ClientController.setAuthorName(toSplit[1]);
+					
+				}
 
 			}
 

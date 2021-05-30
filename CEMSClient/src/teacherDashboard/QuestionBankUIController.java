@@ -9,10 +9,10 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Principle;
 import common.Question;
 import common.Teacher;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -103,7 +103,7 @@ public class QuestionBankUIController implements Initializable {
 	private Node blankQuestionForm;
 	private Node QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
-
+	 String authorName;
 
 	// ----------TODO: add teachers for priciple
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
@@ -158,9 +158,12 @@ public class QuestionBankUIController implements Initializable {
 		private Question question;
 
 		public questionRow(Question question) {
+			
+			String  authorID=question.getAuthorID();
+			 ClientController.accept("GET_NAME_BY_ID-"+ authorID);
+			author=ClientController.getAuthorName();
 			this.question = question;
 			id = question.getID();
-			author = question.getAuthor();
 			field = question.getField();
 			this.ViewBtn = new JFXButton();
 			this.DeleteBtn = new JFXButton();
@@ -171,12 +174,7 @@ public class QuestionBankUIController implements Initializable {
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			DeleteBtn.setStyle("-fx-fill: red !important;");
 
-//			ViewBtn.setMaxWidth(Double.MAX_VALUE);
-//			DeleteBtn.setMaxWidth(Double.MAX_VALUE);
-//			EditBtn.setMaxWidth(Double.MAX_VALUE);
-//			DeleteBtn.setStyle("-fx-background-color: TEAL;");
-//			EditBtn.setStyle("-fx-background-color: TEAL;");
-//			ViewBtn.setStyle("-fx-background-color: TEAL;");
+
 		}
 
 		public String getID() {
@@ -253,6 +251,16 @@ public class QuestionBankUIController implements Initializable {
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields());
 			questions = ClientController.getQuestions();
 		}
+
+		if (ClientController.getRoleFrame().equals("Principle")) {
+			Principle  principle  = (Principle) ClientController.getActiveUser();
+			//calling query for getting teachers field questions 
+			ClientController.accept("GET_QUESTIONS_TABLE-");
+			questions = ClientController.getQuestions();
+			
+			
+		}
+		
 	  //adding PropertyValueFactory for the columns
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
 		PropertyValueFactory fieldfactory = new PropertyValueFactory<>("field");
@@ -269,17 +277,19 @@ public class QuestionBankUIController implements Initializable {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow questionRow = new questionRow(questions.get(i));
 			
+			
 				questionBankTable.getItems().add(questionRow);
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 					@Override
 					public void handle(ActionEvent event) {
 						try {
+						
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							JFXButton buttonText = (JFXButton) event.getSource();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + questionRow.getID() + " by " + questionRow.getAuthor());
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)

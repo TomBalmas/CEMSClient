@@ -140,7 +140,7 @@ public class AddingNewTestUIController implements Initializable {
 
 		public QuestionRow(Question question) {
 			id = question.getID();
-			author = question.getAuthor();
+			author = question.getAuthorID();
 			text = question.getQuestionText();
 			viewBtn = new JFXButton();
 			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
@@ -323,7 +323,6 @@ public class AddingNewTestUIController implements Initializable {
 			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getName() + "," + testTitle + ","
 					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
 					+ teacherInst + "," + sb.toString() + "," + field);
-			System.out.println(ClientController.getId()); // TODO - add popup test added
 
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
