@@ -26,7 +26,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -237,6 +239,7 @@ public class TestFormController implements Initializable {
 		controller.getQuestionNumLbl().setText("Question: " + questionNumber);
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
 		controller.getContantTxt().setText(q.getQuestionText());
+		//addTextAndresizeTextArea(controller.getContantTxt(), q.getQuestionText());
 		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
 		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
 		controller.getAnswer3Btn().setText(q.getAnswers().get(2));
@@ -257,14 +260,32 @@ public class TestFormController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
 		Region element = loader.load();
 		TitleAndInstructionsController cont = loader.getController();
-		cont.getInstructionsTxtArea().appendText("Teacher instructions:\n");
-		cont.getInstructionsTxtArea().appendText(teacherInst);
-		cont.getInstructionsTxtArea().appendText("\nStudent instructions:\n");
-		cont.getInstructionsTxtArea().appendText(studentInst);
+		StringBuilder str = new StringBuilder();
+		str.append("Teacher instructions:\n");
+		str.append(teacherInst);
+		str.append("\nStudent instructions:\n");
+		str.append(studentInst);
+//		cont.getInstructionsTxtArea().appendText("Teacher instructions:\n");
+//		cont.getInstructionsTxtArea().appendText(teacherInst);
+//		cont.getInstructionsTxtArea().appendText("\nStudent instructions:\n");
+//		cont.getInstructionsTxtArea().appendText(studentInst);
+		addTextAndresizeTextArea(cont.getInstructionsTxtArea(), str.toString());
 		cont.getTestTitleLbl().setText(title);
 		vbox.getChildren().add(element);
 		element.prefWidthProperty().bind(scrollPane.widthProperty());
 		scrollPane.setContent(vbox);
+	}
+	
+	private void addTextAndresizeTextArea(JFXTextArea textArea, String text) {
+		Text t = new Text(text);
+		t.setFont(textArea.getFont());
+		StackPane pane = new StackPane(t);
+		pane.layout();
+		double width = t.getLayoutBounds().getWidth();
+		double height = t.getLayoutBounds().getHeight();
+		double padding = 15;
+		textArea.setMaxHeight(height + padding);
+		textArea.setText(text);
 	}
 
 	/**

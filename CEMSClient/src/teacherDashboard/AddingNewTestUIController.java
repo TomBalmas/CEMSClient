@@ -43,6 +43,8 @@ import util.PopUp;
 
 public class AddingNewTestUIController implements Initializable {
 
+	private static int Screen = 0;
+
 	@FXML
 	private AnchorPane contentPaneAnchor;
 
@@ -107,13 +109,7 @@ public class AddingNewTestUIController implements Initializable {
 	private Label headTitleLbl;
 
 	@FXML
-	private JFXButton backBtn1;
-
-	@FXML
-	private JFXButton backBtn2;
-
-	@FXML
-	private JFXButton backBtn3;
+	private JFXButton backBtn;
 
 	@FXML
 	private JFXButton finishBtn;
@@ -272,35 +268,32 @@ public class AddingNewTestUIController implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void clickBack1(MouseEvent event) {
-		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			contentPaneAnchor.getChildren().setAll(testBank);
-		} catch (IOException e) {
-			e.printStackTrace();
+	void clickBack(MouseEvent event) {
+		switch(Screen) {
+		case 0:
+			try {
+				testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
+				contentPaneAnchor.getChildren().setAll(testBank);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 1:
+			continueWithParametersBtn.setVisible(true);
+			previewTestBtn.setVisible(false);
+			parametersVBox.setVisible(true);
+			questionTable.setVisible(false);
+			headTitleLbl.setText("Set parameters");
+			break;
+		case 2:
+			previewTestBtn.setVisible(true);
+			finishBtn.setVisible(false);
+			questionTable.setVisible(true);
+			headTitleLbl.setText("Choose questions to add to the test");
+			testAnchor.setVisible(false);
+			break;
 		}
-	}
-
-	@FXML
-	void clickBack2(MouseEvent event) {
-		backBtn1.setVisible(true);
-		backBtn2.setVisible(false);
-		continueWithParametersBtn.setVisible(true);
-		previewTestBtn.setVisible(false);
-		parametersVBox.setVisible(true);
-		questionTable.setVisible(false);
-		headTitleLbl.setText("Set parameters");
-	}
-
-	@FXML
-	void clickBack3(MouseEvent event) {
-		backBtn2.setVisible(true);
-		backBtn3.setVisible(false);
-		previewTestBtn.setVisible(true);
-		finishBtn.setVisible(false);
-		questionTable.setVisible(true);
-		headTitleLbl.setText("Choose questions to add to the test");
-		testAnchor.setVisible(false);
+		if(--Screen == -1) Screen = 0;
 	}
 
 	/**
@@ -311,6 +304,7 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@FXML
 	void clickFinish(MouseEvent event) {
+		Screen++;
 		try {
 			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
 			for (Question q : pickedQuestions) {
@@ -336,14 +330,13 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
+		Screen++;
 		testTitle = titleTxt.getText();
 		duration = durationTxt.getText();
 		field = selectFieldComboBox.getValue().toString();
 		course = selectFieldComboBox1.getValue().toString();
 		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
 		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
-		backBtn1.setVisible(false);
-		backBtn2.setVisible(true);
 		continueWithParametersBtn.setVisible(false);
 		previewTestBtn.setVisible(true);
 		parametersVBox.setVisible(false);
@@ -354,8 +347,7 @@ public class AddingNewTestUIController implements Initializable {
 
 	@FXML
 	void clickPreviewTest(MouseEvent event) {
-		backBtn2.setVisible(false);
-		backBtn3.setVisible(true);
+		Screen++;
 		previewTestBtn.setVisible(false);
 		finishBtn.setVisible(true);
 		questionTable.setVisible(false);

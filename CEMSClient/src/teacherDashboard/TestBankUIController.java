@@ -268,10 +268,8 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-<<<<<<< HEAD
 						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null, loader);
-=======
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+						//PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
 							//TODO check
@@ -282,10 +280,10 @@ public class TestBankUIController implements Initializable {
 										+ ClientController.getActiveUser().getSSN() + ","
 										+ cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
-								PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "", "", contentPaneAnchor, null, loader);
+								PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "YES", "", contentPaneAnchor, null, null);
+							else
+								PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "NO", "", contentPaneAnchor, null, null);
 						});
-
->>>>>>> branch 'master' of https://github.com/TomBalmas/CEMSClient
 					}
 				});
 

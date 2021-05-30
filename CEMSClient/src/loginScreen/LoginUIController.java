@@ -115,12 +115,7 @@ public class LoginUIController {
 					}
 				});
 				GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
-					usernameTxt.setVisible(false);
-					passwordTxt.setVisible(false);
-					welcomeLbl.setVisible(false);
-					loginBtn.setVisible(false);
-					userIcon.setVisible(false);
-					lockIcon.setVisible(false);
+					whiteAnchor.setVisible(false);
 				});
 			} else {
 				GeneralUIMethods.setPopupPane(popupStackPane);
