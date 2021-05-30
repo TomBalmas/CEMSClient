@@ -29,7 +29,7 @@ public class PopUp {
 	 * Class for generic popup
 	 */
 	public static boolean showMaterialDialog(TYPE type, String header, String body, AnchorPane nodeToBeBlurred,
-			List<JFXButton> btnsList, FXMLLoader o) {
+			List<JFXButton> btnsList, FXMLLoader loader) {
 
 		// Initialize
 		StackPane root = GeneralUIMethods.getPopupPane();
@@ -60,17 +60,15 @@ public class PopUp {
 		}
 		
 		//Load fxml popup
-		if(null != o) {
+		if(null != loader) {
 			try {
-				fxmlPopUp = o.load();
+				fxmlPopUp = loader.load();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			SetTestDateController controller = ((FXMLLoader) o).getController();
-			//root.prefWidthProperty().bind(controller.getContentPaneAnchor().widthProperty());
-			//root.prefHeightProperty().bind(controller.getContentPaneAnchor().heightProperty());
+			if (header.equals("ScheduleTest"))
+				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());	
 			fxmlPopUp.toFront();
-			dialogLayout.setBody(controller.getContentPaneAnchor());
 		}
 		else {
 			dialogLayout.setBody(new Label(body));

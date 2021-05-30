@@ -39,6 +39,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class AddingNewTestUIController implements Initializable {
 
@@ -123,7 +124,7 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXButton continueWithParametersBtn;
 	private Node QuestionForm;
-	private QuestionFormUIController blankQuestionFormUIController;
+	private QuestionFormUIController questionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Node testBank;
 	private Set<Question> pickedQuestions;
@@ -202,29 +203,27 @@ public class AddingNewTestUIController implements Initializable {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
 
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and
-																								// DB
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 						try {
-							FXMLLoader loader = new FXMLLoader(
-									getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
-							JFXButton buttonText = (JFXButton) event.getSource();
-							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
-									buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
-							blankQuestionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
-							blankQuestionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
-							// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
-							// //---TODO:fix
-							// (q.getField().toString());
-							for (int j = 0; j < 4; j++)
-								blankQuestionFormUIController.getAnswerTextFields().get(j)
-										.setText(q.getAnswers().get(j));
-						} catch (IOException e1) {
-							e1.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
+						JFXButton buttonText = (JFXButton) event.getSource();
+						questionFormUIController = loader.getController();
+						questionFormUIController.getNewQuestionFormLbl().setText(
+								buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
+						questionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
+						questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
+						// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
+						// //---TODO:fix
+						// (q.getField().toString());
+						for (int j = 0; j < 4; j++)
+							questionFormUIController.getAnswerTextFields().get(j)
+									.setText(q.getAnswers().get(j));
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				};
@@ -232,11 +231,11 @@ public class AddingNewTestUIController implements Initializable {
 				qr.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
-						blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						questionFormUIController.getQuestionContentTxt().setEditable(false);
 						for (int p = 0; p < 4; p++) {
-							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
-							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
-							blankQuestionFormUIController.getSaveBtn().setVisible(false);
+							questionFormUIController.getAnswerTextFields().get(p).setEditable(false);
+							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
+							questionFormUIController.getSaveBtn().setVisible(false);
 						}
 					}
 					;
@@ -332,7 +331,7 @@ public class AddingNewTestUIController implements Initializable {
 		}
 	}
 
-	/**
+	/*
 	 * testTitle, duration, course, studentInst, teacherInst
 	 */
 	@FXML
@@ -366,11 +365,14 @@ public class AddingNewTestUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			Region test = loader.load();
 			test.prefWidthProperty().bind(testScrollPane.widthProperty());
+			test.prefHeightProperty().bind(testScrollPane.heightProperty());
 			TestFormController controller = loader.getController();
+//			controller.getScrollPane().setLayoutX(testScrollPane.layoutXProperty().doubleValue());
+//			controller.getScrollPane().setLayoutY(testScrollPane.layoutYProperty().doubleValue());
 			controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
 			controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
-			controller.getScrollPane().setTranslateX(20);
-			controller.getScrollPane().setTranslateY(-230);
+			controller.getScrollPane().setTranslateX(10);
+			controller.getScrollPane().setTranslateY(11);
 			controller.getEditBtn().setVisible(false);
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
