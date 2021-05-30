@@ -2,6 +2,7 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -28,8 +29,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
@@ -263,35 +262,62 @@ public class TestBankUIController implements Initializable {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
-				
-				//Schedule button
+
+				// Schedule button
 				tr.getSetDateBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
 						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+						SetTestDateController cont = loader.getController();
+						cont.getSetDateBtn().setOnMouseClicked(e -> {
+							//TODO check
+							if (LocalDate.now().compareTo(cont.getDateDP().getValue()) >= 0)
+								ClientController.accept("SCHEDULE_TEST-" + tr.getTestId() + ","
+										+ israeliDate(cont.getDateDP().getValue()) + ","
+										+ cont.getTimeTP().getValue().toString() + ","
+										+ ClientController.getActiveUser().getSSN() + ","
+										+ cont.getCodeTxt().getText());
+							if (ClientController.isTestScheduled())
+								PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "", "", contentPaneAnchor, null, loader);
+						});
+
 					}
 				});
-				
-				//Delete button
+
+				// Delete button
 				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						TestRow toDelete = tr;
 						JFXButton yesBtn = new JFXButton("Yes");
-						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 							ClientController.accept("DELETE_TEST-" + tr.test.getID());
 							if (!ClientController.isTestDeleted())
 								System.out.println("not working");
 							testTable.getItems().remove(toDelete);
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+									"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
 						});
-						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
-								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
+						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert",
+								"Are you sure that you want to delete this test?", contentPaneAnchor,
+								Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
 			}
 		}
+	}
+
+	private String israeliDate(LocalDate date) {
+		String[] arr = date.toString().split("-");
+		StringBuilder sb = new StringBuilder();
+		sb.append(arr[2]);
+		sb.append("/");
+		sb.append(arr[1]);
+		sb.append("/");
+		sb.append(arr[0]);
+		return sb.toString();
+
 	}
 
 }

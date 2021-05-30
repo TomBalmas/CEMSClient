@@ -1,7 +1,8 @@
 package teacherDashboard;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -9,42 +10,65 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import util.GeneralUIMethods;
-import util.PopUp;
 
-public class SetTestDateController {
-
-    @FXML
-    private AnchorPane contentPaneAnchor;
+public class SetTestDateController implements Initializable {
 
 	@FXML
-    private Label testNameLbl;
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private JFXDatePicker dateDP;
+	@FXML
+	private Label testNameLbl;
 
-    @FXML
-    private JFXTimePicker timeTP;
+	@FXML
+	private JFXDatePicker dateDP;
 
-    @FXML
-    private JFXTextField codeTxt;
+	@FXML
+	private JFXTimePicker timeTP;
 
-    @FXML
-    private JFXButton setDateBtn;
+	@FXML
+	private JFXTextField codeTxt;
 
-    @FXML
-    void setDateClicked(MouseEvent event) {
-		List<JFXButton> list = new ArrayList<JFXButton>();
-		list.add(new JFXButton("Okay"));
-		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success", "Date and time changed successfully!", contentPaneAnchor, null, null);	
-    }
+	@FXML
+	private JFXButton setDateBtn;
 
-    public AnchorPane getContentPaneAnchor() {
+	public AnchorPane getContentPaneAnchor() {
 		return contentPaneAnchor;
+	}
+
+	public Label getTestNameLbl() {
+		return testNameLbl;
+	}
+
+	public JFXDatePicker getDateDP() {
+		return dateDP;
+	}
+
+	public JFXTimePicker getTimeTP() {
+		return timeTP;
+	}
+
+	public JFXTextField getCodeTxt() {
+		return codeTxt;
+	}
+
+	public JFXButton getSetDateBtn() {
+		return setDateBtn;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setDateBtn.setDisable(true);
+		dateDP.setOnAction(e -> {
+			if (LocalDate.now().compareTo(dateDP.getValue()) <= 0 )
+				setDateBtn.setDisable(false);
+			else
+				setDateBtn.setDisable(true);
+		});
+		
+
 	}
 
 }
