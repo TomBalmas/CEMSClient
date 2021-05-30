@@ -13,6 +13,7 @@
 
 <AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginScreen.LoginUIController">
    <children>
+      <StackPane fx:id="popupStackPane" layoutX="302.0" layoutY="301.0" prefHeight="150.0" prefWidth="400.0" />
       <AnchorPane fx:id="whiteAnchor" layoutX="302.0" layoutY="206.0" prefHeight="339.0" prefWidth="400.0" style="-fx-aligment: center;" styleClass="paneBorder">
          <children>
             <AnchorPane prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
@@ -44,6 +45,5 @@
          </children>
       </AnchorPane>
       <VBox id="sideBar" fx:id="menuVBox" layoutX="997.0" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" />
-      <StackPane fx:id="popupStackPane" layoutX="300.0" layoutY="300.0" prefHeight="150.0" prefWidth="400.0" />
    </children>
 </AnchorPane>

@@ -45,10 +45,10 @@
          <children>
             <TableView fx:id="activeTestsTbl" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="71.0" style="-fx-alignment: CENTER;" text="ID" />
+                  <TableColumn fx:id="idCol" prefWidth="71.0" style="-fx-alignment: CENTER;" text="ID" />
                   <TableColumn fx:id="fieldCol1" prefWidth="141.0" style="-fx-alignment: CENTER;" text="Field" />
                   <TableColumn fx:id="CourseCol" prefWidth="135.0" style="-fx-alignment: CENTER;" text="Course" />
-                <TableColumn fx:id="testNameCol" prefWidth="129.0" style="-fx-alignment: CENTER;" text="Test Name" />
+                  <TableColumn fx:id="testNameCol" prefWidth="129.0" style="-fx-alignment: CENTER;" text="Test Name" />
                   <TableColumn fx:id="AuthorNameCol" prefWidth="143.0" style="-fx-alignment: CENTER;" text="AuthorName" />
                   <TableColumn fx:id="startTimeCol" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Start Time" />
                   <TableColumn fx:id="endTimeCol" prefWidth="115.0" style="-fx-alignment: CENTER;" text="End Time" />

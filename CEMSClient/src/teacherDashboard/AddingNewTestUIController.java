@@ -233,8 +233,7 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
-					}
-					;
+					};
 				});
 				if (pickedQuestions.size() == 0)
 					previewTestBtn.setDisable(true);
@@ -313,7 +312,7 @@ public class AddingNewTestUIController implements Initializable {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			System.out.println(sb.toString());
-			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getName() + "," + testTitle + ","
+			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
 					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
 					+ teacherInst + "," + sb.toString() + "," + field);
 
