@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.ActiveTest;
 import common.FinishedTest;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -61,27 +66,28 @@ public class CheckTestsUIController implements Initializable {
 	private TableColumn<?, ?> testIDCol;
 
 	@FXML
+	private TableColumn<?, ?> courseCol;
+
+	@FXML
+	private TableColumn<?, ?> titleCol;
+
+	@FXML
 	private TableColumn<?, ?> dateCol;
 
 	@FXML
 	private TableColumn<?, ?> startingTime;
 
 	@FXML
-	private TableColumn<?, ?> testCodeCol;
+	private TableColumn<?, ?> studentSSNCol;
 
 	@FXML
-	private TableColumn<?, ?> titleCol;
-
-	@FXML
-	private TableColumn<?, ?> courseCol;
-
-	@FXML
-	private TableColumn<?, ?> pointsPerQuestinCol;
+	private TableColumn<?, ?> GradeCol;
 
 	@FXML
 	private TableColumn<?, ?> statusCol;
 
 	private Node viewReports;
+	private ObservableList list = FXCollections.observableArrayList();
 
 	@FXML
 	void filterBtn(MouseEvent event) {
@@ -103,21 +109,31 @@ public class CheckTestsUIController implements Initializable {
 				list, null);
 	}
 
+	/**
+	 * Internal class to define a row in tableView.
+	 *
+	 */
 	public class rowTableCheckTests {
 
-		private String testID;
+		private String ID;
+		private String course;
+		private String title;
 		private String date;
 		private String startingTime;
-		private String title;
-		private String course;
+		private String studentSSN;
+		private int grade;
+		private String status;
 
 		public rowTableCheckTests(FinishedTest checkTest) {
 
-			this.testID = checkTest.getID();
+			this.ID = checkTest.getID();
+			this.course = checkTest.getCourse();
+			this.title = checkTest.getTitle();
 			this.date = checkTest.getDate();
 			this.startingTime = checkTest.getStartingTime();
-			this.title = checkTest.getTitle();
-			this.course = checkTest.getCourse();
+			this.studentSSN = checkTest.getStudentSSN();
+			this.grade = checkTest.getGrade();
+			this.status = checkTest.getStatus();
 
 		}
 
@@ -128,19 +144,24 @@ public class CheckTestsUIController implements Initializable {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
 		tests = ClientController.getFinishedTests();
-		testIDCol.setCellValueFactory(new PropertyValueFactory<>("testID"));
+
+		testIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
+		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 		startingTime.setCellValueFactory(new PropertyValueFactory<>("startingTime"));
-		testCodeCol.setCellValueFactory(new PropertyValueFactory<>("testCode"));
-		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
-		pointsPerQuestinCol.setCellValueFactory(new PropertyValueFactory<>("pointsPErQuestion"));
+		studentSSNCol.setCellValueFactory(new PropertyValueFactory<>("studentSSN"));
+		GradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
 		if (tests != null) {
 			for (FinishedTest test : tests) {
-				rowTableCheckTests row = new rowTableCheckTests(test);
-				testTbl.getItems().add(row);
+				rowTableCheckTests rt = new rowTableCheckTests(test);
+				list.add(test);
 			}
+			testTbl.getItems().addAll(list);
 		}
+
 	}
 
 }
