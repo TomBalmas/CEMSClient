@@ -73,7 +73,7 @@ public class ViewActiveTestsController implements Initializable {
 	private TableColumn<?, ?> startTimeCol;
 
 	@FXML
-	private TableColumn<?, ?> endTimeCol;
+	private TableColumn<?, ?> finishTimeCol;
 
 	@FXML
 	private AnchorPane testDetailsAnchor;
@@ -119,6 +119,12 @@ public class ViewActiveTestsController implements Initializable {
 
 	@FXML
 	private Label timeLeftLbl;
+	
+	@FXML
+	private Label testNameLabel;
+
+	@FXML
+	private Label testCodeLable;
 
 	@FXML
 	private JFXButton lequestTimeExtensionBtn;
@@ -147,6 +153,7 @@ public class ViewActiveTestsController implements Initializable {
 	private Node requestTimeExtension;
 	private Node viewTest;
 	private String CODE = "Toosick22"; // -----------need to compare the code with a code from the DB----------- *1
+	private String selectedRow;
 
 	/**
 	 * clicking lock will open pop up screen that confirms the lock.
@@ -155,7 +162,8 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void lockClicked(MouseEvent event) {
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!", contentPaneAnchor, null, null);	
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!",
+				contentPaneAnchor, null, null);
 		lockBtn.setText("Locked");
 		lockBtn.setDisable(true);
 	}
@@ -171,7 +179,7 @@ public class ViewActiveTestsController implements Initializable {
 		backBtn.setVisible(true);
 		lockTestAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
-		
+
 	}
 
 	/**
@@ -212,9 +220,9 @@ public class ViewActiveTestsController implements Initializable {
 		backBtn.setVisible(true);
 		requestTimeAnchor.setVisible(true);
 		selectedTestAnchor.setVisible(false);
-		
+
 	}
-	
+
 	/**
 	 * this method shows the popup that the request for time extension is approved
 	 * need to connect to active test screen
@@ -223,8 +231,11 @@ public class ViewActiveTestsController implements Initializable {
 	void clicksendForApproval(MouseEvent event) {
 		List<JFXButton> l = new ArrayList<JFXButton>();
 		l.add(new JFXButton("Okay"));
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!", contentPaneAnchor, null, null);	
-		//reasonForRequestTxt
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
+				contentPaneAnchor, null, null);
+		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
+				+ reasonForRequestTxt.getText() + "," + selectedRow); //Request for extension time.
+
 	}
 
 	@FXML
@@ -248,11 +259,10 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	// -----------TODO--------------
-	
-	
+
 	/**
-	 * Pressing the back button on the Lock Test or Request Time Extension anchorPanes returns 
-	 * to the Test Selected anchorPane.
+	 * Pressing the back button on the Lock Test or Request Time Extension
+	 * anchorPanes returns to the Test Selected anchorPane.
 	 */
 	@FXML
 	void backBtnClicked(MouseEvent event) {
@@ -262,7 +272,6 @@ public class ViewActiveTestsController implements Initializable {
 		selectedTestAnchor.setVisible(true);
 	}
 
-	
 	/**
 	 * Internal class to define a row in tableView.
 	 *
@@ -276,6 +285,7 @@ public class ViewActiveTestsController implements Initializable {
 		private String field;
 		private String startTimeTest;
 		private String finishTime;
+		private String code;
 
 		public rowTableActiveTest(ActiveTest activeTest) {
 
@@ -286,7 +296,7 @@ public class ViewActiveTestsController implements Initializable {
 			field = activeTest.getField();
 			startTimeTest = activeTest.getStartTimeTest();
 			finishTime = activeTest.getFinishTime();
-
+			code = activeTest.getCode();
 		}
 
 		public String getFinishTime() {
@@ -337,27 +347,31 @@ public class ViewActiveTestsController implements Initializable {
 																									// the server.
 			activeTests = ClientController.getActiveTests(); // Receiving a query from the server.
 		}
-		//Insert into columns of the table, columns from DB.
+		// Insert into columns of the table, columns from DB.
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
 		AuthorNameCol.setCellValueFactory(new PropertyValueFactory<>("authorName"));
 		CourseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		fieldCol1.setCellValueFactory(new PropertyValueFactory<>("field"));
 		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTimeTest"));
-		endTimeCol.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		finishTimeCol.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		if (activeTests != null)
 			for (ActiveTest activeTest : activeTests) {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
 			}
-		//An event lets us click on a row in the table to see details like ID, Finish Time and Time Left.
+		// An event lets us click on a row in the table to see details like ID, Finish
+		// Time and Time Left.
 		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
 			if (event.getClickCount() >= 1) {
 				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
 					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
 					testCodeField.setText(selected.getID());
 					// timeLeftField.setText(selected.get); // TODO: in the future
-					finishTimeField.setText(selected.getFinishTime());
+					finishTimeField.setText(selected.getFinishTime()); //TODO
+					testNameLabel.setText(selected.getCourse()); //TODO 
+					//testCodeLable.setText(selected.arg0);
+					selectedRow = selected.getID(); // Get the ID to request query from server about time extension.
 				}
 			}
 
