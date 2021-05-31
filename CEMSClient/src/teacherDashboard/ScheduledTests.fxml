@@ -16,14 +16,16 @@
          <children>
             <TableView fx:id="scheduledTestsTbl" prefHeight="405.0" prefWidth="874.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="70.0" style="-fx-alignment: CENTER;" text="ID" />
-                <TableColumn fx:id="titleCol" prefWidth="132.0" style="-fx-alignment: CENTER;" text="Title" />
-                <TableColumn fx:id="authorCol" prefWidth="134.0" style="-fx-alignment: CENTER;" text="Author" />
-                <TableColumn fx:id="dateCol" prefWidth="102.0" style="-fx-alignment: CENTER;" text="Date" />
-                <TableColumn fx:id="startingTimeCol" prefWidth="143.0" style="-fx-alignment: CENTER;" text="Starting Time" />
-                <TableColumn fx:id="durationCol" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Duration" />
-                <TableColumn fx:id="rescheduleCol" prefWidth="106.0" style="-fx-alignment: CENTER;" text="Reschedule" />
-                <TableColumn fx:id="viewCol" prefWidth="74.0" style="-fx-alignment: CENTER;" text="View" />
+                <TableColumn fx:id="idCol" prefWidth="68.0" style="-fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="titleCol" prefWidth="94.0" style="-fx-alignment: CENTER;" text="Title" />
+                <TableColumn fx:id="authorCol" prefWidth="107.0" style="-fx-alignment: CENTER;" text="Author" />
+                <TableColumn fx:id="dateCol" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Date" />
+                <TableColumn fx:id="startingTimeCol" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Starting Time" />
+                <TableColumn fx:id="durationCol" prefWidth="86.0" style="-fx-alignment: CENTER;" text="Duration" />
+                <TableColumn fx:id="codeCol" prefWidth="86.0" style="-fx-alignment: CENTER;" text="Code" />
+                <TableColumn fx:id="viewCol" prefWidth="63.0" style="-fx-alignment: CENTER;" text="View" />
+                <TableColumn fx:id="rescheduleCol" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Reschedule" />
+                <TableColumn fx:id="deleteCol" prefWidth="69.0" style="-fx-alignment: CENTER;" text="Remove" />
               </columns>
             </TableView>
          </children>

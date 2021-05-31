@@ -1,5 +1,7 @@
 package util;
 
+import java.time.LocalDate;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
@@ -120,6 +122,18 @@ public class GeneralUIMethods {
 		ClientController.accept("SIGN_OUT");
 	}
 	
+	
+	public static String israeliDate(LocalDate date) {
+		String[] arr = date.toString().split("-");
+		StringBuilder sb = new StringBuilder();
+		sb.append(arr[2]);
+		sb.append("/");
+		sb.append(arr[1]);
+		sb.append("/");
+		sb.append(arr[0]);
+		return sb.toString();
+
+	}
 	
 	
 	

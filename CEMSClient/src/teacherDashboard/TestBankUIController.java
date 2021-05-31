@@ -273,7 +273,7 @@ public class TestBankUIController implements Initializable {
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
-									+ israeliDate(cont.getDateDP().getValue()) + ","
+									+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
@@ -309,16 +309,6 @@ public class TestBankUIController implements Initializable {
 		}
 	}
 
-	private String israeliDate(LocalDate date) {
-		String[] arr = date.toString().split("-");
-		StringBuilder sb = new StringBuilder();
-		sb.append(arr[2]);
-		sb.append("/");
-		sb.append(arr[1]);
-		sb.append("/");
-		sb.append(arr[0]);
-		return sb.toString();
-
-	}
+	
 
 }
