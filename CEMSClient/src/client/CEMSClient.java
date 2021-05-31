@@ -133,6 +133,11 @@ public class CEMSClient extends ObservableClient {
 					String[] tmp = str.split(":");
 					ClientController.setId(tmp[1]);
 				}
+				
+				else if(str.equals("testRemoved"))
+					ClientController.setTestRemoved(true);
+				else if(str.equals("testNotRemoved"))
+					ClientController.setTestRemoved(false);
 				else {
 					//getting author name from query
 					String[] toSplit = ((String) msg).split(":"); 
