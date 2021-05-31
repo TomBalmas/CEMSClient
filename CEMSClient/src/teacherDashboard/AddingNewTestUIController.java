@@ -39,8 +39,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class AddingNewTestUIController implements Initializable {
+
+	private static int Screen = 0;
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -106,13 +109,7 @@ public class AddingNewTestUIController implements Initializable {
 	private Label headTitleLbl;
 
 	@FXML
-	private JFXButton backBtn1;
-
-	@FXML
-	private JFXButton backBtn2;
-
-	@FXML
-	private JFXButton backBtn3;
+	private JFXButton backBtn;
 
 	@FXML
 	private JFXButton finishBtn;
@@ -123,7 +120,7 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXButton continueWithParametersBtn;
 	private Node QuestionForm;
-	private QuestionFormUIController blankQuestionFormUIController;
+	private QuestionFormUIController questionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Node testBank;
 	private Set<Question> pickedQuestions;
@@ -202,29 +199,27 @@ public class AddingNewTestUIController implements Initializable {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
 
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and
-																								// DB
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 						try {
-							FXMLLoader loader = new FXMLLoader(
-									getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
-							JFXButton buttonText = (JFXButton) event.getSource();
-							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
-									buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
-							blankQuestionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
-							blankQuestionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
-							// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
-							// //---TODO:fix
-							// (q.getField().toString());
-							for (int j = 0; j < 4; j++)
-								blankQuestionFormUIController.getAnswerTextFields().get(j)
-										.setText(q.getAnswers().get(j));
-						} catch (IOException e1) {
-							e1.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
+						JFXButton buttonText = (JFXButton) event.getSource();
+						questionFormUIController = loader.getController();
+						questionFormUIController.getNewQuestionFormLbl().setText(
+								buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
+						questionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
+						questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
+						// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
+						// //---TODO:fix
+						// (q.getField().toString());
+						for (int j = 0; j < 4; j++)
+							questionFormUIController.getAnswerTextFields().get(j)
+									.setText(q.getAnswers().get(j));
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				};
@@ -232,14 +227,13 @@ public class AddingNewTestUIController implements Initializable {
 				qr.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
-						blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						questionFormUIController.getQuestionContentTxt().setEditable(false);
 						for (int p = 0; p < 4; p++) {
-							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
-							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
-							blankQuestionFormUIController.getSaveBtn().setVisible(false);
+							questionFormUIController.getAnswerTextFields().get(p).setEditable(false);
+							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
+							questionFormUIController.getSaveBtn().setVisible(false);
 						}
-					}
-					;
+					};
 				});
 				if (pickedQuestions.size() == 0)
 					previewTestBtn.setDisable(true);
@@ -273,35 +267,32 @@ public class AddingNewTestUIController implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void clickBack1(MouseEvent event) {
-		try {
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			contentPaneAnchor.getChildren().setAll(testBank);
-		} catch (IOException e) {
-			e.printStackTrace();
+	void clickBack(MouseEvent event) {
+		switch(Screen) {
+		case 0:
+			try {
+				testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
+				contentPaneAnchor.getChildren().setAll(testBank);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 1:
+			continueWithParametersBtn.setVisible(true);
+			previewTestBtn.setVisible(false);
+			parametersVBox.setVisible(true);
+			questionTable.setVisible(false);
+			headTitleLbl.setText("Set parameters");
+			break;
+		case 2:
+			previewTestBtn.setVisible(true);
+			finishBtn.setVisible(false);
+			questionTable.setVisible(true);
+			headTitleLbl.setText("Choose questions to add to the test");
+			testAnchor.setVisible(false);
+			break;
 		}
-	}
-
-	@FXML
-	void clickBack2(MouseEvent event) {
-		backBtn1.setVisible(true);
-		backBtn2.setVisible(false);
-		continueWithParametersBtn.setVisible(true);
-		previewTestBtn.setVisible(false);
-		parametersVBox.setVisible(true);
-		questionTable.setVisible(false);
-		headTitleLbl.setText("Set parameters");
-	}
-
-	@FXML
-	void clickBack3(MouseEvent event) {
-		backBtn2.setVisible(true);
-		backBtn3.setVisible(false);
-		previewTestBtn.setVisible(true);
-		finishBtn.setVisible(false);
-		questionTable.setVisible(true);
-		headTitleLbl.setText("Choose questions to add to the test");
-		testAnchor.setVisible(false);
+		if(--Screen == -1) Screen = 0;
 	}
 
 	/**
@@ -312,6 +303,7 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@FXML
 	void clickFinish(MouseEvent event) {
+		Screen++;
 		try {
 			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
 			for (Question q : pickedQuestions) {
@@ -320,7 +312,7 @@ public class AddingNewTestUIController implements Initializable {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			System.out.println(sb.toString());
-			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getName() + "," + testTitle + ","
+			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
 					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
 					+ teacherInst + "," + sb.toString() + "," + field);
 
@@ -332,19 +324,18 @@ public class AddingNewTestUIController implements Initializable {
 		}
 	}
 
-	/**
+	/*
 	 * testTitle, duration, course, studentInst, teacherInst
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
+		Screen++;
 		testTitle = titleTxt.getText();
 		duration = durationTxt.getText();
 		field = selectFieldComboBox.getValue().toString();
 		course = selectFieldComboBox1.getValue().toString();
 		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
 		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
-		backBtn1.setVisible(false);
-		backBtn2.setVisible(true);
 		continueWithParametersBtn.setVisible(false);
 		previewTestBtn.setVisible(true);
 		parametersVBox.setVisible(false);
@@ -355,8 +346,7 @@ public class AddingNewTestUIController implements Initializable {
 
 	@FXML
 	void clickPreviewTest(MouseEvent event) {
-		backBtn2.setVisible(false);
-		backBtn3.setVisible(true);
+		Screen++;
 		previewTestBtn.setVisible(false);
 		finishBtn.setVisible(true);
 		questionTable.setVisible(false);
@@ -366,11 +356,14 @@ public class AddingNewTestUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			Region test = loader.load();
 			test.prefWidthProperty().bind(testScrollPane.widthProperty());
+			test.prefHeightProperty().bind(testScrollPane.heightProperty());
 			TestFormController controller = loader.getController();
+//			controller.getScrollPane().setLayoutX(testScrollPane.layoutXProperty().doubleValue());
+//			controller.getScrollPane().setLayoutY(testScrollPane.layoutYProperty().doubleValue());
 			controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
 			controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
-			controller.getScrollPane().setTranslateX(20);
-			controller.getScrollPane().setTranslateY(-230);
+			controller.getScrollPane().setTranslateX(10);
+			controller.getScrollPane().setTranslateY(11);
 			controller.getEditBtn().setVisible(false);
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;

@@ -45,13 +45,13 @@
          <children>
             <TableView fx:id="activeTestsTbl" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="71.0" style="-fx-alignment: CENTER;" text="ID" />
+                  <TableColumn fx:id="idCol" prefWidth="71.0" style="-fx-alignment: CENTER;" text="ID" />
                   <TableColumn fx:id="fieldCol1" prefWidth="141.0" style="-fx-alignment: CENTER;" text="Field" />
                   <TableColumn fx:id="CourseCol" prefWidth="135.0" style="-fx-alignment: CENTER;" text="Course" />
-                <TableColumn fx:id="testNameCol" prefWidth="129.0" style="-fx-alignment: CENTER;" text="Test Name" />
+                  <TableColumn fx:id="testNameCol" prefWidth="129.0" style="-fx-alignment: CENTER;" text="Test Name" />
                   <TableColumn fx:id="AuthorNameCol" prefWidth="143.0" style="-fx-alignment: CENTER;" text="AuthorName" />
                   <TableColumn fx:id="startTimeCol" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Start Time" />
-                  <TableColumn fx:id="endTimeCol" prefWidth="115.0" style="-fx-alignment: CENTER;" text="End Time" />
+                  <TableColumn fx:id="finishTimeCol" prefWidth="115.0" style="-fx-alignment: CENTER;" text="Finish Time" />
               </columns>
             </TableView>
          </children>
@@ -113,7 +113,17 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <Label fx:id="testSelectedLbl1" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Lock test #test_name# #code#">
+                  <Label fx:id="testSelectedLbl1" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="104.0" styleClass="pageTitle" text="Lock test ">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="testNameLabel" alignment="TOP_LEFT" layoutX="110.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="#test_name#">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="testCodeLable" alignment="TOP_LEFT" layoutX="259.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="#Test Code#">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>

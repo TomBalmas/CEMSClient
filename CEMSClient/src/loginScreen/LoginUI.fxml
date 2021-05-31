@@ -6,23 +6,44 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginScreen.LoginUIController">
    <children>
-      <FontAwesomeIconView fx:id="lockIcon" glyphName="LOCK" layoutX="376.0" layoutY="409.0" size="20" wrappingWidth="20.0" />
-      <FontAwesomeIconView fx:id="userIcon" glyphName="USER" layoutX="374.0" layoutY="340.0" size="20" wrappingWidth="20.0" />
-      <StackPane fx:id="popupStackPane" layoutX="300.0" layoutY="300.0" prefHeight="150.0" prefWidth="400.0" />
-      <JFXTextField fx:id="usernameTxt" labelFloat="true" layoutX="400.0" layoutY="316.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Username" />
-      <JFXPasswordField fx:id="passwordTxt" labelFloat="true" layoutX="400.0" layoutY="386.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Password" />
-      <JFXButton fx:id="loginBtn" layoutX="400.0" layoutY="455.0" onAction="#clickLogin" prefHeight="35.0" prefWidth="203.0" styleClass="clickedButton" text="Login" />
-      <Label fx:id="welcomeLbl" alignment="CENTER" layoutX="400.0" layoutY="240.0" prefHeight="38.0" prefWidth="203.0" text="WELCOME">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
+      <StackPane fx:id="popupStackPane" layoutX="302.0" layoutY="301.0" prefHeight="150.0" prefWidth="400.0" />
+      <AnchorPane fx:id="whiteAnchor" layoutX="302.0" layoutY="206.0" prefHeight="339.0" prefWidth="400.0" style="-fx-aligment: center;" styleClass="paneBorder">
+         <children>
+            <AnchorPane prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="289.0" prefWidth="350.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="welcomeLbl" alignment="CENTER" prefHeight="38.0" prefWidth="203.0" text="WELCOME">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <FontAwesomeIconView fx:id="userIcon" glyphName="USER" size="20" wrappingWidth="20.0" />
+                              <JFXTextField fx:id="usernameTxt" labelFloat="true" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Username" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <FontAwesomeIconView fx:id="lockIcon" glyphName="LOCK" size="20" wrappingWidth="20.0" />
+                              <JFXPasswordField fx:id="passwordTxt" labelFloat="true" onAction="#clickLogin" prefHeight="25.0" prefWidth="203.0" promptText="Password" />
+                           </children>
+                        </HBox>
+                        <JFXButton fx:id="loginBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#clickLogin" prefHeight="35.0" prefWidth="223.0" styleClass="clickedButton" text="Login" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
       <VBox id="sideBar" fx:id="menuVBox" layoutX="997.0" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" />
    </children>
 </AnchorPane>

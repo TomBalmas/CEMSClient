@@ -23,6 +23,6 @@
       <JFXDatePicker fx:id="dateDP" layoutX="67.0" layoutY="38.0" promptText="dd/mm/yyyy" />
       <JFXTimePicker fx:id="timeTP" layoutX="67.0" layoutY="102.0" promptText="hh:mm" />
       <JFXTextField fx:id="codeTxt" labelFloat="true" layoutX="67.0" layoutY="167.0" promptText="Test code" />
-      <JFXButton fx:id="setDateBtn" layoutX="67.0" layoutY="228.0" onMouseClicked="#setDateClicked" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
+      <JFXButton fx:id="setDateBtn" layoutX="67.0" layoutY="228.0" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: #1eae98;" text="Set Date &amp; Time" />
    </children>
 </AnchorPane>

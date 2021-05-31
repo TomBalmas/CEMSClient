@@ -24,21 +24,23 @@ import util.Navigator;
 import util.PopUp;
 
 public class LoginUIController {
-
     @FXML
     private AnchorPane anchorLogin;
 
     @FXML
-    private FontAwesomeIconView lockIcon;
+    private AnchorPane whiteAnchor;
+
+    @FXML
+    private Label welcomeLbl;
 
     @FXML
     private FontAwesomeIconView userIcon;
 
     @FXML
-    private StackPane popupStackPane;
+    private JFXTextField usernameTxt;
 
     @FXML
-    private JFXTextField usernameTxt;
+    private FontAwesomeIconView lockIcon;
 
     @FXML
     private JFXPasswordField passwordTxt;
@@ -47,13 +49,14 @@ public class LoginUIController {
     private JFXButton loginBtn;
 
     @FXML
-    private Label welcomeLbl;
+    private VBox menuVBox;
 
     @FXML
-    private VBox menuVBox;
+    private StackPane popupStackPane;
+
     
 	private Node dashBoard;
-
+    boolean first_active = true;
 	private static final int menuMovementRightToLeft = -1280 + 283 - 1;
 
 	public void start(Stage stage) throws IOException {
@@ -112,12 +115,7 @@ public class LoginUIController {
 					}
 				});
 				GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
-					usernameTxt.setVisible(false);
-					passwordTxt.setVisible(false);
-					welcomeLbl.setVisible(false);
-					loginBtn.setVisible(false);
-					userIcon.setVisible(false);
-					lockIcon.setVisible(false);
+					whiteAnchor.setVisible(false);
 				});
 			} else {
 				GeneralUIMethods.setPopupPane(popupStackPane);
