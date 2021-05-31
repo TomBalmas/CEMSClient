@@ -44,6 +44,14 @@ import util.PopUp;
 public class AddingNewTestUIController implements Initializable {
 
 	private static int Screen = 0;
+	private Node QuestionForm;
+	private QuestionFormUIController questionFormUIController;
+	private String testTitle, duration, course, studentInst, teacherInst, field;
+	private Node testBank;
+	private Set<Question> pickedQuestions;
+	ArrayList<Question> questions;
+	ObservableList fields = FXCollections.observableArrayList();
+	ObservableList courses = FXCollections.observableArrayList();
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -82,10 +90,10 @@ public class AddingNewTestUIController implements Initializable {
 	private VBox parametersVBox;
 
 	@FXML
-	private JFXComboBox<?> selectFieldComboBox;
+	private JFXComboBox<String> selectFieldCBox;
 
 	@FXML
-	private JFXComboBox<?> selectFieldComboBox1;
+	private JFXComboBox<String> selectCourseCBox;
 
 	@FXML
 	private JFXTextField titleTxt;
@@ -97,7 +105,7 @@ public class AddingNewTestUIController implements Initializable {
 	private JFXTextArea teacherInstructionsTxtArea;
 
 	@FXML
-	private JFXTextArea studentInstructionsTxtArea1;
+	private JFXTextArea studentInstructionsTxtArea;
 
 	@FXML
 	private AnchorPane testAnchor;
@@ -119,14 +127,38 @@ public class AddingNewTestUIController implements Initializable {
 
 	@FXML
 	private JFXButton continueWithParametersBtn;
-	private Node QuestionForm;
-	private QuestionFormUIController questionFormUIController;
-	private String testTitle, duration, course, studentInst, teacherInst, field;
-	private Node testBank;
-	private Set<Question> pickedQuestions;
+	
+	public TableView<QuestionRow> getQuestionTable() {
+		return questionTable;
+	}
+	
+	public JFXComboBox<String> getSelectFieldCBox() {
+		return selectFieldCBox;
+	}
 
-	ObservableList fields = FXCollections.observableArrayList();
-	ObservableList courses = FXCollections.observableArrayList();
+	public JFXComboBox<String> getSelectCourseCBox() {
+		return selectCourseCBox;
+	}
+
+	public JFXTextField getTitleTxt() {
+		return titleTxt;
+	}
+
+	public JFXTextField getDurationTxt() {
+		return durationTxt;
+	}
+
+	public JFXTextArea getTeacherInstructionsTxtArea() {
+		return teacherInstructionsTxtArea;
+	}
+
+	public JFXTextArea getStudentInstructionsTxtArea() {
+		return studentInstructionsTxtArea;
+	}
+	
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
 
 	public class QuestionRow {
 		private String id;
@@ -178,23 +210,23 @@ public class AddingNewTestUIController implements Initializable {
 			String[] fieldsSplit = teacher.getFields().split("~");
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
-
 		}
-		selectFieldComboBox.setItems(fields);
-		selectFieldComboBox.setOnAction(event -> {
+
+		selectFieldCBox.setItems(fields);
+		selectFieldCBox.setOnAction(event -> {
 			questionTable.getItems().clear();
-			ClientController.accept("QUESTION_BANK-" + selectFieldComboBox.getValue());
-			ArrayList<Question> questions = ClientController.getQuestions();
+			ClientController.accept("QUESTION_BANK-" + selectFieldCBox.getValue());
+			questions = ClientController.getQuestions();
 			idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 			textCol.setCellValueFactory(new PropertyValueFactory<>("text"));
 			authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
 			viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
-			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldComboBox.getValue());
+			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldCBox.getValue());
 			courses.clear();
 			for (Course course : ClientController.getCourses())
 				courses.add(course.getCourseName());
-			selectFieldComboBox1.setItems(courses);
+			selectCourseCBox.setItems(courses);
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
@@ -218,8 +250,7 @@ public class AddingNewTestUIController implements Initializable {
 						// //---TODO:fix
 						// (q.getField().toString());
 						for (int j = 0; j < 4; j++)
-							questionFormUIController.getAnswerTextFields().get(j)
-									.setText(q.getAnswers().get(j));
+							questionFormUIController.getAnswerTextFields().get(j).setText(q.getAnswers().get(j));
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				};
@@ -332,9 +363,9 @@ public class AddingNewTestUIController implements Initializable {
 		Screen++;
 		testTitle = titleTxt.getText();
 		duration = durationTxt.getText();
-		field = selectFieldComboBox.getValue().toString();
-		course = selectFieldComboBox1.getValue().toString();
-		studentInst = (studentInstructionsTxtArea1.getText() == null) ? "null" : studentInstructionsTxtArea1.getText();
+		field = selectFieldCBox.getValue().toString();
+		course = selectCourseCBox.getValue().toString();
+		studentInst = (studentInstructionsTxtArea.getText() == null) ? "null" : studentInstructionsTxtArea.getText();
 		teacherInst = (teacherInstructionsTxtArea.getText() == null) ? "null" : teacherInstructionsTxtArea.getText();
 		continueWithParametersBtn.setVisible(false);
 		previewTestBtn.setVisible(true);
