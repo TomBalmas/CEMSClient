@@ -277,10 +277,10 @@ public class TestBankUIController implements Initializable {
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
-									PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success",
+									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success",
 											"Tests scheduled successfully", contentPaneAnchor, null, null);
 								else
-									PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Failed", "Tests schedule failed",
+									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed",
 											contentPaneAnchor, null, null);
 						});
 					}
