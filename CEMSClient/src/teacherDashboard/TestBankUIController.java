@@ -272,7 +272,7 @@ public class TestBankUIController implements Initializable {
 						//PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
-							ClientController.accept("SCHEDULE_TEST-" + tr.getTestId() + ","
+							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
 									+ israeliDate(cont.getDateDP().getValue()) + ","
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
