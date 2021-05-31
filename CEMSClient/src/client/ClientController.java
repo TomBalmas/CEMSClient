@@ -7,6 +7,7 @@ import common.ActiveTest;
 import common.Course;
 import common.FinishedTest;
 import common.Question;
+import common.Report;
 import common.ScheduledTest;
 import common.Test;
 import common.User;
@@ -18,6 +19,9 @@ public class ClientController {
 	private static boolean  questionAdded;
 	private static boolean testDeleted;
 	private static boolean questionDeleted;
+	private static boolean reportDeleted;
+
+
 	private static boolean questionEdited;
 	private static boolean testScheduled;
 	private static String authorName = null;
@@ -25,6 +29,9 @@ public class ClientController {
 	private static String newQuestionId;
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
+	private static ArrayList<Report> reports = null;
+
+
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
@@ -174,6 +181,20 @@ public class ClientController {
 
 	public static void setAuthorName(String authorName) {
 		ClientController.authorName = authorName;
+	}
+	public static ArrayList<Report> getReports() {
+		return reports;
+	}
+
+	public static void setReports(ArrayList<Report> reports) {
+		ClientController.reports = reports;
+	}
+	public static boolean isReportDeleted() {
+		return reportDeleted;
+	}
+
+	public static void setReportDeleted(boolean reportDeleted) {
+		ClientController.reportDeleted = reportDeleted;
 	}
 
 

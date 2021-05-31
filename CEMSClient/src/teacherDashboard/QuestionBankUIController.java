@@ -257,7 +257,9 @@ public class QuestionBankUIController implements Initializable {
 			//calling query for getting teachers field questions 
 			ClientController.accept("GET_QUESTIONS_TABLE-");
 			questions = ClientController.getQuestions();
-			
+			viewCol.setVisible(false);
+			deleteCol.setVisible(false);
+			editCol.setVisible(false);
 			
 		}
 		

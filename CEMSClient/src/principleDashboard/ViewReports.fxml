@@ -4,9 +4,10 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -40,7 +41,17 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="125.0" layoutY="270.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
          <children>
-            <JFXTreeTableView fx:id="reportTable" layoutY="12.0" prefHeight="400.0" prefWidth="730.0" styleClass="table" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TableView fx:id="reportTable" prefHeight="464.0" prefWidth="875.0">
+              <columns>
+                <TableColumn fx:id="reportIDCol" prefWidth="129.0" text="report ID" />
+                <TableColumn fx:id="testIDCol" prefWidth="103.0" text="test ID" />
+                  <TableColumn fx:id="studentNumCol" prefWidth="165.0" text="number of stufents" />
+                  <TableColumn fx:id="averageCol" prefWidth="133.0" text="average" />
+                  <TableColumn fx:id="medianCol" prefWidth="105.0" text="median" />
+                  <TableColumn fx:id="viewCol" prefWidth="105.0" text="view" />
+                  <TableColumn fx:id="deleteCol" prefWidth="134.0" text="delete" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <JFXButton fx:id="deleteBtn" layoutX="63.0" layoutY="736.0" onMouseClicked="#deleteReportBtn" text="Delete Selected">

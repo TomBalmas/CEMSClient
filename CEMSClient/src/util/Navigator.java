@@ -28,7 +28,8 @@ public enum Navigator {
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	GRADES ("StudentGrades.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
-	STUDENT_TEST("/studentDashboard/ActiveTest.fxml");
+	STUDENT_TEST("/studentDashboard/ActiveTest.fxml"),
+	REPORT_FORM ("/principleDashboard/ReportForm.fxml");
 	
 	
   
