@@ -120,17 +120,12 @@ public class QuestionFormUIController implements Initializable {
 	private Node questionBank;
 	// toggle group for allowing one choice of radio button
 	final ToggleGroup group = new ToggleGroup();
-	private int selectedAnswer=0;
+	private int selectedAnswer = 0;
 	private String author;
 	ObservableList fields = FXCollections.observableArrayList();
 
-
-
-
-
 	@FXML
 	void clickBack() throws IOException {
-		
 		Node page;
 		try {
 			page = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
@@ -139,8 +134,6 @@ public class QuestionFormUIController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	
 		//GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
 	}
 
@@ -166,58 +159,48 @@ public class QuestionFormUIController implements Initializable {
 		//query to add question to dataBase
 		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
 		{
-			
 			//send query only if fields arent empty 
 			if( correctAnswer!=0  && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()  && !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty())
 			 {
 				Teacher connected = (Teacher) ClientController.getActiveUser();
-				
 				//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
 				String queryAddQuestion= "ADD_QUESTION-" + connected.getSSN() + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
 						answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
 				ClientController.accept(queryAddQuestion);
-				
 				//check if question added correctly
 				if(ClientController.isQuestionAdded()) {
 				//show POP UP:
-				String toShow="Question ID: " ;
-				toShow=toShow.concat(ClientController.getNewQuestionId());
-				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Saved",toShow, contentPaneAnchor,list,null );
-				
-				}
-		
-			//handle empty fields
+				String toShow = "Question ID: ";
+				toShow = toShow.concat(ClientController.getNewQuestionId());
+				PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
 			}
-			else {
-				
-				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Saved","some fields are empty", contentPaneAnchor,list,null );
-			}
-			
-			
-			
-			
+			// handle empty fields
+		} else
+			PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question not saved", "Some fields are empty.",
+					contentPaneAnchor, list, null);
 		}
 		//query for editing question
 		else {
-		
-			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" "); 
-			String queryEditQuestion= "EDIT_QUESTION-" +questionID[2] +","+ teacherName + "," +getQuestionContentTxt().getText() + "," + correctAnswer +"," +fieldCBox.getPromptText().toString()+ "," +
-					answer1 + "," + answer2 + "," +  answer3 + "," + answer4;
-			if(  correctAnswer!=0 && !getQuestionContentTxt().getText().isEmpty() && !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
-					&& !answer3.isEmpty() && !answer4.isEmpty()) {//send query onlt if all fields are not empty 
-				ClientController.accept(queryEditQuestion );
-				boolean answerEdit =  ClientController.isQuestionEdited();
-				//check if answer edited correctly in DB
-				if(answerEdit) {
-					util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question Edited", " " , contentPaneAnchor,null,null );
+			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" ");
+			String queryEditQuestion = "EDIT_QUESTION-" + questionID[2] + "," + teacherName + ","
+					+ getQuestionContentTxt().getText() + "," + correctAnswer + ","
+					+ fieldCBox.getPromptText().toString() + "," + answer1 + "," + answer2 + "," + answer3 + "," + answer4;
+			if (correctAnswer != 0 && !getQuestionContentTxt().getText().isEmpty()
+					&& !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
+					&& !answer3.isEmpty() && !answer4.isEmpty()) { // send query onlt if all fields are not empty
+				ClientController.accept(queryEditQuestion);
+				boolean answerEdit = ClientController.isQuestionEdited();
+				// check if answer edited correctly in DB
+				if (answerEdit) {
+					String toShow = "Question ID: ";
+					toShow = toShow.concat(questionID[2]);
+					PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, null, null);
 				}
-			}
-			else {
-				util.PopUp.showMaterialDialog(util.PopUp.TYPE .SUCCESS ,"Question not  Edited", "Some fields are missing! " , contentPaneAnchor,null,null );
-			}
-			
+			} else
+				PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!",
+						contentPaneAnchor, null, null);
 		}
-		correctAnswer=0;
+		correctAnswer = 0;
 	}
 
 	/**
@@ -231,7 +214,6 @@ public class QuestionFormUIController implements Initializable {
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
 			getFieldCBox().setItems(fields);
-			
 			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -251,19 +233,19 @@ public class QuestionFormUIController implements Initializable {
 					setToggleGroupNotVisible();
 					if (button.equals(answer1Btn)) {
 						correctAnswer1Lbl.setVisible(true);
-						correctAnswer=1;
+						correctAnswer = 1;
 					}
 					if (button.equals(answer2Btn)) {
 						correctAnswer2Lbl.setVisible(true);
-						correctAnswer=2;
+						correctAnswer = 2;
 					}
 					if (button.equals(answer3Btn)) {
 						correctAnswer3Lbl.setVisible(true);
-						correctAnswer=3;
+						correctAnswer = 3;
 					}
 					if (button.equals(answer4Btn)) {
 						correctAnswer4Lbl.setVisible(true);
-						correctAnswer=4;
+						correctAnswer = 4;
 					}
 
 				}
@@ -323,6 +305,5 @@ public class QuestionFormUIController implements Initializable {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-   
 
 }

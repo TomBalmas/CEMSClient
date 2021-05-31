@@ -233,8 +233,7 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
-					}
-					;
+					};
 				});
 				if (pickedQuestions.size() == 0)
 					previewTestBtn.setDisable(true);

@@ -158,9 +158,8 @@ public class QuestionBankUIController implements Initializable {
 		private Question question;
 
 		public questionRow(Question question) {
-			
 			String  authorID=question.getAuthorID();
-			 ClientController.accept("GET_NAME_BY_ID-"+ authorID);
+			ClientController.accept("GET_NAME_BY_ID-"+ authorID);
 			author=ClientController.getAuthorName();
 			this.question = question;
 			id = question.getID();
@@ -168,20 +167,17 @@ public class QuestionBankUIController implements Initializable {
 			this.ViewBtn = new JFXButton();
 			this.DeleteBtn = new JFXButton();
 			this.EditBtn = new JFXButton();
-			
 			DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 			EditBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			DeleteBtn.setStyle("-fx-fill: red !important;");
-
-
 		}
 
 		public String getID() {
 			return id;
 		}
 
-		public  String getAuthor() {
+		public String getAuthor() {
 			return author;
 		}
 
@@ -257,8 +253,6 @@ public class QuestionBankUIController implements Initializable {
 			//calling query for getting teachers field questions 
 			ClientController.accept("GET_QUESTIONS_TABLE-");
 			questions = ClientController.getQuestions();
-			
-			
 		}
 		
 	  //adding PropertyValueFactory for the columns
@@ -276,20 +270,16 @@ public class QuestionBankUIController implements Initializable {
 		if (questions != null) {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow questionRow = new questionRow(questions.get(i));
-			
-			
 				questionBankTable.getItems().add(questionRow);
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-						
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
-							JFXButton buttonText = (JFXButton) event.getSource();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(buttonText.getText() + "ing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText("Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)
@@ -336,6 +326,7 @@ public class QuestionBankUIController implements Initializable {
 					btnEventHandler.handle(e);
 				    {
 				    	field.add(questionRow.getField());
+						blankQuestionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
 				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
 				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
@@ -359,8 +350,9 @@ public class QuestionBankUIController implements Initializable {
 				    };
 				});
 			
-			
+				
 			}
+			
 		}
 
 	}
