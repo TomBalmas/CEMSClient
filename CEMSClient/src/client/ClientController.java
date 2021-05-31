@@ -21,6 +21,7 @@ public class ClientController {
 	private static boolean questionDeleted;
 	private static boolean reportDeleted;
 	private static boolean testRemoved;
+	private static boolean testRescheduled;
 
 
 	private static boolean questionEdited;
@@ -83,6 +84,15 @@ public class ClientController {
 
 	public static boolean isTestDeleted() {
 		return testDeleted;
+	}
+	
+
+	public static boolean isTestRescheduled() {
+		return testRescheduled;
+	}
+
+	public static void setTestRescheduled(boolean testResccheduled) {
+		ClientController.testRescheduled = testResccheduled;
 	}
 
 	public static void setTestDeleted(boolean testDeleted) {

@@ -208,6 +208,7 @@ public class ScheduledTestsController implements Initializable {
 			for (ScheduledTest test : scheduledTests) {
 				ScheduleTestRow tr = new ScheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
+				
 				// remove button functionality
 				tr.getRemoveBtn().setOnMouseClicked(e -> {
 					ScheduleTestRow toDelete = tr;
@@ -226,27 +227,33 @@ public class ScheduledTestsController implements Initializable {
 				});
 
 				tr.getReScheduleBtn().setOnAction(e -> { // reSchedule
-
+					ScheduleTestRow toReschedule =tr;
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Reschedule Test", "", contentPaneAnchor, null, loader);
+					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor, null, loader);
 					// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
 					// loader);
 					SetTestDateController cont = loader.getController();
 					cont.getCodeTxt().setDisable(true);
 					cont.getCodeTxt().setText(tr.getCode());
 					cont.getSetDateBtn().setOnMouseClicked(e2 -> {
-						ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
+						ClientController.accept("RESCHEDULE_TEST-" + tr.getCode() + ","
 								+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
-								+ cont.getTimeTP().getValue().toString() + ","
-								+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
-						if (ClientController.isTestScheduled())
+								+ cont.getTimeTP().getValue().toString());
+						if (ClientController.isTestRescheduled()) {
 							PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success", "Tests rescheduled successfully",
 									contentPaneAnchor, null, null);
+							scheduledTestsTbl.getItems().clear();
+							initialize(arg0, arg1);
+						}
 						else
 							PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Failed", "Tests reschedule failed",
 									contentPaneAnchor, null, null);
 					});
 				});
+				
+				//TODO - view test 
+				
+				
 			}
 
 		}

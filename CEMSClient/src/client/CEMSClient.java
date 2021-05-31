@@ -138,6 +138,10 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTestRemoved(true);
 				else if(str.equals("testNotRemoved"))
 					ClientController.setTestRemoved(false);
+				else if(str.equals("testRescheduled"))
+					ClientController.setTestRescheduled(true);
+				else if(str.equals("testNotRescheduled"))
+					ClientController.setTestRescheduled(false);
 				else {
 					//getting author name from query
 					String[] toSplit = ((String) msg).split(":"); 
