@@ -7,6 +7,7 @@ import common.Course;
 import common.FinishedTest;
 import common.Principle;
 import common.Question;
+import common.Report;
 import common.ScheduledTest;
 import common.Student;
 import common.Teacher;
@@ -93,6 +94,9 @@ public class CEMSClient extends ObservableClient {
 				//get courses by field 
 				else if(((ArrayList<?>)msg).get(0) instanceof Course)
 					ClientController.setCourses((ArrayList<Course>) msg);
+				//get reports
+				else if (((ArrayList<?>) msg).get(0) instanceof Report)
+					ClientController.setReports((ArrayList<Report>) msg);
 				
 			} else if (msg instanceof String) {
 				String str = (String) msg;
@@ -102,6 +106,11 @@ public class CEMSClient extends ObservableClient {
 				if (str.equals("deleted")) {
 					ClientController.setTestDeleted(true);
 					ClientController.setQuestionDeleted(true);
+				
+				}
+				else if (str.equals("reportDeleted")) {
+					ClientController.setReportDeleted(true);
+				
 				}
 				else if (str.equals("notDeleted"))
 				{
