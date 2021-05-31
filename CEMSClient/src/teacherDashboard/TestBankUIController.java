@@ -146,7 +146,7 @@ public class TestBankUIController implements Initializable {
 	public class TestRow {
 		private String testName;
 		private String testId;
-		private String authorID;
+		private String author;
 		private String course;
 		private String field;
 		private Test test;
@@ -159,7 +159,7 @@ public class TestBankUIController implements Initializable {
 			this.test = test;
 			this.testName = test.getTitle();
 			this.testId = test.getID();
-			this.authorID = test.getAuthorName();
+			this.author = test.getAuthorName();
 			this.course = test.getCourse();
 			this.field = test.getField();
 			viewBtn = new JFXButton();
@@ -197,12 +197,12 @@ public class TestBankUIController implements Initializable {
 			this.testId = testId;
 		}
 
-		public String getAuthorID() {
-			return authorID;
+		public String getAuthor() {
+			return author;
 		}
 
 		public void setAuthor(String author) {
-			this.authorID = author;
+			this.author = author;
 		}
 
 		public String getCourse() {
@@ -249,7 +249,7 @@ public class TestBankUIController implements Initializable {
 			tests = ClientController.getTests();
 		}
 		IDcol.setCellValueFactory(new PropertyValueFactory<>("testId"));
-		authorCol.setCellValueFactory(new PropertyValueFactory<>("authorID"));
+		authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
@@ -261,8 +261,6 @@ public class TestBankUIController implements Initializable {
 		if (tests != null) {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
-				ClientController.accept("GET_NAME_BY_ID-" + tr.getAuthorID());
-				tr.setAuthor(ClientController.getAuthorName());
 				testTable.getItems().add(tr);
 
 				// Schedule button
