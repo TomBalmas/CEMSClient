@@ -45,8 +45,7 @@ public class ViewReportsController implements Initializable {
 
     @FXML
     private AnchorPane contentPaneAnchor;
-
-    
+  
     @FXML
     private AnchorPane insideFilterAnchor;
 
@@ -127,21 +126,17 @@ public class ViewReportsController implements Initializable {
 
 	}
 	
-	
-	
 	public class reportRow {
 		private String reportId;
-	
 		private String testID;
-		
 		private int numberOfStudents;
 		private double average;
 		private double median;
 		private JFXButton ViewBtn;
 		private JFXButton DeleteBtn;
 		Report report;
+		
 		public reportRow(Report report) {
-	
 		this.reportId = report.getId();
 		testID=report.getTestId();
 		numberOfStudents=report.getNumberOfStudents();
@@ -152,10 +147,7 @@ public class ViewReportsController implements Initializable {
 		DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 		ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 		DeleteBtn.setStyle("-fx-fill: red !important;");
-
-
 	}
-
 
 	public JFXButton getViewBtn() {
 		return ViewBtn;
@@ -190,9 +182,6 @@ public class ViewReportsController implements Initializable {
 		this.numberOfStudents = numberOfStudents;
 	}
 
-
-
-
 	public double getAverage() {
 		return average;
 	}
@@ -204,11 +193,11 @@ public class ViewReportsController implements Initializable {
 	public double getMedian() {
 		return median;
 	}
-
-
+	
 	public void setMedian(double median) {
 		this.median = median;
 	}
+	
 	public Report getReport() {
 		
 		return report;
@@ -217,17 +206,14 @@ public class ViewReportsController implements Initializable {
 	public void setQuestion(Report report) {
 		this.report = report;
 	}
+	
 	public String getTestID() {
 		return testID;
 	}
 
-
 	public void setTestID(String testID) {
 		this.testID = testID;
 	}
-
-
-
 
 }
 
@@ -238,26 +224,26 @@ public class ViewReportsController implements Initializable {
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
 		
-		  //adding PropertyValueFactory for the columns
-			PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
-			PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
-			PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");
-			PropertyValueFactory studentNumFactory = new PropertyValueFactory<>("numberOfStudents");	
-			PropertyValueFactory medianFactory = new PropertyValueFactory<>("median");	
-			PropertyValueFactory averageFactory = new PropertyValueFactory<>("average");	
-			reportIDCol.setCellValueFactory(reportIDfactory);
-			testIDCol.setCellValueFactory(testIDFactory);
-			viewCol.setCellValueFactory(viewFactory);
-			studentNumCol.setCellValueFactory(studentNumFactory);
-			medianCol.setCellValueFactory(medianFactory);
-			averageCol.setCellValueFactory(averageFactory);
-			deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
+		//adding PropertyValueFactory for the columns
+		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
+		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
+		PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");
+		PropertyValueFactory studentNumFactory = new PropertyValueFactory<>("numberOfStudents");
+		PropertyValueFactory medianFactory = new PropertyValueFactory<>("median");
+		PropertyValueFactory averageFactory = new PropertyValueFactory<>("average");
+		reportIDCol.setCellValueFactory(reportIDfactory);
+		testIDCol.setCellValueFactory(testIDFactory);
+		viewCol.setCellValueFactory(viewFactory);
+		studentNumCol.setCellValueFactory(studentNumFactory);
+		medianCol.setCellValueFactory(medianFactory);
+		averageCol.setCellValueFactory(averageFactory);
+		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 			
-			if (reports != null) {
-				for (int i = 0; i < reports.size(); i++) {
-					reportRow reportRow = new reportRow(reports.get(i));
-					reportTable.getItems().addAll(reportRow);
-					tableViewAnchor.setMouseTransparent(false);
+		if (reports != null) {
+			for (int i = 0; i < reports.size(); i++) {
+				reportRow reportRow = new reportRow(reports.get(i));
+				reportTable.getItems().addAll(reportRow);
+				tableViewAnchor.setMouseTransparent(false);
 					
 				
 					
@@ -280,8 +266,14 @@ public class ViewReportsController implements Initializable {
 							}
 							GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 						}
-						
+
+				};
+				reportRow.getViewBtn().setOnAction(e -> {
+					btnEventHandler.handle(e);
+					{
+
 					};
+
 					reportRow.getViewBtn().setOnAction(e ->{
 						btnEventHandler.handle(e);
 					    {
@@ -312,7 +304,9 @@ public class ViewReportsController implements Initializable {
 			
 				}
 
-			
+
 			}
+
 		}
 	}
+}

@@ -172,7 +172,7 @@ public class TestFormController implements Initializable {
 		// FIX FOR BACKDOOR - REMOVE getRoleFrame
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-		Platform.runLater(new Runnable() {
+			Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 			}

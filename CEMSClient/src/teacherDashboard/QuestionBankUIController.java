@@ -103,8 +103,7 @@ public class QuestionBankUIController implements Initializable {
 	@FXML
 	private JFXButton addAnewQuestionBtn;
 
-	private Node blankQuestionForm;
-	private Node QuestionForm;
+	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
 	 String authorName;
 
@@ -346,8 +345,8 @@ public class QuestionBankUIController implements Initializable {
 				    };
 				});
 				
-				//event handler for edit button
-				questionRow.getEditBtn().setOnAction(e ->{
+				// event handler for edit button
+				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 				    {
 				    	field.add(questionRow.getField());
@@ -356,10 +355,9 @@ public class QuestionBankUIController implements Initializable {
 				    	
 				    };
 				});
-			
-				
+
 			}
-			
+
 		}
 
 	}

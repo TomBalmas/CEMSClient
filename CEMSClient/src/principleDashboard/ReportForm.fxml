@@ -15,7 +15,12 @@
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
-                  <Label fx:id="testNameLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Report for #student#">
+                  <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Report for ">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="testNameLbl" alignment="TOP_LEFT" layoutX="120.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="#student#">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>

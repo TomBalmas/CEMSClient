@@ -66,7 +66,7 @@ public class PopUp {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (header.equals("ScheduleTest"))
+			if (header.equals("ScheduleTest") || header.equals("RescheduleTest"))
 				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());	
 			fxmlPopUp.toFront();
 		}

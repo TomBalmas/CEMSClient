@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Question;
 import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -31,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import teacherDashboard.AddingNewTestUIController.QuestionRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -109,7 +111,8 @@ public class TestBankUIController implements Initializable {
 	@FXML
 	private JFXButton addNewTestButton;
 
-	private Node addNewTest;
+	private Node TestFormNode, addNewTest, AddingFormNode;
+	private FXMLLoader TestFormLoader;
 
 	public JFXButton getAddNewTestButton() {
 		return addNewTestButton;
@@ -257,12 +260,72 @@ public class TestBankUIController implements Initializable {
 		setDateCol.setCellValueFactory(new PropertyValueFactory<>("setDateBtn"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("editBtn"));
+		Node viewTest;
+		FXMLLoader viewTestLoader = new FXMLLoader(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
+		AddingNewTestUIController addingNewTestUIController = viewTestLoader.getController();
+		try {
+			viewTest = viewTestLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		if (tests != null) {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
 
+				// View button
+//				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+//					@Override
+//					public void handle(ActionEvent arg0) {
+//						try {
+//						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+//						TestFormNode = loader.load();
+//						TestFormController controller = loader.getController();
+//						controller.getScrollPane().setTranslateX(10);
+//						controller.getScrollPane().setTranslateY(11);
+//						controller.getEditBtn().setVisible(false);
+//						controller.addTitleAndInstructionsToTest(tr.getTestName(), tr.getTest().getTeacherInstructions(), tr.getTest().getStudentInstructions());
+//						int i = 1;
+//						for (Question q : tr.getTest().getQuestions()) {
+//							controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // adding questions to preview
+//							i++;
+//						}
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				});
+
+				// Edit button
+				tr.getEditBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
+							AddingFormNode = loader.load();
+							AddingNewTestUIController editTestController = loader.getController();
+							editTestController.getSelectFieldCBox().getSelectionModel().select(tr.getField());
+							editTestController.getSelectFieldCBox().fireEvent(arg0);
+							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
+							editTestController.getTitleTxt().setText(tr.getTestName());
+							editTestController.getDurationTxt().setText(tr.getTest().getTestDuration().toString());
+							editTestController.getTeacherInstructionsTxtArea().setText(tr.getTest().getTeacherInstructions());
+							editTestController.getStudentInstructionsTxtArea().setText(tr.getTest().getStudentInstructions());
+//							editTestController.getQuestionTable().getItems().remove(0);
+//							for (String question : tr.getTest().getQuestions()) {
+//								//System.out.println(editTestController.getQuestionTable().getItems().forEach(null));
+//								editTestController.getQuestionTable().getItems().removeIf((t) -> {
+//									return false || !((QuestionRow) t).getID().equals(question);
+//								});
+//							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						GeneralUIMethods.loadPage(contentPaneAnchor, AddingFormNode);
+					}
+				});			
+				
 				// Schedule button
 				tr.getSetDateBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -273,14 +336,14 @@ public class TestBankUIController implements Initializable {
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
-									+ israeliDate(cont.getDateDP().getValue()) + ","
+									+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
-									PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success",
+									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success",
 											"Tests scheduled successfully", contentPaneAnchor, null, null);
 								else
-									PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Failed", "Tests schedule failed",
+									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed",
 											contentPaneAnchor, null, null);
 						});
 					}
@@ -309,16 +372,6 @@ public class TestBankUIController implements Initializable {
 		}
 	}
 
-	private String israeliDate(LocalDate date) {
-		String[] arr = date.toString().split("-");
-		StringBuilder sb = new StringBuilder();
-		sb.append(arr[2]);
-		sb.append("/");
-		sb.append(arr[1]);
-		sb.append("/");
-		sb.append(arr[0]);
-		return sb.toString();
-
-	}
+	
 
 }
