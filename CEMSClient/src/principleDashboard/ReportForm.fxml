@@ -35,13 +35,13 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="86.0" text="100" textAlignment="CENTER">
+                  <Label fx:id="averageTxt" alignment="CENTER" layoutX="7.0" layoutY="86.0" text="100" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="GradeLbl" />
                         <String fx:value="aGradeLbl" />
                      </styleClass>
                   </Label>
-                  <Label alignment="CENTER" layoutX="178.0" layoutY="86.0" text="40" textAlignment="CENTER">
+                  <Label fx:id="medianTxt" alignment="CENTER" layoutX="178.0" layoutY="86.0" text="40" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="GradeLbl" />
                         <String fx:value="fGradeLbl" />
@@ -55,15 +55,15 @@
          <children>
             <BarChart fx:id="histograma" horizontalGridLinesVisible="false" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis side="BOTTOM" fx:id="xAxisExam" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxisGrades" side="LEFT" />
               </yAxis>
             </BarChart>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="702.0" text="Back">
+      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="702.0" onMouseClicked="#clickBack" text="Back">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="button" />

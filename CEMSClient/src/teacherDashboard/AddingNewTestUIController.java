@@ -226,7 +226,7 @@ public class AddingNewTestUIController implements Initializable {
 			courses.clear();
 			for (Course course : ClientController.getCourses())
 				courses.add(course.getName());
-			selectCourseCBox.setItems(courses);
+			selectFieldComboBox1.setItems(courses);
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);

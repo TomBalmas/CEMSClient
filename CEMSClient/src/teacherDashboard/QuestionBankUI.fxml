@@ -48,11 +48,12 @@
             <TableView fx:id="questionBankTable" layoutX="-4.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
                 <TableColumn fx:id="IDCol" prefWidth="146.0" style="-fx-alignment: CENTER;" text="ID" />
-                <TableColumn fx:id="authorCol" prefWidth="246.0" style="-fx-alignment: CENTER;" text="Author" />
-                  <TableColumn fx:id="fieldCol" prefWidth="273.0" style="-fx-alignment: CENTER;" text="Field" />
-                  <TableColumn fx:id="viewCol" prefWidth="62.0" style="-fx-alignment: CENTER;" text="View" />
-                  <TableColumn fx:id="editCol" prefWidth="66.0" style="-fx-alignment: CENTER;" text="Edit" />
-                  <TableColumn fx:id="deleteCol" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Delete" />
+                <TableColumn fx:id="authorCol" prefWidth="125.0" style="-fx-alignment: CENTER;" text="Author" />
+                  <TableColumn fx:id="fieldCol" prefWidth="132.0" style="-fx-alignment: CENTER;" text="Field" />
+                  <TableColumn fx:id="contentCol" prefWidth="132.0" style="-fx-alignment: CENTER;" text="Content" />
+                  <TableColumn fx:id="viewCol" prefWidth="185.0" style="-fx-alignment: CENTER;" text="View" />
+                  <TableColumn fx:id="editCol" prefWidth="119.0" style="-fx-alignment: CENTER;" text="Edit" />
+                  <TableColumn fx:id="deleteCol" prefWidth="146.0" style="-fx-alignment: CENTER;" text="Delete" />
               </columns>
             </TableView>
          </children>
