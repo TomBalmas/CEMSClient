@@ -23,7 +23,6 @@ public class ClientController {
 	private static boolean testRemoved;
 	private static boolean testRescheduled;
 
-
 	private static boolean questionEdited;
 	private static boolean testScheduled;
 	private static String authorName = null;
@@ -38,7 +37,8 @@ public class ClientController {
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
-	private static String id =null;
+	private static String id = null;
+	private static Test studentTest = null;
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
@@ -85,7 +85,6 @@ public class ClientController {
 	public static boolean isTestDeleted() {
 		return testDeleted;
 	}
-	
 
 	public static boolean isTestRescheduled() {
 		return testRescheduled;
@@ -215,6 +214,14 @@ public class ClientController {
 
 	public static void setReportDeleted(boolean reportDeleted) {
 		ClientController.reportDeleted = reportDeleted;
+	}
+
+	public static void setStudentTest(Test test) {
+		ClientController.studentTest  = test;
+	} 
+	
+	public static Test getStudentTest() {
+		return studentTest;
 	}
 
 

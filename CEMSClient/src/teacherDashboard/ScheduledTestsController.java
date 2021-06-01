@@ -240,13 +240,14 @@ public class ScheduledTestsController implements Initializable {
 								+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 								+ cont.getTimeTP().getValue().toString());
 						if (ClientController.isTestRescheduled()) {
-							PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Success", "Tests rescheduled successfully",
+							PopUp.showMaterialDialog(PopUp.TYPE.SCHEDULE, "Success", "Tests rescheduled successfully",
 									contentPaneAnchor, null, null);
-							scheduledTestsTbl.getItems().clear();
-							initialize(arg0, arg1);
+							scheduledTestsTbl.refresh();
+//							scheduledTestsTbl.getItems().clear();
+//							initialize(arg0, arg1);
 						}
 						else
-							PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Failed", "Tests reschedule failed",
+							PopUp.showMaterialDialog(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed",
 									contentPaneAnchor, null, null);
 					});
 				});

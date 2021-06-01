@@ -2,11 +2,13 @@
 
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.QuestionController">
+<AnchorPane fx:id="questionAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.QuestionController">
    <children>
       <Label fx:id="questionNumLbl" layoutX="10.0" layoutY="14.0" text="Question #:" underline="true">
          <font>
@@ -19,9 +21,16 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <JFXRadioButton fx:id="answer1Btn" layoutX="15.0" layoutY="211.0" prefHeight="19.0" prefWidth="437.0" text="Answer 1" />
-      <JFXRadioButton fx:id="answer2Btn" layoutX="15.0" layoutY="262.0" prefHeight="19.0" prefWidth="437.0" text="Answer 2" />
-      <JFXRadioButton fx:id="answer3Btn" layoutX="15.0" layoutY="311.0" prefHeight="19.0" prefWidth="437.0" text="Answer 3" />
-      <JFXRadioButton fx:id="answer4Btn" layoutX="15.0" layoutY="361.0" prefHeight="19.0" prefWidth="437.0" text="Answer 4" />
+      <VBox fx:id="questionsVBox" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXRadioButton fx:id="answer1Btn" prefHeight="19.0" prefWidth="437.0" text="Answer 1" />
+            <JFXRadioButton fx:id="answer2Btn" prefHeight="19.0" prefWidth="437.0" text="Answer 2" />
+            <JFXRadioButton fx:id="answer3Btn" prefHeight="19.0" prefWidth="437.0" text="Answer 3" />
+            <JFXRadioButton fx:id="answer4Btn" prefHeight="19.0" prefWidth="437.0" text="Answer 4" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>
