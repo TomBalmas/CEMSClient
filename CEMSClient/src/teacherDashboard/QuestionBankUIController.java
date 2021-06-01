@@ -296,7 +296,8 @@ public class QuestionBankUIController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText("Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
+									"Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)
@@ -351,7 +352,7 @@ public class QuestionBankUIController implements Initializable {
 				    {
 				    	field.add(questionRow.getField());
 				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
-				    	//blankQuestionFormUIController.getFieldCBox().setDisable(true);
+				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
 				    	
 				    };
 				});

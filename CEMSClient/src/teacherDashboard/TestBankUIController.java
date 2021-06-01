@@ -251,6 +251,13 @@ public class TestBankUIController implements Initializable {
 			ClientController.accept("TEST_BANK-" + teacher.getFields());
 			tests = ClientController.getTests();
 		}
+		if (ClientController.getRoleFrame().equals("Principle")) {
+			ClientController.accept("GET_TESTS_TABLE-");
+			tests = ClientController.getTests();
+			deleteCol.setVisible(false);
+			editCol.setVisible(false);
+			setDateCol.setVisible(false);
+		}
 		IDcol.setCellValueFactory(new PropertyValueFactory<>("testId"));
 		authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
@@ -302,7 +309,8 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent arg0) {
 						try {
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
+							FXMLLoader loader = new FXMLLoader(
+									getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 							AddingFormNode = loader.load();
 							AddingNewTestUIController editTestController = loader.getController();
 							editTestController.getSelectFieldCBox().getSelectionModel().select(tr.getField());
@@ -310,8 +318,10 @@ public class TestBankUIController implements Initializable {
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
 							editTestController.getTitleTxt().setText(tr.getTestName());
 							editTestController.getDurationTxt().setText(tr.getTest().getTestDuration().toString());
-							editTestController.getTeacherInstructionsTxtArea().setText(tr.getTest().getTeacherInstructions());
-							editTestController.getStudentInstructionsTxtArea().setText(tr.getTest().getStudentInstructions());
+							editTestController.getTeacherInstructionsTxtArea()
+									.setText(tr.getTest().getTeacherInstructions());
+							editTestController.getStudentInstructionsTxtArea()
+									.setText(tr.getTest().getStudentInstructions());
 //							editTestController.getQuestionTable().getItems().remove(0);
 //							for (String question : tr.getTest().getQuestions()) {
 //								//System.out.println(editTestController.getQuestionTable().getItems().forEach(null));
@@ -324,15 +334,17 @@ public class TestBankUIController implements Initializable {
 						}
 						GeneralUIMethods.loadPage(contentPaneAnchor, AddingFormNode);
 					}
-				});			
-				
+				});
+
 				// Schedule button
 				tr.getSetDateBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null, loader);
-						//PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null, loader);
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null,
+								loader);
+						// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
+						// loader);
 						SetTestDateController cont = loader.getController();
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
@@ -340,11 +352,11 @@ public class TestBankUIController implements Initializable {
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled())
-									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success",
-											"Tests scheduled successfully", contentPaneAnchor, null, null);
-								else
-									PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed",
-											contentPaneAnchor, null, null);
+								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success", "Tests scheduled successfully",
+										contentPaneAnchor, null, null);
+							else
+								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed",
+										contentPaneAnchor, null, null);
 						});
 					}
 				});
@@ -371,7 +383,5 @@ public class TestBankUIController implements Initializable {
 			}
 		}
 	}
-
-	
 
 }
