@@ -119,7 +119,7 @@
 	-fx-font-weight: bold;
 }
 
-.fileGrayPane .glyph-icon {
+.fileGrayPane .glyph-icon, .fileGrayPane .glyph-icon:not(:hover) {
 	-fx-fill: #595869;
 }
 
