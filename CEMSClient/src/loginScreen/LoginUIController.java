@@ -94,8 +94,6 @@ public class LoginUIController {
 			};
 		} else {
 			if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
-				// ------------------------ need to add notice to enter all arguments (case:
-				// text field is empty)------------------------
 				return;
 			ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 			String role = ClientController.getRoleFrame();
