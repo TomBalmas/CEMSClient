@@ -9,6 +9,7 @@ import common.FinishedTest;
 import common.Question;
 import common.Report;
 import common.ScheduledTest;
+import common.Student;
 import common.Test;
 import common.User;
 
@@ -30,7 +31,7 @@ public class ClientController {
 	private static ArrayList<Question> questions = null;
 	private static ArrayList<Test> tests = null;
 	private static ArrayList<Report> reports = null;
-
+	private static ArrayList<Student> students = null;
 
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
@@ -195,6 +196,13 @@ public class ClientController {
 
 	public static void setReportDeleted(boolean reportDeleted) {
 		ClientController.reportDeleted = reportDeleted;
+	}
+
+	public static void setStudents(ArrayList<Student> students) {
+		ClientController.students = students;
+	}
+	public static ArrayList<Student> getStudents() {
+		return students;
 	}
 
 

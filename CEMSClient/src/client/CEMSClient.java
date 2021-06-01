@@ -81,6 +81,9 @@ public class CEMSClient extends ObservableClient {
 				// get tests from test DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
+				//get students
+				else if (((ArrayList<?>) msg).get(0) instanceof Student)
+					ClientController.setStudents((ArrayList<Student>) msg);
 				// get scheduled tests from scheduled_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ScheduledTest) {
 					ClientController.setScheduledTests((ArrayList<ScheduledTest>) msg);

@@ -25,6 +25,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +43,10 @@ public class ViewReportsController implements Initializable {
     @FXML
     private AnchorPane filterAnchor;
 
+    @FXML
+    private AnchorPane contentPaneAnchor;
+
+    
     @FXML
     private AnchorPane insideFilterAnchor;
 
@@ -98,9 +104,9 @@ public class ViewReportsController implements Initializable {
     @FXML
     private JFXButton createReportBtn;
 	private Node ReportForm;
-    
+    private ReportFormController reportFormController;
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");
-
+	;
     @FXML
     void deleteReportBtn(MouseEvent event) {
 
@@ -138,7 +144,6 @@ public class ViewReportsController implements Initializable {
 	
 		this.reportId = report.getId();
 		testID=report.getTestId();
-		System.out.println(testID);
 		numberOfStudents=report.getNumberOfStudents();
 		average=report.getAverage();
 		median=report.getMedian();
@@ -254,6 +259,7 @@ public class ViewReportsController implements Initializable {
 					reportTable.getItems().addAll(reportRow);
 					tableViewAnchor.setMouseTransparent(false);
 					
+				
 					
 					EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 						@Override
@@ -262,19 +268,27 @@ public class ViewReportsController implements Initializable {
 							
 								FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
 								ReportForm = loader.load();
+								reportFormController = loader.getController();
+								String average = String.valueOf(reportRow.getAverage()); 
+								String median = String.valueOf(reportRow.getMedian()); 
+								reportFormController.getAverageTxt().setText(average);
+								reportFormController.getMedianTxt().setText(median);
 								JFXButton buttonText = (JFXButton) event.getSource();
-							
+								
 							} catch (IOException e1) {
 								e1.printStackTrace();
 							}
-							GeneralUIMethods.loadPage(insideFilterAnchor, ReportForm);
+							GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 						}
 						
 					};
 					reportRow.getViewBtn().setOnAction(e ->{
 						btnEventHandler.handle(e);
 					    {
+					    	//String average=String.valueOf(reportRow.getAverage());  
+					    	//System.out.println(average);
 					    	
+					    	//reportFormController.getAverageTxt().setText(average);
 							
 					    };
 					});
