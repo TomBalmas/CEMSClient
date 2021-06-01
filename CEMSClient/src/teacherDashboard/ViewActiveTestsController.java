@@ -91,6 +91,9 @@ public class ViewActiveTestsController implements Initializable {
 	private JFXButton senfForApprovalBtn;
 
 	@FXML
+	private JFXTextField minutesTxt;
+
+	@FXML
 	private AnchorPane lockTestAnchor;
 
 	@FXML
@@ -231,7 +234,8 @@ public class ViewActiveTestsController implements Initializable {
 	void clicksendForApproval(MouseEvent event) {
 
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
-				+ reasonForRequestTxt.getText() + "," + selectedRow); // Request for extension time.
+				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // Request for
+																									// extension time.
 		ClientController.accept("NOTIFY_PRINCIPLE");
 		if (ClientController.isPrincipleNotified()) {
 			List<JFXButton> l = new ArrayList<JFXButton>();

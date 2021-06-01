@@ -356,7 +356,7 @@ public class AddingNewTestUIController implements Initializable {
 	}
 
 	/*
-	 * testTitle, duration, course, studentInst, teacherInst
+	 * testTitle, duration, course, studentInst, teacherInst//
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
