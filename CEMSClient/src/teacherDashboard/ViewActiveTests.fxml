@@ -70,7 +70,7 @@
                         <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="reasonForRequestTxt" focusColor="#aeaeae00" layoutY="63.0" prefHeight="110.0" prefWidth="825.0" styleClass="txtArea" unFocusColor="#4d4d4d00" wrapText="true">
+                  <JFXTextArea fx:id="reasonForRequestTxt" focusColor="#aeaeae00" layoutX="226.0" layoutY="35.0" prefHeight="110.0" prefWidth="553.0" styleClass="txtArea" unFocusColor="#4d4d4d00" wrapText="true">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -89,6 +89,7 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
+                  <JFXTextField fx:id="minutesTxt" labelFloat="true" layoutX="470.0" layoutY="176.0" promptText="Minutes to add" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="lockTestAnchor" prefHeight="215.0" prefWidth="825.0" styleClass="paddingAnchor" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
