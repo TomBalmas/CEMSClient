@@ -55,6 +55,7 @@ public class ActiveTestController implements Initializable, Observer {
 			vbox.getChildren().clear();
 			initialize(location, resources);
 			refreshBtn.setDisable(true);
+			ClientController.setPrincipleNotified(false);
 
 		});
 
