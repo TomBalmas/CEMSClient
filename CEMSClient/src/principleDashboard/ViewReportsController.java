@@ -40,43 +40,43 @@ import util.PopUp;
 
 public class ViewReportsController implements Initializable {
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
-  
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private JFXComboBox<?> selectTypeCbox;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private JFXTextField searchField;
+	@FXML
+	private JFXComboBox<?> selectTypeCbox;
 
-    @FXML
-    private Label startDPlbl;
+	@FXML
+	private JFXTextField searchField;
 
-    @FXML
-    private JFXDatePicker startReportCreatedDP;
+	@FXML
+	private Label startDPlbl;
 
-    @FXML
-    private Label endDPlbl;
+	@FXML
+	private JFXDatePicker startReportCreatedDP;
 
-    @FXML
-    private JFXDatePicker endReportCreatedDP;
+	@FXML
+	private Label endDPlbl;
 
-    @FXML
-    private JFXButton filterButton;
+	@FXML
+	private JFXDatePicker endReportCreatedDP;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private JFXButton filterButton;
 
-    @FXML
-    private TableView<reportRow> reportTable;
-    
-    @FXML
+	@FXML
+	private AnchorPane tableViewAnchor;
+
+	@FXML
+	private TableView<reportRow> reportTable;
+
+	@FXML
 	private TableColumn<?, ?> reportIDCol;
 
 	@FXML
@@ -84,10 +84,10 @@ public class ViewReportsController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> studentNumCol;
-	
+
 	@FXML
 	private TableColumn<?, ?> averageCol;
-	
+
 	@FXML
 	private TableColumn<?, ?> medianCol;
 
@@ -97,35 +97,35 @@ public class ViewReportsController implements Initializable {
 	@FXML
 	private TableColumn<?, ?> deleteCol;
 
-    @FXML
-    private JFXButton deleteBtn;
+	@FXML
+	private JFXButton deleteBtn;
 
-    @FXML
-    private JFXButton createReportBtn;
+	@FXML
+	private JFXButton createReportBtn;
 	private Node ReportForm;
-    private ReportFormController reportFormController;
-	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");
-	;
-    @FXML
-    void deleteReportBtn(MouseEvent event) {
+	private ReportFormController reportFormController;
+	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");;
 
-    }
+	@FXML
+	void deleteReportBtn(MouseEvent event) {
 
-    @FXML
-    void filterBtn(MouseEvent event) {
+	}
 
-    }
-	
+	@FXML
+	void filterBtn(MouseEvent event) {
+
+	}
+
 	@FXML
 	void createReportClicked(MouseEvent event) {
-		
+
 	}
 
 	@FXML
 	void viewReportsBtn(MouseEvent event) {
 
 	}
-	
+
 	public class reportRow {
 		private String reportId;
 		private String testID;
@@ -135,87 +135,86 @@ public class ViewReportsController implements Initializable {
 		private JFXButton ViewBtn;
 		private JFXButton DeleteBtn;
 		Report report;
-		
+
 		public reportRow(Report report) {
-		this.reportId = report.getId();
-		testID=report.getTestId();
-		numberOfStudents=report.getNumberOfStudents();
-		average=report.getAverage();
-		median=report.getMedian();
-		this.ViewBtn = new JFXButton();
-		this.DeleteBtn = new JFXButton();
-		DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
-		ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
-		DeleteBtn.setStyle("-fx-fill: red !important;");
-	}
+			this.reportId = report.getId();
+			testID = report.getTestId();
+			numberOfStudents = report.getNumberOfStudents();
+			average = report.getAverage();
+			median = report.getMedian();
+			this.ViewBtn = new JFXButton();
+			this.DeleteBtn = new JFXButton();
+			DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
+			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			DeleteBtn.setStyle("-fx-fill: red !important;");
+		}
 
-	public JFXButton getViewBtn() {
-		return ViewBtn;
-	}
+		public JFXButton getViewBtn() {
+			return ViewBtn;
+		}
 
-	public void setViewBtn(JFXButton viewBtn) {
-		this.ViewBtn = viewBtn;
-	}
+		public void setViewBtn(JFXButton viewBtn) {
+			this.ViewBtn = viewBtn;
+		}
 
-	public JFXButton getDeleteBtn() {
-		return DeleteBtn;
-	}
+		public JFXButton getDeleteBtn() {
+			return DeleteBtn;
+		}
 
-	public void setDeleteBtn(JFXButton deleteBtn) {
-		this.DeleteBtn = deleteBtn;
-	}
-	public String getReportId() {
-		return reportId;
-	}
+		public void setDeleteBtn(JFXButton deleteBtn) {
+			this.DeleteBtn = deleteBtn;
+		}
 
-	public void setReportId(String reportId) {
-		this.reportId = reportId;
-	}
+		public String getReportId() {
+			return reportId;
+		}
 
+		public void setReportId(String reportId) {
+			this.reportId = reportId;
+		}
 
-	public int getNumberOfStudents() {
-		return numberOfStudents;
-	}
+		public int getNumberOfStudents() {
+			return numberOfStudents;
+		}
 
+		public void setNumberOfStudents(int numberOfStudents) {
+			this.numberOfStudents = numberOfStudents;
+		}
 
-	public void setNumberOfStudents(int numberOfStudents) {
-		this.numberOfStudents = numberOfStudents;
-	}
+		public double getAverage() {
+			return average;
+		}
 
-	public double getAverage() {
-		return average;
-	}
+		public void setAverage(double average) {
+			this.average = average;
+		}
 
-	public void setAverage(double average) {
-		this.average = average;
-	}
+		public double getMedian() {
+			return median;
+		}
 
-	public double getMedian() {
-		return median;
-	}
-	
-	public void setMedian(double median) {
-		this.median = median;
-	}
-	
-	public Report getReport() {
-		
-		return report;
-	}
+		public void setMedian(double median) {
+			this.median = median;
+		}
 
-	public void setQuestion(Report report) {
-		this.report = report;
-	}
-	
-	public String getTestID() {
-		return testID;
-	}
+		public Report getReport() {
 
-	public void setTestID(String testID) {
-		this.testID = testID;
-	}
+			return report;
+		}
 
-}
+		public void setQuestion(Report report) {
+			this.report = report;
+		}
+
+		public String getTestID() {
+			return testID;
+		}
+
+		public void setTestID(String testID) {
+			this.testID = testID;
+		}
+
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -223,8 +222,8 @@ public class ViewReportsController implements Initializable {
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
-		
-		//adding PropertyValueFactory for the columns
+
+		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
 		PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");
@@ -238,72 +237,65 @@ public class ViewReportsController implements Initializable {
 		medianCol.setCellValueFactory(medianFactory);
 		averageCol.setCellValueFactory(averageFactory);
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
-			
+
 		if (reports != null) {
 			for (int i = 0; i < reports.size(); i++) {
 				reportRow reportRow = new reportRow(reports.get(i));
 				reportTable.getItems().addAll(reportRow);
 				tableViewAnchor.setMouseTransparent(false);
-					
-				
-					
-					EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
-						@Override
-						public void handle(ActionEvent event) {
-							try {
-							
-								FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
-								ReportForm = loader.load();
-								reportFormController = loader.getController();
-								String average = String.valueOf(reportRow.getAverage()); 
-								String median = String.valueOf(reportRow.getMedian()); 
-								reportFormController.getAverageTxt().setText(average);
-								reportFormController.getMedianTxt().setText(median);
-								JFXButton buttonText = (JFXButton) event.getSource();
-								
-							} catch (IOException e1) {
-								e1.printStackTrace();
-							}
-							GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
+
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						try {
+
+							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
+							ReportForm = loader.load();
+							reportFormController = loader.getController();
+							String average = String.valueOf(reportRow.getAverage());
+							String median = String.valueOf(reportRow.getMedian());
+							reportFormController.getAverageTxt().setText(average);
+							reportFormController.getMedianTxt().setText(median);
+							JFXButton buttonText = (JFXButton) event.getSource();
+
+						} catch (IOException e1) {
+							e1.printStackTrace();
 						}
+						GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
+					}
 
 				};
 				reportRow.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
+						// String average=String.valueOf(reportRow.getAverage());
+						// System.out.println(average);
 
-					};
+						// reportFormController.getAverageTxt().setText(average);
 
-					reportRow.getViewBtn().setOnAction(e ->{
-						btnEventHandler.handle(e);
-					    {
-					    	//String average=String.valueOf(reportRow.getAverage());  
-					    	//System.out.println(average);
-					    	
-					    	//reportFormController.getAverageTxt().setText(average);
-							
-					    };
-					});
-					
-					//Event handler for deletion from table and DB
-					reportRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
-						@Override
-						public void handle(ActionEvent event) {
-							JFXButton yesBtn = new JFXButton("Yes");
-							yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-						    	ClientController.accept("DELETE_REPORT-" +reportRow.getReportId());
-						    	if (!ClientController.isReportDeleted())
-									System.out.println("not working");
-						    	reportTable.getItems().remove(reportRow);
-								PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The report " + reportRow.getReportId() + " has been deleted", insideFilterAnchor, null, null);
-							});
-							PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this question?",
-									insideFilterAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
-						}
-					});
-			
-				}
+					}
+					;
+				});
 
+				// Event handler for deletion from table and DB
+				reportRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+					@Override
+					public void handle(ActionEvent event) {
+						JFXButton yesBtn = new JFXButton("Yes");
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+							ClientController.accept("DELETE_REPORT-" + reportRow.getReportId());
+							if (!ClientController.isReportDeleted())
+								System.out.println("not working");
+							reportTable.getItems().remove(reportRow);
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+									"The report " + reportRow.getReportId() + " has been deleted", insideFilterAnchor,
+									null, null);
+						});
+						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert",
+								"Are you sure that you want to delete this question?", insideFilterAnchor,
+								Arrays.asList(yesBtn, new JFXButton("No")), null);
+					}
+				});
 
 			}
 
