@@ -96,6 +96,9 @@ public class QuestionBankUIController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> deleteCol;
+	
+    @FXML
+    private TableColumn<?, ?> contentCol;
 
 	@FXML
 	private JFXButton addAnewQuestionBtn;
@@ -150,6 +153,7 @@ public class QuestionBankUIController implements Initializable {
 	public class questionRow {
 		private String id;
 		private String author;
+		private String content;
 		private String field;
 		private JFXButton ViewBtn;
 		private JFXButton DeleteBtn;
@@ -160,6 +164,7 @@ public class QuestionBankUIController implements Initializable {
 			String  authorID=question.getAuthorID();
 			ClientController.accept("GET_NAME_BY_ID-"+ authorID);
 			author=ClientController.getAuthorName();
+			content=question.getQuestionText();
 			this.question = question;
 			id = question.getID();
 			field = question.getField();
@@ -223,6 +228,13 @@ public class QuestionBankUIController implements Initializable {
 		public void setQuestion(Question question) {
 			this.question = question;
 		}
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
 
 	}
 
@@ -252,9 +264,9 @@ public class QuestionBankUIController implements Initializable {
 			//calling query for getting teachers field questions 
 			ClientController.accept("GET_QUESTIONS_TABLE-");
 			questions = ClientController.getQuestions();
-			viewCol.setVisible(false);
 			deleteCol.setVisible(false);
 			editCol.setVisible(false);
+			contentCol.setPrefWidth(330);
 		}
 		
 	  //adding PropertyValueFactory for the columns
@@ -262,12 +274,15 @@ public class QuestionBankUIController implements Initializable {
 		PropertyValueFactory fieldfactory = new PropertyValueFactory<>("field");
 		PropertyValueFactory authorFactory = new PropertyValueFactory<>("author");
 		PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");
+		PropertyValueFactory contentFactory = new PropertyValueFactory<>("content");
+		
 		fieldCol.setCellValueFactory(fieldfactory);
 		IDCol.setCellValueFactory(IDfactory);
 		authorCol.setCellValueFactory(authorFactory);
 		viewCol.setCellValueFactory(viewFactory);
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("EditBtn"));
+		contentCol.setCellValueFactory(contentFactory);
 		
 		if (questions != null) {
 			for (int i = 0; i < questions.size(); i++) {
@@ -281,7 +296,8 @@ public class QuestionBankUIController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText("Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
+							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
+									"Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)
@@ -310,18 +326,7 @@ public class QuestionBankUIController implements Initializable {
 					}
 				});
 				
-				//event handler for deletion form table and DB
-//				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { 
-//					@Override
-//					public void handle(ActionEvent event) {
-//				    	ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
-//				    	if (!ClientController.isQuestionDeleted())
-//							System.out.println("not working");
-//				    	questionBankTable.getItems().remove(questionRow);
-//						
-//				    };
-//				});
-//				
+
 				
 				//event handler for view button 
 				questionRow.getViewBtn().setOnAction(e ->{
@@ -344,11 +349,12 @@ public class QuestionBankUIController implements Initializable {
 				// event handler for edit button
 				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
-					{
-						field.add(questionRow.getField());
-						blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
-						blankQuestionFormUIController.getFieldCBox().setDisable(true);
-					};
+				    {
+				    	field.add(questionRow.getField());
+				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
+				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
+				    	
+				    };
 				});
 
 			}

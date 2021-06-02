@@ -16,6 +16,7 @@ import common.Student;
 import common.Teacher;
 import common.Test;
 import common.TestFile;
+import common.TimeExtensionRequest;
 import common.User;
 import ocsf.client.ObservableClient;
 
@@ -100,6 +101,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setQuestions(null);
 					ClientController.setScheduledTests(null);
 					ClientController.setTests(null);
+					ClientController.setTimeExtensionRequests(null);
 				}
 				// get questions from questions DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Question)
@@ -107,6 +109,12 @@ public class CEMSClient extends ObservableClient {
 				// get tests from test DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
+				//get students
+				else if (((ArrayList<?>) msg).get(0) instanceof Student)
+					ClientController.setStudents((ArrayList<Student>) msg);
+				//get teachers
+				else if (((ArrayList<?>) msg).get(0) instanceof Teacher)
+					ClientController.setTeachers((ArrayList<Teacher>) msg);
 				// get scheduled tests from scheduled_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ScheduledTest) {
 					ClientController.setScheduledTests((ArrayList<ScheduledTest>) msg);
@@ -114,13 +122,13 @@ public class CEMSClient extends ObservableClient {
 				// get active tests from active_tests DB
 				else if (((ArrayList<?>) msg).get(0) instanceof ActiveTest)
 					ClientController.setActiveTests((ArrayList<ActiveTest>) msg);
-				//get finished tests from finished_tests DB
-				else if(((ArrayList<?>)msg).get(0) instanceof FinishedTest)
+				// get finished tests from finished_tests DB
+				else if (((ArrayList<?>) msg).get(0) instanceof FinishedTest)
 					ClientController.setFinishedTests((ArrayList<FinishedTest>) msg);
-				//get courses by field 
-				else if(((ArrayList<?>)msg).get(0) instanceof Course)
+				// get courses by field
+				else if (((ArrayList<?>) msg).get(0) instanceof Course)
 					ClientController.setCourses((ArrayList<Course>) msg);
-				//get reports
+				// get reports
 				else if (((ArrayList<?>) msg).get(0) instanceof Report)
 					ClientController.setReports((ArrayList<Report>) msg);
 			}
@@ -130,54 +138,58 @@ public class CEMSClient extends ObservableClient {
 				}
 			}
 			else if (msg instanceof String) {
+				// get time extension requests
+				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
+					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
+
+			} else if (msg instanceof String) {
 				String str = (String) msg;
-				//getting message from query when adding a new question
+				// getting message from query when adding a new question
 				String[] questionAdded = str.split(":");
-				
+
 				if (str.equals("deleted")) {
 					ClientController.setTestDeleted(true);
 					ClientController.setQuestionDeleted(true);
-				
-				}
-				else if (str.equals("reportDeleted")) {
+
+				} else if (str.equals("reportDeleted")) {
 					ClientController.setReportDeleted(true);
-				
-				}
-				else if (str.equals("notDeleted"))
-				{
+
+				} else if (str.equals("notDeleted")) {
 					ClientController.setTestDeleted(false);
 					ClientController.setQuestionDeleted(false);
-					
-				}
-				else if (str.equals("scheduled"))
+
+				} else if (str.equals("scheduled"))
 					ClientController.setTestScheduled(true);
-				else if(str.equals("notScheduled"))
+				else if (str.equals("notScheduled"))
 					ClientController.setTestScheduled(false);
-				else if(questionAdded[0].equals("questionAdded")){
+				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
-					//getting new question ID
+					// getting new question ID
 					ClientController.setNewQuestionId(questionAdded[1]);
-				}
-				else if(str.equals("editSuccess"))
+				} else if (str.equals("editSuccess"))
 					ClientController.setQuestionEdited(true);
-				else if(str.startsWith("testAdded")) {
+				else if (str.startsWith("testAdded")) {
 					String[] tmp = str.split(":");
 					ClientController.setId(tmp[1]);
 				}
-				
-				else if(str.equals("testRemoved"))
+
+				else if (str.equals("testRemoved"))
 					ClientController.setTestRemoved(true);
-				else if(str.equals("testNotRemoved"))
+				else if (str.equals("testNotRemoved"))
 					ClientController.setTestRemoved(false);
-				else if(str.equals("testRescheduled"))
+				else if (str.equals("testRescheduled"))
 					ClientController.setTestRescheduled(true);
-				else if(str.equals("testNotRescheduled"))
+				else if (str.equals("testNotRescheduled"))
 					ClientController.setTestRescheduled(false);
-				else {
-					//getting author name from query
-					String[] toSplit = ((String) msg).split(":"); 
+				else if (str.equals("notify")) {
+					setChanged();
+					notifyObservers(ClientController.getActiveTestController());
+				} else if (str.equals("principleNotified"))
+					ClientController.setPrincipleNotified(true);
+				else if (((String) msg).startsWith("name")) {
+					// getting author name from query
+					String[] toSplit = ((String) msg).split(":");
 					ClientController.setAuthorName(toSplit[1]);
-					
 				}
 
 			}

@@ -91,6 +91,9 @@ public class ViewActiveTestsController implements Initializable {
 	private JFXButton senfForApprovalBtn;
 
 	@FXML
+	private JFXTextField minutesTxt;
+
+	@FXML
 	private AnchorPane lockTestAnchor;
 
 	@FXML
@@ -119,7 +122,7 @@ public class ViewActiveTestsController implements Initializable {
 
 	@FXML
 	private Label timeLeftLbl;
-	
+
 	@FXML
 	private Label testNameLabel;
 
@@ -229,12 +232,22 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void clicksendForApproval(MouseEvent event) {
-		List<JFXButton> l = new ArrayList<JFXButton>();
-		l.add(new JFXButton("Okay"));
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
-				contentPaneAnchor, null, null);
+
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
-				+ reasonForRequestTxt.getText() + "," + selectedRow); //Request for extension time.
+				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // Request for
+																									// extension time.
+		ClientController.accept("NOTIFY_PRINCIPLE");
+		if (ClientController.isPrincipleNotified()) {
+			List<JFXButton> l = new ArrayList<JFXButton>();
+			l.add(new JFXButton("Okay"));
+			PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
+					contentPaneAnchor, null, null);
+		} else {
+			List<JFXButton> l = new ArrayList<JFXButton>();
+			l.add(new JFXButton("Okay"));
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
+					null, null);
+		}
 
 	}
 
@@ -286,9 +299,10 @@ public class ViewActiveTestsController implements Initializable {
 		private String startTimeTest;
 		private String finishTime;
 		private String code;
+		private ActiveTest activeTest;
 
 		public rowTableActiveTest(ActiveTest activeTest) {
-
+			this.activeTest = activeTest;
 			id = activeTest.getID();
 			title = activeTest.getTitle();
 			authorName = activeTest.getAuthorName();
@@ -301,6 +315,10 @@ public class ViewActiveTestsController implements Initializable {
 
 		public String getFinishTime() {
 			return finishTime;
+		}
+
+		public ActiveTest getActiveTest() {
+			return activeTest;
 		}
 
 		public String getID() {
@@ -366,12 +384,13 @@ public class ViewActiveTestsController implements Initializable {
 			if (event.getClickCount() >= 1) {
 				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
 					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
-					testCodeField.setText(selected.getID());
+					testCodeField.setText(selected.getActiveTest().getCode());
 					// timeLeftField.setText(selected.get); // TODO: in the future
-					finishTimeField.setText(selected.getFinishTime()); //TODO
-					testNameLabel.setText(selected.getCourse()); //TODO 
-					//testCodeLable.setText(selected.arg0);
-					selectedRow = selected.getID(); // Get the ID to request query from server about time extension.
+					finishTimeField.setText(selected.getFinishTime()); // TODO
+					testNameLabel.setText(selected.getCourse()); // TODO
+					// testCodeLable.setText(selected.arg0);
+					selectedRow = selected.getActiveTest().getCode(); // Get the ID to request query from server about
+																		// time extension.
 				}
 			}
 

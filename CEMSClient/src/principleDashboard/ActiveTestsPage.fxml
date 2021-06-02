@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,11 +8,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ActiveTestController">
    <children>
-      <Label alignment="CENTER" prefHeight="65.0" prefWidth="1000.0" text="Active Test Requests">
+      <Label alignment="CENTER" layoutX="350.0" prefHeight="65.0" prefWidth="300.0" text="Active Test Requests">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
       <ScrollPane fx:id="scrollPane" layoutY="70.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="710.0" prefWidth="950.0" styleClass="body" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" />
+      <JFXButton fx:id="refreshBtn" disable="true" layoutX="73.0" layoutY="14.0" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: red;" text="Refresh" />
    </children>
 </AnchorPane>

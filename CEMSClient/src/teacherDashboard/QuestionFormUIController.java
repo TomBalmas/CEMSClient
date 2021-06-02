@@ -149,7 +149,7 @@ public class QuestionFormUIController implements Initializable {
 			clickBack();
 		//get data from UI 
 		Teacher teacher = (Teacher) ClientController.getActiveUser();
-		String teacherName = teacher.getName();
+		String teacherId = teacher.getSSN();
 		ArrayList<JFXTextArea> answers = getAnswerTextFields();
 		String questionContent=getQuestionContentTxt().getText();
 		String answer1 = answers.get(0).getText() ;
@@ -182,7 +182,7 @@ public class QuestionFormUIController implements Initializable {
 		//query for editing question
 		else {
 			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" ");
-			String queryEditQuestion = "EDIT_QUESTION-" + questionID[2] + "," + teacherName + ","
+			String queryEditQuestion = "EDIT_QUESTION-" + questionID[2] + "," + teacherId + ","
 					+ getQuestionContentTxt().getText() + "," + correctAnswer + ","
 					+ fieldCBox.getPromptText().toString() + "," + answer1 + "," + answer2 + "," + answer3 + "," + answer4;
 			if (correctAnswer != 0 && !getQuestionContentTxt().getText().isEmpty()
