@@ -48,11 +48,13 @@ public class ActiveTestController implements Initializable, Observer {
 		if (timeExtensionRequests != null)
 			for (TimeExtensionRequest request : timeExtensionRequests) {
 				ClientController.accept("GET_NAME_BY_ID-" + request.getSsn());
-				addTeacherRequest(request.getSsn(), request.getContent(), ClientController.getAuthorName(),request.getTestCode());
+				addTeacherRequest(request.getSsn(), request.getContent(), ClientController.getAuthorName(),
+						request.getTestCode(), request.getMinutes());
 			}
 		refreshBtn.setOnMouseClicked(e -> {
 			VBox vbox = (VBox) scrollPane.getContent();
-			vbox.getChildren().clear();
+			if (vbox.getChildren() != null)
+				vbox.getChildren().clear();
 			initialize(location, resources);
 			refreshBtn.setDisable(true);
 			ClientController.setPrincipleNotified(false);
@@ -69,14 +71,16 @@ public class ActiveTestController implements Initializable, Observer {
 	 *
 	 */
 
-	public void addTeacherRequest(String teacherSSN, String requestMsg, String teacherName,String testCode) {
+	public void addTeacherRequest(String teacherSSN, String requestMsg, String teacherName, String testCode,
+			int minutes) {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherRequest.fxml"));
 			Node request = loader.load();
 			TeacherRequestController controller = loader.getController();
-			controller.getTeacherName().setText("Name: " + teacherName + " SSN: " + teacherSSN+" Code: "+ testCode);
+			controller.getTeacherName().setText("Name: " + teacherName + " SSN: " + teacherSSN + " Code: " + testCode);
 			controller.getTextArea().setText(requestMsg);
+			controller.getTextArea().appendText("\nMinutes to add: " + minutes);
 			vBoxScrollPane.getChildren().add(request);
 			scrollPane.setContent(vBoxScrollPane);
 
@@ -89,9 +93,7 @@ public class ActiveTestController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-
 		refreshBtn.setDisable(false);
-		System.out.println("notified");
 	}
 
 }
