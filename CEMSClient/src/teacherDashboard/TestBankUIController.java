@@ -2,7 +2,6 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -13,13 +12,14 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
-import common.Question;
 import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,12 +27,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import teacherDashboard.AddingNewTestUIController.QuestionRow;
+import teacherDashboard.QuestionBankUIController.questionRow;
+import teacherDashboard.ScheduledTestsController.ScheduleTestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -110,6 +113,18 @@ public class TestBankUIController implements Initializable {
 
 	@FXML
 	private JFXButton addNewTestButton;
+	
+    @FXML
+    private AnchorPane testAnchor;
+
+    @FXML
+    private JFXButton backToPageBtn;
+
+    @FXML
+    private ScrollPane testScrollPane;
+
+    @FXML
+    private AnchorPane testAnchor2;
 
 	private Node TestFormNode, addNewTest, AddingFormNode;
 	private FXMLLoader TestFormLoader;
@@ -120,7 +135,8 @@ public class TestBankUIController implements Initializable {
 
 	// ----------TODO: add teachers for principle
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
-
+	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
+	
 	@FXML
 	void searchBtnClicked(MouseEvent event) {
 
@@ -254,6 +270,12 @@ public class TestBankUIController implements Initializable {
 		if (ClientController.getRoleFrame().equals("Principle")) {
 			ClientController.accept("GET_TESTS_TABLE-");
 			tests = ClientController.getTests();
+			int addToColum = 39;
+			IDcol.setPrefWidth(IDcol.getWidth() + addToColum);
+			authorCol.setPrefWidth(authorCol.getWidth() + addToColum);
+			courseCol.setPrefWidth(courseCol.getWidth() + addToColum);
+			fieldCol.setPrefWidth(fieldCol.getWidth() + addToColum);
+			testNameCol.setPrefWidth(testNameCol.getWidth() + addToColum+2);
 			deleteCol.setVisible(false);
 			editCol.setVisible(false);
 			setDateCol.setVisible(false);
@@ -280,13 +302,14 @@ public class TestBankUIController implements Initializable {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
-
+				dataList.add(tr); //add row to dataList to search field.
 				// View button
-//				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
-//					@Override
-//					public void handle(ActionEvent arg0) {
+				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
 //						try {
-//						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTestId(), "Computed", loader);
 //						TestFormNode = loader.load();
 //						TestFormController controller = loader.getController();
 //						controller.getScrollPane().setTranslateX(10);
@@ -301,8 +324,8 @@ public class TestBankUIController implements Initializable {
 //						} catch (IOException e) {
 //							e.printStackTrace();
 //						}
-//					}
-//				});
+					}
+				});
 
 				// Edit button
 				tr.getEditBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -341,7 +364,7 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null,
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")),
 								loader);
 						// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
 						// loader);
@@ -381,7 +404,64 @@ public class TestBankUIController implements Initializable {
 					}
 				});
 			}
+			
+			
+			
+			
+			//Search by data which is in a certain row.
+			FilteredList<TestRow> filteredData = new FilteredList<>(dataList, p -> true);
+
+	        //  Set the filter Predicate whenever the filter changes.
+			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+	            filteredData.setPredicate(myObject -> {
+	                // If filter text is empty, display all persons.
+	                if (newValue == null || newValue.isEmpty()) {
+	                    return true;
+	                }
+
+	                // Compares what we wrote in the text (we searched for) to the appropriate line.
+	                String lowerCaseFilter = newValue.toLowerCase();
+
+	                if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
+	                    return true;
+	                    // Filter matches code.
+	                } 
+	                
+	            	else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+	            		return true; // Filter matches field.
+	            	} 
+	                
+	                else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+	                    return true; // Filter matches course.
+	                } 
+	                
+	                else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
+	                    return true; // Filter matches name.
+	                } 
+	                
+	                else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+	                    return true; // Filter matches author.
+	                } 
+
+	                return false; // Does not match.
+	            });
+	        });
+
+	        //  Wrap the FilteredList in a SortedList. 
+	        SortedList<TestRow> sortedData = new SortedList<>(filteredData);
+
+	        //  Bind the SortedList comparator to the TableView comparator.
+	        sortedData.comparatorProperty().bind(testTable.comparatorProperty());
+	        //  Add sorted (and filtered) data to the table.
+	        testTable.setItems(sortedData);
+	        
 		}
 	}
+	
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+    }
 
 }

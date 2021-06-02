@@ -126,6 +126,7 @@ public class TestFormController implements Initializable {
 	private boolean flag = false; // flag to decide student/teacher
 	private int totalNumberOfQuestions = 0;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
+
 	Test test = null;
 	Student student;
 	String testCode = null;
@@ -199,9 +200,18 @@ public class TestFormController implements Initializable {
     public Label getTotalQuestionsLbl() {
 		return totalQuestionsLbl;
 	}
+    
+	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
+		return questionsToggleGroup;
+	}
 
 	// getters end
 
+    public void setTestFrom() {
+    	
+    	
+    }
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if (ClientController.getRoleFrame().equals("Student"))

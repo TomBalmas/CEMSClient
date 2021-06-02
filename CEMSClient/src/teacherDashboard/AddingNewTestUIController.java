@@ -387,11 +387,11 @@ public class AddingNewTestUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			Region test = loader.load();
 			test.prefWidthProperty().bind(testScrollPane.widthProperty());
-			test.prefHeightProperty().bind(testScrollPane.heightProperty());
+			test.prefHeightProperty().bind(testScrollPane.heightProperty().add(28));
 			TestFormController controller = loader.getController();
 //			controller.getScrollPane().setLayoutX(testScrollPane.layoutXProperty().doubleValue());
 //			controller.getScrollPane().setLayoutY(testScrollPane.layoutYProperty().doubleValue());
-			controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
+			controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty().add(20));
 			controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
 			controller.getScrollPane().setTranslateX(10);
 			controller.getScrollPane().setTranslateY(11);

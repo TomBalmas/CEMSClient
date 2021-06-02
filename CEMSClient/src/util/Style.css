@@ -70,6 +70,15 @@
 	-fx-fill: #fec973;
 }
 
+.littleBackBtn {
+	-fx-text-fill: #393E46;
+}
+
+.littleBackBtn:hover {
+	-fx-text-fill: #393E46;
+}
+
+
 .deleteButton {
 	-fx-background-color: #e84545;
 }
