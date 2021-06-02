@@ -3,15 +3,22 @@ package teacherDashboard;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
 import client.ClientController;
+import common.ActiveTest;
 import common.Question;
+import common.Student;
+import common.Teacher;
+import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +27,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -78,6 +87,9 @@ public class TestFormController implements Initializable {
     private Label questionAnsweredLbl;
 
     @FXML
+    private Label totalQuestionsLbl;
+
+	@FXML
     private AnchorPane timeAnchor;
 
     @FXML
@@ -112,12 +124,34 @@ public class TestFormController implements Initializable {
 	private VBox vbox = new VBox();
 	private String fileFullPath, fileName;
 	private boolean flag = false; // flag to decide student/teacher
+	private int totalNumberOfQuestions = 0;
+	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
+	Test test = null;
+	Student student;
+	String testCode = null;
+
+	// getters start
+	
+	public String getTestCode() {
+		return testCode;
+	}
+
+	public void setTestCode(String testCode) {
+		this.testCode = testCode;
+	}
+
+	public Test getTest() {
+		return test;
+	}
+
+	public void setTest(Test test) {
+		this.test = test;
+	}
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-
-	// getters start
+	
 	public AnchorPane getAnchorPaneContent() {
 		return AnchorPaneContent;
 	}
@@ -161,11 +195,17 @@ public class TestFormController implements Initializable {
 	public VBox getVbox() {
 		return vbox;
 	}
+	
+    public Label getTotalQuestionsLbl() {
+		return totalQuestionsLbl;
+	}
 
 	// getters end
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if (ClientController.getRoleFrame().equals("Student"))
+			student = (Student) ClientController.getActiveUser();
 		downloadBtn.setVisible(false);
 		uploadBtn.setVisible(false);
 		vbox.setSpacing(10);
@@ -233,13 +273,16 @@ public class TestFormController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
-		if (flag)
-			controller.getTeacherNotesTxt().setVisible(false);
+//		if (flag)
+//			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
-		controller.getQuestionNumLbl().setText("Question: " + questionNumber);
+		controller.getQuestionNumLbl().setText("Question #" + questionNumber);
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
 		controller.getContantTxt().setText(q.getQuestionText());
-		//addTextAndresizeTextArea(controller.getContantTxt(), q.getQuestionText());
+		double questionStyleSpacer = addTextAndresizeTextArea(controller.getContantTxt(), q.getQuestionText());
+		controller.getQuestionAnchor().setPrefHeight(controller.getQuestionAnchor().getPrefHeight() + questionStyleSpacer*4);
+		controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY()+questionStyleSpacer*4);
+		//controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY() + questionStyleSpacer);
 		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
 		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
 		controller.getAnswer3Btn().setText(q.getAnswers().get(2));
@@ -248,6 +291,13 @@ public class TestFormController implements Initializable {
 		controller.getAnswer2Btn().setToggleGroup(controller.getGroup());
 		controller.getAnswer3Btn().setToggleGroup(controller.getGroup());
 		controller.getAnswer4Btn().setToggleGroup(controller.getGroup());
+		controller.getGroup().selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+				if (controller.getGroup().getSelectedToggle() != null && old_toggle == null)
+					questionAnsweredLbl.setText(String.valueOf(++totalNumberOfQuestions));
+			}
+		});
+		questionsToggleGroup.add(controller.getGroup());
 		scrollPane.setContent(vbox);
 	}
 
@@ -261,9 +311,11 @@ public class TestFormController implements Initializable {
 		Region element = loader.load();
 		TitleAndInstructionsController cont = loader.getController();
 		StringBuilder str = new StringBuilder();
-		str.append("Teacher instructions:\n");
-		str.append(teacherInst);
-		str.append("\nStudent instructions:\n");
+		if (!flag) {
+			str.append("Teacher instructions:\n");
+			str.append(teacherInst + "\n");
+		}
+		str.append("Student instructions:\n");
 		str.append(studentInst);
 //		cont.getInstructionsTxtArea().appendText("Teacher instructions:\n");
 //		cont.getInstructionsTxtArea().appendText(teacherInst);
@@ -272,20 +324,22 @@ public class TestFormController implements Initializable {
 		addTextAndresizeTextArea(cont.getInstructionsTxtArea(), str.toString());
 		cont.getTestTitleLbl().setText(title);
 		vbox.getChildren().add(element);
-		element.prefWidthProperty().bind(scrollPane.widthProperty());
+		element.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
 		scrollPane.setContent(vbox);
 	}
 	
-	private void addTextAndresizeTextArea(JFXTextArea textArea, String text) {
+	private double addTextAndresizeTextArea(JFXTextArea textArea, String text) {
 		Text t = new Text(text);
 		t.setFont(textArea.getFont());
 		StackPane pane = new StackPane(t);
 		pane.layout();
+		double height2 = pane.getHeight();
 		double width = t.getLayoutBounds().getWidth();
 		double height = t.getLayoutBounds().getHeight();
-		double padding = 15;
+		double padding = 30;
 		textArea.setMaxHeight(height + padding);
 		textArea.setText(text);
+		return height2 - height;
 	}
 
 	/**
@@ -331,6 +385,33 @@ public class TestFormController implements Initializable {
 	 */
 	@FXML
 	void finishTestClicked(MouseEvent event) throws IOException {
+/*		if (fileFullPath != null) { // Manual test
+			// ClientController.accept("FILE: " + fileFullPath);
+		} else { // TODO:remove comment when DB is ready
+			ArrayList<String> answers = new ArrayList<>();
+			for (ToggleGroup tg : questionsToggleGroup)
+				answers.add(String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
+			answers.set(questionsToggleGroup.size()-1, answers.get(questionsToggleGroup.size() -1).substring(0, answers.get(3).length()-1));
+			for (String tg : answers)
+				System.out.println(tg);
+			//ClientController.accept("SAVE_STUDENT_ANSWERS" + answers);
+		}
+*/		
+		//TODO: save finish test
+//		//get scheduler 
+//		ClientController.accept("ACTIVE_TEST" + testScheduler);
+//		ArrayList<ActiveTest> activeTest = ClientController.getActiveTests();
+//		ActiveTest currentTest = null;
+//		for (ActiveTest at : activeTest) 
+//			if(at.getID().equals(test.getID()))
+//					currentTest = at;
+		
+		//studentSSN,testId,code,startingTime,timeTaken,presentationMethod,title,course,status
+		/*		String args;
+			args = student.getSSN() + "," + test.getID() + "," + testCode + "," +
+		"time taken" + "," + "self" + "," + test.getTitle() + "," + test.getCourse() + "," + "false"; */
+		//ClientController.accept("ADD_FINISHED_TEST" + args);
+		
 //		JFXButton okayBtn = new JFXButton("Okay");
 //		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 			Node page = null;

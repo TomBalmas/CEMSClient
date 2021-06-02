@@ -22,7 +22,7 @@ import teacherDashboard.SetTestDateController;
 public class PopUp {
 
 	public enum TYPE {
-		ALERT, SUCCESS, INFORM, ERROR;
+		ALERT, SUCCESS, INFORM, ERROR, SCHEDULE;
 	}
 
 	/*
@@ -105,7 +105,7 @@ public class PopUp {
 			if (nodeToBeBlurred != null)
 				nodeToBeBlurred.setEffect(null);
 			// Bring popup to the back!!! BOO-HOO!!!
-			if (type != TYPE.ALERT)
+			if (type != TYPE.SCHEDULE)
 				root.toBack();
 		});
 		return false;

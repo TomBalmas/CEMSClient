@@ -2,12 +2,18 @@ package teacherDashboard;
 
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class QuestionController {
 
+    @FXML
+    private AnchorPane questionAnchor;
+    
 	@FXML
 	private Label questionNumLbl;
 
@@ -16,6 +22,9 @@ public class QuestionController {
 
 	@FXML
 	private Label pointsLbl;
+	
+    @FXML
+    private VBox questionsVBox;
 
 	@FXML
 	private JFXRadioButton answer1Btn;
@@ -40,6 +49,10 @@ public class QuestionController {
 	public ToggleGroup getGroup() {
 		return group;
 	}
+	
+	public AnchorPane getQuestionAnchor() {
+		return questionAnchor;
+	}
 
 	public Label getQuestionNumLbl() {
 		return questionNumLbl;
@@ -51,6 +64,10 @@ public class QuestionController {
 
 	public Label getPointsLbl() {
 		return pointsLbl;
+	}
+	
+	public VBox getQuestionsVBox() {
+		return questionsVBox;
 	}
 
 	public JFXRadioButton getAnswer1Btn() {

@@ -44,6 +44,7 @@ public class ClientController {
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
 	private static String id = null;
+	private static Test studentTest = null;
 
 	public static boolean isPrincipleNotified() {
 		return principleNotified;
@@ -249,6 +250,14 @@ public class ClientController {
 
 	public static void setReportDeleted(boolean reportDeleted) {
 		ClientController.reportDeleted = reportDeleted;
+	}
+
+	public static void setStudentTest(Test test) {
+		ClientController.studentTest  = test;
+	} 
+	
+	public static Test getStudentTest() {
+		return studentTest;
 	}
 
 	public static void setStudents(ArrayList<Student> students) {

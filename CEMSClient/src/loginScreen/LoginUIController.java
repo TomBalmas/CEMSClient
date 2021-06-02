@@ -97,7 +97,8 @@ public class LoginUIController {
 				return;
 			ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 			String role = ClientController.getRoleFrame();
-			if (!role.equals("null")) {
+			String error = null;
+			if (!role.equals("null") && !role.equals("userAlreadyConnected")) {
 				GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
 					try {
 						if (role.equals("Teacher")) {
@@ -115,10 +116,19 @@ public class LoginUIController {
 				GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
 					whiteAnchor.setVisible(false);
 				});
+//			} else {
+//				GeneralUIMethods.setPopupPane(popupStackPane);
+//				GeneralUIMethods.setSideBar(menuVBox);
+//				PopUp.showMaterialDialog(PopUp.TYPE.ALERT,"Error!", "Wrong username or password.", null, null, null);
+//			}
 			} else {
+				if (role.equals("userAlreadyConnected"))
+					error = "User is already connected.";
+				else
+					error = "Wrong username or password.";
 				GeneralUIMethods.setPopupPane(popupStackPane);
 				GeneralUIMethods.setSideBar(menuVBox);
-				PopUp.showMaterialDialog(PopUp.TYPE.ALERT,"Error!", "Wrong username or password.", null, null, null);
+				PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Error!", error, null, null, null);
 			}
 		}
 	}

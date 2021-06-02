@@ -1,5 +1,8 @@
 package client;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import common.ActiveTest;
@@ -12,6 +15,7 @@ import common.ScheduledTest;
 import common.Student;
 import common.Teacher;
 import common.Test;
+import common.TestFile;
 import common.TimeExtensionRequest;
 import common.User;
 import ocsf.client.ObservableClient;
@@ -42,6 +46,23 @@ public class CEMSClient extends ObservableClient {
 			closeConnection();
 			return;
 		}
+		if (msg.startsWith("FILE")) {
+			try {
+				String[] split = msg.split(":");
+				TestFile file = new TestFile(split[1]);
+				File f = new File(split[1]);
+				byte[] byteArray = new byte[(int) f.length()];
+				FileInputStream fis = new FileInputStream(f);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				file.initArray(byteArray.length);
+				file.setSize(byteArray.length);
+				bis.read(file.getByteArray(), 0, byteArray.length);
+				sendToServer(file);
+				bis.close();
+			} catch (Exception e) {
+
+			}
+		}
 		awaitResponse = true;
 		sendToServer(msg);
 		while (awaitResponse) {
@@ -54,7 +75,12 @@ public class CEMSClient extends ObservableClient {
 		awaitResponse = false;
 		if (msg == null)
 			ClientController.setRoleFrame("null");
+		else if (msg.equals("userAlreadyConnected")) {
+			System.out.println("true");
+			ClientController.setRoleFrame("userAlreadyConnected");
+		}
 		else {
+			System.out.println("false");
 			// case of login
 			if (msg instanceof User) {
 				if (msg instanceof Teacher) {
@@ -105,6 +131,13 @@ public class CEMSClient extends ObservableClient {
 				// get reports
 				else if (((ArrayList<?>) msg).get(0) instanceof Report)
 					ClientController.setReports((ArrayList<Report>) msg);
+			}
+			else if (msg instanceof Test) { 
+				if (null != ((Test) msg)) {
+					ClientController.setStudentTest((Test) msg);
+				}
+			}
+			else if (msg instanceof String) {
 				// get time extension requests
 				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
 					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
