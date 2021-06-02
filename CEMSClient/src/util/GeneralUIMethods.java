@@ -1,20 +1,30 @@
 package util;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Question;
 import common.Test;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
 
@@ -132,17 +142,90 @@ public class GeneralUIMethods {
 		sb.append("/");
 		sb.append(arr[0]);
 		return sb.toString();
-
+	}
+	
+	public interface Func<T, V> {
+	    boolean compare(T t, V v);
 	}
 	
 	
-	
-	//public static void buildTestForm(Test test) {
-		
-	//}
-	
-	
-	
-	
+	public static <T> void autoSelectComboBoxValue(JFXComboBox<T> comboBox, String value, Func<T, String> f) {
+	    for (T t : comboBox.getItems()) {
+	        if (f.compare(t, value)) {
+	            comboBox.setValue(t);
+	        }
+	    }
+	}
+
+	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID, String testType,
+			FXMLLoader testFormLoader) {
+		if (ClientController.getRoleFrame().equals("Student") || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
+			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
+		else
+			ClientController.accept("GET_TEST_BY_ID-" + testCodeOrID);
+		Test t = ClientController.getStudentTest();
+		if (null == t)
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your code is invalid", contentPaneAnchor, null, null);
+		else {
+			ClientController.accept("GET_QUESTIONS_FROM_TEST-" + t.getID());
+			ArrayList<Question> testQuestions = ClientController.getQuestions();
+			if (null != testQuestions)
+			try {
+				Region test = testFormLoader.load();
+				TestFormController controller = testFormLoader.getController();
+				controller.setTest(t);
+				controller.setTestCode(testCodeOrID.toString());
+				controller.getEditBtn().setVisible(false);
+				controller.getBackBtn().setVisible(false);
+				controller.getTestSideBarAnchor().setVisible(true);
+				controller.setFlag(true);
+				if (testType.equals("Manual")) {
+					controller.getDownloadBtn().setVisible(true);
+					controller.getUploadBtn().setVisible(true);
+					controller.getUploadFileAnchor().setVisible(true);
+					controller.getFinishBtn().setVisible(false);
+				} else
+					controller.getUploadFileAnchor().setVisible(false);
+				controller.addTitleAndInstructionsToTest(t.getTitle(), null, t.getStudentInstructions());
+				int i = 1;
+				for (Question q : testQuestions) {
+					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
+					i++;
+				}
+				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
+
+				// Set the correct view for the student
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						if(testType.equals("Manual") || testType.equals("Computed")) {
+							contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
+							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), test);
+							if(testType.equals("Manual"))
+								controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
+									ToggleGroup tGroup = (ToggleGroup) toggleGroup;
+									tGroup.getToggles().forEach(toggle -> {
+										Node node = (Node) toggle;
+										node.setDisable(true);
+									});
+								});
+						}
+						else {
+							controller.getTestSideBarAnchor().setVisible(false);
+							test.prefWidthProperty().bind(testScrollPane.widthProperty().subtract(12));
+							test.prefHeightProperty().bind(testScrollPane.heightProperty());
+							controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
+							controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
+							controller.getScrollPane().setTranslateX(20);
+							controller.getScrollPane().setTranslateY(45);
+							GeneralUIMethods.loadPage(contentPaneAnchor, test);
+						}
+					}
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }
