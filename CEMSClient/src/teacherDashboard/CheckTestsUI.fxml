@@ -32,7 +32,7 @@
                         <String fx:value="btn" />
                      </styleClass>
                   </JFXButton>
-                  <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on a test you wish to want to check">
+                  <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on the test row you wish to check, and then click on the check button.">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -45,12 +45,12 @@
          <children>
             <TableView fx:id="testTbl" prefHeight="502.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="testIDCol" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Test ID" />
+                  <TableColumn fx:id="testIDCol" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Test ID" />
                   <TableColumn fx:id="courseCol" prefWidth="96.0" style="-fx-alignment: CENTER;" text="Course" />
                   <TableColumn fx:id="titleCol" prefWidth="98.0" style="-fx-alignment: CENTER;" text="Title" />
                   <TableColumn fx:id="dateCol" prefWidth="117.0" style="-fx-alignment: CENTER;" text="Date" />
                   <TableColumn fx:id="startingTime" prefWidth="119.0" style="-fx-alignment: CENTER;" text="Starting Time" />
-                  <TableColumn fx:id="studentSSNCol" prefWidth="154.0" style="-fx-alignment: CENTER;" text="Student SSN" />
+                  <TableColumn fx:id="studentSSNCol" prefWidth="152.0" style="-fx-alignment: CENTER;" text="Student SSN" />
                   <TableColumn fx:id="GradeCol" prefWidth="99.0" style="-fx-alignment: CENTER;" text="Grade" />
                   <TableColumn fx:id="statusCol" prefWidth="96.0" style="-fx-alignment: CENTER;" text="Status" />
               </columns>

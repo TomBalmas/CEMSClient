@@ -219,6 +219,10 @@ public class ViewReportsController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		selectTypeCbox.setItems(options);
+		if (ClientController.getRoleFrame().equals("Teacher")) {
+				selectTypeCbox.getSelectionModel().select(0);
+				selectTypeCbox.setDisable(true);
+		}
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="389.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.LockTestController">
+   <children>
+      <Label layoutX="23.0" text="Confirm test lock for">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="testNameLbl" layoutX="264.0" text="testName">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="codeTxt" labelFloat="true" layoutX="110.0" layoutY="56.0" promptText="Test code" />
+      <JFXButton fx:id="confirmTestLock" layoutX="110.0" layoutY="117.0" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: #1eae98;" text="Cofirm &amp; Lock test" />
+   </children>
+</AnchorPane>

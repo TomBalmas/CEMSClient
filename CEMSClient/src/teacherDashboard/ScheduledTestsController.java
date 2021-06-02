@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -82,6 +83,18 @@ public class ScheduledTestsController implements Initializable {
 
 	@FXML
 	private JFXButton searchBtn;
+	
+    @FXML
+    private AnchorPane testAnchor;
+
+    @FXML
+    private JFXButton backToPageBtn;
+
+    @FXML
+    private ScrollPane testScrollPane;
+
+    @FXML
+    private AnchorPane testAnchor2;
 
 	public class ScheduleTestRow {
 		private String title;
@@ -209,6 +222,17 @@ public class ScheduledTestsController implements Initializable {
 				ScheduleTestRow tr = new ScheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
 				
+				// View button
+				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						testAnchor.setVisible(true);
+						testAnchor.toFront();
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getCode(), "TEACHER_VIEW_TEST_BY_CODE", loader);
+					}
+				});
+				
 				// remove button functionality
 				tr.getRemoveBtn().setOnMouseClicked(e -> {
 					ScheduleTestRow toDelete = tr;
@@ -264,5 +288,11 @@ public class ScheduledTestsController implements Initializable {
 	void searchBtnClicked(MouseEvent event) {
 		// TODO -- implement filter
 	}
+	
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+    }
 
 }

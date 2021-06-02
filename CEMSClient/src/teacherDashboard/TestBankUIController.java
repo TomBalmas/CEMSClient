@@ -2,7 +2,6 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -13,7 +12,6 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
-import common.Question;
 import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -27,12 +25,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.AddingNewTestUIController.QuestionRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -110,6 +108,18 @@ public class TestBankUIController implements Initializable {
 
 	@FXML
 	private JFXButton addNewTestButton;
+	
+    @FXML
+    private AnchorPane testAnchor;
+
+    @FXML
+    private JFXButton backToPageBtn;
+
+    @FXML
+    private ScrollPane testScrollPane;
+
+    @FXML
+    private AnchorPane testAnchor2;
 
 	private Node TestFormNode, addNewTest, AddingFormNode;
 	private FXMLLoader TestFormLoader;
@@ -254,6 +264,12 @@ public class TestBankUIController implements Initializable {
 		if (ClientController.getRoleFrame().equals("Principle")) {
 			ClientController.accept("GET_TESTS_TABLE-");
 			tests = ClientController.getTests();
+			int addToColum = 39;
+			IDcol.setPrefWidth(IDcol.getWidth() + addToColum);
+			authorCol.setPrefWidth(authorCol.getWidth() + addToColum);
+			courseCol.setPrefWidth(courseCol.getWidth() + addToColum);
+			fieldCol.setPrefWidth(fieldCol.getWidth() + addToColum);
+			testNameCol.setPrefWidth(testNameCol.getWidth() + addToColum+2);
 			deleteCol.setVisible(false);
 			editCol.setVisible(false);
 			setDateCol.setVisible(false);
@@ -282,11 +298,12 @@ public class TestBankUIController implements Initializable {
 				testTable.getItems().add(tr);
 
 				// View button
-//				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
-//					@Override
-//					public void handle(ActionEvent arg0) {
+				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
 //						try {
-//						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTestId(), "Computed", loader);
 //						TestFormNode = loader.load();
 //						TestFormController controller = loader.getController();
 //						controller.getScrollPane().setTranslateX(10);
@@ -301,8 +318,8 @@ public class TestBankUIController implements Initializable {
 //						} catch (IOException e) {
 //							e.printStackTrace();
 //						}
-//					}
-//				});
+					}
+				});
 
 				// Edit button
 				tr.getEditBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -341,7 +358,7 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, null,
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")),
 								loader);
 						// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
 						// loader);
@@ -383,5 +400,11 @@ public class TestBankUIController implements Initializable {
 			}
 		}
 	}
+	
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+    }
 
 }
