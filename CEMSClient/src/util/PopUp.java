@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import teacherDashboard.LockTestController;
 import teacherDashboard.SetTestDateController;
 
 public class PopUp {
@@ -67,7 +68,9 @@ public class PopUp {
 				e.printStackTrace();
 			}
 			if (header.equals("ScheduleTest") || header.equals("RescheduleTest"))
-				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());	
+				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());
+			if (header.equals("LOCK_TEST"))
+				dialogLayout.setBody(((LockTestController) loader.getController()).getContentPaneAnchor());
 			fxmlPopUp.toFront();
 		}
 		else {

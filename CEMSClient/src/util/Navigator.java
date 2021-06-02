@@ -20,6 +20,7 @@ public enum Navigator {
 	QUESTION_BANK ("/teacherDashboard/QuestionBankUI.fxml"),
 	SCHEDULED_TESTS ("/teacherDashboard/ScheduledTests.fxml"),
 	SET_TEST_DATE ("/teacherDashboard/SetTestDate.fxml"),
+	LOCK_TEST ("/teacherDashboard/LockTest.fxml"),
 	TEST_BANK ("/teacherDashboard/TestBankUI.fxml"),
 	TEST_FORM("/teacherDashboard/TestForm.fxml"),
 	TITLE_AND_INSTRUCTIONS ("/teacherDashboard/TitleAndInstructions.fxml"),

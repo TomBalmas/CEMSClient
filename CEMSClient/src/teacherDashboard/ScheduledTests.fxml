@@ -5,6 +5,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -51,6 +52,16 @@
                   </JFXButton>
                </children>
             </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="testAnchor" layoutX="63.0" layoutY="40.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
+         <children>
+            <JFXButton fx:id="backToPageBtn" onMouseClicked="#backToPageBtnClicked" styleClass="littleBackBtn" text="&lt;   Back to active tests" textAlignment="CENTER" />
+            <ScrollPane fx:id="testScrollPane" prefHeight="750.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+               <content>
+                  <AnchorPane fx:id="testAnchor2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
    </children>

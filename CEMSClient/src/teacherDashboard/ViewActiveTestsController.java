@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,11 +17,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,131 +37,93 @@ import util.Navigator;
 import util.PopUp;
 
 public class ViewActiveTestsController implements Initializable {
-	@FXML
-	private AnchorPane contentPaneAnchor;
+	
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private Label viewActiveTestsLbl;
+    @FXML
+    private Label viewActiveTestsLbl;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private JFXButton searchButton;
+    @FXML
+    private JFXButton searchBtn;
 
-	@FXML
-	private Label timeLeftLbl1;
+    @FXML
+    private Label timeLeftLbl1;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
 	@FXML
 	private TableView<rowTableActiveTest> activeTestsTbl;
 
-	@FXML
-	private TableColumn<?, ?> idCol;
+    @FXML
+    private TableColumn<?, ?> idCol;
 
-	@FXML
-	private TableColumn<?, ?> testNameCol;
+    @FXML
+    private TableColumn<?, ?> fieldCol;
 
-	@FXML
-	private TableColumn<?, ?> AuthorNameCol;
+    @FXML
+    private TableColumn<?, ?> CourseCol;
 
-	@FXML
-	private TableColumn<?, ?> CourseCol;
+    @FXML
+    private TableColumn<?, ?> testNameCol;
 
-	@FXML
-	private TableColumn<?, ?> fieldCol1;
+    @FXML
+    private TableColumn<?, ?> AuthorNameCol;
 
-	@FXML
-	private TableColumn<?, ?> startTimeCol;
+    @FXML
+    private TableColumn<?, ?> startTimeCol;
 
-	@FXML
-	private TableColumn<?, ?> finishTimeCol;
+    @FXML
+    private TableColumn<?, ?> finishTimeCol;
 
-	@FXML
-	private AnchorPane testDetailsAnchor;
+    @FXML
+    private TableColumn<?, ?> lockCol;
 
-	@FXML
-	private AnchorPane requestTimeAnchor;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private Label studentsTestLbl;
+    @FXML
+    private AnchorPane testDetailsAnchor;
 
-	@FXML
-	private JFXTextArea reasonForRequestTxt;
+    @FXML
+    private AnchorPane requestTimeAnchor;
 
-	@FXML
-	private JFXButton senfForApprovalBtn;
+    @FXML
+    private Label studentsTestLbl;
 
-	@FXML
-	private JFXTextField minutesTxt;
+    @FXML
+    private Label testSelectedLbl2;
 
-	@FXML
-	private AnchorPane lockTestAnchor;
+    @FXML
+    private JFXTextArea reasonForRequestTxt;
 
-	@FXML
-	private Label enterCodeLbl;
+    @FXML
+    private JFXButton senfForApprovalBtn;
 
-	@FXML
-	private JFXTextField enterCodeField;
+    @FXML
+    private JFXTextField minutesTxt;
+    
+    @FXML
+    private AnchorPane testAnchor;
 
-	@FXML
-	private JFXButton lockBtn;
+    @FXML
+    private JFXButton backToPageBtn;
 
-	@FXML
-	private Label msgLbl;
-
-	@FXML
-	private JFXButton backBtn;
-
-	@FXML
-	private Label testSelectedLbl1;
-
-	@FXML
-	private AnchorPane selectedTestAnchor;
-
-	@FXML
-	private Label testSelectedLbl;
-
-	@FXML
-	private Label timeLeftLbl;
-
-	@FXML
-	private Label testNameLabel;
-
-	@FXML
-	private Label testCodeLable;
-
-	@FXML
-	private JFXButton lequestTimeExtensionBtn;
-
-	@FXML
-	private Label finishTimeLbl;
-
-	@FXML
-	private JFXButton lockTestBtn;
-
-	@FXML
-	private JFXTextField timeLeftField;
-
-	@FXML
-	private JFXTextField finishTimeField;
-
-	@FXML
-	private Label testCodeLbl;
-
-	@FXML
-	private JFXTextField testCodeField;
-
-	@FXML
-	private JFXButton viewTestBtn;
+    @FXML
+    private ScrollPane testScrollPane;
+    
+    @FXML
+    private AnchorPane testAnchor2;
 
 	private Node requestTimeExtension;
 	private Node viewTest;
@@ -169,13 +137,13 @@ public class ViewActiveTestsController implements Initializable {
 	 * 
 	 * @param event
 	 */
-	@FXML
-	void lockClicked(MouseEvent event) {
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!",
-				contentPaneAnchor, null, null);
-		lockBtn.setText("Locked");
-		lockBtn.setDisable(true);
-	}
+//	@FXML
+//	void lockClicked(MouseEvent event) {
+//		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!",
+//				contentPaneAnchor, null, null);
+//		lockBtn.setText("Locked");
+//		lockBtn.setDisable(true);
+//	}
 
 	/**
 	 * clicking lock test will reveal "enter code" segment and another lock button
@@ -183,13 +151,13 @@ public class ViewActiveTestsController implements Initializable {
 	 * 
 	 * @param event
 	 */
-	@FXML
-	void lockTestClicked(MouseEvent event) {
-		backBtn.setVisible(true);
-		lockTestAnchor.setVisible(true);
-		selectedTestAnchor.setVisible(false);
-
-	}
+//	@FXML
+//	void lockTestClicked(MouseEvent event) {
+//		backBtn.setVisible(true);
+//		lockTestAnchor.setVisible(true);
+//		selectedTestAnchor.setVisible(false);
+//
+//	}
 
 	/**
 	 * clicking a test on the table will enable the lock test button and disable the
@@ -197,40 +165,39 @@ public class ViewActiveTestsController implements Initializable {
 	 * 
 	 * @param event
 	 */
-	@FXML
-	void activeTestClicked(MouseEvent event) {// -----------need to complete the method, action: clicking a test on the
-												// table----------- *2
-		lockBtn.setVisible(false);
-		enterCodeField.setVisible(false);
-		enterCodeLbl.setVisible(false);
-		lockTestBtn.setDisable(false);
-		lockBtn.setDisable(false);
-	}
+//	@FXML
+//	void activeTestClicked(MouseEvent event) {// -----------need to complete the method, action: clicking a test on the
+//												// table----------- *2
+//		lockBtn.setVisible(false);
+//		enterCodeField.setVisible(false);
+//		enterCodeLbl.setVisible(false);
+//		lockTestBtn.setDisable(false);
+//		lockBtn.setDisable(false);
+//	}
 
 	/**
 	 * validates that the code in the text field is the same as a given string.
 	 */
-	@FXML
-	void checkCode() {
-		if (GeneralUIMethods.validateCode(enterCodeField, CODE)) // -----------need to compare the code with a code from
-																	// the DB----------- *1
-			lockBtn.setDisable(false);
-		else
-			lockBtn.setDisable(true);
-	}
+//	@FXML
+//	void checkCode() {
+//		if (GeneralUIMethods.validateCode(enterCodeField, CODE)) // -----------need to compare the code with a code from
+//																	// the DB----------- *1
+//			lockBtn.setDisable(false);
+//		else
+//			lockBtn.setDisable(true);
+//	}
 
 	/**
 	 * clicking request time extension loads the "request time extension" screen.
 	 * 
 	 * @param event
 	 */
-	@FXML
-	void requestTimeExtensionClicked(MouseEvent event) {
-		backBtn.setVisible(true);
-		requestTimeAnchor.setVisible(true);
-		selectedTestAnchor.setVisible(false);
-
-	}
+//	@FXML
+//	void requestTimeExtensionClicked(MouseEvent event) {
+//		//backBtn.setVisible(true);
+//		requestTimeAnchor.setVisible(true);
+//		//selectedTestAnchor.setVisible(false);
+//	}
 
 	/**
 	 * this method shows the popup that the request for time extension is approved
@@ -257,19 +224,19 @@ public class ViewActiveTestsController implements Initializable {
 
 	}
 
-	@FXML
-	void viewTestClicked(MouseEvent event) {
-		Node viewTestPage = null;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-		try {
-			viewTestPage = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		TestFormController testController = loader.getController();
-		testController.getEditBtn().setVisible(false);
-		GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
-	}
+//	@FXML
+//	void viewTestClicked(MouseEvent event) {
+//		Node viewTestPage = null;
+//		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+//		try {
+//			viewTestPage = loader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		TestFormController testController = loader.getController();
+//		testController.getEditBtn().setVisible(false);
+//		GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
+//	}
 
 	// -----------TODO--------------
 	@FXML
@@ -283,13 +250,13 @@ public class ViewActiveTestsController implements Initializable {
 	 * Pressing the back button on the Lock Test or Request Time Extension
 	 * anchorPanes returns to the Test Selected anchorPane.
 	 */
-	@FXML
-	void backBtnClicked(MouseEvent event) {
-		lockTestAnchor.setVisible(false);
-		requestTimeAnchor.setVisible(false);
-		backBtn.setVisible(false);
-		selectedTestAnchor.setVisible(true);
-	}
+//	@FXML
+//	void backBtnClicked(MouseEvent event) {
+//		lockTestAnchor.setVisible(false);
+//		requestTimeAnchor.setVisible(false);
+//		backBtn.setVisible(false);
+//		selectedTestAnchor.setVisible(true);
+//	}
 
 	/**
 	 * Internal class to define a row in tableView.
@@ -306,6 +273,8 @@ public class ViewActiveTestsController implements Initializable {
 		private String finishTime;
 		private String code;
 		private ActiveTest activeTest;
+		private JFXButton viewBtn;
+		private JFXButton lockBtn;
 
 		public rowTableActiveTest(ActiveTest activeTest) {
 			this.activeTest = activeTest;
@@ -317,6 +286,26 @@ public class ViewActiveTestsController implements Initializable {
 			startTimeTest = activeTest.getStartTimeTest();
 			finishTime = activeTest.getFinishTime();
 			code = activeTest.getCode();
+			viewBtn = new JFXButton();
+			lockBtn = new JFXButton();
+			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			lockBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.LOCK));
+		}
+
+		public JFXButton getViewBtn() {
+			return viewBtn;
+		}
+
+		public void setViewBtn(JFXButton viewBtn) {
+			this.viewBtn = viewBtn;
+		}
+
+		public JFXButton getLockBtn() {
+			return lockBtn;
+		}
+
+		public void setLockBtn(JFXButton lockBtn) {
+			this.lockBtn = lockBtn;
 		}
 
 		public String getFinishTime() {
@@ -355,8 +344,8 @@ public class ViewActiveTestsController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		backBtn.toFront();
-		lockBtn.setDisable(true);
+		//backBtn.toFront();
+		//lockBtn.setDisable(true);
 		try {
 			viewTest = FXMLLoader.load(getClass().getResource(Navigator.TEST_FORM.getVal()));
 		} catch (IOException e) {
@@ -376,14 +365,51 @@ public class ViewActiveTestsController implements Initializable {
 		testNameCol.setCellValueFactory(new PropertyValueFactory<>("testName"));
 		AuthorNameCol.setCellValueFactory(new PropertyValueFactory<>("authorName"));
 		CourseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
-		fieldCol1.setCellValueFactory(new PropertyValueFactory<>("field"));
+		fieldCol.setCellValueFactory(new PropertyValueFactory<>("field"));
 		startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTimeTest"));
 		finishTimeCol.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		lockCol.setCellValueFactory(new PropertyValueFactory<>("lockBtn"));
+		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		if (activeTests != null)
 			for (ActiveTest activeTest : activeTests) {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
 				dataList.add(tr); //add row to dataList to search field.
+				
+				// View button
+				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						testAnchor.setVisible(true);
+						testAnchor.toFront();
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getActiveTest().getCode(), "TEACHER_VIEW_TEST_BY_CODE", loader);
+					}
+				});
+				
+				
+				tr.getLockBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.LOCK_TEST.getVal()));
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "LOCK_TEST", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")), loader);
+						LockTestController cont = loader.getController();
+						cont.getTestNameLbl().setText(tr.getTestName());
+						
+						cont.getConfirmTestLock().setOnMouseClicked(e -> {
+							
+							System.out.println("Locking...");
+//							if (ClientController.accept("LOCK_TEST-" + tr.getID() + ","))
+							((JFXButton)event.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
+//							if (ClientController.isTestLocked())
+//								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
+//										contentPaneAnchor, null, null);
+//							else
+//								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.gedID(); ,
+//										contentPaneAnchor, null, null);
+						});
+					}
+				});
 			}
 		//Search by data which is in a certain row.
 		FilteredList<rowTableActiveTest> filteredData = new FilteredList<>(dataList, p -> true);
@@ -445,26 +471,28 @@ public class ViewActiveTestsController implements Initializable {
 		
 		// An event lets us click on a row in the table to see details like ID, Finish
 		// Time and Time Left.
-		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
-			if (event.getClickCount() >= 1) {
-				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
-					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
-					testCodeField.setText(selected.getActiveTest().getCode());
-					// timeLeftField.setText(selected.get); // TODO: in the future
-					finishTimeField.setText(selected.getFinishTime()); // TODO
-					testNameLabel.setText(selected.getCourse()); // TODO
-					// testCodeLable.setText(selected.arg0);
-					selectedRow = selected.getActiveTest().getCode(); // Get the ID to request query from server about
-																		// time extension.
-				}
-			}
-
-		});
+//		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
+//			if (event.getClickCount() >= 1) {
+//				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
+//					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
+//					testCodeField.setText(selected.getActiveTest().getCode());
+//					// timeLeftField.setText(selected.get); // TODO: in the future
+//					finishTimeField.setText(selected.getFinishTime()); // TODO
+//					testNameLabel.setText(selected.getCourse()); // TODO
+//					// testCodeLable.setText(selected.arg0);
+//					selectedRow = selected.getActiveTest().getCode(); // Get the ID to request query from server about
+//																		// time extension.
+//				}
+//			}
+//
+//		});
 		
-		
-     
-		
-	
 
 	}
+	
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+    }
 }

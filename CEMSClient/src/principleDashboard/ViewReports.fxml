@@ -39,31 +39,20 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="125.0" layoutY="270.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="270.0" prefHeight="510.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <TableView fx:id="reportTable" prefHeight="464.0" prefWidth="875.0">
+            <TableView fx:id="reportTable" prefHeight="464.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="reportIDCol" prefWidth="129.0" text="report ID" />
-                <TableColumn fx:id="testIDCol" prefWidth="103.0" text="test ID" />
-                  <TableColumn fx:id="studentNumCol" prefWidth="165.0" text="number of stufents" />
-                  <TableColumn fx:id="averageCol" prefWidth="133.0" text="average" />
-                  <TableColumn fx:id="medianCol" prefWidth="105.0" text="median" />
-                  <TableColumn fx:id="viewCol" prefWidth="105.0" text="view" />
-                  <TableColumn fx:id="deleteCol" prefWidth="134.0" text="delete" />
+                  <TableColumn fx:id="reportIDCol" prefWidth="110.0" style="-fx-alignment: center;" text="report ID" />
+                  <TableColumn fx:id="testIDCol" prefWidth="100.0" style="-fx-alignment: center;" text="test ID" />
+                  <TableColumn fx:id="studentNumCol" prefWidth="160.0" style="-fx-alignment: center;" text="number of students" />
+                  <TableColumn fx:id="averageCol" prefWidth="150.0" style="-fx-alignment: center;" text="average" />
+                  <TableColumn fx:id="medianCol" prefWidth="150.0" style="-fx-alignment: center;" text="median" />
+                  <TableColumn fx:id="viewCol" prefWidth="91.0" style="-fx-alignment: center;" text="view" />
+                  <TableColumn fx:id="deleteCol" prefWidth="91.0" style="-fx-alignment: center;" text="delete" />
               </columns>
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="deleteBtn" layoutX="63.0" layoutY="736.0" onMouseClicked="#deleteReportBtn" text="Delete Selected">
-         <styleClass>
-            <String fx:value="deleteButton" />
-            <String fx:value="btn" />
-         </styleClass></JFXButton>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" onMouseClicked="#viewReportsBtn" text="View">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="btn" />
-         </styleClass>
-      </JFXButton>
    </children>
 </AnchorPane>

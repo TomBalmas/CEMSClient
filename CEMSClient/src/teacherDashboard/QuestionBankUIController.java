@@ -26,8 +26,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.AccessibleAttribute;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -164,10 +166,10 @@ public class QuestionBankUIController implements Initializable {
 		private Question question;
 
 		public questionRow(Question question) {
-			String  authorID=question.getAuthorID();
-			ClientController.accept("GET_NAME_BY_ID-"+ authorID);
-			author=ClientController.getAuthorName();
-			content=question.getQuestionText();
+			String authorID = question.getAuthorID();
+			ClientController.accept("GET_NAME_BY_ID-" + authorID);
+			author = ClientController.getAuthorName();
+			content = question.getQuestionText();
 			this.question = question;
 			id = question.getID();
 			field = question.getField();
@@ -223,7 +225,7 @@ public class QuestionBankUIController implements Initializable {
 		public void setEditBtn(JFXButton editBtn) {
 			this.EditBtn = editBtn;
 		}
-		
+
 		public Question getQuestion() {
 			return question;
 		}
@@ -231,6 +233,7 @@ public class QuestionBankUIController implements Initializable {
 		public void setQuestion(Question question) {
 			this.question = question;
 		}
+
 		public String getContent() {
 			return content;
 		}
@@ -269,7 +272,9 @@ public class QuestionBankUIController implements Initializable {
 			questions = ClientController.getQuestions();
 			deleteCol.setVisible(false);
 			editCol.setVisible(false);
-			contentCol.setPrefWidth(330);
+			contentCol.setPrefWidth(375);
+			deleteCol.setPrefWidth(0);
+			editCol.setPrefWidth(0);
 		}
 		
 	  //adding PropertyValueFactory for the columns
@@ -346,19 +351,17 @@ public class QuestionBankUIController implements Initializable {
 							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							blankQuestionFormUIController.getSaveBtn().setVisible(false);
 						}
-						
 				    };
 				});
 				
 				// event handler for edit button
 				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
-				    {
-				    	field.add(questionRow.getField());
-				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
-				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
-				    	
-				    };
+					{
+						field.add(questionRow.getField());
+						blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
+						blankQuestionFormUIController.getFieldCBox().setDisable(true);
+					};
 				});
 
 			}
