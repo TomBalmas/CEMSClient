@@ -1,8 +1,5 @@
 package client;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import common.ActiveTest;
@@ -15,10 +12,11 @@ import common.ScheduledTest;
 import common.Student;
 import common.Teacher;
 import common.Test;
-import common.TestFile;
-import common.TimeExtensionRequest;
 import common.User;
 import ocsf.client.ObservableClient;
+
+// rows in comment to be brought back after common is added from ohad branch:
+// 47-63 138-143
 
 public class CEMSClient extends ObservableClient {
 	private User activeUser;
@@ -46,23 +44,23 @@ public class CEMSClient extends ObservableClient {
 			closeConnection();
 			return;
 		}
-		if (msg.startsWith("FILE")) {
-			try {
-				String[] split = msg.split(":");
-				TestFile file = new TestFile(split[1]);
-				File f = new File(split[1]);
-				byte[] byteArray = new byte[(int) f.length()];
-				FileInputStream fis = new FileInputStream(f);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				file.initArray(byteArray.length);
-				file.setSize(byteArray.length);
-				bis.read(file.getByteArray(), 0, byteArray.length);
-				sendToServer(file);
-				bis.close();
-			} catch (Exception e) {
-
-			}
-		}
+//		if (msg.startsWith("FILE")) {
+//			try {
+//				String[] split = msg.split(":");
+//				TestFile file = new TestFile(split[1]);
+//				File f = new File(split[1]);
+//				byte[] byteArray = new byte[(int) f.length()];
+//				FileInputStream fis = new FileInputStream(f);
+//				BufferedInputStream bis = new BufferedInputStream(fis);
+//				file.initArray(byteArray.length);
+//				file.setSize(byteArray.length);
+//				bis.read(file.getByteArray(), 0, byteArray.length);
+//				sendToServer(file);
+//				bis.close();
+//			} catch (Exception e) {
+//
+//			}
+//		}
 		awaitResponse = true;
 		sendToServer(msg);
 		while (awaitResponse) {
@@ -137,12 +135,13 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setStudentTest((Test) msg);
 				}
 			}
+//			else if (msg instanceof String) {
+//				// get time extension requests
+//				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
+//					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
+//
+//			} 
 			else if (msg instanceof String) {
-				// get time extension requests
-				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
-					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
-
-			} else if (msg instanceof String) {
 				String str = (String) msg;
 				// getting message from query when adding a new question
 				String[] questionAdded = str.split(":");
