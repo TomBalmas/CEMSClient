@@ -19,6 +19,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,6 +35,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import sun.awt.SunHints.Value;
+import teacherDashboard.ScheduledTestsController.ScheduleTestRow;
+import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -104,15 +110,15 @@ public class QuestionBankUIController implements Initializable {
 
 	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
-	 String authorName;
+	String authorName;
 
 	// ----------TODO: add teachers for priciple
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
-	
+	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
 	//lists for combobox fields .fields is for adding a new question.field is for viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
 	ObservableList field = FXCollections.observableArrayList();
-
+	
 
 	private String authorString;
 	public String getAuthorString() {
@@ -290,6 +296,7 @@ public class QuestionBankUIController implements Initializable {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow questionRow = new questionRow(questions.get(i));
 				questionBankTable.getItems().add(questionRow);
+				dataList.add(questionRow); //add row to dataList to search field.
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 					@Override
@@ -360,6 +367,54 @@ public class QuestionBankUIController implements Initializable {
 			}
 
 		}
+		
+		
+		//Search by data which is in a certain row.
+		FilteredList<questionRow> filteredData = new FilteredList<>(dataList, p -> true);
+
+        //  Set the filter Predicate whenever the filter changes.
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(myObject -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compares what we wrote in the text (we searched for) to the appropriate line.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                    // Filter matches ID.
+                } 
+                
+            	else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+            		return true; // Filter matches author.
+            	} 
+                
+                else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches field.
+                } 
+                
+                else if (String.valueOf(myObject.getContent()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches content.
+                } 
+                
+                else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches author.
+                } 
+
+                return false; // Does not match.
+            });
+        });
+
+        //  Wrap the FilteredList in a SortedList. 
+        SortedList<questionRow> sortedData = new SortedList<questionRow>(filteredData);
+
+        //  Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(questionBankTable.comparatorProperty());
+        //  Add sorted (and filtered) data to the table.
+        questionBankTable.setItems(sortedData);
 
 	}
 

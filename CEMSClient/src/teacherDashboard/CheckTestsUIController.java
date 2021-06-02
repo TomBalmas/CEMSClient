@@ -15,6 +15,8 @@ import common.ActiveTest;
 import common.FinishedTest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -86,8 +88,10 @@ public class CheckTestsUIController implements Initializable {
 	@FXML
 	private TableColumn<?, ?> statusCol;
 
-	private Node viewReports;
-	private ObservableList list = FXCollections.observableArrayList();
+	private Node checkBtn;
+	private TestFormController testForm;
+	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
+	private rowTableCheckTests selectedRow;
 
 	@FXML
 	void filterBtn(MouseEvent event) {
@@ -96,17 +100,20 @@ public class CheckTestsUIController implements Initializable {
 
 	@FXML
 	void submitClicked(MouseEvent event) {
-		List<JFXButton> list = new ArrayList<JFXButton>();
-		list.add(new JFXButton("Okay"));
-		list.add(new JFXButton("View statistics"));
+	
 		try {
-			viewReports = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+			checkBtn = loader.load();
+			TestFormController cont = loader.getController();//TODO: Ohad get content from selectedRow.getTest();
+			
+			
+			GeneralUIMethods.loadPage(contentPaneAnchor, checkBtn);
+			
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		list.get(1).setOnAction(e -> GeneralUIMethods.loadPage(contentPaneAnchor, viewReports));
-		PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Test realesed", "Students can view the tests", contentPaneAnchor,
-				list, null);
+	
 	}
 
 	/**
@@ -123,7 +130,7 @@ public class CheckTestsUIController implements Initializable {
 		private String studentSSN;
 		private int grade;
 		private String status;
-
+		private FinishedTest test;
 		public rowTableCheckTests(FinishedTest checkTest) {
 
 			this.ID = checkTest.getID();
@@ -134,8 +141,45 @@ public class CheckTestsUIController implements Initializable {
 			this.studentSSN = checkTest.getStudentSSN();
 			this.grade = checkTest.getGrade();
 			this.status = checkTest.getStatus();
-
+			test = checkTest;
 		}
+
+		public String getID() {
+			return ID;
+		}
+
+		public String getCourse() {
+			return course;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public String getDate() {
+			return date;
+		}
+
+		public String getStartingTime() {
+			return startingTime;
+		}
+
+		public String getStudentSSN() {
+			return studentSSN;
+		}
+
+		public int getGrade() {
+			return grade;
+		}
+
+		public String getStatus() {
+			return status;
+		}
+		
+		public FinishedTest getTest() {
+			return test;	
+		}
+		
 
 	}
 
@@ -154,13 +198,89 @@ public class CheckTestsUIController implements Initializable {
 		GradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-		if (tests != null) {
+		if (tests != null)
 			for (FinishedTest test : tests) {
-				rowTableCheckTests rt = new rowTableCheckTests(test);
-				list.add(test);
+				rowTableCheckTests tr = new rowTableCheckTests(test);
+				testTbl.getItems().add(tr);
+				dataList.add(tr); //add row to dataList to search field.
 			}
-			testTbl.getItems().addAll(list);
-		}
+		
+		
+		
+		//Search by data which is in a certain row.
+		FilteredList<rowTableCheckTests> filteredData = new FilteredList<>(dataList, p -> true);
+
+        //  Set the filter Predicate whenever the filter changes.
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(myObject -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name field in your object with filter.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                    // Filter matches ID.
+                } 
+                
+            	else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+            		return true; // Filter matches course.
+            	} 
+                
+                else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches title.
+                } 
+                
+                else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches date.
+                } 
+                
+                else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches starting time.
+                } 
+                
+                else if (String.valueOf(myObject.getStudentSSN()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches studentSSN.
+                } 
+                
+                else if (String.valueOf(myObject.getGrade()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches grade.
+                } 
+                
+                else if (String.valueOf(myObject.getStatus()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches status.
+                } 
+
+                return false; // Does not match.
+            });
+        });
+
+        //  Wrap the FilteredList in a SortedList. 
+        SortedList<rowTableCheckTests> sortedData = new SortedList<>(filteredData);
+
+        //  Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(testTbl.comparatorProperty());
+        //  Add sorted (and filtered) data to the table.
+        testTbl.setItems(sortedData);
+        
+		
+		
+		
+		
+		
+		testTbl.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getClickCount() >= 1) {
+				if (testTbl.getSelectionModel().getSelectedItem() != null) {
+					 selectedRow = testTbl.getSelectionModel().getSelectedItem();
+					
+				}
+			}
+
+		});
+
 
 	}
 

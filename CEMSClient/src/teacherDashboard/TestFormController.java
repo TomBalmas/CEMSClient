@@ -207,6 +207,11 @@ public class TestFormController implements Initializable {
 
 	// getters end
 
+    public void setTestFrom() {
+    	
+    	
+    }
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if (ClientController.getRoleFrame().equals("Student"))
