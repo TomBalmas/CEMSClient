@@ -12,6 +12,7 @@ import common.ScheduledTest;
 import common.Student;
 import common.Teacher;
 import common.Test;
+import common.TimeExtensionRequest;
 import common.User;
 import ocsf.client.ObservableClient;
 
@@ -76,8 +77,7 @@ public class CEMSClient extends ObservableClient {
 		else if (msg.equals("userAlreadyConnected")) {
 			System.out.println("true");
 			ClientController.setRoleFrame("userAlreadyConnected");
-		}
-		else {
+		} else {
 			System.out.println("false");
 			// case of login
 			if (msg instanceof User) {
@@ -107,10 +107,10 @@ public class CEMSClient extends ObservableClient {
 				// get tests from test DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Test)
 					ClientController.setTests((ArrayList<Test>) msg);
-				//get students
+				// get students
 				else if (((ArrayList<?>) msg).get(0) instanceof Student)
 					ClientController.setStudents((ArrayList<Student>) msg);
-				//get teachers
+				// get teachers
 				else if (((ArrayList<?>) msg).get(0) instanceof Teacher)
 					ClientController.setTeachers((ArrayList<Teacher>) msg);
 				// get scheduled tests from scheduled_tests DB
@@ -129,19 +129,13 @@ public class CEMSClient extends ObservableClient {
 				// get reports
 				else if (((ArrayList<?>) msg).get(0) instanceof Report)
 					ClientController.setReports((ArrayList<Report>) msg);
-			}
-			else if (msg instanceof Test) { 
+				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
+					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
+			} else if (msg instanceof Test) {
 				if (null != ((Test) msg)) {
 					ClientController.setStudentTest((Test) msg);
 				}
-			}
-//			else if (msg instanceof String) {
-//				// get time extension requests
-//				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
-//					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
-//
-//			} 
-			else if (msg instanceof String) {
+			} else if (msg instanceof String) {
 				String str = (String) msg;
 				// getting message from query when adding a new question
 				String[] questionAdded = str.split(":");
