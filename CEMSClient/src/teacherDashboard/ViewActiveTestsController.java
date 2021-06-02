@@ -12,6 +12,10 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ActiveTest;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -157,7 +161,9 @@ public class ViewActiveTestsController implements Initializable {
 	private Node viewTest;
 	private String CODE = "Toosick22"; // -----------need to compare the code with a code from the DB----------- *1
 	private String selectedRow;
-
+	private final ObservableList<rowTableActiveTest> dataList = FXCollections.observableArrayList();
+			
+	
 	/**
 	 * clicking lock will open pop up screen that confirms the lock.
 	 * 
@@ -377,7 +383,66 @@ public class ViewActiveTestsController implements Initializable {
 			for (ActiveTest activeTest : activeTests) {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
+				dataList.add(tr); //add row to dataList to search field.
 			}
+		//Search by data which is in a certain row.
+		FilteredList<rowTableActiveTest> filteredData = new FilteredList<>(dataList, p -> true);
+
+        // Set the filter Predicate whenever the filter changes.
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(myObject -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compares what we wrote in the text (we searched for) to the appropriate line.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                    // Filter matches ID.
+                } 
+                
+            	else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+            		return true; // Filter matches course.
+            	} 
+                
+                else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches field.
+                } 
+                
+                else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches test name.
+                } 
+                
+                else if (String.valueOf(myObject.getAuthorName()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches author name.
+                } 
+                
+                else if (String.valueOf(myObject.getStartTimeTest()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches start time.
+                } 
+                
+                else if (String.valueOf(myObject.getFinishTime()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches finish time.
+                } 
+
+                return false; // Does not match.
+            });
+        });
+
+        //  Wrap the FilteredList in a SortedList. 
+        SortedList<rowTableActiveTest> sortedData = new SortedList<>(filteredData);
+
+        //  Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(activeTestsTbl.comparatorProperty());
+        //  Add sorted (and filtered) data to the table.
+        activeTestsTbl.setItems(sortedData);
+        
+        
+        
+		
 		// An event lets us click on a row in the table to see details like ID, Finish
 		// Time and Time Left.
 		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
@@ -395,6 +460,11 @@ public class ViewActiveTestsController implements Initializable {
 			}
 
 		});
+		
+		
+     
+		
+	
 
 	}
 }

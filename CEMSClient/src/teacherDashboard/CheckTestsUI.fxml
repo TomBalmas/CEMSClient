@@ -25,7 +25,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Enter text to search" styleClass="searchRow" />
                   <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="757.0" layoutY="72.0" onMouseClicked="#filterBtn" text="Filter" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="filterButton" />

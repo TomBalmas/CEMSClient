@@ -22,7 +22,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="715.0" promptText="Search by question code or subject, course" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="715.0" promptText="Enter text to search" styleClass="searchRow" />
                   <JFXButton fx:id="searchBtn" layoutX="725.0" layoutY="72.0" onMouseClicked="#searchBtnClicked" text="Search">
                      <styleClass>
                         <String fx:value="searchButton" />
