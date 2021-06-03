@@ -23,7 +23,7 @@
 					 	<FontAwesomeIconView glyphName="REFRESH" size="16.0" />
 					 </graphic>
 				  </JFXButton>                  
-                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="631.0" prefWidth="805.0" styleClass="body" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="631.0" prefWidth="805.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
          </children>
