@@ -75,7 +75,7 @@ public class CEMSClient extends ObservableClient {
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
 		if (msg == null)
-			ClientController.setRoleFrame("null");
+			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {

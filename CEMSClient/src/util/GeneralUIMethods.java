@@ -161,7 +161,7 @@ public class GeneralUIMethods {
 			FXMLLoader testFormLoader) {
 		if (ClientController.getRoleFrame().equals("Student") || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
-		else
+		else 
 			ClientController.accept("GET_TEST_BY_ID-" + testCodeOrID);
 		Test t = ClientController.getStudentTest();
 		if (null == t)
