@@ -309,7 +309,9 @@ public class TestBankUIController implements Initializable {
 					public void handle(ActionEvent arg0) {
 //						try {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-						GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTestId(), "Computed", loader);
+						testAnchor.setVisible(true);
+						testAnchor.toFront();
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getTestId(), "", loader);
 //						TestFormNode = loader.load();
 //						TestFormController controller = loader.getController();
 //						controller.getScrollPane().setTranslateX(10);
