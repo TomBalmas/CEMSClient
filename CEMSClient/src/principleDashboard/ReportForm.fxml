@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -20,7 +21,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="testNameLbl" alignment="TOP_LEFT" layoutX="120.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="#student#">
+                  <Label fx:id="userNameLbl" alignment="TOP_LEFT" layoutX="120.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="#student#">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
@@ -47,6 +48,7 @@
                         <String fx:value="fGradeLbl" />
                      </styleClass>
                   </Label>
+                  <ScrollPane layoutY="204.0" prefHeight="404.0" prefWidth="812.0" />
                </children>
             </AnchorPane>
          </children>

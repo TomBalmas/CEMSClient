@@ -17,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -30,11 +31,13 @@ public class ReportFormController implements Initializable {
 
     @FXML
     private AnchorPane insideFilterAnchor;
+    
 
     @FXML
-    private Label testNameLbl;
+    private Label userNameLbl;
 
-    @FXML
+
+	@FXML
     private Label avarageLbl;
 
     @FXML
@@ -68,16 +71,23 @@ public class ReportFormController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
-		xAxisExam.setAnimated(false);
+	
 		xAxisExam.setTickLabelRotation(45);
+		// Set Font
+		xAxisExam.setTickLabelFont( new Font("Arial", 12));
+		xAxisExam.setAnimated(false);
+		set.getData().clear();
 		set.getData().add(new XYChart.Data<String,Number>("ME",98));
-		histograma.getData().clear();
+		xAxisExam.setLabel("Exam ");
+		yAxisGrades.setLabel("Grades");
 		histograma.getData().addAll(set);
+		histograma.setLegendVisible(false);
 		xAxisExam.setAnimated(false);
 		//histograma.getData().clear();
 		
+		
 	}
+	
 	@FXML
 	void clickBack() throws IOException {
 		Node page;
@@ -97,5 +107,10 @@ public class ReportFormController implements Initializable {
 	public Label getMedianTxt() {
 		return medianTxt;
 	}
-
+    public Label getTestNameLbl() {
+		return userNameLbl;
+	}
+	public void setTestNameLbl(Label userNameLbl) {
+		this.userNameLbl = userNameLbl;
+	}
 }

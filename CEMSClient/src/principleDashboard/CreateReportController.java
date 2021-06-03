@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -159,7 +160,7 @@ public class CreateReportController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		selectTypeCbox.setItems(options);
-		
+		selectCourseCbox.valueProperty().set(null);
 		
 		//setting up table columns 
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("id");
@@ -174,21 +175,19 @@ public class CreateReportController implements Initializable {
 				userRow selected = reportsTbl.getSelectionModel().getSelectedItem();
 				ClientController.accept("GET_COURSES_BY_STUDENT-"+selected.getId());
 				courses = ClientController.getCourses();
-				System.out.println(courses.isEmpty());
+				selectCourseCbox.getItems().removeAll(selectCourseCbox.getItems());
 				for (int i=0;i<courses.size();i++)
-					coursesSelection.add(courses.get(i));
+					coursesSelection.add(courses.get(i).getName());
 				selectCourseCbox.setItems(coursesSelection);
-				
+			
 			
 
 		});
 		
 		selectTypeCbox.setOnAction((event) -> {
+		
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
-				
-				
-				
 				
 				startCoursesDP.setVisible(false);
 				finishCoursesDP.setVisible(false);
@@ -199,11 +198,13 @@ public class CreateReportController implements Initializable {
 				searchField.setPromptText("Search by student name/last name");
 				ClientController.accept("GET_STUDENTS-");
 				students = ClientController.getStudents();
+				
 				if (students != null) {
 					for (int i = 0; i < students.size(); i++) {
 						userRow usersRow = new userRow(students.get(i));
 						tableViewAnchor.setMouseTransparent(false);
 						reportsTbl.getItems().add(usersRow);
+						
 					}
 				}
 				
@@ -220,7 +221,7 @@ public class CreateReportController implements Initializable {
 					for (int i = 0; i < courses.size(); i++) {
 						courseRow courseRow = new courseRow(courses.get(i));
 						tableViewAnchor.setMouseTransparent(false);
-						
+						//reportsTbl.getItems().add(courseRow);
 					}
 				}
 				//teacher
@@ -242,7 +243,7 @@ public class CreateReportController implements Initializable {
 					}
 				}
 			}
-
+			
 		});
 
 	}
