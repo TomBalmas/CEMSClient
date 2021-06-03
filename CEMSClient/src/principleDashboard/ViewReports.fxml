@@ -54,16 +54,5 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="deleteBtn" layoutX="63.0" layoutY="736.0" onMouseClicked="#deleteReportBtn" text="Delete Selected">
-         <styleClass>
-            <String fx:value="deleteButton" />
-            <String fx:value="btn" />
-         </styleClass></JFXButton>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" onMouseClicked="#viewReportsBtn" text="View">
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="btn" />
-         </styleClass>
-      </JFXButton>
    </children>
 </AnchorPane>

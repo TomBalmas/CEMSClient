@@ -223,6 +223,9 @@ public class ViewReportsController implements Initializable {
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
 
+		
+		
+		
 		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
@@ -243,7 +246,6 @@ public class ViewReportsController implements Initializable {
 				reportRow reportRow = new reportRow(reports.get(i));
 				reportTable.getItems().addAll(reportRow);
 				tableViewAnchor.setMouseTransparent(false);
-
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
