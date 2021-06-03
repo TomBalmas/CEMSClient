@@ -77,10 +77,8 @@ public class CEMSClient extends ObservableClient {
 		if (msg == null)
 			ClientController.setRoleFrame("null");
 		else if (msg.equals("userAlreadyConnected")) {
-			System.out.println("true");
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
-			System.out.println("false");
 			// case of login
 			if (msg instanceof User) {
 				if (msg instanceof Teacher) {
