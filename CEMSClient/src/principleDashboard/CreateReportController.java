@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import client.ClientController;
 import common.Course;
 import common.Question;
+import common.Report;
 import common.Student;
 import common.Teacher;
 import common.User;
@@ -104,6 +105,10 @@ public class CreateReportController implements Initializable {
 		public userRow(User user) {
 		  id= user.getSSN();
 			author=user.getName();
+		}
+		public userRow(Course course) {
+			  id= course.getId();
+				author=course.getName();
 		}
 		public String getAuthor() {
 			return author;
@@ -198,7 +203,7 @@ public class CreateReportController implements Initializable {
 				searchField.setPromptText("Search by student name/last name");
 				ClientController.accept("GET_STUDENTS-");
 				students = ClientController.getStudents();
-				
+				reportsTbl.getItems().clear();
 				if (students != null) {
 					for (int i = 0; i < students.size(); i++) {
 						userRow usersRow = new userRow(students.get(i));
@@ -216,12 +221,14 @@ public class CreateReportController implements Initializable {
 				selectCourseCbox.setVisible(false);
 				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by field/course name or code");
+				ClientController.accept("GET_COURSES-");
 				courses = ClientController.getCourses();
+				reportsTbl.getItems().clear();
 				if (courses != null) {
 					for (int i = 0; i < courses.size(); i++) {
-						courseRow courseRow = new courseRow(courses.get(i));
+						userRow courseRow = new userRow(courses.get(i));
 						tableViewAnchor.setMouseTransparent(false);
-						//reportsTbl.getItems().add(courseRow);
+						reportsTbl.getItems().add(courseRow);
 					}
 				}
 				//teacher
@@ -234,6 +241,7 @@ public class CreateReportController implements Initializable {
 				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by teacher name/last name");
 				ClientController.accept("GET_TEACHERS-");
+				reportsTbl.getItems().clear();
 				teachers = ClientController.getTeachers();
 				if (teachers != null) {
 					for (int i = 0; i < teachers.size(); i++) {
@@ -251,6 +259,10 @@ public class CreateReportController implements Initializable {
 	@FXML
 	void createReportBtn(MouseEvent event) {
 		Node createReport = null;
+		userRow selected = reportsTbl.getSelectionModel().getSelectedItem();
+		System.out.println("CREATE_STUDENT_REPORT-"+selected.getId()+ ","+selectCourseCbox.getValue());
+		ClientController.accept("CREATE_STUDENT_REPORT-"+selected.getId()+ ","+selectCourseCbox.getValue());
+		Report report = ClientController.getReport();
 		try {
 			createReport = FXMLLoader.load(getClass().getResource(Navigator.REPORT_CHART.getVal()));
 		} catch (IOException e) {

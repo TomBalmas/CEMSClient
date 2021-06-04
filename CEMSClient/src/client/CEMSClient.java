@@ -93,6 +93,10 @@ public class CEMSClient extends ObservableClient {
 					activeUser = (Principle) msg;
 				}
 			}
+			else if (msg instanceof Report)
+			{
+				ClientController.setReport((Report)msg);
+			}
 			// case of filling a table
 			else if (msg instanceof ArrayList<?>) {
 				if (((ArrayList<?>) msg).isEmpty()) {

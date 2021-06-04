@@ -148,6 +148,7 @@ public class ViewReportsController implements Initializable {
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			DeleteBtn.setStyle("-fx-fill: red !important;");
 		}
+		
 
 		public JFXButton getViewBtn() {
 			return ViewBtn;
