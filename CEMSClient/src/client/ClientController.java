@@ -10,6 +10,7 @@ import common.Question;
 import common.Report;
 import common.ScheduledTest;
 import common.Student;
+import common.StudentGrade;
 import common.Teacher;
 import common.Test;
 import common.TimeExtensionRequest;
@@ -43,6 +44,7 @@ public class ClientController {
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
+	private static ArrayList<StudentGrade> grades;
 	private static String id = null;
 	private static Test studentTest = null;
 
@@ -272,5 +274,15 @@ public class ClientController {
 
 	public static void setTeachers(ArrayList<Teacher> teachers) {
 		ClientController.teachers = teachers;
+	}
+	
+	public static void setGrades(ArrayList<StudentGrade> grades) {
+		
+		ClientController.grades = grades;
+	}
+	
+	public static ArrayList<StudentGrade> getGrades(){
+		return grades;
+		
 	}
 }
