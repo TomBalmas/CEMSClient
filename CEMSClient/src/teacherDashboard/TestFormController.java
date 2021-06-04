@@ -44,83 +44,83 @@ import util.Navigator;
 
 public class TestFormController implements Initializable {
 
-    @FXML
-    private AnchorPane AnchorPaneContent;
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private AnchorPane testSideBarAnchor;
-
-    @FXML
-    private AnchorPane insideTestSideBarAnchor;
-
-    @FXML
-    private JFXButton finishBtn;
-
-    @FXML
-    private JFXButton uploadBtn;
-
-    @FXML
-    private JFXButton backBtn;
-
-    @FXML
-    private JFXButton downloadBtn;
-
-    @FXML
-    private AnchorPane uploadFileAnchor;
-
-    @FXML
-    private JFXTextArea uploadFileTxtArea;
-
-    @FXML
-    private AnchorPane questionAnchor;
-
-    @FXML
-    private Label questionLbl;
-
-    @FXML
-    private AnchorPane insideQuestionAnchor;
-
-    @FXML
-    private Label questionAnsweredLbl;
-
-    @FXML
-    private Label totalQuestionsLbl;
+	@FXML
+	private AnchorPane AnchorPaneContent;
 
 	@FXML
-    private AnchorPane timeAnchor;
+	private ScrollPane scrollPane;
 
-    @FXML
-    private Label timeLbl;
+	@FXML
+	private AnchorPane testSideBarAnchor;
 
-    @FXML
-    private AnchorPane timeValueAnchor;
+	@FXML
+	private AnchorPane insideTestSideBarAnchor;
 
-    @FXML
-    private Label timeLbl1;
+	@FXML
+	private JFXButton finishBtn;
 
-    @FXML
-    private AnchorPane fileUploadedAnchor;
+	@FXML
+	private JFXButton uploadBtn;
 
-    @FXML
-    private AnchorPane timeAnchor1;
+	@FXML
+	private JFXButton backBtn;
 
-    @FXML
-    private Label fileNameLbl;
+	@FXML
+	private JFXButton downloadBtn;
 
-    @FXML
-    private JFXButton deleteFileBtn;
+	@FXML
+	private AnchorPane uploadFileAnchor;
 
-    @FXML
-    private FontAwesomeIconView deleteFileIcon;
+	@FXML
+	private JFXTextArea uploadFileTxtArea;
 
-    @FXML
-    private JFXTextArea fileCommentsTxtArea;
+	@FXML
+	private AnchorPane questionAnchor;
 
-    @FXML
-    private JFXButton editBtn;
+	@FXML
+	private Label questionLbl;
+
+	@FXML
+	private AnchorPane insideQuestionAnchor;
+
+	@FXML
+	private Label questionAnsweredLbl;
+
+	@FXML
+	private Label totalQuestionsLbl;
+
+	@FXML
+	private AnchorPane timeAnchor;
+
+	@FXML
+	private Label timeLbl;
+
+	@FXML
+	private AnchorPane timeValueAnchor;
+
+	@FXML
+	private Label timeLbl1;
+
+	@FXML
+	private AnchorPane fileUploadedAnchor;
+
+	@FXML
+	private AnchorPane timeAnchor1;
+
+	@FXML
+	private Label fileNameLbl;
+
+	@FXML
+	private JFXButton deleteFileBtn;
+
+	@FXML
+	private FontAwesomeIconView deleteFileIcon;
+
+	@FXML
+	private JFXTextArea fileCommentsTxtArea;
+
+	@FXML
+	private JFXButton editBtn;
 	private VBox vbox = new VBox();
 	private String fileFullPath, fileName;
 	private boolean flag = false; // flag to decide student/teacher
@@ -132,7 +132,7 @@ public class TestFormController implements Initializable {
 	String testCode = null;
 
 	// getters start
-	
+
 	public String getTestCode() {
 		return testCode;
 	}
@@ -152,7 +152,7 @@ public class TestFormController implements Initializable {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	
+
 	public AnchorPane getAnchorPaneContent() {
 		return AnchorPaneContent;
 	}
@@ -181,6 +181,10 @@ public class TestFormController implements Initializable {
 		return timeLbl;
 	}
 
+	public Label getTimeLbl1() {
+		return timeLbl1;
+	}
+
 	public JFXButton getDownloadBtn() {
 		return downloadBtn;
 	}
@@ -196,22 +200,21 @@ public class TestFormController implements Initializable {
 	public VBox getVbox() {
 		return vbox;
 	}
-	
-    public Label getTotalQuestionsLbl() {
+
+	public Label getTotalQuestionsLbl() {
 		return totalQuestionsLbl;
 	}
-    
+
 	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
 		return questionsToggleGroup;
 	}
 
 	// getters end
 
-    public void setTestFrom() {
-    	
-    	
-    }
-    
+	public void setTestFrom() {
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		if (ClientController.getRoleFrame().equals("Student"))
@@ -222,7 +225,7 @@ public class TestFormController implements Initializable {
 		// FIX FOR BACKDOOR - REMOVE getRoleFrame
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-			Platform.runLater(new Runnable() {
+		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 			}
@@ -231,46 +234,46 @@ public class TestFormController implements Initializable {
 		deleteFileBtn.setOnAction((new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-                fileUploadedAnchor.setVisible(false);
-                uploadFileAnchor.setVisible(true);
-        		uploadBtn.setVisible(true);
-        		finishBtn.setVisible(false);
-                uploadFileAnchor.setStyle("-fx-background-color: white;");
+				fileUploadedAnchor.setVisible(false);
+				uploadFileAnchor.setVisible(true);
+				uploadBtn.setVisible(true);
+				finishBtn.setVisible(false);
+				uploadFileAnchor.setStyle("-fx-background-color: white;");
 			}
 		}));
 	}
 
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-            	uploadFileAnchor.setStyle("-fx-background-color: #DAD9DD;");
-                if (event.getGestureSource() != uploadFileAnchor && event.getDragboard().hasFiles()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                }
-                event.consume();
-            }
-        });
+			@Override
+			public void handle(DragEvent event) {
+				uploadFileAnchor.setStyle("-fx-background-color: #DAD9DD;");
+				if (event.getGestureSource() != uploadFileAnchor && event.getDragboard().hasFiles()) {
+					event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+				}
+				event.consume();
+			}
+		});
 		uploadFileAnchor.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasFiles()) {
-                	fileFullPath = db.getFiles().toString();
-                	fileName = fileFullPath.substring(fileFullPath.lastIndexOf("\\") + 1);
-                	fileName = fileName.substring(0, fileName.length()-1);
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				boolean success = false;
+				if (db.hasFiles()) {
+					fileFullPath = db.getFiles().toString();
+					fileName = fileFullPath.substring(fileFullPath.lastIndexOf("\\") + 1);
+					fileName = fileName.substring(0, fileName.length() - 1);
 					fileNameLbl.setText(fileName);
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-                fileUploadedAnchor.setVisible(success);
-                uploadFileAnchor.setVisible(!success);
-        		uploadBtn.setVisible(false);
-        		finishBtn.setVisible(true);
-            }
-        });
+					success = true;
+				}
+				event.setDropCompleted(success);
+				event.consume();
+				fileUploadedAnchor.setVisible(success);
+				uploadFileAnchor.setVisible(!success);
+				uploadBtn.setVisible(false);
+				finishBtn.setVisible(true);
+			}
+		});
 	}
 
 	/**
@@ -290,9 +293,11 @@ public class TestFormController implements Initializable {
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
 		controller.getContantTxt().setText(q.getQuestionText());
 		double questionStyleSpacer = addTextAndresizeTextArea(controller.getContantTxt(), q.getQuestionText());
-		controller.getQuestionAnchor().setPrefHeight(controller.getQuestionAnchor().getPrefHeight() + questionStyleSpacer*4);
-		controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY()+questionStyleSpacer*4);
-		//controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY() + questionStyleSpacer);
+		controller.getQuestionAnchor()
+				.setPrefHeight(controller.getQuestionAnchor().getPrefHeight() + questionStyleSpacer * 4);
+		controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY() + questionStyleSpacer * 4);
+		// controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY()
+		// + questionStyleSpacer);
 		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
 		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
 		controller.getAnswer3Btn().setText(q.getAnswers().get(2));
@@ -337,7 +342,7 @@ public class TestFormController implements Initializable {
 		element.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
 		scrollPane.setContent(vbox);
 	}
-	
+
 	private double addTextAndresizeTextArea(JFXTextArea textArea, String text) {
 		Text t = new Text(text);
 		t.setFont(textArea.getFont());
@@ -382,16 +387,17 @@ public class TestFormController implements Initializable {
 			fileFullPath = file.getAbsolutePath();
 			fileName = file.getName();
 			fileNameLbl.setText(fileName);
-            fileUploadedAnchor.setVisible(true);
-            uploadFileAnchor.setVisible(false);
-    		uploadBtn.setVisible(false);
-    		finishBtn.setVisible(true);
+			fileUploadedAnchor.setVisible(true);
+			uploadFileAnchor.setVisible(false);
+			uploadBtn.setVisible(false);
+			finishBtn.setVisible(true);
 		}
 	}
 
 	/**
 	 * finish test clicked, load dashboard
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@FXML
 	void finishTestClicked(MouseEvent event) throws IOException {
@@ -401,35 +407,35 @@ public class TestFormController implements Initializable {
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
 				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
-			answers = answers.substring(0, answers.length()-1);
+			answers = answers.substring(0, answers.length() - 1);
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
 		}
-		
-		//TODO: save finish test
-		//get scheduler 
+
+		// TODO: save finish test
+		// get scheduler
 //		ClientController.accept("ACTIVE_TEST" + testScheduler);
 //		ArrayList<ActiveTest> activeTest = ClientController.getActiveTests();
 //		ActiveTest currentTest = null;
 //		for (ActiveTest at : activeTest) 
 //			if(at.getID().equals(test.getID()))
 //					currentTest = at;
-		
-		//studentSSN,testId,code,startingTime,timeTaken,presentationMethod,title,course,status
+
+		// studentSSN,testId,code,startingTime,timeTaken,presentationMethod,title,course,status
 //		String args = student.getSSN() + "," + test.getID() + "," + testCode + "," + 
 //		"120" + "," + "self" + "," + test.getTitle() + "," + test.getCourse() + "," + "false";
 //		ClientController.accept("ADD_FINISHED_TEST-" + args);
-		
+
 		ClientController.setStudentTest(null);
-		
+
 //		JFXButton okayBtn = new JFXButton("Okay");
 //		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-			Node page = null;
-			try {
-				page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			GeneralUIMethods.loadPage(AnchorPaneContent, page);
+		Node page = null;
+		try {
+			page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		GeneralUIMethods.loadPage(AnchorPaneContent, page);
 //		});
 //		AnchorPaneContent.getParent().getParent().toFront();
 //		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", (AnchorPane) AnchorPaneContent.getParent().getParent(), Arrays.asList(okayBtn), null);	

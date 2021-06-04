@@ -21,7 +21,6 @@ import common.TimeExtensionRequest;
 import common.User;
 import ocsf.client.ObservableClient;
 
-
 public class CEMSClient extends ObservableClient {
 	private User activeUser;
 	private ClientController controller;
@@ -92,10 +91,8 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setRoleFrame("Principle");
 					activeUser = (Principle) msg;
 				}
-			}
-			else if (msg instanceof Report)
-			{
-				ClientController.setReport((Report)msg);
+			} else if (msg instanceof Report) {
+				ClientController.setReport((Report) msg);
 			}
 			// case of filling a table
 			else if (msg instanceof ArrayList<?>) {
@@ -136,13 +133,15 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setReports((ArrayList<Report>) msg);
 				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
 					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
-				else if (((ArrayList<?>)msg).get(0) instanceof Integer)
-					ClientController.setGrades((ArrayList<StudentGrade>)msg);
+				else if (((ArrayList<?>) msg).get(0) instanceof StudentGrade)
+					ClientController.setGrades((ArrayList<StudentGrade>) msg);
 			} else if (msg instanceof Test) {
 				if (null != ((Test) msg)) {
 					ClientController.setStudentTest((Test) msg);
 				}
-			} else if (msg instanceof String) {
+			} else if (msg instanceof ScheduledTest)
+				ClientController.setScheduledTest((ScheduledTest) msg);
+			else if (msg instanceof String) {
 				String str = (String) msg;
 				// getting message from query when adding a new question
 				String[] questionAdded = str.split(":");
@@ -191,7 +190,6 @@ public class CEMSClient extends ObservableClient {
 					String[] toSplit = ((String) msg).split(":");
 					ClientController.setAuthorName(toSplit[1]);
 				}
-				
 
 			}
 
