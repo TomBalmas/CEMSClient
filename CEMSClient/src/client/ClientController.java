@@ -284,7 +284,7 @@ public class ClientController {
 
 	public static void setReport(Report report) {
 		ClientController.report = report;
-	
+	}
 	public static void setGrades(ArrayList<StudentGrade> grades) {
 		
 		ClientController.grades = grades;
