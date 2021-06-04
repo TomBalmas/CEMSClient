@@ -13,6 +13,7 @@ import common.Question;
 import common.Report;
 import common.ScheduledTest;
 import common.Student;
+import common.StudentGrade;
 import common.Teacher;
 import common.Test;
 import common.TestFile;
@@ -75,12 +76,10 @@ public class CEMSClient extends ObservableClient {
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
 		if (msg == null)
-			ClientController.setRoleFrame("null");
+			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
-			System.out.println("true");
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
-			System.out.println("false");
 			// case of login
 			if (msg instanceof User) {
 				if (msg instanceof Teacher) {
@@ -137,6 +136,8 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setReports((ArrayList<Report>) msg);
 				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
 					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
+				else if (((ArrayList<?>)msg).get(0) instanceof Integer)
+					ClientController.setGrades((ArrayList<StudentGrade>)msg);
 			} else if (msg instanceof Test) {
 				if (null != ((Test) msg)) {
 					ClientController.setStudentTest((Test) msg);
@@ -190,6 +191,7 @@ public class CEMSClient extends ObservableClient {
 					String[] toSplit = ((String) msg).split(":");
 					ClientController.setAuthorName(toSplit[1]);
 				}
+				
 
 			}
 

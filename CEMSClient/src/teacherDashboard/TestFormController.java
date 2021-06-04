@@ -395,20 +395,18 @@ public class TestFormController implements Initializable {
 	 */
 	@FXML
 	void finishTestClicked(MouseEvent event) throws IOException {
-/*		if (fileFullPath != null) { // Manual test
+		if (fileFullPath != null) { // Manual test
 			// ClientController.accept("FILE: " + fileFullPath);
 		} else { // TODO:remove comment when DB is ready
-			ArrayList<String> answers = new ArrayList<>();
+			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
-				answers.add(String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
-			answers.set(questionsToggleGroup.size()-1, answers.get(questionsToggleGroup.size() -1).substring(0, answers.get(3).length()-1));
-			for (String tg : answers)
-				System.out.println(tg);
-			//ClientController.accept("SAVE_STUDENT_ANSWERS" + answers);
+				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
+			answers = answers.substring(0, answers.length()-1);
+			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
 		}
-*/		
+		
 		//TODO: save finish test
-//		//get scheduler 
+		//get scheduler 
 //		ClientController.accept("ACTIVE_TEST" + testScheduler);
 //		ArrayList<ActiveTest> activeTest = ClientController.getActiveTests();
 //		ActiveTest currentTest = null;
@@ -417,19 +415,20 @@ public class TestFormController implements Initializable {
 //					currentTest = at;
 		
 		//studentSSN,testId,code,startingTime,timeTaken,presentationMethod,title,course,status
-		/*		String args;
-			args = student.getSSN() + "," + test.getID() + "," + testCode + "," +
-		"time taken" + "," + "self" + "," + test.getTitle() + "," + test.getCourse() + "," + "false"; */
-		//ClientController.accept("ADD_FINISHED_TEST" + args);
+//		String args = student.getSSN() + "," + test.getID() + "," + testCode + "," + 
+//		"120" + "," + "self" + "," + test.getTitle() + "," + test.getCourse() + "," + "false";
+//		ClientController.accept("ADD_FINISHED_TEST-" + args);
+		
+		ClientController.setStudentTest(null);
 		
 //		JFXButton okayBtn = new JFXButton("Okay");
 //		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 			Node page = null;
-//			try {
+			try {
 				page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			GeneralUIMethods.loadPage(AnchorPaneContent, page);
 //		});
 //		AnchorPaneContent.getParent().getParent().toFront();
