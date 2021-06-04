@@ -33,6 +33,7 @@ public class ClientController {
 	private static String authorName = null;
 	private static String newQuestionId;
 	private static Report report;
+	private static ScheduledTest scheduledTest = null;
 
 
 	private static boolean principleNotified = false;
@@ -57,6 +58,14 @@ public class ClientController {
 
 	public static void setPrincipleNotified(boolean principleNotified) {
 		ClientController.principleNotified = principleNotified;
+	}
+
+	public static ScheduledTest getScheduledTest() {
+		return scheduledTest;
+	}
+
+	public static void setScheduledTest(ScheduledTest scheduledTest) {
+		ClientController.scheduledTest = scheduledTest;
 	}
 
 	public ClientController(String host, int port) {
