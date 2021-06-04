@@ -71,19 +71,24 @@ public class ReportFormController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-	
+		xAxisExam.setAnimated(true);
+		histograma.getData().clear();
+		set.getData().clear();
+		
 		xAxisExam.setTickLabelRotation(45);
 		// Set Font
 		xAxisExam.setTickLabelFont( new Font("Arial", 12));
 		xAxisExam.setAnimated(false);
-		set.getData().clear();
 		set.getData().add(new XYChart.Data<String,Number>("ME",98));
+		set.getData().add(new XYChart.Data<String,Number>("A",70));
+		set.getData().add(new XYChart.Data<String,Number>("B",60));
+		set.getData().add(new XYChart.Data<String,Number>("V",57));
+		
 		xAxisExam.setLabel("Exam ");
 		yAxisGrades.setLabel("Grades");
 		histograma.getData().addAll(set);
-		histograma.setLegendVisible(false);
 		xAxisExam.setAnimated(false);
-		//histograma.getData().clear();
+	
 		
 		
 	}

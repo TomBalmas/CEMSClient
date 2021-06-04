@@ -55,7 +55,7 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="240.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0">
          <children>
-            <BarChart fx:id="histograma" horizontalGridLinesVisible="false" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <BarChart fx:id="histograma" alternativeColumnFillVisible="true" barGap="5.0" horizontalGridLinesVisible="false" layoutX="10.0" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" fx:id="xAxisExam" />
               </xAxis>

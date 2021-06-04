@@ -31,6 +31,9 @@ public class ClientController {
 	private static boolean testScheduled;
 	private static String authorName = null;
 	private static String newQuestionId;
+	private static Report report;
+
+
 	private static boolean principleNotified = false;
 	private static ArrayList<TimeExtensionRequest> timeExtensionRequests = null;
 	private static ArrayList<Question> questions = null;
@@ -272,5 +275,12 @@ public class ClientController {
 
 	public static void setTeachers(ArrayList<Teacher> teachers) {
 		ClientController.teachers = teachers;
+	}
+	public static Report getReport() {
+		return report;
+	}
+
+	public static void setReport(Report report) {
+		ClientController.report = report;
 	}
 }
