@@ -13,19 +13,27 @@ import com.jfoenix.controls.JFXTreeTableView;
 import client.ClientController;
 import common.ActiveTest;
 import common.StudentGrade;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
+import util.GeneralUIMethods;
+import util.Navigator;
 
 public class StudentGradesController implements Initializable {
 
@@ -76,6 +84,21 @@ public class StudentGradesController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> gradeCol;
+	
+	@FXML
+	private TableColumn<?, ?> viewCol;
+	
+    @FXML
+    private AnchorPane testAnchor;
+
+    @FXML
+    private JFXButton backToPageBtn;
+
+    @FXML
+    private ScrollPane testScrollPane;
+    
+    @FXML
+    private AnchorPane testAnchor2;
 
 	private final ObservableList<rowTableGrades> dataList = FXCollections.observableArrayList();
 
@@ -107,6 +130,7 @@ public class StudentGradesController implements Initializable {
 		private String course;
 		private String title;
 		private int grade;
+		private JFXButton viewBtn;
 
 		public rowTableGrades(StudentGrade studentGrade) {
 
@@ -114,6 +138,8 @@ public class StudentGradesController implements Initializable {
 			this.course = studentGrade.getCourse();
 			this.title = studentGrade.getTitle();
 			this.grade = studentGrade.getGrade();
+			viewBtn = new JFXButton();
+			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 		}
 
 		public String getTestId() {
@@ -130,6 +156,10 @@ public class StudentGradesController implements Initializable {
 
 		public int getGrade() {
 			return grade;
+		}
+		
+		public JFXButton getViewBtn() {
+			return viewBtn;
 		}
 
 	}
@@ -149,13 +179,23 @@ public class StudentGradesController implements Initializable {
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
-
+		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		if (studentGrades != null)
 			for (StudentGrade studentGrade : studentGrades) {
 				rowTableGrades rowTable = new rowTableGrades(studentGrade);
 				gradesTable.getItems().add(rowTable);
 				dataList.add(rowTable); // add row to dataList to search field.
 
+				// View button
+				rowTable.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						testAnchor.setVisible(true);
+						testAnchor.toFront();
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(), "Teacher", loader);
+					}
+				});
 			}
 
 		// Search by data which is in a certain row.
@@ -200,9 +240,18 @@ public class StudentGradesController implements Initializable {
 		sortedData.comparatorProperty().bind(gradesTable.comparatorProperty());
 		// Add sorted (and filtered) data to the table.
 		gradesTable.setItems(sortedData);
-
+		
+		
+		
+		
 	
 
 	}
+	
+	 @FXML
+	    void backToPageBtnClicked(MouseEvent event) {
+			testAnchor.setVisible(false);
+			testAnchor.toBack();
+	    }
 
 }

@@ -136,7 +136,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setReports((ArrayList<Report>) msg);
 				else if (((ArrayList<?>) msg).get(0) instanceof TimeExtensionRequest)
 					ClientController.setTimeExtensionRequests((ArrayList<TimeExtensionRequest>) msg);
-				else if (((ArrayList<?>)msg).get(0) instanceof Integer)
+				else if (((ArrayList<?>)msg).get(0) instanceof StudentGrade)
 					ClientController.setGrades((ArrayList<StudentGrade>)msg);
 			} else if (msg instanceof Test) {
 				if (null != ((Test) msg)) {
