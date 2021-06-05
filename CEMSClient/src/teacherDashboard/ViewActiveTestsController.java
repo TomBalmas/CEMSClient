@@ -205,23 +205,16 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void clicksendForApproval(MouseEvent event) {
-
+		// Request for time extension
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
-				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // Request for
-																									// extension time.
+				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText());
 		ClientController.accept("NOTIFY_PRINCIPLE");
-		if (ClientController.isPrincipleNotified()) {
-			List<JFXButton> l = new ArrayList<JFXButton>();
-			l.add(new JFXButton("Okay"));
+		if (ClientController.isPrincipleNotified())
 			PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
 					contentPaneAnchor, null, null);
-		} else {
-			List<JFXButton> l = new ArrayList<JFXButton>();
-			l.add(new JFXButton("Okay"));
+		else
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
 					null, null);
-		}
-
 	}
 
 //	@FXML
