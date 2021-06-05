@@ -105,7 +105,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="timeAnchor" prefHeight="150.0" prefWidth="273.0">
                      <children>
-                        <Label fx:id="timeLbl" layoutX="61.0" layoutY="14.0" text="Test Ending Time" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="14.0">
+                        <Label fx:id="timeLbl" layoutX="61.0" layoutY="14.0" text="Test ending time" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="14.0">
                            <font>
                               <Font size="22.0" />
                            </font>

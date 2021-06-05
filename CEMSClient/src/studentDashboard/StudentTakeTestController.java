@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ScheduledTest;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -63,7 +64,7 @@ public class StudentTakeTestController implements Initializable {
 
 	@FXML
 	void beginTestClicked(MouseEvent event) {
-		if (testCodeField.getText().equals("")) {
+		if (testCodeField.getText().equals("")) { // Check if the student entered a test code
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
 					null);
 			return;
@@ -75,18 +76,21 @@ public class StudentTakeTestController implements Initializable {
 			testType = "Computed";
 		GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
 		TestFormController tfc = testFormLoader.getController();
-		ClientController.accept("GET_TEST_BY_CODE-" + testCodeField.getText());
-		int duration = ClientController.getStudentTest().getTestDuration();
-		ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
-		ScheduledTest st = ClientController.getScheduledTest();
-		String startingTime = st.getStartingTime();
-		String[] splitTime = startingTime.split(":");
-		LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
-		testTime = testTime.plusMinutes(duration);
-		// initial duration
-		tfc.getTimeLbl1().setText(testTime.toString());
-		// timer comes here maybe: TODO
-
+		
+		// Set test time label
+		if (ClientController.getStudentTest() != null) {
+			ClientController.accept("GET_TEST_BY_CODE-" + testCodeField.getText());
+			int duration = ClientController.getStudentTest().getTestDuration();
+			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
+			ScheduledTest st = ClientController.getScheduledTest();
+			String startingTime = st.getStartingTime();
+			String[] splitTime = startingTime.split(":");
+			LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
+			testTime = testTime.plusMinutes(duration);
+			// initial duration
+			tfc.getTimeLbl1().setText(testTime.toString());
+			// timer comes here maybe: TODO
+		}
 	}
 
 	@Override

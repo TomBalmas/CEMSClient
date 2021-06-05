@@ -70,6 +70,18 @@
 	-fx-fill: #fec973;
 }
 
+.refreshBtn {
+	 -fx-background-color: #393E46;
+}
+
+.refreshBtn:hover {
+	-fx-background-color: #657699;
+}
+
+.refreshBtn .glyph-icon {
+	-fx-fill: white;
+}
+
 .littleBackBtn {
 	-fx-text-fill: #393E46;
 }
@@ -103,6 +115,17 @@
 
 .paddingAnchor {
 
+}
+
+.scrolledPane > .viewport {
+	-fx-background-color: #F4F4F4;
+	-fx-background-radius: 10.0px 10.0px 10.0px 10.0px;
+	-fx-border-radius: 10.0px 10.0px 10.0px 10.0px;
+	-fx-background-insets: 3.0px;
+}
+
+.scrolledPane {
+    -fx-background-color: white;
 }
 
 .grayPane{

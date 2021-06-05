@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import util.Navigator;
 
 public class ActiveTestController implements Initializable, Observer {
 
@@ -58,32 +59,29 @@ public class ActiveTestController implements Initializable, Observer {
 			initialize(location, resources);
 			refreshBtn.setDisable(true);
 			ClientController.setPrincipleNotified(false);
-
 		});
 
 	}
 
 	/**
 	 * The function gets the name of the teacher and his request. Then it creates a
-	 * request window that goes into the Vbox and then puts the updated Vbox into
-	 * the scrollpane. This way the request of the same teacher can appear in the
+	 * request window that goes into the VBox and then puts the updated VBox into
+	 * the ScrollPane. This way the request of the same teacher can appear in the
 	 * window of the principal so that he can approve requests for extra time.
 	 *
 	 */
-
 	public void addTeacherRequest(String teacherSSN, String requestMsg, String teacherName, String testCode,
 			int minutes) {
-
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherRequest.fxml"));
 			Node request = loader.load();
+			request.setStyle("-fx-margin: 5px;");
 			TeacherRequestController controller = loader.getController();
 			controller.getTeacherName().setText("Name: " + teacherName + " SSN: " + teacherSSN + " Code: " + testCode);
 			controller.getTextArea().setText(requestMsg);
 			controller.getTextArea().appendText("\nMinutes to add: " + minutes);
 			vBoxScrollPane.getChildren().add(request);
 			scrollPane.setContent(vBoxScrollPane);
-
 		} catch (IOException e) {
 
 			e.printStackTrace();
