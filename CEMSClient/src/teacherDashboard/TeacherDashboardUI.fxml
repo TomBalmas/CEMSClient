@@ -30,7 +30,7 @@
             <JFXButton fx:id="scheduledTestsBtn" onMouseClicked="#scheduledTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Scheduled Tests" textFill="WHITE" />
             <JFXButton fx:id="testReportsBtn" onMouseClicked="#testReportsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Test Reports" textFill="WHITE" />
             <JFXButton fx:id="checkTestsBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Check Tests" textFill="WHITE" />
-            <JFXButton fx:id="approvedBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Approved" textFill="#9884e8" />
+            <JFXButton fx:id="approvedBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Approved" textFill="#9884e8" visible="false" />
             <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="60.0" prefWidth="289.0" text="dark mode" textFill="WHITE" visible="false" />
             <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOut" text="Sign Out" textFill="WHITE">
                <VBox.margin>
