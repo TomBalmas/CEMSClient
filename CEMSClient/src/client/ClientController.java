@@ -10,6 +10,7 @@ import common.Question;
 import common.Report;
 import common.ScheduledTest;
 import common.Student;
+import common.StudentGrade;
 import common.Teacher;
 import common.Test;
 import common.TimeExtensionRequest;
@@ -31,6 +32,10 @@ public class ClientController {
 	private static boolean testScheduled;
 	private static String authorName = null;
 	private static String newQuestionId;
+	private static Report report;
+	private static ScheduledTest scheduledTest = null;
+
+
 	private static boolean principleNotified = false;
 	private static ArrayList<TimeExtensionRequest> timeExtensionRequests = null;
 	private static ArrayList<Question> questions = null;
@@ -43,6 +48,7 @@ public class ClientController {
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
+	private static ArrayList<StudentGrade> grades;
 	private static String id = null;
 	private static Test studentTest = null;
 
@@ -52,6 +58,14 @@ public class ClientController {
 
 	public static void setPrincipleNotified(boolean principleNotified) {
 		ClientController.principleNotified = principleNotified;
+	}
+
+	public static ScheduledTest getScheduledTest() {
+		return scheduledTest;
+	}
+
+	public static void setScheduledTest(ScheduledTest scheduledTest) {
+		ClientController.scheduledTest = scheduledTest;
 	}
 
 	public ClientController(String host, int port) {
@@ -272,5 +286,20 @@ public class ClientController {
 
 	public static void setTeachers(ArrayList<Teacher> teachers) {
 		ClientController.teachers = teachers;
+	}
+	public static Report getReport() {
+		return report;
+	}
+
+	public static void setReport(Report report) {
+		ClientController.report = report;
+	}
+	public static void setGrades(ArrayList<StudentGrade> grades) {
+		
+		ClientController.grades = grades;
+	}
+	
+	public static ArrayList<StudentGrade> getGrades(){
+		return grades;
 	}
 }
