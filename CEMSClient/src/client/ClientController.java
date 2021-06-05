@@ -34,7 +34,7 @@ public class ClientController {
 	private static String newQuestionId;
 	private static Report report;
 	private static ScheduledTest scheduledTest = null;
-
+	private static TimeExtensionRequest timeExtensionRequest;
 
 	private static boolean principleNotified = false;
 	private static ArrayList<TimeExtensionRequest> timeExtensionRequests = null;
@@ -43,7 +43,7 @@ public class ClientController {
 	private static ArrayList<Report> reports = null;
 	private static ArrayList<Student> students = null;
 	private static ArrayList<Teacher> teachers = null;
-	
+
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
@@ -64,13 +64,21 @@ public class ClientController {
 		return scheduledTest;
 	}
 
+	public static TimeExtensionRequest getTimeExtensionRequest() {
+		return timeExtensionRequest;
+	}
+
+	public static void setTimeExtensionRequest(TimeExtensionRequest timeExtensionRequest) {
+		ClientController.timeExtensionRequest = timeExtensionRequest;
+	}
+
 	public static void setScheduledTest(ScheduledTest scheduledTest) {
 		ClientController.scheduledTest = scheduledTest;
 	}
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
-		
+
 	}
 
 	public static ActiveTestController getActiveTestController() {
@@ -119,7 +127,6 @@ public class ClientController {
 	public static void setTestScheduled(boolean testScheduled) {
 		ClientController.testScheduled = testScheduled;
 	}
-	
 
 	public static ArrayList<TimeExtensionRequest> getTimeExtensionRequests() {
 		return timeExtensionRequests;
@@ -267,9 +274,9 @@ public class ClientController {
 	}
 
 	public static void setStudentTest(Test test) {
-		ClientController.studentTest  = test;
-	} 
-	
+		ClientController.studentTest = test;
+	}
+
 	public static Test getStudentTest() {
 		return studentTest;
 	}
@@ -277,9 +284,11 @@ public class ClientController {
 	public static void setStudents(ArrayList<Student> students) {
 		ClientController.students = students;
 	}
+
 	public static ArrayList<Student> getStudents() {
 		return students;
 	}
+
 	public static ArrayList<Teacher> getTeachers() {
 		return teachers;
 	}
@@ -287,6 +296,7 @@ public class ClientController {
 	public static void setTeachers(ArrayList<Teacher> teachers) {
 		ClientController.teachers = teachers;
 	}
+
 	public static Report getReport() {
 		return report;
 	}
@@ -294,12 +304,13 @@ public class ClientController {
 	public static void setReport(Report report) {
 		ClientController.report = report;
 	}
+
 	public static void setGrades(ArrayList<StudentGrade> grades) {
-		
+
 		ClientController.grades = grades;
 	}
-	
-	public static ArrayList<StudentGrade> getGrades(){
+
+	public static ArrayList<StudentGrade> getGrades() {
 		return grades;
 	}
 }

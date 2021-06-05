@@ -3,6 +3,8 @@ package studentDashboard;
 import java.net.URL;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -23,7 +25,7 @@ import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
 
-public class StudentTakeTestController implements Initializable {
+public class StudentTakeTestController implements Initializable, Observer {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -60,6 +62,9 @@ public class StudentTakeTestController implements Initializable {
 
 	FXMLLoader testFormLoader = null;
 	String testType = null;
+	private String testCode;
+	private LocalTime testTime;
+	private TestFormController tfc;
 
 	@FXML
 	void beginTestClicked(MouseEvent event) {
@@ -73,15 +78,17 @@ public class StudentTakeTestController implements Initializable {
 			testType = "Manual";
 		else
 			testType = "Computed";
-		GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
-		TestFormController tfc = testFormLoader.getController();
+
+		testCode = testCodeField.getText();
+		GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCode, testType, testFormLoader);
+		tfc = testFormLoader.getController();
 		ClientController.accept("GET_TEST_BY_CODE-" + testCodeField.getText());
 		int duration = ClientController.getStudentTest().getTestDuration();
-		ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
+		ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 		ScheduledTest st = ClientController.getScheduledTest();
 		String startingTime = st.getStartingTime();
 		String[] splitTime = startingTime.split(":");
-		LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
+		testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
 		testTime = testTime.plusMinutes(duration);
 		// initial duration
 		tfc.getTimeLbl1().setText(testTime.toString());
@@ -93,6 +100,13 @@ public class StudentTakeTestController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		manualBtn.setToggleGroup(testGroup);
 		computedBtn.setToggleGroup(testGroup);
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		ClientController.accept("GET_REQUEST_BY_CODE-" + testCode);
+		testTime = testTime.plusMinutes(ClientController.getTimeExtensionRequest().getMinutes());
+		tfc.getTimeLbl1().setText(testTime.toString());
 	}
 
 }

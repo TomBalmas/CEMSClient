@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 
 import client.ClientController;
+import common.Student;
 import common.TimeExtensionRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,8 +49,7 @@ public class ActiveTestController implements Initializable, Observer {
 		if (timeExtensionRequests != null)
 			for (TimeExtensionRequest request : timeExtensionRequests) {
 				ClientController.accept("GET_NAME_BY_ID-" + request.getSsn());
-				addTeacherRequest(request.getSsn(), request.getContent(), ClientController.getAuthorName(),
-						request.getTestCode(), request.getMinutes());
+				addTeacherRequest(request, ClientController.getAuthorName());
 			}
 		refreshBtn.setOnMouseClicked(e -> {
 			VBox vbox = (VBox) scrollPane.getContent();
@@ -71,18 +71,38 @@ public class ActiveTestController implements Initializable, Observer {
 	 *
 	 */
 
-	public void addTeacherRequest(String teacherSSN, String requestMsg, String teacherName, String testCode,
-			int minutes) {
+	public void addTeacherRequest(TimeExtensionRequest currentRequest, String teacherName) {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherRequest.fxml"));
 			Node request = loader.load();
 			TeacherRequestController controller = loader.getController();
-			controller.getTeacherName().setText("Name: " + teacherName + " SSN: " + teacherSSN + " Code: " + testCode);
-			controller.getTextArea().setText(requestMsg);
-			controller.getTextArea().appendText("\nMinutes to add: " + minutes);
+			controller.getTeacherName().setText("Name: " + teacherName + " SSN: " + currentRequest.getSsn() + " Code: "
+					+ currentRequest.getTestCode());
+			controller.getTextArea().setText(currentRequest.getContent());
+			controller.getTextArea().appendText("\nMinutes to add: " + currentRequest.getMinutes());
 			vBoxScrollPane.getChildren().add(request);
 			scrollPane.setContent(vBoxScrollPane);
+			controller.getAprove().setOnMouseClicked(e -> {
+				ClientController.accept("GET_STUDENTS_IN_TEST_BY_CODE-" + currentRequest.getTestCode());
+				ArrayList<Student> studentsInTest = ClientController.getStudents();
+				if (studentsInTest.get(0).isFlag()) {
+					StringBuilder sb = new StringBuilder();
+					for (Student student : studentsInTest) {
+						sb.append(student.getSSN());
+						sb.append(",");
+					}
+					sb.deleteCharAt(sb.length() - 1);
+					ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString());
+					ClientController.accept("NOTIFY_TEACHER_BY_SSN-" + "approved," + currentRequest.getSsn());
+				}
+
+			});
+			controller.getDisapprove().setOnMouseClicked(e -> {
+				ClientController.accept("DELETE_TIME_EXTENSION_REQUEST-" + currentRequest.getTestCode());
+				ClientController.accept("NOTIFY_TEACHER_BY_SSN-" + "disapproved," + currentRequest.getSsn());
+				initialize(null, null);
+			});
 
 		} catch (IOException e) {
 
