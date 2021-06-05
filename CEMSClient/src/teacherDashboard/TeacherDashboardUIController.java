@@ -178,24 +178,10 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		if (isApproved.equals("approved")) {
 			approvedBtn.setVisible(true);
 			approvedBtn.setText("Approved");
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			approvedBtn.setVisible(false);
 
 		} else {
 			approvedBtn.setVisible(true);
 			approvedBtn.setText("Disapproved");
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			approvedBtn.setVisible(false);
 
 		}
 
