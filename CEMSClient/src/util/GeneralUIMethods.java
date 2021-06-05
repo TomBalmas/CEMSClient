@@ -163,17 +163,17 @@ public class GeneralUIMethods {
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
 		else 
 			ClientController.accept("GET_TEST_BY_ID-" + testCodeOrID);
-		Test t = ClientController.getStudentTest();
-		if (null == t)
+		Test test = ClientController.getStudentTest();
+		if (null == test)
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your code is invalid", contentPaneAnchor, null, null);
 		else {
-			ClientController.accept("GET_QUESTIONS_FROM_TEST-" + t.getID());
+			ClientController.accept("GET_QUESTIONS_FROM_TEST-" + test.getID());
 			ArrayList<Question> testQuestions = ClientController.getQuestions();
 			if (null != testQuestions)
 			try {
-				Region test = testFormLoader.load();
+				Region testFormNode = testFormLoader.load();
 				TestFormController controller = testFormLoader.getController();
-				controller.setTest(t);
+				controller.setTest(test);
 				controller.setTestCode(testCodeOrID.toString());
 				controller.getEditBtn().setVisible(false);
 				controller.getBackBtn().setVisible(false);
@@ -186,7 +186,7 @@ public class GeneralUIMethods {
 					controller.getFinishBtn().setVisible(false);
 				} else
 					controller.getUploadFileAnchor().setVisible(false);
-				controller.addTitleAndInstructionsToTest(t.getTitle(), null, t.getStudentInstructions());
+				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				int i = 1;
 				for (Question q : testQuestions) {
 					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
@@ -200,7 +200,7 @@ public class GeneralUIMethods {
 					public void run() {
 						if(testType.equals("Manual") || testType.equals("Computed")) {
 							contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
-							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), test);
+							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), testFormNode);
 							if(testType.equals("Manual"))
 								controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
 									ToggleGroup tGroup = (ToggleGroup) toggleGroup;
@@ -212,13 +212,13 @@ public class GeneralUIMethods {
 						}
 						else {
 							controller.getTestSideBarAnchor().setVisible(false);
-							test.prefWidthProperty().bind(testScrollPane.widthProperty().subtract(12));
-							test.prefHeightProperty().bind(testScrollPane.heightProperty());
+							testFormNode.prefWidthProperty().bind(testScrollPane.widthProperty().subtract(12));
+							testFormNode.prefHeightProperty().bind(testScrollPane.heightProperty());
 							controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
 							controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
 							controller.getScrollPane().setTranslateX(20);
 							controller.getScrollPane().setTranslateY(45);
-							GeneralUIMethods.loadPage(contentPaneAnchor, test);
+							GeneralUIMethods.loadPage(contentPaneAnchor, testFormNode);
 						}
 					}
 				});
