@@ -231,41 +231,30 @@ public class AddingNewTestUIController implements Initializable {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
 
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { // delete form table and DB
-					@Override
-					public void handle(ActionEvent event) {
-						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
-						try {
-							QuestionForm = loader.load();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						JFXButton buttonText = (JFXButton) event.getSource();
+				qr.getViewBtn().setOnAction(e -> {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+					try {
+						QuestionForm = loader.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					{
 						questionFormUIController = loader.getController();
-						questionFormUIController.getNewQuestionFormLbl().setText(
-								buttonText.getText() + "ing question " + qr.getID() + " by " + qr.getAuthor());
 						questionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
 						questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
-						// blankQuestionFormUIController.getFieldCBox().getSelectionModel().select(q.getField());
-						// //---TODO:fix
-						// (q.getField().toString());
-						for (int j = 0; j < 4; j++)
-							questionFormUIController.getAnswerTextFields().get(j).setText(q.getAnswers().get(j));
-						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
-					}
-				};
-
-				qr.getViewBtn().setOnAction(e -> {
-					btnEventHandler.handle(e);
-					{
+						questionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + qr.getID() + " by " + qr.getAuthor());
 						questionFormUIController.getQuestionContentTxt().setEditable(false);
+						questionFormUIController.getFieldCBox().setDisable(true);
 						for (int p = 0; p < 4; p++) {
+							questionFormUIController.getAnswerTextFields().get(p).setText(q.getAnswers().get(p));
 							questionFormUIController.getAnswerTextFields().get(p).setEditable(false);
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
 					};
+					GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 				});
+				
 				if (pickedQuestions.size() == 0)
 					previewTestBtn.setDisable(true);
 				if (pickedQuestions.contains(q))

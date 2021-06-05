@@ -106,8 +106,6 @@ public class QuestionFormUIController implements Initializable {
 
     @FXML
     private JFXTextArea answer1Txt;
-    private int correctAnswer;
-
 
 	public int getCorrectAnswer() {
 		return correctAnswer=0;
@@ -117,24 +115,22 @@ public class QuestionFormUIController implements Initializable {
 		this.correctAnswer = correctAnswer;
 	}
 
+    private int correctAnswer;
 	private Node questionBank;
 	// toggle group for allowing one choice of radio button
 	final ToggleGroup group = new ToggleGroup();
-	private int selectedAnswer = 0;
 	private String author;
 	ObservableList fields = FXCollections.observableArrayList();
 
 	@FXML
-	void clickBack() throws IOException {
-		Node page;
+	void clickBack() {
+		Node page = null;
 		try {
 			page = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-			GeneralUIMethods.loadPage(contentPaneAnchor, page);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//GeneralUIMethods.loadPage(contentPaneAnchor, questionBank);
+		GeneralUIMethods.loadPage(contentPaneAnchor, page);
 	}
 
 	/**
@@ -142,7 +138,6 @@ public class QuestionFormUIController implements Initializable {
 	 */
 	@FXML
 	void clickSave() throws IOException {
-		
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
 		if (list.get(0).isPressed())
