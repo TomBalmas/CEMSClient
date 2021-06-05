@@ -79,7 +79,6 @@ public class CreateReportController implements Initializable {
     @FXML
     private AnchorPane tableViewAnchor;
 
-
     @FXML
     private TableView<userRow> reportsTbl;
 
@@ -97,65 +96,64 @@ public class CreateReportController implements Initializable {
 	ObservableList coursesSelection = FXCollections.observableArrayList();
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");
 
-	
 	public class userRow {
 		private String id;
 		private String author;
-		
+
 		public userRow(User user) {
-		  id= user.getSSN();
-			author=user.getName();
+			id = user.getSSN();
+			author = user.getName();
 		}
+
 		public userRow(Course course) {
-			  id= course.getId();
-				author=course.getName();
+			id = course.getId();
+			author = course.getName();
 		}
+
 		public String getAuthor() {
 			return author;
 		}
+
 		public void setAuthor(String author) {
 			this.author = author;
 		}
-		
+
 		public String getId() {
 			return id;
 		}
-
 
 		public void setId(String id) {
 			this.id = id;
 		}
 
-
 	}
+
 	public class courseRow {
 		private String id;
 		private String author;
-		
+
 		public courseRow(Course course) {
-		  id= course.getId();
-			author=course.getName();
+			id = course.getId();
+			author = course.getName();
 		}
+
 		public String getAuthor() {
 			return author;
 		}
+
 		public void setAuthor(String author) {
 			this.author = author;
 		}
-		
+
 		public String getId() {
 			return id;
 		}
-
 
 		public void setId(String id) {
 			this.id = id;
 		}
 
 	}
-	
-	
-	
 	
 	/**
 	 * init function that putting values in the combo box, that function also
@@ -173,27 +171,23 @@ public class CreateReportController implements Initializable {
 		IDCol.setCellValueFactory(IDfactory);
 		nameCol.setCellValueFactory(namefactory);
 		
-	
-		//handke clicking on a student row 
+		// handle clicking on a student row
 		reportsTbl.setOnMouseClicked((MouseEvent event) -> {
-			
-				userRow selected = reportsTbl.getSelectionModel().getSelectedItem();
-				ClientController.accept("GET_COURSES_BY_STUDENT-"+selected.getId());
+			userRow selected = reportsTbl.getSelectionModel().getSelectedItem();
+			if (selected != null) {
+				ClientController.accept("GET_COURSES_BY_STUDENT-" + selected.getId());
 				courses = ClientController.getCourses();
 				selectCourseCbox.getItems().removeAll(selectCourseCbox.getItems());
-				for (int i=0;i<courses.size();i++)
+				for (int i = 0; i < courses.size(); i++)
 					coursesSelection.add(courses.get(i).getName());
 				selectCourseCbox.setItems(coursesSelection);
-			
-			
-
+			}
 		});
 		
 		selectTypeCbox.setOnAction((event) -> {
 		
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
-				
 				startCoursesDP.setVisible(false);
 				finishCoursesDP.setVisible(false);
 				startDPlbl.setVisible(false);
@@ -209,7 +203,6 @@ public class CreateReportController implements Initializable {
 						userRow usersRow = new userRow(students.get(i));
 						tableViewAnchor.setMouseTransparent(false);
 						reportsTbl.getItems().add(usersRow);
-						
 					}
 				}
 				
