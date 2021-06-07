@@ -2,6 +2,7 @@ package studentDashboard;
 
 import java.net.URL;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -69,28 +70,42 @@ public class StudentTakeTestController implements Initializable {
 					null);
 			return;
 		}
-		testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-		if (testGroup.getSelectedToggle().equals(manualBtn))
-			testType = "Manual";
-		else
-			testType = "Computed";
-		GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
-		TestFormController tfc = testFormLoader.getController();
-		
-		// Set test time label
-		if (ClientController.getStudentTest() != null) {
-			ClientController.accept("GET_TEST_BY_CODE-" + testCodeField.getText());
-			int duration = ClientController.getStudentTest().getTestDuration();
-			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
-			ScheduledTest st = ClientController.getScheduledTest();
-			String startingTime = st.getStartingTime();
-			String[] splitTime = startingTime.split(":");
-			LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
-			testTime = testTime.plusMinutes(duration);
-			// initial duration
-			tfc.getTimeLbl1().setText(testTime.toString());
-			// timer comes here maybe: TODO
+		// TODO: FINISHED TEST CHECK IF LOCKED
+		//ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
+
+		ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
+		if (ClientController.isTimeForTest()) {
+			testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+			if (testGroup.getSelectedToggle().equals(manualBtn))
+				testType = "Manual";
+			else
+				testType = "Computed";
+			GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
+
+			if (ClientController.getStudentTest() != null) {
+				TestFormController tfc = testFormLoader.getController();
+				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
+				if (!ClientController.isStudentAddedToTest()) {
+					PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,
+							null);
+					return;
+				}
+				int duration = ClientController.getStudentTest().getTestDuration();
+				ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
+				ScheduledTest st = ClientController.getScheduledTest();
+				// Set test time label
+				String startingTime = st.getStartingTime();
+				String[] splitTime = startingTime.split(":");
+				LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
+				testTime = testTime.plusMinutes(duration);
+				// initial duration
+				tfc.getTimeLbl1().setText(testTime.toString());
+				// timer comes here maybe: TODO
+			}
 		}
+		else 
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
+					null);
 	}
 
 	@Override

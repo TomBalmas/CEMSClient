@@ -161,6 +161,18 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTestScheduled(true);
 				else if (str.equals("notScheduled"))
 					ClientController.setTestScheduled(false);
+				else if (str.equals("timeForTest"))
+					ClientController.setTimeForTest(true);
+				else if (str.equals("notTimeForTest"))
+					ClientController.setTimeForTest(false);
+				else if (str.equals("studentAdded"))
+					ClientController.setStudentAddedToTest(true);
+				else if (str.equals("studentNotAdded"))
+					ClientController.setStudentAddedToTest(false);
+				else if (str.equals("studentRemovedFromTest"))
+					ClientController.setStudentDeletedFromTest(true);
+				else if (str.equals("studentNotRemovedFromTest"))
+					ClientController.setStudentDeletedFromTest(false);
 				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
 					// getting new question ID
