@@ -100,7 +100,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 				// Set test time label
 				String startingTime = st.getStartingTime();
 				String[] splitTime = startingTime.split(":");
-				LocalTime testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
+				testTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
 				testTime = testTime.plusMinutes(duration);
 				// initial duration
 				tfc.getTimeLbl1().setText(testTime.toString());
