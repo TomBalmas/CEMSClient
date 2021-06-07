@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -25,7 +27,7 @@ import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
 
-public class StudentTakeTestController implements Initializable {
+public class StudentTakeTestController implements Initializable, Observer {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -62,6 +64,9 @@ public class StudentTakeTestController implements Initializable {
 
 	FXMLLoader testFormLoader = null;
 	String testType = null;
+	private String testCode;
+    private LocalTime testTime;
+    private TestFormController tfc;
 
 	@FXML
 	void beginTestClicked(MouseEvent event) {
@@ -70,7 +75,6 @@ public class StudentTakeTestController implements Initializable {
 					null);
 			return;
 		}
-		// TODO: FINISHED TEST CHECK IF LOCKED
 		//ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
 
 		ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
@@ -83,7 +87,7 @@ public class StudentTakeTestController implements Initializable {
 			GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
 
 			if (ClientController.getStudentTest() != null) {
-				TestFormController tfc = testFormLoader.getController();
+				tfc = testFormLoader.getController();
 				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
 				if (!ClientController.isStudentAddedToTest()) {
 					PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,
@@ -110,8 +114,26 @@ public class StudentTakeTestController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ClientController.setStudentTakeTestController(this);
 		manualBtn.setToggleGroup(testGroup);
 		computedBtn.setToggleGroup(testGroup);
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				if (((String) arg1).startsWith("timeExtension")) {
+					String[] split = ((String) arg1).split(":");
+					testTime = testTime.plusMinutes(Integer.parseInt(split[1]));
+					tfc.getTimeLbl1().setText(testTime.toString());
+					tfc.getNewTimeLbl().setVisible(true);
+				}
+
+			}
+		});
+
 	}
 
 }

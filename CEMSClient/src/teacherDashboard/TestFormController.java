@@ -435,6 +435,12 @@ public class TestFormController implements Initializable {
 			return;
 		}
 		
+		// Check if its the last student in the
+		
+		
+		// If so, lock the test
+		
+		
 		
 		
 		ClientController.setStudentTest(null);
@@ -453,3 +459,4 @@ public class TestFormController implements Initializable {
 	}
 
 }
+ 
