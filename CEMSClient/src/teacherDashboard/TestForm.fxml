@@ -117,6 +117,11 @@
                                     <Font size="28.0" />
                                  </font>
                               </Label>
+                              <Label fx:id="newTimeLbl" layoutX="91.0" layoutY="68.0" text="New Time" textFill="#08ae50" visible="false">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>

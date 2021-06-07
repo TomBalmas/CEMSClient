@@ -102,6 +102,9 @@ public class TestFormController implements Initializable {
 	private Label timeLbl1;
 
 	@FXML
+	private Label newTimeLbl;
+
+	@FXML
 	private AnchorPane fileUploadedAnchor;
 
 	@FXML
@@ -175,6 +178,10 @@ public class TestFormController implements Initializable {
 
 	public JFXButton getBackBtn() {
 		return backBtn;
+	}
+	
+	public Label getNewTimeLbl() {
+		return newTimeLbl;
 	}
 
 	public Label getTimeLbl() {
