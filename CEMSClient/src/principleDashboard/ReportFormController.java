@@ -16,6 +16,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import util.GeneralUIMethods;
@@ -23,99 +24,144 @@ import util.Navigator;
 
 public class ReportFormController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
-
-    @FXML
-    private AnchorPane filterAnchor;
-
-    @FXML
-    private AnchorPane insideFilterAnchor;
-    
-
-    @FXML
-    private Label userNameLbl;
-
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
 	@FXML
-    private Label avarageLbl;
-
-    @FXML
-    private Label medianLbl;
-    
-    @FXML
-    private Label averageTxt;
-
-
-    @FXML
-    private CategoryAxis xAxisExam;
-
-    @FXML
-    private NumberAxis yAxisGrades;
+	private AnchorPane filterAnchor;
 
 	@FXML
-    private Label medianTxt;
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private Label userNameLbl;
 
-    @FXML
-    private BarChart<String, Number> histograma;
+	@FXML
+	private Label avarageLbl;
 
-    @FXML
-    private JFXButton backBtn;
+	@FXML
+	private Label medianLbl;
 
-    @FXML
-    private JFXButton deleteBtn;
-    Series<String,Number> set = new XYChart.Series<String,Number>();
+	@FXML
+	private Label averageTxt;
+
+	@FXML
+	private Label medianTxt;
+
+	@FXML
+	private CategoryAxis xAxisExam;
+
+	@FXML
+	private NumberAxis yAxisGrades;
+
+	@FXML
+	private AnchorPane tableViewAnchor;
+
+	@FXML
+	private BarChart<String, Number> histograma;
+
+	@FXML
+	private JFXButton backBtn;
+
+	@FXML
+	private JFXButton deleteBtn;
+	Series<String, Number> set = new XYChart.Series<String, Number>();
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// set first bar color
+
 		// TODO Auto-generated method stub
 		xAxisExam.setAnimated(true);
 		histograma.getData().clear();
+		histograma.setBarGap(20);
 		set.getData().clear();
-		
 		xAxisExam.setTickLabelRotation(45);
 		// Set Font
-		xAxisExam.setTickLabelFont( new Font("Arial", 12));
+		xAxisExam.setTickLabelFont(new Font("Arial", 12));
 		xAxisExam.setAnimated(false);
-		set.getData().add(new XYChart.Data<String,Number>("ME",98));
-		set.getData().add(new XYChart.Data<String,Number>("A",70));
-		set.getData().add(new XYChart.Data<String,Number>("B",60));
-		set.getData().add(new XYChart.Data<String,Number>("V",57));
-		
-		xAxisExam.setLabel("Exam ");
+
 		yAxisGrades.setLabel("Grades");
-		histograma.getData().addAll(set);
+		xAxisExam.setLabel("Exam ID");
+		// histograma.getData().addAll(set);
 		xAxisExam.setAnimated(false);
-	
-		
-		
+
 	}
-	
+
 	@FXML
 	void clickBack() throws IOException {
 		Node page;
 		try {
-			page = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+			page = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
 			GeneralUIMethods.loadPage(contentPaneAnchor, page);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-    public Label getAverageTxt() {
+
+	public Label getAverageTxt() {
 		return averageTxt;
 	}
+
 	public Label getMedianTxt() {
 		return medianTxt;
 	}
-    public Label getTestNameLbl() {
+
+	public Label getUserNameLbl() {
 		return userNameLbl;
 	}
-	public void setTestNameLbl(Label userNameLbl) {
-		this.userNameLbl = userNameLbl;
+
+	public void setUserNameLbl(String text) {
+		userNameLbl.setText(text);
+	}
+
+	public Series<String, Number> getSet() {
+		return set;
+	}
+
+	public void setSet(Series<String, Number> set) {
+		this.set = set;
+	}
+
+	public CategoryAxis getxAxisExam() {
+		return xAxisExam;
+	}
+
+	public void setxAxisExam(CategoryAxis xAxisExam) {
+		this.xAxisExam = xAxisExam;
+	}
+
+	public NumberAxis getyAxisGrades() {
+		return yAxisGrades;
+	}
+
+	public void setyAxisGrades(NumberAxis yAxisGrades) {
+		this.yAxisGrades = yAxisGrades;
+	}
+
+	public Label getMedianLbl() {
+		return medianLbl;
+	}
+
+	public void setMedianLbl(Label medianLbl) {
+		this.medianLbl = medianLbl;
+
+	}
+
+	public void setAverageTxt(Label averageTxt) {
+		this.averageTxt = averageTxt;
+	}
+
+	public void setMedianTxt(Label medianTxt) {
+		this.medianTxt = medianTxt;
+	}
+	public BarChart<String, Number> getHistograma() {
+		return histograma;
+	}
+
+	public void setHistograma(BarChart<String, Number> histograma) {
+		this.histograma = histograma;
 	}
 }
