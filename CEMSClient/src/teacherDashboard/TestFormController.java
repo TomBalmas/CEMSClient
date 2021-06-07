@@ -4,16 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
 import client.ClientController;
-import common.ActiveTest;
 import common.Question;
 import common.Student;
-import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
@@ -41,11 +40,12 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class TestFormController implements Initializable {
 
 	@FXML
-	private AnchorPane AnchorPaneContent;
+	private AnchorPane contentPaneAnchor;
 
 	@FXML
 	private ScrollPane scrollPane;
@@ -125,11 +125,12 @@ public class TestFormController implements Initializable {
 	@FXML
 	private JFXButton editBtn;
 	private VBox vbox = new VBox();
-	private String fileFullPath, fileName;
+	private String fileFullPath, fileName, submittedBy = "self";
 	private boolean flag = false; // flag to decide student/teacher
 	private int totalNumberOfQuestions = 0;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
-
+	private long startTime = 0;
+	Label testTitleFromFXMLLbl;
 	Test test = null;
 	Student student;
 	String testCode = null;
@@ -156,8 +157,8 @@ public class TestFormController implements Initializable {
 		this.flag = flag;
 	}
 
-	public AnchorPane getAnchorPaneContent() {
-		return AnchorPaneContent;
+	public AnchorPane getContentPaneAnchor() {
+		return contentPaneAnchor;
 	}
 
 	public ScrollPane getScrollPane() {
@@ -215,6 +216,10 @@ public class TestFormController implements Initializable {
 	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
 		return questionsToggleGroup;
 	}
+	
+	public Label getTestTitleFromFXMLLbl() {
+		return testTitleFromFXMLLbl;
+	}
 
 	// getters end
 
@@ -229,14 +234,10 @@ public class TestFormController implements Initializable {
 		downloadBtn.setVisible(false);
 		uploadBtn.setVisible(false);
 		vbox.setSpacing(10);
-		// FIX FOR BACKDOOR - REMOVE getRoleFrame
+		
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-			}
-		});
+		
 		setDraggedFileEvents();
 		deleteFileBtn.setOnAction((new EventHandler<ActionEvent>() {
 			@Override
@@ -248,6 +249,7 @@ public class TestFormController implements Initializable {
 				uploadFileAnchor.setStyle("-fx-background-color: white;");
 			}
 		}));
+		startTime = System.currentTimeMillis(); // Start count time
 	}
 
 	private void setDraggedFileEvents() {
@@ -333,6 +335,7 @@ public class TestFormController implements Initializable {
 		Region element = loader.load();
 		TitleAndInstructionsController cont = loader.getController();
 		StringBuilder str = new StringBuilder();
+		testTitleFromFXMLLbl = cont.getTestTitleLbl();
 		if (!flag) {
 			str.append("Teacher instructions:\n");
 			str.append(teacherInst + "\n");
@@ -371,7 +374,7 @@ public class TestFormController implements Initializable {
 	@FXML
 	void backClicked(MouseEvent event) throws IOException {
 		Node page = FXMLLoader.load(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
-		GeneralUIMethods.loadPage(AnchorPaneContent, page);
+		GeneralUIMethods.loadPage(contentPaneAnchor, page);
 	}
 
 	/**
@@ -388,7 +391,7 @@ public class TestFormController implements Initializable {
 	@FXML
 	void uploadFileClicked(MouseEvent event) {
 		FileChooser file_chooser = new FileChooser();
-		File file = file_chooser.showOpenDialog(AnchorPaneContent.getScene().getWindow());
+		File file = file_chooser.showOpenDialog(contentPaneAnchor.getScene().getWindow());
 		if (file != null) {
 			fileFullPath = file.getAbsolutePath();
 			fileName = file.getName();
@@ -426,25 +429,41 @@ public class TestFormController implements Initializable {
 //			if(at.getID().equals(test.getID()))
 //					currentTest = at;
 
-		// studentSSN,testId,code,startingTime,timeTaken,presentationMethod,title,course,status
-//		String args = student.getSSN() + "," + test.getID() + "," + testCode + "," + 
-//		"120" + "," + "self" + "," + test.getTitle() + "," + test.getCourse() + "," + "false";
-//		ClientController.accept("ADD_FINISHED_TEST-" + args);
+		//studentSSN,testId,code,timeTaken,presentationMethod,title,course,status
+		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
+				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "not checked");
+		
 
+		// Delete the student from the test
+		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
+		if (!ClientController.isStudentDeletedFromTest()) {
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
+					null);
+			return;
+		}
+		
+		// Check if its the last student in the
+		
+		
+		// If so, lock the test
+		
+		
+		
+		
 		ClientController.setStudentTest(null);
 
-//		JFXButton okayBtn = new JFXButton("Okay");
-//		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+		JFXButton okayBtn = new JFXButton("Okay");
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 		Node page = null;
 		try {
 			page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		GeneralUIMethods.loadPage(AnchorPaneContent, page);
-//		});
-//		AnchorPaneContent.getParent().getParent().toFront();
-//		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", (AnchorPane) AnchorPaneContent.getParent().getParent(), Arrays.asList(okayBtn), null);	
+		GeneralUIMethods.loadPage(contentPaneAnchor, page);
+		});
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
 	}
 
 }
+ 

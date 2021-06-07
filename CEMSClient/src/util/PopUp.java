@@ -41,7 +41,11 @@ public class PopUp {
 
 		// Bring popup to the front!!! WOO-HOO!!!
 		root.toFront();
-
+		root.toFront();
+		root.toFront();
+		root.toFront();
+		root.toFront();
+		
 		if(null == btnsList)
 			btnsList = new ArrayList<JFXButton>();
 		if (btnsList.isEmpty()) // If no button was entered, add okay button
@@ -113,4 +117,5 @@ public class PopUp {
 		});
 		return false;
 	}
-}
+} 
+  

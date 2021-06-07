@@ -35,6 +35,9 @@ public class ClientController {
 	private static StudentTakeTestController studentTakeTestController;
 	private static boolean questionEdited;
 	private static boolean testScheduled;
+	private static boolean isTimeForTest;
+	private static boolean isStudentAddedToTest;
+	private static boolean isStudentDeletedFromTest;
 	private static String authorName = null;
 	private static String newQuestionId;
 	private static Report report;
@@ -343,4 +346,29 @@ public class ClientController {
 	public static ArrayList<StudentGrade> getGrades() {
 		return grades;
 	}
+
+	public static boolean isTimeForTest() {
+		return isTimeForTest;
+	}
+
+	public static void setTimeForTest(boolean isTimeForTest) {
+		ClientController.isTimeForTest = isTimeForTest;
+	}
+
+	public static boolean isStudentAddedToTest() {
+		return isStudentAddedToTest;
+	}
+
+	public static void setStudentAddedToTest(boolean isStudentAddedToTest) {
+		ClientController.isStudentAddedToTest = isStudentAddedToTest;
+	}
+
+	public static boolean isStudentDeletedFromTest() {
+		return isStudentDeletedFromTest;
+	}
+
+	public static void setStudentDeletedFromTest(boolean isStudentDeletedFromTest) {
+		ClientController.isStudentDeletedFromTest = isStudentDeletedFromTest;
+	}
 }
+ 
