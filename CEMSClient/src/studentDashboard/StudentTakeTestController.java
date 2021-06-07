@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ScheduledTest;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -68,7 +69,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 
 	@FXML
 	void beginTestClicked(MouseEvent event) {
-		if (testCodeField.getText().equals("")) {
+		if (testCodeField.getText().equals("")) { // Check if the student entered a test code
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
 					null);
 			return;

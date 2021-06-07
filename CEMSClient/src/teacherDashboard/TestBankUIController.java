@@ -275,7 +275,9 @@ public class TestBankUIController implements Initializable {
 			authorCol.setPrefWidth(authorCol.getWidth() + addToColum);
 			courseCol.setPrefWidth(courseCol.getWidth() + addToColum);
 			fieldCol.setPrefWidth(fieldCol.getWidth() + addToColum);
-			testNameCol.setPrefWidth(testNameCol.getWidth() + addToColum+2);
+			testNameCol.setPrefWidth(testNameCol.getWidth() + addToColum);
+			authorCol.setPrefWidth(authorCol.getWidth() - 12);
+			viewCol.setPrefWidth(viewCol.getWidth() + 12);
 			deleteCol.setVisible(false);
 			editCol.setVisible(false);
 			setDateCol.setVisible(false);

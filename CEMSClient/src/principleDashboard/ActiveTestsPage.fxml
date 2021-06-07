@@ -18,12 +18,12 @@
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="refreshBtn" disable="true" prefHeight="39.0" prefWidth="50.0" style="-fx-background-color: red;" text="" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="12.0">
+                  <JFXButton fx:id="refreshBtn" disable="true" prefHeight="39.0" prefWidth="50.0" styleClass="refreshBtn" text="" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="12.0">
                      <graphic>
-					 	<FontAwesomeIconView glyphName="REFRESH" size="16.0" />
+					 	<FontAwesomeIconView glyphName="REFRESH" size="25" />
 					 </graphic>
 				  </JFXButton>                  
-                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="631.0" prefWidth="805.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="631.0" prefWidth="805.0" styleClass="scrolledPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                </children>
             </AnchorPane>
          </children>

@@ -305,8 +305,6 @@ public class QuestionBankUIController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = loader.load();
 							blankQuestionFormUIController = loader.getController();
-							blankQuestionFormUIController.getNewQuestionFormLbl().setText(
-									"Editing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)
@@ -335,14 +333,12 @@ public class QuestionBankUIController implements Initializable {
 					}
 				});
 				
-
-				
 				//event handler for view button 
 				questionRow.getViewBtn().setOnAction(e ->{
 					btnEventHandler.handle(e);
 				    {
 				    	field.add(questionRow.getField());
-						blankQuestionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + questionRow.getID() + " by " + ClientController.getActiveUser().getName());
+						blankQuestionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + questionRow.getID() + " by " + questionRow.getAuthor());
 				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
 				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
 				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
@@ -358,6 +354,8 @@ public class QuestionBankUIController implements Initializable {
 				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
+						blankQuestionFormUIController.getNewQuestionFormLbl().setText(
+								"Editing question " + questionRow.getID() + " by " + questionRow.getAuthor());
 						field.add(questionRow.getField());
 						blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
 						blankQuestionFormUIController.getFieldCBox().setDisable(true);

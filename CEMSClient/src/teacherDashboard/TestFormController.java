@@ -344,17 +344,16 @@ public class TestFormController implements Initializable {
 	}
 
 	private double addTextAndresizeTextArea(JFXTextArea textArea, String text) {
-		Text t = new Text(text);
-		t.setFont(textArea.getFont());
-		StackPane pane = new StackPane(t);
+		Text textBox = new Text(text);
+		textBox.setFont(textArea.getFont());
+		StackPane pane = new StackPane(textBox);
 		pane.layout();
-		double height2 = pane.getHeight();
-		double width = t.getLayoutBounds().getWidth();
-		double height = t.getLayoutBounds().getHeight();
-		double padding = 30;
-		textArea.setMaxHeight(height + padding);
+		double paneHeight = pane.getHeight();
+		double textBoxHeight = textBox.getLayoutBounds().getHeight();
+		double paddingToBeAdded = 30;
+		textArea.setMaxHeight(textBoxHeight + paddingToBeAdded);
 		textArea.setText(text);
-		return height2 - height;
+		return paneHeight - textBoxHeight;
 	}
 
 	/**
