@@ -113,7 +113,8 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	 */
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) throws IOException {
-		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		activeTests = loader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
@@ -165,6 +166,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ClientController.setTeacherDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
 

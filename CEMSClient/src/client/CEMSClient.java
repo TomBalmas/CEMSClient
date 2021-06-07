@@ -74,11 +74,13 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
+		System.out.println(msg.toString());
 		if (msg == null)
 			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
+
 			// case of login
 			if (msg instanceof User) {
 				if (msg instanceof Teacher) {
@@ -91,6 +93,9 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setRoleFrame("Principle");
 					activeUser = (Principle) msg;
 				}
+			} else if (msg instanceof TimeExtensionRequest) {
+				System.out.println(((TimeExtensionRequest) msg).getTestCode());
+				ClientController.setTimeExtensionRequest((TimeExtensionRequest) msg);
 			} else if (msg instanceof Report) {
 				ClientController.setReport((Report) msg);
 			}
@@ -141,8 +146,8 @@ public class CEMSClient extends ObservableClient {
 				}
 			} else if (msg instanceof ScheduledTest)
 				ClientController.setScheduledTest((ScheduledTest) msg);
-			else if (msg instanceof TimeExtensionRequest)
-				ClientController.setTimeExtensionRequest((TimeExtensionRequest) msg);
+			else if (msg instanceof Course)
+				ClientController.setCourse((Course) msg);
 			else if (msg instanceof String) {
 				String str = (String) msg;
 				// getting message from query when adding a new question
@@ -192,6 +197,9 @@ public class CEMSClient extends ObservableClient {
 				} else if (str.equals("notifyStudent")) {
 					setChanged();
 					notifyObservers();
+				} else if (str.startsWith("timeExtension")) {
+					setChanged();
+					notifyObservers(str);
 				} else if (str.equals("principleNotified"))
 					ClientController.setPrincipleNotified(true);
 				else if (((String) msg).startsWith("name")) {

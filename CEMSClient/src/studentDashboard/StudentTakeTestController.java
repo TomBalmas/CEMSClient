@@ -1,7 +1,6 @@
 package studentDashboard;
 
 import java.net.URL;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Observer;
@@ -99,15 +98,26 @@ public class StudentTakeTestController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ClientController.setStudentTakeTestController(this);
 		manualBtn.setToggleGroup(testGroup);
 		computedBtn.setToggleGroup(testGroup);
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		ClientController.accept("GET_REQUEST_BY_CODE-" + testCode);
-		testTime = testTime.plusMinutes(ClientController.getTimeExtensionRequest().getMinutes());
-		tfc.getTimeLbl1().setText(testTime.toString());
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				if (((String) arg1).startsWith("timeExtension")) {
+					String[] split = ((String) arg1).split(":");
+					testTime = testTime.plusMinutes(Integer.parseInt(split[1]));
+					tfc.getTimeLbl1().setText(testTime.toString());
+					tfc.getNewTimeLbl().setVisible(true);
+				}
+
+			}
+		});
+
 	}
 
 }

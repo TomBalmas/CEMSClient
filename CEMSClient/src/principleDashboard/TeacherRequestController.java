@@ -28,7 +28,7 @@ public class TeacherRequestController {
 	
 	public JFXButton getDisapprove() {return btnDisapprove;}
 		
-	public JFXButton getAprove() {return btnAprove;}
+	public JFXButton getApprove() {return btnAprove;}
 	
 	public Label getTeacherName() {return teacherName;}
 	

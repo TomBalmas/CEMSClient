@@ -16,6 +16,9 @@ import common.Test;
 import common.TimeExtensionRequest;
 import common.User;
 import principleDashboard.ActiveTestController;
+import studentDashboard.StudentTakeTestController;
+import teacherDashboard.TeacherDashboardUIController;
+import teacherDashboard.ViewActiveTestsController;
 
 public class ClientController {
 
@@ -28,6 +31,8 @@ public class ClientController {
 	private static boolean testRemoved;
 	private static boolean testRescheduled;
 	private static ActiveTestController activeTestController;
+	private static TeacherDashboardUIController teacherDashboardUIController;
+	private static StudentTakeTestController studentTakeTestController;
 	private static boolean questionEdited;
 	private static boolean testScheduled;
 	private static String authorName = null;
@@ -35,7 +40,6 @@ public class ClientController {
 	private static Report report;
 	private static ScheduledTest scheduledTest = null;
 	private static TimeExtensionRequest timeExtensionRequest;
-
 	private static boolean principleNotified = false;
 	private static ArrayList<TimeExtensionRequest> timeExtensionRequests = null;
 	private static ArrayList<Question> questions = null;
@@ -43,7 +47,6 @@ public class ClientController {
 	private static ArrayList<Report> reports = null;
 	private static ArrayList<Student> students = null;
 	private static ArrayList<Teacher> teachers = null;
-
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
@@ -51,6 +54,7 @@ public class ClientController {
 	private static ArrayList<StudentGrade> grades;
 	private static String id = null;
 	private static Test studentTest = null;
+	private static Course course;
 
 	public static boolean isPrincipleNotified() {
 		return principleNotified;
@@ -81,6 +85,14 @@ public class ClientController {
 
 	}
 
+	public static Course getCourse() {
+		return course;
+	}
+
+	public static void setCourse(Course course) {
+		ClientController.course = course;
+	}
+
 	public static ActiveTestController getActiveTestController() {
 		return activeTestController;
 	}
@@ -88,6 +100,24 @@ public class ClientController {
 	public static void setActiveTestController(ActiveTestController atc) {
 		activeTestController = atc;
 		client.addObserver(activeTestController);
+	}
+
+	public static TeacherDashboardUIController getTeacherDashboardUIController() {
+		return teacherDashboardUIController;
+	}
+
+	public static void setTeacherDashboardUIController(TeacherDashboardUIController teacherDashboardUIController) {
+		ClientController.teacherDashboardUIController = teacherDashboardUIController;
+		client.addObserver(teacherDashboardUIController);
+	}
+
+	public static StudentTakeTestController getStudentTakeTestController() {
+		return studentTakeTestController;
+	}
+
+	public static void setStudentTakeTestController(StudentTakeTestController studentTakeTestController) {
+		ClientController.studentTakeTestController = studentTakeTestController;
+		client.addObserver(studentTakeTestController);
 	}
 
 	/**
