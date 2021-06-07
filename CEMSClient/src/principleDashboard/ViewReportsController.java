@@ -33,6 +33,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 import teacherDashboard.QuestionBankUIController.questionRow;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -137,6 +138,7 @@ public class ViewReportsController implements Initializable {
 		Report report;
 
 		public reportRow(Report report) {
+			this.report=report;
 			this.reportId = report.getId();
 			testID = report.getTestId();
 			numberOfStudents = report.getNumberOfStudents();
@@ -227,10 +229,8 @@ public class ViewReportsController implements Initializable {
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
-
-		
-		
-		
+   
+		  
 		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
@@ -263,7 +263,23 @@ public class ViewReportsController implements Initializable {
 							String median = String.valueOf(reportRow.getMedian());
 							reportFormController.getAverageTxt().setText(average);
 							reportFormController.getMedianTxt().setText(median);
-							JFXButton buttonText = (JFXButton) event.getSource();
+							reportFormController.getxAxisExam().setLabel("range");
+							reportFormController.getyAxisGrades().setLabel("Students");
+							reportFormController.setUserNameLbl("Test: "+reportRow.getTestID());
+							  Series<String,Number> set = new XYChart.Series<String,Number>();
+							  set.getData().add(new XYChart.Data<String,Number>("0-54.9",reportRow.getReport().getF())); 
+							  set.getData().add(new XYChart.Data<String,Number>("55-64",reportRow.getReport().getDMinus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("65-69",reportRow.getReport().getDPlus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("70-74",reportRow.getReport().getCMinus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("75-79",reportRow.getReport().getCPlus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("80-84",reportRow.getReport().getBMinus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("85-59",reportRow.getReport().getBPlus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("90-94",reportRow.getReport().getAMinus())); 
+							  set.getData().add(new XYChart.Data<String,Number>("95-100",reportRow.getReport().getAPlus())); 
+							  reportFormController.setSet(set);
+								reportFormController.getHistograma().getData().addAll(set);
+							
+							
 
 						} catch (IOException e1) {
 							e1.printStackTrace();

@@ -2,6 +2,8 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -21,7 +23,7 @@ import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
 
-public class TeacherDashboardUIController implements Initializable {
+public class TeacherDashboardUIController implements Initializable, Observer {
 
 	@FXML
 	private VBox menuVBox;
@@ -52,6 +54,9 @@ public class TeacherDashboardUIController implements Initializable {
 
 	@FXML
 	private JFXButton checkTestsBtn;
+
+	@FXML
+	private JFXButton approvedBtn;
 
 	@FXML
 	private JFXButton signOutBtn;
@@ -108,7 +113,8 @@ public class TeacherDashboardUIController implements Initializable {
 	 */
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) throws IOException {
-		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		activeTests = loader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
@@ -160,8 +166,26 @@ public class TeacherDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ClientController.setTeacherDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-		
+
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		String isApproved = null;
+		if (arg instanceof String)
+			isApproved = (String) arg;
+		if (isApproved.equals("approved")) {
+			approvedBtn.setVisible(true);
+			approvedBtn.setText("Approved");
+
+		} else {
+			approvedBtn.setVisible(true);
+			approvedBtn.setText("Disapproved");
+
+		}
+
 	}
 }

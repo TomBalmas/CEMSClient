@@ -16,6 +16,9 @@ import common.Test;
 import common.TimeExtensionRequest;
 import common.User;
 import principleDashboard.ActiveTestController;
+import studentDashboard.StudentTakeTestController;
+import teacherDashboard.TeacherDashboardUIController;
+import teacherDashboard.ViewActiveTestsController;
 
 public class ClientController {
 
@@ -28,6 +31,8 @@ public class ClientController {
 	private static boolean testRemoved;
 	private static boolean testRescheduled;
 	private static ActiveTestController activeTestController;
+	private static TeacherDashboardUIController teacherDashboardUIController;
+	private static StudentTakeTestController studentTakeTestController;
 	private static boolean questionEdited;
 	private static boolean testScheduled;
 	private static boolean isTimeForTest;
@@ -37,8 +42,7 @@ public class ClientController {
 	private static String newQuestionId;
 	private static Report report;
 	private static ScheduledTest scheduledTest = null;
-
-
+	private static TimeExtensionRequest timeExtensionRequest;
 	private static boolean principleNotified = false;
 	private static ArrayList<TimeExtensionRequest> timeExtensionRequests = null;
 	private static ArrayList<Question> questions = null;
@@ -46,7 +50,6 @@ public class ClientController {
 	private static ArrayList<Report> reports = null;
 	private static ArrayList<Student> students = null;
 	private static ArrayList<Teacher> teachers = null;
-	
 	private static ArrayList<ScheduledTest> scheduledTests = null;
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
@@ -54,6 +57,7 @@ public class ClientController {
 	private static ArrayList<StudentGrade> grades;
 	private static String id = null;
 	private static Test studentTest = null;
+	private static Course course;
 
 	public static boolean isPrincipleNotified() {
 		return principleNotified;
@@ -67,13 +71,29 @@ public class ClientController {
 		return scheduledTest;
 	}
 
+	public static TimeExtensionRequest getTimeExtensionRequest() {
+		return timeExtensionRequest;
+	}
+
+	public static void setTimeExtensionRequest(TimeExtensionRequest timeExtensionRequest) {
+		ClientController.timeExtensionRequest = timeExtensionRequest;
+	}
+
 	public static void setScheduledTest(ScheduledTest scheduledTest) {
 		ClientController.scheduledTest = scheduledTest;
 	}
 
 	public ClientController(String host, int port) {
 		client = new CEMSClient(host, port, this);
-		
+
+	}
+
+	public static Course getCourse() {
+		return course;
+	}
+
+	public static void setCourse(Course course) {
+		ClientController.course = course;
 	}
 
 	public static ActiveTestController getActiveTestController() {
@@ -83,6 +103,24 @@ public class ClientController {
 	public static void setActiveTestController(ActiveTestController atc) {
 		activeTestController = atc;
 		client.addObserver(activeTestController);
+	}
+
+	public static TeacherDashboardUIController getTeacherDashboardUIController() {
+		return teacherDashboardUIController;
+	}
+
+	public static void setTeacherDashboardUIController(TeacherDashboardUIController teacherDashboardUIController) {
+		ClientController.teacherDashboardUIController = teacherDashboardUIController;
+		client.addObserver(teacherDashboardUIController);
+	}
+
+	public static StudentTakeTestController getStudentTakeTestController() {
+		return studentTakeTestController;
+	}
+
+	public static void setStudentTakeTestController(StudentTakeTestController studentTakeTestController) {
+		ClientController.studentTakeTestController = studentTakeTestController;
+		client.addObserver(studentTakeTestController);
 	}
 
 	/**
@@ -122,7 +160,6 @@ public class ClientController {
 	public static void setTestScheduled(boolean testScheduled) {
 		ClientController.testScheduled = testScheduled;
 	}
-	
 
 	public static ArrayList<TimeExtensionRequest> getTimeExtensionRequests() {
 		return timeExtensionRequests;
@@ -270,9 +307,9 @@ public class ClientController {
 	}
 
 	public static void setStudentTest(Test test) {
-		ClientController.studentTest  = test;
-	} 
-	
+		ClientController.studentTest = test;
+	}
+
 	public static Test getStudentTest() {
 		return studentTest;
 	}
@@ -280,9 +317,11 @@ public class ClientController {
 	public static void setStudents(ArrayList<Student> students) {
 		ClientController.students = students;
 	}
+
 	public static ArrayList<Student> getStudents() {
 		return students;
 	}
+
 	public static ArrayList<Teacher> getTeachers() {
 		return teachers;
 	}
@@ -290,6 +329,7 @@ public class ClientController {
 	public static void setTeachers(ArrayList<Teacher> teachers) {
 		ClientController.teachers = teachers;
 	}
+
 	public static Report getReport() {
 		return report;
 	}
@@ -297,12 +337,13 @@ public class ClientController {
 	public static void setReport(Report report) {
 		ClientController.report = report;
 	}
+
 	public static void setGrades(ArrayList<StudentGrade> grades) {
-		
+
 		ClientController.grades = grades;
 	}
-	
-	public static ArrayList<StudentGrade> getGrades(){
+
+	public static ArrayList<StudentGrade> getGrades() {
 		return grades;
 	}
 
