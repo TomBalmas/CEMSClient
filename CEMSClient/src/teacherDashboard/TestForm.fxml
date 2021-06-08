@@ -2,12 +2,14 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -19,7 +21,7 @@
          </padding></ScrollPane>
       <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <AnchorPane fx:id="insideTestSideBarAnchor" prefHeight="800.0" prefWidth="273.0">
+            <AnchorPane prefHeight="800.0" prefWidth="273.0">
                <children>
                   <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
@@ -165,6 +167,100 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="teacherCheckTestSideBar" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <AnchorPane prefHeight="800.0" prefWidth="273.0">
+               <children>
+                  <JFXButton fx:id="finishBtn1" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Approve grade" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="clickedButton" />
+                        <String fx:value="button" />
+                        <String fx:value="finishTestBtn" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CHECK" size="16.0" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="downloadBtn1" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="309.0" onMouseClicked="#downloadFileClicked" prefHeight="47.0" styleClass="disaproveGradeBtn" text="Disapprove grade" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TIMES" size="30" translateX="-108.0" translateY="0.5" />
+                     </graphic>
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </JFXButton>
+                  <AnchorPane fx:id="questionAnchor1" layoutY="150.0" prefHeight="150.0" prefWidth="273.0">
+                     <children>
+                        <Label fx:id="questionLbl1" layoutX="72.0" layoutY="14.0" text="Copy suspect" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="14.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane fx:id="insideQuestionAnchor1" layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
+                           <children>
+                              <Label fx:id="questionAnsweredLbl1" layoutX="106.0" layoutY="14.0" text="No">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalQuestionsLbl1" layoutX="31.0" layoutY="46.0" text="With 20579343">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <styleClass>
+                        <String fx:value="paneBorder" />
+                        <String fx:value="grayPane" />
+                     </styleClass>
+                  </AnchorPane>
+                  <AnchorPane fx:id="timeAnchor1" prefHeight="150.0" prefWidth="273.0">
+                     <children>
+                        <Label fx:id="timeLbl1" layoutX="55.0" layoutY="14.0" text="Automatic grade" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane fx:id="timeValueAnchor1" layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
+                           <children>
+                              <Label fx:id="averageTxt" alignment="CENTER" layoutX="95.0" layoutY="16.0" text="100" textAlignment="CENTER">
+                                 <styleClass>
+                                    <String fx:value="GradeLbl" />
+                                    <String fx:value="aGradeLbl" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <styleClass>
+                        <String fx:value="paneBorder" />
+                        <String fx:value="grayPane" />
+                     </styleClass>
+                  </AnchorPane>
+                  <AnchorPane fx:id="disapproveGradeAnchor" layoutX="12.0" layoutY="490.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+                     <children>
+                        <VBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXTextField fx:id="newGrade" labelFloat="true" prefHeight="42.0" prefWidth="243.0" promptText="New grade">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextArea fx:id="teacherNotes" focusColor="#405aa800" prefHeight="159.0" prefWidth="249.0" promptText="Notes" styleClass="fileCommentsTxtArea" unFocusColor="GREY">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </JFXTextArea>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
       <JFXButton fx:id="editBtn" layoutX="10.0" layoutY="10.0" stylesheets="@../util/Style.css" text="Edit test" textAlignment="RIGHT">
          <font>
             <Font size="19.0" />
@@ -174,5 +270,6 @@
             <String fx:value="button" />
          </styleClass>
       </JFXButton>
+      <StackPane fx:id="popUpWindow" layoutX="530.0" layoutY="330.0" prefHeight="150.0" prefWidth="400.0" stylesheets="@../util/Style.css" />
    </children>
 </AnchorPane>

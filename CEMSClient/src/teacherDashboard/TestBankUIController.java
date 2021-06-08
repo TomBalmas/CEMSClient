@@ -33,9 +33,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.AddingNewTestUIController.QuestionRow;
-import teacherDashboard.QuestionBankUIController.questionRow;
-import teacherDashboard.ScheduledTestsController.ScheduleTestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -349,9 +346,22 @@ public class TestBankUIController implements Initializable {
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
 									.setText(tr.getTest().getStudentInstructions());
+//							Platform.runLater(new Runnable() {
+//								@Override
+//								public void run() {
+//									//editTestController.getQuestionTable().getSelectionModel().select(1);
+//									//editTestController.setQuestionController(tr.getTestId());
+//								}
+//							});
+//
+//							//ClientController.accept("GET_QUESTIONS_FROM_TEST-" + tr.getTestId());
 //							editTestController.getQuestionTable().getItems().remove(0);
-//							for (String question : tr.getTest().getQuestions()) {
+//							for (Question question : ClientController.getQuestions()) {
 //								//System.out.println(editTestController.getQuestionTable().getItems().forEach(null));
+//								//if(ClientController.getQuestions())
+//								editTestController.getQuestionTable().getItems().forEach(e -> {
+//									if(e.getID().equals(question.getID())) editTestController.getQuestionTable().getSelectionModel().select(e);
+//								});
 //								editTestController.getQuestionTable().getItems().removeIf((t) -> {
 //									return false || !((QuestionRow) t).getID().equals(question);
 //								});
@@ -468,4 +478,4 @@ public class TestBankUIController implements Initializable {
 		testAnchor.toBack();
     }
 
-}
+} 

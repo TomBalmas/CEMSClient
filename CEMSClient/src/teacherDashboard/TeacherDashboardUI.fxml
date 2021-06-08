@@ -41,3 +41,4 @@
       <StackPane fx:id="popUpWindow" layoutX="520.0" layoutY="320.0" prefHeight="150.0" prefWidth="400.0" stylesheets="@../util/Style.css" />
    </children>
 </AnchorPane>
+ 

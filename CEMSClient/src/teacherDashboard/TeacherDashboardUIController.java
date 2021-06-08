@@ -184,7 +184,6 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		} else {
 			approvedBtn.setVisible(true);
 			approvedBtn.setText("Disapproved");
-
 		}
 
 	}

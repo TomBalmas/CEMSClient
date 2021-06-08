@@ -15,7 +15,6 @@ import common.Question;
 import common.Student;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -52,9 +51,6 @@ public class TestFormController implements Initializable {
 
 	@FXML
 	private AnchorPane testSideBarAnchor;
-
-	@FXML
-	private AnchorPane insideTestSideBarAnchor;
 
 	@FXML
 	private JFXButton finishBtn;
@@ -124,6 +120,10 @@ public class TestFormController implements Initializable {
 
 	@FXML
 	private JFXButton editBtn;
+	
+    @FXML
+    private StackPane popUpWindow;
+
 	private VBox vbox = new VBox();
 	private String fileFullPath, fileName, submittedBy = "self";
 	private boolean flag = false; // flag to decide student/teacher
@@ -229,6 +229,7 @@ public class TestFormController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		GeneralUIMethods.setPopupPane(popUpWindow);
 		if (ClientController.getRoleFrame().equals("Student"))
 			student = (Student) ClientController.getActiveUser();
 		downloadBtn.setVisible(false);
@@ -250,39 +251,6 @@ public class TestFormController implements Initializable {
 			}
 		}));
 		startTime = System.currentTimeMillis(); // Start count time
-	}
-
-	private void setDraggedFileEvents() {
-		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
-			@Override
-			public void handle(DragEvent event) {
-				uploadFileAnchor.setStyle("-fx-background-color: #DAD9DD;");
-				if (event.getGestureSource() != uploadFileAnchor && event.getDragboard().hasFiles()) {
-					event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-				}
-				event.consume();
-			}
-		});
-		uploadFileAnchor.setOnDragDropped(new EventHandler<DragEvent>() {
-			@Override
-			public void handle(DragEvent event) {
-				Dragboard db = event.getDragboard();
-				boolean success = false;
-				if (db.hasFiles()) {
-					fileFullPath = db.getFiles().toString();
-					fileName = fileFullPath.substring(fileFullPath.lastIndexOf("\\") + 1);
-					fileName = fileName.substring(0, fileName.length() - 1);
-					fileNameLbl.setText(fileName);
-					success = true;
-				}
-				event.setDropCompleted(success);
-				event.consume();
-				fileUploadedAnchor.setVisible(success);
-				uploadFileAnchor.setVisible(!success);
-				uploadBtn.setVisible(false);
-				finishBtn.setVisible(true);
-			}
-		});
 	}
 
 	/**
@@ -384,6 +352,39 @@ public class TestFormController implements Initializable {
 	void downloadFileClicked(MouseEvent event) {
 
 	}
+	
+	private void setDraggedFileEvents() {
+		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				uploadFileAnchor.setStyle("-fx-background-color: #DAD9DD;");
+				if (event.getGestureSource() != uploadFileAnchor && event.getDragboard().hasFiles()) {
+					event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+				}
+				event.consume();
+			}
+		});
+		uploadFileAnchor.setOnDragDropped(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				boolean success = false;
+				if (db.hasFiles()) {
+					fileFullPath = db.getFiles().toString();
+					fileName = fileFullPath.substring(fileFullPath.lastIndexOf("\\") + 1);
+					fileName = fileName.substring(0, fileName.length() - 1);
+					fileNameLbl.setText(fileName);
+					success = true;
+				}
+				event.setDropCompleted(success);
+				event.consume();
+				fileUploadedAnchor.setVisible(success);
+				uploadFileAnchor.setVisible(!success);
+				uploadBtn.setVisible(false);
+				finishBtn.setVisible(true);
+			}
+		});
+	}
 
 	/**
 	 * upload file
@@ -412,7 +413,7 @@ public class TestFormController implements Initializable {
 	void finishTestClicked(MouseEvent event) throws IOException {
 		if (fileFullPath != null) { // Manual test
 			// ClientController.accept("FILE: " + fileFullPath);
-		} else { // TODO:remove comment when DB is ready
+		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
 				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
@@ -420,16 +421,7 @@ public class TestFormController implements Initializable {
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
 		}
 
-		// TODO: save finish test
-		// get scheduler
-//		ClientController.accept("ACTIVE_TEST" + testScheduler);
-//		ArrayList<ActiveTest> activeTest = ClientController.getActiveTests();
-//		ActiveTest currentTest = null;
-//		for (ActiveTest at : activeTest) 
-//			if(at.getID().equals(test.getID()))
-//					currentTest = at;
-
-		//studentSSN,testId,code,timeTaken,presentationMethod,title,course,status
+		// Add the student test to the finished test table
 		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
 				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "not checked");
 		
@@ -443,15 +435,21 @@ public class TestFormController implements Initializable {
 		}
 		
 		// Check if its the last student in the
+		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
+		if (ClientController.isLastStudentInTest()) {
+			// If so, lock the test
+			ClientController.accept("LOCK_TEST-" + testCode);
+			if (!ClientController.isTestLocked()) System.out.println("Error locking the test"); //TODO: REMOVE
+			ClientController.setTestLocked(false);
+			ClientController.setLastStudentInTest(false);
+		}
 		
-		
-		// If so, lock the test
-		
-		
-		
-		
+		// Reset variables
 		ClientController.setStudentTest(null);
+		ClientController.setIsActiveTest(false);
+		ClientController.setTimeForTest(false);
 
+		// Show popup window
 		JFXButton okayBtn = new JFXButton("Okay");
 		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 		Node page = null;
@@ -462,6 +460,7 @@ public class TestFormController implements Initializable {
 		}
 		GeneralUIMethods.loadPage(contentPaneAnchor, page);
 		});
+
 		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
 	}
 

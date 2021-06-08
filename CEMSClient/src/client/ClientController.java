@@ -38,6 +38,9 @@ public class ClientController {
 	private static boolean isTimeForTest;
 	private static boolean isStudentAddedToTest;
 	private static boolean isStudentDeletedFromTest;
+	private static boolean isActiveTest;
+	private static boolean isLastStudentInTest;
+	private static boolean isTestLocked;
 	private static String authorName = null;
 	private static String newQuestionId;
 	private static Report report;
@@ -130,6 +133,7 @@ public class ClientController {
 	 */
 	public static void accept(String str) {
 		try {
+			System.out.println(str);
 			client.handleMessageFromClientUI(str);
 		} catch (Exception e) {
 			try {
@@ -369,6 +373,30 @@ public class ClientController {
 
 	public static void setStudentDeletedFromTest(boolean isStudentDeletedFromTest) {
 		ClientController.isStudentDeletedFromTest = isStudentDeletedFromTest;
+	}
+
+	public static boolean getIsActiveTest() {
+		return isActiveTest;
+	}
+
+	public static void setIsActiveTest(boolean isActiveTest) {
+		ClientController.isActiveTest = isActiveTest;
+	}
+
+	public static boolean isLastStudentInTest() {
+		return isLastStudentInTest;
+	}
+
+	public static void setLastStudentInTest(boolean isLastStudentInTest) {
+		ClientController.isLastStudentInTest = isLastStudentInTest;
+	}
+
+	public static boolean isTestLocked() {
+		return isTestLocked;
+	}
+
+	public static void setTestLocked(boolean isTestLocked) {
+		ClientController.isTestLocked = isTestLocked;
 	}
 }
  

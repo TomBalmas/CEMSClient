@@ -74,6 +74,8 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
+		
+		System.out.println(msg.toString());
 		if (msg == null)
 			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
@@ -131,10 +133,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setFinishedTests((ArrayList<FinishedTest>) msg);
 				// get courses by field
 				else if (((ArrayList<?>) msg).get(0) instanceof Course)
-				{
 					ClientController.setCourses((ArrayList<Course>) msg);
-					
-				}
 				// get reports
 				else if (((ArrayList<?>) msg).get(0) instanceof Report)
 					ClientController.setReports((ArrayList<Report>) msg);
@@ -170,6 +169,23 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTestScheduled(true);
 				else if (str.equals("notScheduled"))
 					ClientController.setTestScheduled(false);
+				else if (str.equals("testActive")) {
+					ClientController.setIsActiveTest(true);
+					ClientController.setTimeForTest(true);
+				}
+				else if (str.equals("testNotActive"))
+					ClientController.setIsActiveTest(false);
+				
+				else if (str.equals("testLocked"))
+					ClientController.setTestLocked(true);
+				else if (str.equals("testNotLocked"))
+					ClientController.setTestLocked(false);
+	
+				else if (str.equals("lastStudent"))
+					ClientController.setLastStudentInTest(true);
+				else if (str.equals("notLastStudent"))
+					ClientController.setLastStudentInTest(false);
+				
 				else if (str.equals("timeForTest"))
 					ClientController.setTimeForTest(true);
 				else if (str.equals("notTimeForTest"))
@@ -180,7 +196,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setStudentAddedToTest(false);
 				else if (str.equals("studentRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(true);
-				else if (str.equals("studentNotRemovedFromTest"))
+				else if (str.equals("studentNotRemovedFromTest"))	
 					ClientController.setStudentDeletedFromTest(false);
 				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
@@ -221,11 +237,9 @@ public class CEMSClient extends ObservableClient {
 					String[] toSplit = ((String) msg).split(":");
 					ClientController.setAuthorName(toSplit[1]);
 				}
-
 			}
 
 		}
 	}
 
 }
- 

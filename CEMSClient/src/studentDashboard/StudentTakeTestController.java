@@ -1,7 +1,6 @@
 package studentDashboard;
 
 import java.net.URL;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Observable;
@@ -70,22 +69,27 @@ public class StudentTakeTestController implements Initializable, Observer {
 
 	@FXML
 	void beginTestClicked(MouseEvent event) {
-		if (testCodeField.getText().equals("")) { // Check if the student entered a test code
+		// Check if the student entered a test code
+		if (testCodeField.getText().equals("")) {
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
 					null);
 			return;
 		}
-		//ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
 
-		ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
+		//Check if the test is already active
+		ClientController.accept("IS_TEST_ACTIVE-" + testCodeField.getText());
+		if(!ClientController.getIsActiveTest()) // If not, check if its the time for test
+			ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
 		if (ClientController.isTimeForTest()) {
 			testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			if (testGroup.getSelectedToggle().equals(manualBtn))
 				testType = "Manual";
 			else
 				testType = "Computed";
+			// Create the test form
 			GeneralUIMethods.buildTestForm(contentPaneAnchor, null, testCodeField.getText(), testType, testFormLoader);
 
+			// Add student to the students in tests table
 			if (ClientController.getStudentTest() != null) {
 				tfc = testFormLoader.getController();
 				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
@@ -94,6 +98,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 							null);
 					return;
 				}
+				// Set test due to
 				int duration = ClientController.getStudentTest().getTestDuration();
 				ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCodeField.getText());
 				ScheduledTest st = ClientController.getScheduledTest();
@@ -107,7 +112,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 				// timer comes here maybe: TODO
 			}
 		}
-		else 
+		else // If the test is not scheduled for now
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
 					null);
 	}
@@ -130,7 +135,6 @@ public class StudentTakeTestController implements Initializable, Observer {
 					tfc.getTimeLbl1().setText(testTime.toString());
 					tfc.getNewTimeLbl().setVisible(true);
 				}
-
 			}
 		});
 
