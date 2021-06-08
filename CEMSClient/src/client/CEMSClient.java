@@ -19,6 +19,7 @@ import common.Test;
 import common.TestFile;
 import common.TimeExtensionRequest;
 import common.User;
+import javafx.util.Pair;
 import ocsf.client.ObservableClient;
 
 public class CEMSClient extends ObservableClient {
@@ -49,19 +50,21 @@ public class CEMSClient extends ObservableClient {
 		}
 		if (msg.startsWith("FILE")) {
 			try {
-				String[] split = msg.split(":");
-				TestFile file = new TestFile(split[1]);
-				File f = new File(split[1]);
+				String[] split = msg.split("~");
+				String[] fileNameSplit = split[0].split(":");
+				TestFile file = new TestFile(fileNameSplit[0]);
+				File f = new File(fileNameSplit[0]);
 				byte[] byteArray = new byte[(int) f.length()];
 				FileInputStream fis = new FileInputStream(f);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				file.initArray(byteArray.length);
 				file.setSize(byteArray.length);
 				bis.read(file.getByteArray(), 0, byteArray.length);
-				sendToServer(file);
+				String[] args = split[1].split(":");
+				sendToServer(new Pair<TestFile, String>(file, args[1]));
 				bis.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		awaitResponse = true;
@@ -74,7 +77,7 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		
+
 		System.out.println(msg.toString());
 		if (msg == null)
 			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
@@ -172,20 +175,19 @@ public class CEMSClient extends ObservableClient {
 				else if (str.equals("testActive")) {
 					ClientController.setIsActiveTest(true);
 					ClientController.setTimeForTest(true);
-				}
-				else if (str.equals("testNotActive"))
+				} else if (str.equals("testNotActive"))
 					ClientController.setIsActiveTest(false);
-				
+
 				else if (str.equals("testLocked"))
 					ClientController.setTestLocked(true);
 				else if (str.equals("testNotLocked"))
 					ClientController.setTestLocked(false);
-	
+
 				else if (str.equals("lastStudent"))
 					ClientController.setLastStudentInTest(true);
 				else if (str.equals("notLastStudent"))
 					ClientController.setLastStudentInTest(false);
-				
+
 				else if (str.equals("timeForTest"))
 					ClientController.setTimeForTest(true);
 				else if (str.equals("notTimeForTest"))
@@ -196,7 +198,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setStudentAddedToTest(false);
 				else if (str.equals("studentRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(true);
-				else if (str.equals("studentNotRemovedFromTest"))	
+				else if (str.equals("studentNotRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(false);
 				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
