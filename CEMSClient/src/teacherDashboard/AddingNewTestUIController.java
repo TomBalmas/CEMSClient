@@ -50,8 +50,8 @@ public class AddingNewTestUIController implements Initializable {
 	private Node testBank;
 	private Set<Question> pickedQuestions;
 	ArrayList<Question> questions;
-	ObservableList fields = FXCollections.observableArrayList();
-	ObservableList courses = FXCollections.observableArrayList();
+	ObservableList<String> fields = FXCollections.observableArrayList();
+	ObservableList<String> courses = FXCollections.observableArrayList();
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -224,6 +224,10 @@ public class AddingNewTestUIController implements Initializable {
 			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
 			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldCBox.getValue());
 			courses.clear();
+			if (ClientController.getCourses().isEmpty()) {
+				System.out.println("Error: no courses in the field " + selectFieldCBox.getValue());
+				return;
+			}
 			for (Course course : ClientController.getCourses())
 				courses.add(course.getName());
 			selectCourseCBox.setItems(courses);
@@ -315,35 +319,6 @@ public class AddingNewTestUIController implements Initializable {
 		if(--Screen == -1) Screen = 0;
 	}
 
-	/**
-	 * clicking continue will move to blank test form only if at least one question
-	 * was chosen.
-	 * 
-	 * @param event
-	 */
-	@FXML
-	void clickFinish(MouseEvent event) {
-		Screen++;
-		try {
-			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
-			for (Question q : pickedQuestions) {
-				sb.append(q.getID());
-				sb.append("~");
-			}
-			sb.deleteCharAt(sb.length() - 1);
-			System.out.println(sb.toString());
-			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
-					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
-					+ teacherInst + "," + sb.toString() + "," + field);
-
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			contentPaneAnchor.getChildren().setAll(testBank);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	/*
 	 * testTitle, duration, course, studentInst, teacherInst//
 	 */
@@ -398,6 +373,35 @@ public class AddingNewTestUIController implements Initializable {
 
 		// -------------need to implement an if statement that will block passage if no
 		// questions were selected--------------
+	}
+	
+	/**
+	 * clicking continue will move to blank test form only if at least one question
+	 * was chosen.
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void clickFinish(MouseEvent event) {
+		Screen++;
+		try {
+			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
+			for (Question q : pickedQuestions) {
+				sb.append(q.getID());
+				sb.append("~");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			System.out.println(sb.toString());
+			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
+					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+					+ teacherInst + "," + sb.toString() + "," + field);
+
+			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
+			contentPaneAnchor.getChildren().setAll(testBank);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

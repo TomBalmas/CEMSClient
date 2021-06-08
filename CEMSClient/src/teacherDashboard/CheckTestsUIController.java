@@ -312,5 +312,5 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
-}
+} 
  

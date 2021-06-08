@@ -260,7 +260,8 @@ public class QuestionBankUIController implements Initializable {
 			String[] fieldsSplit = teacher.getFields().split("~");
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
-				//calling query for getting teachers field questions 
+			
+			//calling query for getting teachers field questions 
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields());
 			questions = ClientController.getQuestions();
 		}
