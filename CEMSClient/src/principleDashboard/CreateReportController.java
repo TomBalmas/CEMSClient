@@ -84,9 +84,6 @@ public class CreateReportController implements Initializable {
 	private Label selectCourseLbl;
 
 	@FXML
-	private JFXComboBox<?> selectCourseCbox;
-
-	@FXML
 	private AnchorPane tableViewAnchor;
 
 	@FXML
@@ -152,9 +149,7 @@ public class CreateReportController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		selectCourseCbox.setVisible(false);
 		selectTypeCbox.setItems(options);
-		selectCourseCbox.valueProperty().set(null);
 		listView.setPrefWidth(100);
 		listView.setPrefHeight(70);
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -178,7 +173,9 @@ public class CreateReportController implements Initializable {
 					Row selected = reportsTbl.getSelectionModel().getSelectedItem();
 					ReportForm = loader.load();
 					reportFormController = loader.getController();
+					
 					if (selectTypeCbox.getValue().equals("Student")) {
+						//listView.getItems().clear();
 						ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
 						ObservableList courses = listView.getSelectionModel().getSelectedItems();
 						if (!listView.getSelectionModel().isEmpty()) {
@@ -189,10 +186,10 @@ public class CreateReportController implements Initializable {
 									sb.append("~");
 							}
 
-							// selectCourseCbox.getValue()
 							ClientController.accept("CREATE_STUDENT_REPORT-" + selected.getId() + "," + sb.toString());
 							report = ClientController.getReport();
-							System.out.println(report.toString());
+			
+							//if report is not empty
 							if (report.isFlag()) {
 								median = String.valueOf(report.getMedian());
 								average = String.valueOf(report.getAverage());
@@ -203,21 +200,20 @@ public class CreateReportController implements Initializable {
 								Series<String, Number> set = new XYChart.Series<String, Number>();
 								ArrayList<Pair<String, Integer>> list = report.getTestsAndGrades();
 								set.getData().clear();
-
 								if (!list.isEmpty()) {
 									for (int i = 0; i < list.size(); i++) {
 										set = new XYChart.Series<String, Number>();
 										ClientController.accept("GET_COURSE_BY_TEST_ID-" + list.get(i).getKey());
-
+										reportFormController.getxAxisExam().setTickLabelRotation(20);
 										set.getData()
 												.add(new XYChart.Data<String, Number>(
 														list.get(i).getKey() + "  "
 																+ ClientController.getCourse().getName(),
 														list.get(i).getValue()));
-
+										reportFormController.getHistograma().getData().addAll(set);
 									}
 									reportFormController.setSet(set);
-									reportFormController.getHistograma().getData().addAll(set);
+									//reportFormController.getHistograma().getData().addAll(set);
 									GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 								}
 							}
@@ -228,6 +224,7 @@ public class CreateReportController implements Initializable {
 						}
 					} // teachers report
 					if (selectTypeCbox.getValue().equals("Teacher")) {
+						listView.getItems().clear();
 						reportFormController.setUserNameLbl("Teacher");
 						ClientController.accept("CREATE_TEACHER_REPORT-" + selected.getId());
 						Report teachersReport = ClientController.getReport();
@@ -258,7 +255,7 @@ public class CreateReportController implements Initializable {
 							reportFormController.getyAxisGrades().setLabel("Value");
 							GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 						} else {
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Report doesnt exist " + " ",
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Cant creatr report. " + "Relevant tests doesnt exist ",
 									contentPaneAnchor, null, null);
 						}
 					}
@@ -292,7 +289,7 @@ public class CreateReportController implements Initializable {
 							GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 
 						} else {
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Report doesnt exist " + " ",
+							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Cant create report.Relevant tests doesnt exist" + " ",
 									contentPaneAnchor, null, null);
 						}
 					}
@@ -318,35 +315,37 @@ public class CreateReportController implements Initializable {
 		// handke clicking on a student row
 		reportsTbl.setOnMouseClicked((MouseEvent event) -> {
 			listView.getItems().clear();
-			selectCourseCbox.setDisable(false);
 			Row selected = reportsTbl.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
 				ClientController.accept("GET_COURSES_BY_STUDENT-" + selected.getId());
-
 				courses = ClientController.getCourses();
-				System.out.println(courses.toString());
-				if (!courses.isEmpty()) {
-
-					selectCourseCbox.getItems().removeAll(selectCourseCbox.getItems());
+				coursesSelection.clear();
+			
+				if (courses!=null) {
+					listView.getItems().clear();
 					for (int i = 0; i < courses.size(); i++) {
 						coursesSelection.add(courses.get(i).getName());
 					}
 
-					selectCourseCbox.setItems(coursesSelection);
 					listView.getItems().addAll(coursesSelection);
 				}
 
 				else {
-					selectCourseCbox.getItems().removeAll(selectCourseCbox.getItems());
-					selectCourseCbox.setDisable(true);
+					
+					coursesSelection.clear();
+					
+					listView.getItems().clear();
+					listView.getItems().removeAll(listView.getItems());
 				}
+				coursesSelection.clear();
+				ClientController.setCourses(null);
 
 			}
 
 		});
 
 		selectTypeCbox.setOnAction((event) -> {
-
+			listView.getItems().clear();
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
 
@@ -354,7 +353,6 @@ public class CreateReportController implements Initializable {
 				finishCoursesDP.setVisible(false);
 				startDPlbl.setVisible(false);
 				endDPlbl.setVisible(false);
-				selectCourseCbox.setVisible(true);
 				selectCourseLbl.setVisible(true);
 				searchField.setPromptText("Search by student name/last name");
 				ClientController.accept("GET_STUDENTS-");
@@ -374,7 +372,6 @@ public class CreateReportController implements Initializable {
 				finishCoursesDP.setVisible(true);
 				startDPlbl.setVisible(true);
 				endDPlbl.setVisible(true);
-				selectCourseCbox.setVisible(false);
 				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by field/course name or code");
 				ClientController.accept("GET_COURSES-");
@@ -393,7 +390,6 @@ public class CreateReportController implements Initializable {
 				finishCoursesDP.setVisible(false);
 				startDPlbl.setVisible(false);
 				endDPlbl.setVisible(false);
-				selectCourseCbox.setVisible(false);
 				selectCourseLbl.setVisible(false);
 				searchField.setPromptText("Search by teacher name/last name");
 				ClientController.accept("GET_TEACHERS-");

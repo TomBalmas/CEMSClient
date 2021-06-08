@@ -74,7 +74,6 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		System.out.println(msg.toString());
 		if (msg == null)
 			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
@@ -132,7 +131,10 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setFinishedTests((ArrayList<FinishedTest>) msg);
 				// get courses by field
 				else if (((ArrayList<?>) msg).get(0) instanceof Course)
+				{
 					ClientController.setCourses((ArrayList<Course>) msg);
+					
+				}
 				// get reports
 				else if (((ArrayList<?>) msg).get(0) instanceof Report)
 					ClientController.setReports((ArrayList<Report>) msg);

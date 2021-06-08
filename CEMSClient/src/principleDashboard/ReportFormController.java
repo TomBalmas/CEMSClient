@@ -74,7 +74,6 @@ public class ReportFormController implements Initializable {
 		// TODO Auto-generated method stub
 		xAxisExam.setAnimated(true);
 		histograma.getData().clear();
-		histograma.setBarGap(20);
 		set.getData().clear();
 		xAxisExam.setTickLabelRotation(45);
 		// Set Font
