@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextArea;
 
 import client.ClientController;
 import common.Question;
+import common.ScheduledTest;
 import common.Student;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -120,9 +121,9 @@ public class TestFormController implements Initializable {
 
 	@FXML
 	private JFXButton editBtn;
-	
-    @FXML
-    private StackPane popUpWindow;
+
+	@FXML
+	private StackPane popUpWindow;
 
 	private VBox vbox = new VBox();
 	private String fileFullPath, fileName, submittedBy = "self";
@@ -180,7 +181,7 @@ public class TestFormController implements Initializable {
 	public JFXButton getBackBtn() {
 		return backBtn;
 	}
-	
+
 	public Label getNewTimeLbl() {
 		return newTimeLbl;
 	}
@@ -216,7 +217,7 @@ public class TestFormController implements Initializable {
 	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
 		return questionsToggleGroup;
 	}
-	
+
 	public Label getTestTitleFromFXMLLbl() {
 		return testTitleFromFXMLLbl;
 	}
@@ -235,10 +236,10 @@ public class TestFormController implements Initializable {
 		downloadBtn.setVisible(false);
 		uploadBtn.setVisible(false);
 		vbox.setSpacing(10);
-		
+
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-		
+
 		setDraggedFileEvents();
 		deleteFileBtn.setOnAction((new EventHandler<ActionEvent>() {
 			@Override
@@ -352,7 +353,7 @@ public class TestFormController implements Initializable {
 	void downloadFileClicked(MouseEvent event) {
 
 	}
-	
+
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
@@ -412,7 +413,10 @@ public class TestFormController implements Initializable {
 	@FXML
 	void finishTestClicked(MouseEvent event) throws IOException {
 		if (fileFullPath != null) { // Manual test
-			// ClientController.accept("FILE: " + fileFullPath);
+			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
+			ScheduledTest scheduledTest = ClientController.getScheduledTest();
+			ClientController.accept("FILE:" + fileFullPath + "~" + "TEST:" + test.getID() + "," + student.getSSN() + ","
+					+ scheduledTest.getBelongsToID() + ","+ scheduledTest.getDate()+","+scheduledTest.getStartingTime());
 		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
@@ -422,28 +426,29 @@ public class TestFormController implements Initializable {
 		}
 
 		// Add the student test to the finished test table
-		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
-				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "not checked");
-		
+		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
+				+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle() + ","
+				+ test.getCourse() + "," + "not checked");
 
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
 		if (!ClientController.isStudentDeletedFromTest()) {
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
-					null);
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test",
+					contentPaneAnchor, null, null);
 			return;
 		}
-		
+
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
 		if (ClientController.isLastStudentInTest()) {
 			// If so, lock the test
 			ClientController.accept("LOCK_TEST-" + testCode);
-			if (!ClientController.isTestLocked()) System.out.println("Error locking the test"); //TODO: REMOVE
+			if (!ClientController.isTestLocked())
+				System.out.println("Error locking the test"); // TODO: REMOVE
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
 		}
-		
+
 		// Reset variables
 		ClientController.setStudentTest(null);
 		ClientController.setIsActiveTest(false);
@@ -451,18 +456,18 @@ public class TestFormController implements Initializable {
 
 		// Show popup window
 		JFXButton okayBtn = new JFXButton("Okay");
-		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-		Node page = null;
-		try {
-			page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		GeneralUIMethods.loadPage(contentPaneAnchor, page);
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+			Node page = null;
+			try {
+				page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			GeneralUIMethods.loadPage(contentPaneAnchor, page);
 		});
 
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null,
+				Arrays.asList(okayBtn), null);
 	}
 
 }
- 
