@@ -415,8 +415,9 @@ public class TestFormController implements Initializable {
 		if (fileFullPath != null) { // Manual test
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
-			ClientController.accept("FILE:" + fileFullPath + "~" + "TEST:" + test.getID() + "," + student.getSSN() + ","
-					+ scheduledTest.getBelongsToID() + ","+ scheduledTest.getDate()+","+scheduledTest.getStartingTime());
+			ClientController.accept("FILE-" + fileFullPath + "~" + "TEST:" + test.getID() + "," + student.getSSN() + ","
+					+ scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
+					+ scheduledTest.getStartingTime());
 		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)

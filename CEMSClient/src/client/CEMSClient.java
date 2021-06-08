@@ -51,9 +51,9 @@ public class CEMSClient extends ObservableClient {
 		if (msg.startsWith("FILE")) {
 			try {
 				String[] split = msg.split("~");
-				String[] fileNameSplit = split[0].split(":");
-				TestFile file = new TestFile(fileNameSplit[0]);
-				File f = new File(fileNameSplit[0]);
+				String[] fileNameSplit = split[0].split("-");
+				TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/"));
+				File f = new File("C:/blabla.docx");
 				byte[] byteArray = new byte[(int) f.length()];
 				FileInputStream fis = new FileInputStream(f);
 				BufferedInputStream bis = new BufferedInputStream(fis);
