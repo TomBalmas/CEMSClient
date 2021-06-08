@@ -13,12 +13,13 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.ActiveTest;
+import common.Student;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -396,6 +397,15 @@ public class ViewActiveTestsController implements Initializable {
 						cont.getConfirmTestLock().setOnMouseClicked(e -> {
 
 							System.out.println("Locking...");
+							ClientController.accept("GET_STUDENTS_IN_TEST_BY_CODE-" + tr.getActiveTest().getCode());
+							ArrayList<Student> students = ClientController.getStudents();
+							StringBuilder sb = new StringBuilder();
+							for (Student student : students) {
+								sb.append(student.getSSN());
+								sb.append(",");
+							}
+							sb.deleteCharAt(sb.length() - 1);
+							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString()); //TODO - bohad fix popup
 //							if (ClientController.accept("LOCK_TEST-" + tr.getID() + ","))
 							((JFXButton) event.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
 //							if (ClientController.isTestLocked())
@@ -486,4 +496,3 @@ public class ViewActiveTestsController implements Initializable {
 		testAnchor.toBack();
 	}
 }
- 

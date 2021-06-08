@@ -44,120 +44,119 @@ import util.PopUp;
 
 public class TestFormController implements Initializable {
 
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private ScrollPane scrollPane;
 
-    @FXML
-    private ScrollPane scrollPane;
+	@FXML
+	private AnchorPane testSideBarAnchor;
 
-    @FXML
-    private AnchorPane testSideBarAnchor;
+	@FXML
+	private JFXButton finishBtn;
 
-    @FXML
-    private JFXButton finishBtn;
+	@FXML
+	private JFXButton uploadBtn;
 
-    @FXML
-    private JFXButton uploadBtn;
+	@FXML
+	private JFXButton backBtn;
 
-    @FXML
-    private JFXButton backBtn;
+	@FXML
+	private JFXButton downloadBtn;
 
-    @FXML
-    private JFXButton downloadBtn;
+	@FXML
+	private AnchorPane uploadFileAnchor;
 
-    @FXML
-    private AnchorPane uploadFileAnchor;
+	@FXML
+	private JFXTextArea uploadFileTxtArea;
 
-    @FXML
-    private JFXTextArea uploadFileTxtArea;
+	@FXML
+	private AnchorPane questionAnchor;
 
-    @FXML
-    private AnchorPane questionAnchor;
+	@FXML
+	private Label questionLbl;
 
-    @FXML
-    private Label questionLbl;
+	@FXML
+	private AnchorPane insideQuestionAnchor;
 
-    @FXML
-    private AnchorPane insideQuestionAnchor;
+	@FXML
+	private Label questionAnsweredLbl;
 
-    @FXML
-    private Label questionAnsweredLbl;
+	@FXML
+	private Label questionAnsweredLbl1;
 
-    @FXML
-    private Label questionAnsweredLbl1;
+	@FXML
+	private Label totalQuestionsLbl;
 
-    @FXML
-    private Label totalQuestionsLbl;
+	@FXML
+	private AnchorPane timeAnchor;
 
-    @FXML
-    private AnchorPane timeAnchor;
+	@FXML
+	private Label timeLbl;
 
-    @FXML
-    private Label timeLbl;
+	@FXML
+	private AnchorPane timeValueAnchor;
 
-    @FXML
-    private AnchorPane timeValueAnchor;
+	@FXML
+	private Label timeLbl1;
 
-    @FXML
-    private Label timeLbl1;
+	@FXML
+	private Label newTimeLbl;
 
-    @FXML
-    private Label newTimeLbl;
+	@FXML
+	private AnchorPane fileUploadedAnchor;
 
-    @FXML
-    private AnchorPane fileUploadedAnchor;
+	@FXML
+	private AnchorPane timeAnchor1;
 
-    @FXML
-    private AnchorPane timeAnchor1;
+	@FXML
+	private Label fileNameLbl;
 
-    @FXML
-    private Label fileNameLbl;
+	@FXML
+	private JFXButton deleteFileBtn;
 
-    @FXML
-    private JFXButton deleteFileBtn;
+	@FXML
+	private JFXTextArea fileCommentsTxtArea;
 
-    @FXML
-    private JFXTextArea fileCommentsTxtArea;
+	@FXML
+	private AnchorPane teacherCheckTestSideBar;
 
-    @FXML
-    private AnchorPane teacherCheckTestSideBar;
+	@FXML
+	private JFXButton finishBtn1;
 
-    @FXML
-    private JFXButton finishBtn1;
+	@FXML
+	private JFXButton downloadBtn1;
 
-    @FXML
-    private JFXButton downloadBtn1;
+	@FXML
+	private AnchorPane questionAnchor1;
 
-    @FXML
-    private AnchorPane questionAnchor1;
+	@FXML
+	private Label questionLbl1;
 
-    @FXML
-    private Label questionLbl1;
+	@FXML
+	private AnchorPane insideQuestionAnchor1;
 
-    @FXML
-    private AnchorPane insideQuestionAnchor1;
+	@FXML
+	private Label totalQuestionsLbl1;
 
-    @FXML
-    private Label totalQuestionsLbl1;
+	@FXML
+	private Label averageTxt;
 
-    @FXML
-    private Label averageTxt;
+	@FXML
+	private AnchorPane disapproveGradeAnchor;
 
-    @FXML
-    private AnchorPane disapproveGradeAnchor;
+	@FXML
+	private JFXTextField newGrade;
 
-    @FXML
-    private JFXTextField newGrade;
+	@FXML
+	private JFXTextArea teacherNotes;
 
-    @FXML
-    private JFXTextArea teacherNotes;
+	@FXML
+	private JFXButton editBtn;
 
-    @FXML
-    private JFXButton editBtn;
-
-    @FXML
-    private StackPane popUpWindow;
+	@FXML
+	private StackPane popUpWindow;
 
 	private VBox vbox = new VBox();
 	private String fileFullPath = "", fileName, submittedBy = "self";
@@ -169,11 +168,19 @@ public class TestFormController implements Initializable {
 	Test test = null;
 	Student student;
 	String testCode = null, testType;
-	
+
 	// getters start
 
 	public String getTestCode() {
 		return testCode;
+	}
+
+	public String getSubmittedBy() {
+		return submittedBy;
+	}
+
+	public void setSubmittedBy(String submittedBy) {
+		this.submittedBy = submittedBy;
 	}
 
 	public void setTestCode(String testCode) {
@@ -257,7 +264,7 @@ public class TestFormController implements Initializable {
 	}
 
 	// getters end
-	
+
 	public void setTestType(String testType) {
 		this.testType = testType;
 	}
@@ -449,12 +456,12 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 */
 	@FXML
-	void finishTestClicked(MouseEvent event) throws IOException {
+	void finishTestClicked(ActionEvent event) throws IOException {
 		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
-			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + "," + student.getSSN() + ","
-					+ scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
+			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
+					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
 					+ scheduledTest.getStartingTime());
 		} else { // Computed test - save student answers
 			String answers = "";
@@ -463,10 +470,10 @@ public class TestFormController implements Initializable {
 			answers = answers.substring(0, answers.length() - 1);
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
 
-		// Add the student test to the finished test table
-		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
-				+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle() + ","
-				+ test.getCourse() + "," + "not checked");
+			// Add the student test to the finished test table
+			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
+					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
+					+ "," + test.getCourse() + "," + "not checked");
 		}
 
 		// Delete the student from the test
