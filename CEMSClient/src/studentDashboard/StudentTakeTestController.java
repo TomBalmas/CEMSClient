@@ -92,6 +92,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 			// Add student to the students in tests table
 			if (ClientController.getStudentTest() != null) {
 				tfc = testFormLoader.getController();
+				tfc.setTestType(testType);
 				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
 				if (!ClientController.isStudentAddedToTest()) {
 					PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,

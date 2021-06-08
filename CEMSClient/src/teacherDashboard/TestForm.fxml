@@ -218,12 +218,12 @@
                   </AnchorPane>
                   <AnchorPane fx:id="timeAnchor1" prefHeight="150.0" prefWidth="273.0">
                      <children>
-                        <Label fx:id="timeLbl1" layoutX="55.0" layoutY="14.0" text="Automatic grade" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
+                        <Label layoutX="55.0" layoutY="14.0" text="Automatic grade" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <AnchorPane fx:id="timeValueAnchor1" layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
+                        <AnchorPane layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
                            <children>
                               <Label fx:id="averageTxt" alignment="CENTER" layoutX="95.0" layoutY="16.0" text="100" textAlignment="CENTER">
                                  <styleClass>

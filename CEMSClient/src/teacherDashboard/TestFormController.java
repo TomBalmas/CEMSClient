@@ -9,13 +9,13 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.Question;
 import common.ScheduledTest;
 import common.Student;
 import common.Test;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -44,89 +44,123 @@ import util.PopUp;
 
 public class TestFormController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private ScrollPane scrollPane;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane testSideBarAnchor;
+    @FXML
+    private ScrollPane scrollPane;
 
-	@FXML
-	private JFXButton finishBtn;
+    @FXML
+    private AnchorPane testSideBarAnchor;
 
-	@FXML
-	private JFXButton uploadBtn;
+    @FXML
+    private JFXButton finishBtn;
 
-	@FXML
-	private JFXButton backBtn;
+    @FXML
+    private JFXButton uploadBtn;
 
-	@FXML
-	private JFXButton downloadBtn;
+    @FXML
+    private JFXButton backBtn;
 
-	@FXML
-	private AnchorPane uploadFileAnchor;
+    @FXML
+    private JFXButton downloadBtn;
 
-	@FXML
-	private JFXTextArea uploadFileTxtArea;
+    @FXML
+    private AnchorPane uploadFileAnchor;
 
-	@FXML
-	private AnchorPane questionAnchor;
+    @FXML
+    private JFXTextArea uploadFileTxtArea;
 
-	@FXML
-	private Label questionLbl;
+    @FXML
+    private AnchorPane questionAnchor;
 
-	@FXML
-	private AnchorPane insideQuestionAnchor;
+    @FXML
+    private Label questionLbl;
 
-	@FXML
-	private Label questionAnsweredLbl;
+    @FXML
+    private AnchorPane insideQuestionAnchor;
 
-	@FXML
-	private Label totalQuestionsLbl;
+    @FXML
+    private Label questionAnsweredLbl;
 
-	@FXML
-	private AnchorPane timeAnchor;
+    @FXML
+    private Label questionAnsweredLbl1;
 
-	@FXML
-	private Label timeLbl;
+    @FXML
+    private Label totalQuestionsLbl;
 
-	@FXML
-	private AnchorPane timeValueAnchor;
+    @FXML
+    private AnchorPane timeAnchor;
 
-	@FXML
-	private Label timeLbl1;
+    @FXML
+    private Label timeLbl;
 
-	@FXML
-	private Label newTimeLbl;
+    @FXML
+    private AnchorPane timeValueAnchor;
 
-	@FXML
-	private AnchorPane fileUploadedAnchor;
+    @FXML
+    private Label timeLbl1;
 
-	@FXML
-	private AnchorPane timeAnchor1;
+    @FXML
+    private Label newTimeLbl;
 
-	@FXML
-	private Label fileNameLbl;
+    @FXML
+    private AnchorPane fileUploadedAnchor;
 
-	@FXML
-	private JFXButton deleteFileBtn;
+    @FXML
+    private AnchorPane timeAnchor1;
 
-	@FXML
-	private FontAwesomeIconView deleteFileIcon;
+    @FXML
+    private Label fileNameLbl;
 
-	@FXML
-	private JFXTextArea fileCommentsTxtArea;
+    @FXML
+    private JFXButton deleteFileBtn;
 
-	@FXML
-	private JFXButton editBtn;
+    @FXML
+    private JFXTextArea fileCommentsTxtArea;
 
-	@FXML
-	private StackPane popUpWindow;
+    @FXML
+    private AnchorPane teacherCheckTestSideBar;
+
+    @FXML
+    private JFXButton finishBtn1;
+
+    @FXML
+    private JFXButton downloadBtn1;
+
+    @FXML
+    private AnchorPane questionAnchor1;
+
+    @FXML
+    private Label questionLbl1;
+
+    @FXML
+    private AnchorPane insideQuestionAnchor1;
+
+    @FXML
+    private Label totalQuestionsLbl1;
+
+    @FXML
+    private Label averageTxt;
+
+    @FXML
+    private AnchorPane disapproveGradeAnchor;
+
+    @FXML
+    private JFXTextField newGrade;
+
+    @FXML
+    private JFXTextArea teacherNotes;
+
+    @FXML
+    private JFXButton editBtn;
+
+    @FXML
+    private StackPane popUpWindow;
 
 	private VBox vbox = new VBox();
-	private String fileFullPath, fileName, submittedBy = "self";
+	private String fileFullPath = "", fileName, submittedBy = "self";
 	private boolean flag = false; // flag to decide student/teacher
 	private int totalNumberOfQuestions = 0;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
@@ -134,8 +168,8 @@ public class TestFormController implements Initializable {
 	Label testTitleFromFXMLLbl;
 	Test test = null;
 	Student student;
-	String testCode = null;
-
+	String testCode = null, testType;
+	
 	// getters start
 
 	public String getTestCode() {
@@ -223,6 +257,10 @@ public class TestFormController implements Initializable {
 	}
 
 	// getters end
+	
+	public void setTestType(String testType) {
+		this.testType = testType;
+	}
 
 	public void setTestFrom() {
 
@@ -406,30 +444,30 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * finish test clicked, load dashboard
+	 * Finish test clicked, update sql and load dashboard
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
 	void finishTestClicked(MouseEvent event) throws IOException {
-		if (fileFullPath != null) { // Manual test
+		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
-			ClientController.accept("FILE-" + fileFullPath + "~" + "TEST:" + test.getID() + "," + student.getSSN() + ","
+			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + "," + student.getSSN() + ","
 					+ scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
 					+ scheduledTest.getStartingTime());
-		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
+		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
 				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
 			answers = answers.substring(0, answers.length() - 1);
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
-		}
 
 		// Add the student test to the finished test table
 		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
 				+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle() + ","
 				+ test.getCourse() + "," + "not checked");
+		}
 
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
@@ -443,7 +481,10 @@ public class TestFormController implements Initializable {
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
 		if (ClientController.isLastStudentInTest()) {
 			// If so, lock the test
-			ClientController.accept("LOCK_TEST-" + testCode);
+			if (testType.equals("Manual"))
+				ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
+			else
+				ClientController.accept("LOCK_TEST-" + testCode);
 			if (!ClientController.isTestLocked())
 				System.out.println("Error locking the test"); // TODO: REMOVE
 			ClientController.setTestLocked(false);
