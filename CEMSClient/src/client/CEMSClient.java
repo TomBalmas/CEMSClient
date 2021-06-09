@@ -115,6 +115,8 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTests(null);
 					ClientController.setTimeExtensionRequests(null);
 				}
+				else if (((ArrayList<Pair<?,?>>) msg).get(0) instanceof Pair<?,?>)
+					ClientController.setCopiedStudents((ArrayList<Pair<String,String>>) msg);
 				// get questions from questions DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Question)
 					ClientController.setQuestions((ArrayList<Question>) msg);

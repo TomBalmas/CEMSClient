@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -260,8 +261,19 @@ public class CheckTestsUIController implements Initializable {
 						GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
 								"TEACHER_CHECKING", testFormLoader);
 						TestFormController tfc = testFormLoader.getController();
+						ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + "," + test.getStartingTime());
+						ArrayList<Pair<String,String>> copiedStudents = ClientController.getCopiedStudents();
+						if(null != copiedStudents && copiedStudents.size() > 0) {
+							tfc.getCopyResultLbl().setText("Yes");
+							tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
+							tfc.getCopyWithLbl().setVisible(true);
+						}
 						tfc.getScrollPane().setTranslateX(0);
 						tfc.getTestTitleFromFXMLLbl().setText("Viewing test " + tr.getTitle() + " by " + tr.getStudentSSN());
+						tfc.getTeacherCheckTestSideBar().setVisible(true);
+						tfc.getGradeLbl().setText(tr.getGrade() + "");
+						if(tr.getGrade() < 55) tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
+						else tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
 					}
 				});
 			}

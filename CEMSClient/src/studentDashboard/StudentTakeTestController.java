@@ -143,7 +143,13 @@ public class StudentTakeTestController implements Initializable, Observer {
 					tfc.setSubmittedBy("forced");
 					tfc.getFinishBtn().fire();
 				}
-
+				else if (((String) arg1).equals("lockTest")) {
+                    System.out.println("lock notify");
+                    if (tfc.getFinishBtn().isDisable())
+                        tfc.getFinishBtn().setDisable(false);
+                    tfc.setSubmittedBy("forced");
+                    tfc.getFinishBtn().fire();
+                }
 			}
 		});
 

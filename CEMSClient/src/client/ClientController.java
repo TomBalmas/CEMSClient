@@ -15,10 +15,10 @@ import common.Teacher;
 import common.Test;
 import common.TimeExtensionRequest;
 import common.User;
+import javafx.util.Pair;
 import principleDashboard.ActiveTestController;
 import studentDashboard.StudentTakeTestController;
 import teacherDashboard.TeacherDashboardUIController;
-import teacherDashboard.ViewActiveTestsController;
 
 public class ClientController {
 
@@ -58,6 +58,7 @@ public class ClientController {
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
 	private static ArrayList<StudentGrade> grades;
+	private static ArrayList<Pair<String,String>> copiedStudents;
 	private static String id = null;
 	private static Test studentTest = null;
 	private static Course course;
@@ -397,6 +398,14 @@ public class ClientController {
 
 	public static void setTestLocked(boolean isTestLocked) {
 		ClientController.isTestLocked = isTestLocked;
+	}
+
+	public static ArrayList<Pair<String,String>> getCopiedStudents() {
+		return copiedStudents;
+	}
+
+	public static void setCopiedStudents(ArrayList<Pair<String, String>> copiedStudents) {
+		ClientController.copiedStudents = copiedStudents;
 	}
 }
  

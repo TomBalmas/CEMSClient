@@ -1,10 +1,8 @@
 package teacherDashboard;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -25,7 +23,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -126,77 +123,8 @@ public class ViewActiveTestsController implements Initializable {
 	@FXML
 	private AnchorPane testAnchor2;
 
-	private Node requestTimeExtension;
-	private Node viewTest;
 	private String selectedRow;
 	private final ObservableList<rowTableActiveTest> dataList = FXCollections.observableArrayList();
-
-	/**
-	 * clicking lock will open pop up screen that confirms the lock.
-	 * 
-	 * @param event
-	 */
-//	@FXML
-//	void lockClicked(MouseEvent event) {
-//		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Test " + CODE + " is now locked!",
-//				contentPaneAnchor, null, null);
-//		lockBtn.setText("Locked");
-//		lockBtn.setDisable(true);
-//	}
-
-	/**
-	 * clicking lock test will reveal "enter code" segment and another lock button
-	 * for extra step of safety before locking a test.
-	 * 
-	 * @param event
-	 */
-//	@FXML
-//	void lockTestClicked(MouseEvent event) {
-//		backBtn.setVisible(true);
-//		lockTestAnchor.setVisible(true);
-//		selectedTestAnchor.setVisible(false);
-//
-//	}
-
-	/**
-	 * clicking a test on the table will enable the lock test button and disable the
-	 * lock and "enter code" segment for extra safety.
-	 * 
-	 * @param event
-	 */
-//	@FXML
-//	void activeTestClicked(MouseEvent event) {// -----------need to complete the method, action: clicking a test on the
-//												// table----------- *2
-//		lockBtn.setVisible(false);
-//		enterCodeField.setVisible(false);
-//		enterCodeLbl.setVisible(false);
-//		lockTestBtn.setDisable(false);
-//		lockBtn.setDisable(false);
-//	}
-
-	/**
-	 * validates that the code in the text field is the same as a given string.
-	 */
-//	@FXML
-//	void checkCode() {
-//		if (GeneralUIMethods.validateCode(enterCodeField, CODE)) // -----------need to compare the code with a code from
-//																	// the DB----------- *1
-//			lockBtn.setDisable(false);
-//		else
-//			lockBtn.setDisable(true);
-//	}
-
-	/**
-	 * clicking request time extension loads the "request time extension" screen.
-	 * 
-	 * @param event
-	 */
-//	@FXML
-//	void requestTimeExtensionClicked(MouseEvent event) {
-//		//backBtn.setVisible(true);
-//		requestTimeAnchor.setVisible(true);
-//		//selectedTestAnchor.setVisible(false);
-//	}
 
 	/**
 	 * this method shows the popup that the request for time extension is approved
@@ -204,58 +132,23 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void clicksendForApproval(MouseEvent event) {
-
+		// Request for time extension
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
-				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // Request for
-																									// extension time.
+				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // 																				
 		ClientController.accept("NOTIFY_PRINCIPLE");
-		if (ClientController.isPrincipleNotified()) {
-			List<JFXButton> l = new ArrayList<JFXButton>();
-			l.add(new JFXButton("Okay"));
+		if (ClientController.isPrincipleNotified())
 			PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
 					contentPaneAnchor, null, null);
-		} else {
-			List<JFXButton> l = new ArrayList<JFXButton>();
-			l.add(new JFXButton("Okay"));
+		else
 			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
 					null, null);
-		}
-
 	}
-
-//	@FXML
-//	void viewTestClicked(MouseEvent event) {
-//		Node viewTestPage = null;
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-//		try {
-//			viewTestPage = loader.load();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		TestFormController testController = loader.getController();
-//		testController.getEditBtn().setVisible(false);
-//		GeneralUIMethods.loadPage(contentPaneAnchor, viewTestPage);
-//	}
 
 	// -----------TODO--------------
 	@FXML
 	void searchBtnClicked(MouseEvent event) {
 
 	}
-
-	// -----------TODO--------------
-
-	/**
-	 * Pressing the back button on the Lock Test or Request Time Extension
-	 * anchorPanes returns to the Test Selected anchorPane.
-	 */
-//	@FXML
-//	void backBtnClicked(MouseEvent event) {
-//		lockTestAnchor.setVisible(false);
-//		requestTimeAnchor.setVisible(false);
-//		backBtn.setVisible(false);
-//		selectedTestAnchor.setVisible(true);
-//	}
 
 	/**
 	 * Internal class to define a row in tableView.
@@ -343,19 +236,12 @@ public class ViewActiveTestsController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			viewTest = FXMLLoader.load(getClass().getResource(Navigator.TEST_FORM.getVal()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		ArrayList<ActiveTest> activeTests = null;
 
+		// Request from the client(query) to the server.
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN()); // Request from the
-																									// client(query) to
-																									// the server.
-			activeTests = ClientController.getActiveTests(); // Receiving a query from the server.
+			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN()); 
+			activeTests = ClientController.getActiveTests(); // Receiving data the query in the server
 		}
 		// Insert into columns of the table, columns from DB.
 		idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -371,32 +257,29 @@ public class ViewActiveTestsController implements Initializable {
 			for (ActiveTest activeTest : activeTests) {
 				rowTableActiveTest tr = new rowTableActiveTest(activeTest);
 				activeTestsTbl.getItems().add(tr);
-				dataList.add(tr); // add row to dataList to search field.
+				dataList.add(tr); // Add row to dataList to search field
 
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader viewTestLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
 						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getActiveTest().getCode(),
-								"TEACHER_VIEW_TEST_BY_CODE", loader);
+								"TEACHER_VIEW_TEST_BY_CODE", viewTestLoader);
 					}
 				});
 
 				tr.getLockBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
-					public void handle(ActionEvent event) {
-						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.LOCK_TEST.getVal()));
+					public void handle(ActionEvent arg0) {
+						FXMLLoader lockTestLoader = new FXMLLoader(getClass().getResource(Navigator.LOCK_TEST.getVal()));
 						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "LOCK_TEST", "", contentPaneAnchor,
-								Arrays.asList(new JFXButton("Cancel")), loader);
-						LockTestController cont = loader.getController();
+								Arrays.asList(new JFXButton("Cancel")), lockTestLoader);
+						LockTestController cont = lockTestLoader.getController();
 						cont.getTestNameLbl().setText(tr.getTestName());
-
 						cont.getConfirmTestLock().setOnMouseClicked(e -> {
-
-							System.out.println("Locking...");
 							ClientController.accept("GET_STUDENTS_IN_TEST_BY_CODE-" + tr.getActiveTest().getCode());
 							ArrayList<Student> students = ClientController.getStudents();
 							StringBuilder sb = new StringBuilder();
@@ -405,78 +288,58 @@ public class ViewActiveTestsController implements Initializable {
 								sb.append(",");
 							}
 							sb.deleteCharAt(sb.length() - 1);
-							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString()); //TODO - bohad fix popup
-//							if (ClientController.accept("LOCK_TEST-" + tr.getID() + ","))
-							((JFXButton) event.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
-//							if (ClientController.isTestLocked())
-//								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
-//										contentPaneAnchor, null, null);
-//							else
-//								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.gedID(); ,
-//										contentPaneAnchor, null, null);
+							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString()); //TODO - bohad fixed
+							if (ClientController.isTestLocked()) {
+								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
+										contentPaneAnchor, null, null);
+								((JFXButton) arg0.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
+							}
+							else
+								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID() ,
+										contentPaneAnchor, null, null);
 						});
 					}
 				});
 			}
 		// Search by data which is in a certain row.
 		FilteredList<rowTableActiveTest> filteredData = new FilteredList<>(dataList, p -> true);
-
 		// Set the filter Predicate whenever the filter changes.
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(myObject -> {
 				// If filter text is empty, display all persons.
-				if (newValue == null || newValue.isEmpty()) {
+				if (newValue == null || newValue.isEmpty())
 					return true;
-				}
-
 				// Compares what we wrote in the text (we searched for) to the appropriate line.
 				String lowerCaseFilter = newValue.toLowerCase();
-
-				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
+				// Filter matches ID.
+				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter))
 					return true;
-					// Filter matches ID.
-				}
-
-				else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches course.
-				}
-
-				else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches field.
-				}
-
-				else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches test name.
-				}
-
-				else if (String.valueOf(myObject.getAuthorName()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getAuthorName()).toLowerCase().contains(lowerCaseFilter)) 
 					return true; // Filter matches author name.
-				}
-
-				else if (String.valueOf(myObject.getStartTimeTest()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getStartTimeTest()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches start time.
-				}
-
-				else if (String.valueOf(myObject.getFinishTime()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getFinishTime()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches finish time.
-				}
-
 				return false; // Does not match.
 			});
 		});
 
 		// Wrap the FilteredList in a SortedList.
 		SortedList<rowTableActiveTest> sortedData = new SortedList<>(filteredData);
-
 		// Bind the SortedList comparator to the TableView comparator.
 		sortedData.comparatorProperty().bind(activeTestsTbl.comparatorProperty());
 		// Add sorted (and filtered) data to the table.
 		activeTestsTbl.setItems(sortedData);
 
-		// An event lets us click on a row in the table to see details like ID, Finish
-		// Time and Time Left.
+		// An event lets us click on a row in the table to see details like ID, Finish Time and Time Left.
 		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
-			if (event.getClickCount() >= 1) {
+			if (event.getClickCount() >= 1)
 				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
 					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
 					// timeLeftField.setText(selected.get); // TODO: in the future
@@ -484,8 +347,6 @@ public class ViewActiveTestsController implements Initializable {
 					selectedRow = selected.getActiveTest().getCode(); // Get the ID to request query from server about
 					testSelectedLbl2.setText(selected.getTestName() + " (" + selectedRow + ")"); // time extension.
 				}
-			}
-
 		});
 
 	}
