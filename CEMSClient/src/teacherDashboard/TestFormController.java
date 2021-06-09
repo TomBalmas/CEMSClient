@@ -9,12 +9,12 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.Question;
 import common.Student;
 import common.Test;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -43,87 +43,114 @@ import util.PopUp;
 
 public class TestFormController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private AnchorPane testSideBarAnchor;
+
+    @FXML
+    private JFXButton finishBtn;
+
+    @FXML
+    private JFXButton uploadBtn;
+
+    @FXML
+    private JFXButton backBtn;
+
+    @FXML
+    private JFXButton downloadBtn;
+
+    @FXML
+    private AnchorPane uploadFileAnchor;
+
+    @FXML
+    private JFXTextArea uploadFileTxtArea;
+
+    @FXML
+    private AnchorPane questionAnchor;
+
+    @FXML
+    private Label questionLbl;
+
+    @FXML
+    private AnchorPane insideQuestionAnchor;
+
+    @FXML
+    private Label questionAnsweredLbl;
+
+    @FXML
+    private Label questionAnsweredLbl1;
+
+    @FXML
+    private Label totalQuestionsLbl;
+
+    @FXML
+    private AnchorPane timeAnchor;
+
+    @FXML
+    private Label timeLbl;
+
+    @FXML
+    private AnchorPane timeValueAnchor;
+
+    @FXML
+    private Label timeLbl1;
+
+    @FXML
+    private Label newTimeLbl;
+
+    @FXML
+    private AnchorPane fileUploadedAnchor;
+
+    @FXML
+    private AnchorPane timeAnchor1;
+
+    @FXML
+    private Label fileNameLbl;
+
+    @FXML
+    private JFXButton deleteFileBtn;
+
+    @FXML
+    private JFXTextArea fileCommentsTxtArea;
+
+    @FXML
+    private AnchorPane teacherCheckTestSideBar;
 
 	@FXML
-	private ScrollPane scrollPane;
+    private JFXButton approveBtn;
+
+    @FXML
+    private JFXButton disapproveBtn;
+
+    @FXML
+    private Label copyResultLbl;
+
+    @FXML
+    private Label copyWithLbl;
+
+    @FXML
+    private Label gradeLbl;
 
 	@FXML
-	private AnchorPane testSideBarAnchor;
+    private AnchorPane disapproveGradeAnchor;
 
-	@FXML
-	private JFXButton finishBtn;
+    @FXML
+    private JFXTextField newGrade;
 
-	@FXML
-	private JFXButton uploadBtn;
+    @FXML
+    private JFXTextArea teacherNotes;
 
-	@FXML
-	private JFXButton backBtn;
+    @FXML
+    private JFXButton editBtn;
 
-	@FXML
-	private JFXButton downloadBtn;
-
-	@FXML
-	private AnchorPane uploadFileAnchor;
-
-	@FXML
-	private JFXTextArea uploadFileTxtArea;
-
-	@FXML
-	private AnchorPane questionAnchor;
-
-	@FXML
-	private Label questionLbl;
-
-	@FXML
-	private AnchorPane insideQuestionAnchor;
-
-	@FXML
-	private Label questionAnsweredLbl;
-
-	@FXML
-	private Label totalQuestionsLbl;
-
-	@FXML
-	private AnchorPane timeAnchor;
-
-	@FXML
-	private Label timeLbl;
-
-	@FXML
-	private AnchorPane timeValueAnchor;
-
-	@FXML
-	private Label timeLbl1;
-
-	@FXML
-	private Label newTimeLbl;
-
-	@FXML
-	private AnchorPane fileUploadedAnchor;
-
-	@FXML
-	private AnchorPane timeAnchor1;
-
-	@FXML
-	private Label fileNameLbl;
-
-	@FXML
-	private JFXButton deleteFileBtn;
-
-	@FXML
-	private FontAwesomeIconView deleteFileIcon;
-
-	@FXML
-	private JFXTextArea fileCommentsTxtArea;
-
-	@FXML
-	private JFXButton editBtn;
-	
     @FXML
     private StackPane popUpWindow;
-
+    
 	private VBox vbox = new VBox();
 	private String fileFullPath, fileName, submittedBy = "self";
 	private boolean flag = false; // flag to decide student/teacher
@@ -136,6 +163,22 @@ public class TestFormController implements Initializable {
 	String testCode = null;
 
 	// getters start
+	
+    public Label getCopyResultLbl() {
+		return copyResultLbl;
+	}
+
+	public Label getCopyWithLbl() {
+		return copyWithLbl;
+	}
+	
+    public Label getGradeLbl() {
+		return gradeLbl;
+	}
+    
+    public AnchorPane getTeacherCheckTestSideBar() {
+		return teacherCheckTestSideBar;
+	}
 
 	public String getTestCode() {
 		return testCode;
@@ -222,6 +265,10 @@ public class TestFormController implements Initializable {
 	}
 
 	// getters end
+	
+    public void setSubmittedBy(String submittedBy) {
+		this.submittedBy = submittedBy;
+	}
 
 	public void setTestFrom() {
 
@@ -410,7 +457,7 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 */
 	@FXML
-	void finishTestClicked(MouseEvent event) throws IOException {
+	void finishTestClicked(ActionEvent event) throws IOException {
 		if (fileFullPath != null) { // Manual test
 			// ClientController.accept("FILE: " + fileFullPath);
 		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
@@ -423,7 +470,7 @@ public class TestFormController implements Initializable {
 
 		// Add the student test to the finished test table
 		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
-				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "not checked");
+				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "Not checked");
 		
 
 		// Delete the student from the test
@@ -440,6 +487,8 @@ public class TestFormController implements Initializable {
 			// If so, lock the test
 			ClientController.accept("LOCK_TEST-" + testCode);
 			if (!ClientController.isTestLocked()) System.out.println("Error locking the test"); //TODO: REMOVE
+			ClientController.setStudentTest(null);
+			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
 		}
@@ -452,17 +501,35 @@ public class TestFormController implements Initializable {
 		// Show popup window
 		JFXButton okayBtn = new JFXButton("Okay");
 		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-		Node page = null;
+		Node studentDashboardLoader = null;
 		try {
-			page = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+			studentDashboardLoader = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		GeneralUIMethods.loadPage(contentPaneAnchor, page);
+		GeneralUIMethods.loadPage(contentPaneAnchor, studentDashboardLoader);
 		});
 
 		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
 	}
+	
+	@FXML
+    void approveBtnClicked(MouseEvent event) {
+    	// TODO: add update finished test
+    	Node teacherDashboardPageLoader = null;
+		try {
+			teacherDashboardPageLoader = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+    	GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
+    }
+
+	@FXML
+    void disapproveBtnClicked(MouseEvent event) {
+    	disapproveGradeAnchor.setVisible(true);
+    	approveBtn.setText("Approve new grade");
+    }
 
 }
  

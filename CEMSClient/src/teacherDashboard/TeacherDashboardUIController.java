@@ -88,7 +88,6 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 		contentPaneAnchor.getChildren().clear();
 		GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
-
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 	}
 
@@ -113,8 +112,8 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	 */
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
-		activeTests = loader.load();
+		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
+		//activeTests = loader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
@@ -169,7 +168,6 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		ClientController.setTeacherDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
-
 	}
 
 	@Override
@@ -186,5 +184,9 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 			approvedBtn.setText("Disapproved");
 		}
 
+	}
+
+	public AnchorPane getAnchorLogin() {
+		return anchorLogin;
 	}
 }

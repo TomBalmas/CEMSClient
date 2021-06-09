@@ -41,10 +41,6 @@ public class PopUp {
 
 		// Bring popup to the front!!! WOO-HOO!!!
 		root.toFront();
-		root.toFront();
-		root.toFront();
-		root.toFront();
-		root.toFront();
 		
 		if(null == btnsList)
 			btnsList = new ArrayList<JFXButton>();
@@ -66,6 +62,7 @@ public class PopUp {
 		
 		//Load fxml popup
 		if(null != loader) {
+			System.out.println(loader);
 			try {
 				fxmlPopUp = loader.load();
 			} catch (IOException e) {
@@ -73,9 +70,10 @@ public class PopUp {
 			}
 			if (header.equals("ScheduleTest") || header.equals("RescheduleTest"))
 				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());
-			if (header.equals("LOCK_TEST"))
+			else if (header.equals("LOCK_TEST"))
 				dialogLayout.setBody(((LockTestController) loader.getController()).getContentPaneAnchor());
 			fxmlPopUp.toFront();
+			System.out.println("yes");
 		}
 		else {
 			dialogLayout.setBody(new Label(body));

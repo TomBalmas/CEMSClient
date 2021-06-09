@@ -94,7 +94,6 @@ public class GeneralUIMethods {
 	 * Return the stack pane of the popup
 	 */
 	public static StackPane getPopupPane() {
-		sp.toFront();
 		return sp;
 	}
 
@@ -199,17 +198,17 @@ public class GeneralUIMethods {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
+						if (!testType.equals("Computed"))
+							controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
+								ToggleGroup tGroup = (ToggleGroup) toggleGroup;
+								tGroup.getToggles().forEach(toggle -> {
+									Node node = (Node) toggle;
+									node.setDisable(true);
+								});
+							});
 						if(testType.equals("Manual") || testType.equals("Computed") || testType.equals("TEACHER_CHECKING")) {
 							contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
 							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), testFormNode);
-							if(testType.equals("Manual"))
-								controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
-									ToggleGroup tGroup = (ToggleGroup) toggleGroup;
-									tGroup.getToggles().forEach(toggle -> {
-										Node node = (Node) toggle;
-										node.setDisable(true);
-									});
-								});
 						}
 						else {
 							controller.getTestSideBarAnchor().setVisible(false);

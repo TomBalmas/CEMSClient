@@ -23,7 +23,7 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="273.0">
                <children>
-                  <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onAction="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
@@ -171,7 +171,7 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="273.0">
                <children>
-                  <JFXButton fx:id="finishBtn1" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Approve grade" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="approveBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#approveBtnClicked" text="Approve grade" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
@@ -181,7 +181,7 @@
                         <FontAwesomeIconView glyphName="CHECK" size="16.0" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="downloadBtn1" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="309.0" onMouseClicked="#downloadFileClicked" prefHeight="47.0" styleClass="disaproveGradeBtn" text="Disapprove grade" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="disapproveBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="309.0" onMouseClicked="#disapproveBtnClicked" prefHeight="47.0" styleClass="disaproveGradeBtn" text="Disapprove grade" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="TIMES" size="30" translateX="-108.0" translateY="0.5" />
                      </graphic>
@@ -189,21 +189,21 @@
                         <Font size="21.0" />
                      </font>
                   </JFXButton>
-                  <AnchorPane fx:id="questionAnchor1" layoutY="150.0" prefHeight="150.0" prefWidth="273.0">
+                  <AnchorPane layoutY="150.0" prefHeight="150.0" prefWidth="273.0">
                      <children>
-                        <Label fx:id="questionLbl1" layoutX="72.0" layoutY="14.0" text="Copy suspect" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="14.0">
+                        <Label layoutX="72.0" layoutY="14.0" text="Copy suspect" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="14.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <AnchorPane fx:id="insideQuestionAnchor1" layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
+                        <AnchorPane layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
                            <children>
-                              <Label fx:id="questionAnsweredLbl1" layoutX="106.0" layoutY="14.0" text="No">
+                              <Label fx:id="copyResultLbl" layoutX="106.0" layoutY="14.0" text="No">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="totalQuestionsLbl1" layoutX="31.0" layoutY="46.0" text="With 20579343">
+                              <Label fx:id="copyWithLbl" layoutX="31.0" layoutY="46.0" text="With 20579343" visible="false">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
@@ -216,21 +216,16 @@
                         <String fx:value="grayPane" />
                      </styleClass>
                   </AnchorPane>
-                  <AnchorPane fx:id="timeAnchor1" prefHeight="150.0" prefWidth="273.0">
+                  <AnchorPane prefHeight="150.0" prefWidth="273.0">
                      <children>
-                        <Label fx:id="timeLbl1" layoutX="55.0" layoutY="14.0" text="Automatic grade" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
+                        <Label layoutX="55.0" layoutY="14.0" text="Automatic grade" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="14.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <AnchorPane fx:id="timeValueAnchor1" layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
+                        <AnchorPane layoutX="47.0" layoutY="46.0" prefHeight="92.0" prefWidth="249.0" styleClass="insideGrayPane" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="46.0">
                            <children>
-                              <Label fx:id="averageTxt" alignment="CENTER" layoutX="95.0" layoutY="16.0" text="100" textAlignment="CENTER">
-                                 <styleClass>
-                                    <String fx:value="GradeLbl" />
-                                    <String fx:value="aGradeLbl" />
-                                 </styleClass>
-                              </Label>
+                              <Label fx:id="gradeLbl" alignment="CENTER" layoutX="95.0" layoutY="16.0" styleClass="GradeLbl" text="100" textAlignment="CENTER" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -239,7 +234,7 @@
                         <String fx:value="grayPane" />
                      </styleClass>
                   </AnchorPane>
-                  <AnchorPane fx:id="disapproveGradeAnchor" layoutX="12.0" layoutY="490.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+                  <AnchorPane fx:id="disapproveGradeAnchor" layoutX="12.0" layoutY="490.0" visible="false" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
                      <children>
                         <VBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>

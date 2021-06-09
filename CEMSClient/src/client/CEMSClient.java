@@ -19,6 +19,7 @@ import common.Test;
 import common.TestFile;
 import common.TimeExtensionRequest;
 import common.User;
+import javafx.util.Pair;
 import ocsf.client.ObservableClient;
 
 public class CEMSClient extends ObservableClient {
@@ -109,6 +110,8 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setTests(null);
 					ClientController.setTimeExtensionRequests(null);
 				}
+				else if (((ArrayList<Pair<?,?>>) msg).get(0) instanceof Pair<?,?>)
+					ClientController.setCopiedStudents((ArrayList<Pair<String,String>>) msg);
 				// get questions from questions DB
 				else if (((ArrayList<?>) msg).get(0) instanceof Question)
 					ClientController.setQuestions((ArrayList<Question>) msg);
@@ -226,7 +229,7 @@ public class CEMSClient extends ObservableClient {
 					notifyObservers(splitRes[1]);
 				} else if (str.equals("notifyStudent")) {
 					setChanged();
-					notifyObservers();
+					notifyObservers("lockTest");
 				} else if (str.startsWith("timeExtension")) {
 					setChanged();
 					notifyObservers(str);
