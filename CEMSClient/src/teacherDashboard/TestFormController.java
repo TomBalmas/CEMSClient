@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.Question;
+import common.ScheduledTest;
 import common.Student;
 import common.Test;
 import javafx.beans.value.ChangeListener;
@@ -85,6 +86,9 @@ public class TestFormController implements Initializable {
     @FXML
     private Label questionAnsweredLbl1;
 
+	@FXML
+	private Label totalQuestionsLbl;
+
     @FXML
     private Label totalQuestionsLbl;
 
@@ -142,6 +146,36 @@ public class TestFormController implements Initializable {
     @FXML
     private JFXTextField newGrade;
 
+	@FXML
+	private JFXButton finishBtn1;
+
+	@FXML
+	private JFXButton downloadBtn1;
+
+	@FXML
+	private AnchorPane questionAnchor1;
+
+	@FXML
+	private Label questionLbl1;
+
+	@FXML
+	private AnchorPane insideQuestionAnchor1;
+
+	@FXML
+	private Label totalQuestionsLbl1;
+
+	@FXML
+	private Label averageTxt;
+
+	@FXML
+	private JFXTextArea teacherNotes;
+
+	@FXML
+	private JFXButton editBtn;
+
+	@FXML
+	private StackPane popUpWindow;
+
     @FXML
     private JFXTextArea teacherNotes;
 
@@ -152,7 +186,7 @@ public class TestFormController implements Initializable {
     private StackPane popUpWindow;
     
 	private VBox vbox = new VBox();
-	private String fileFullPath, fileName, submittedBy = "self";
+	private String fileFullPath = "", fileName, submittedBy = "self";
 	private boolean flag = false; // flag to decide student/teacher
 	private int totalNumberOfQuestions = 0;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
@@ -160,7 +194,7 @@ public class TestFormController implements Initializable {
 	Label testTitleFromFXMLLbl;
 	Test test = null;
 	Student student;
-	String testCode = null;
+	String testCode = null, testType;
 
 	// getters start
 	
@@ -182,6 +216,14 @@ public class TestFormController implements Initializable {
 
 	public String getTestCode() {
 		return testCode;
+	}
+
+	public String getSubmittedBy() {
+		return submittedBy;
+	}
+
+	public void setSubmittedBy(String submittedBy) {
+		this.submittedBy = submittedBy;
 	}
 
 	public void setTestCode(String testCode) {
@@ -223,7 +265,7 @@ public class TestFormController implements Initializable {
 	public JFXButton getBackBtn() {
 		return backBtn;
 	}
-	
+
 	public Label getNewTimeLbl() {
 		return newTimeLbl;
 	}
@@ -259,7 +301,7 @@ public class TestFormController implements Initializable {
 	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
 		return questionsToggleGroup;
 	}
-	
+
 	public Label getTestTitleFromFXMLLbl() {
 		return testTitleFromFXMLLbl;
 	}
@@ -268,6 +310,10 @@ public class TestFormController implements Initializable {
 	
     public void setSubmittedBy(String submittedBy) {
 		this.submittedBy = submittedBy;
+	}
+
+	public void setTestType(String testType) {
+		this.testType = testType;
 	}
 
 	public void setTestFrom() {
@@ -282,10 +328,10 @@ public class TestFormController implements Initializable {
 		downloadBtn.setVisible(false);
 		uploadBtn.setVisible(false);
 		vbox.setSpacing(10);
-		
+
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-		
+
 		setDraggedFileEvents();
 		deleteFileBtn.setOnAction((new EventHandler<ActionEvent>() {
 			@Override
@@ -399,7 +445,7 @@ public class TestFormController implements Initializable {
 	void downloadFileClicked(MouseEvent event) {
 
 	}
-	
+
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
@@ -452,47 +498,53 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * finish test clicked, load dashboard
+	 * Finish test clicked, update sql and load dashboard
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
-		if (fileFullPath != null) { // Manual test
-			// ClientController.accept("FILE: " + fileFullPath);
-		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
+		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
+			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
+			ScheduledTest scheduledTest = ClientController.getScheduledTest();
+			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
+					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
+					+ scheduledTest.getStartingTime());
+		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
 				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
 			answers = answers.substring(0, answers.length() - 1);
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
-		}
 
-		// Add the student test to the finished test table
-		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
-				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "Not checked");
-		
+			// Add the student test to the finished test table
+			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
+					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
+					+ "," + test.getCourse() + "," + "UnChecked");
+		}
 
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
 		if (!ClientController.isStudentDeletedFromTest()) {
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
-					null);
+			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test",
+					contentPaneAnchor, null, null);
 			return;
 		}
-		
+
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
 		if (ClientController.isLastStudentInTest()) {
 			// If so, lock the test
-			ClientController.accept("LOCK_TEST-" + testCode);
-			if (!ClientController.isTestLocked()) System.out.println("Error locking the test"); //TODO: REMOVE
-			ClientController.setStudentTest(null);
+			if (testType.equals("Manual"))
+				ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
+			else
+				ClientController.accept("LOCK_TEST-" + testCode);
+  		ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
 		}
-		
+
 		// Reset variables
 		ClientController.setStudentTest(null);
 		ClientController.setIsActiveTest(false);
@@ -510,7 +562,8 @@ public class TestFormController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, studentDashboardLoader);
 		});
 
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null,
+				Arrays.asList(okayBtn), null);
 	}
 	
 	@FXML
@@ -532,4 +585,3 @@ public class TestFormController implements Initializable {
     }
 
 }
- 

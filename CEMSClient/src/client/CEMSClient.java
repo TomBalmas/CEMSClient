@@ -50,22 +50,30 @@ public class CEMSClient extends ObservableClient {
 		}
 		if (msg.startsWith("FILE")) {
 			try {
-				String[] split = msg.split(":");
-				TestFile file = new TestFile(split[1]);
-				File f = new File(split[1]);
-				byte[] byteArray = new byte[(int) f.length()];
-				FileInputStream fis = new FileInputStream(f);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				file.initArray(byteArray.length);
-				file.setSize(byteArray.length);
-				bis.read(file.getByteArray(), 0, byteArray.length);
-				sendToServer(file);
-				bis.close();
+				String[] split = msg.split("~");
+				String[] fileNameSplit = split[0].split("-");
+				if (fileNameSplit[1].length() != 0) {
+					TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/"));
+					// System.out.println();
+					File f = new File((fileNameSplit[1].replace("\\", "/")).substring(1,
+							fileNameSplit[1].replace("\\", "/").length() - 1));
+					byte[] byteArray = new byte[(int) f.length()];
+					FileInputStream fis = new FileInputStream(f);
+					BufferedInputStream bis = new BufferedInputStream(fis);
+					file.initArray(byteArray.length);
+					file.setSize(byteArray.length);
+					bis.read(file.getByteArray(), 0, byteArray.length);
+					String[] args = split[1].split("-");
+					System.out.println("split1: " + split[1] + " args1: " + args[1]);
+					sendToServer(new Pair<TestFile, String>(file, split[1]));
+					bis.close();
+				}
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		awaitResponse = true;
+		// System.out.println(msg);
 		sendToServer(msg);
 		while (awaitResponse) {
 			Thread.sleep(100);
@@ -75,15 +83,12 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		
-		System.out.println(msg.toString());
 		if (msg == null)
 			ClientController.setRoleFrame("null"); // PROBLEM IF OTHER MSG RETURN TYPES R NULL
 		else if (msg.equals("userAlreadyConnected")) {
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
-
-			// case of login
+			// Case of login
 			if (msg instanceof User) {
 				if (msg instanceof Teacher) {
 					ClientController.setRoleFrame("Teacher");
@@ -175,20 +180,19 @@ public class CEMSClient extends ObservableClient {
 				else if (str.equals("testActive")) {
 					ClientController.setIsActiveTest(true);
 					ClientController.setTimeForTest(true);
-				}
-				else if (str.equals("testNotActive"))
+				} else if (str.equals("testNotActive"))
 					ClientController.setIsActiveTest(false);
-				
-				else if (str.equals("testLocked"))
+
+				else if (str.equals("testLocked") || str.equals("manualTestLocked"))
 					ClientController.setTestLocked(true);
-				else if (str.equals("testNotLocked"))
+				else if (str.equals("testNotLocked") || str.equals("manualTestNotLocked"))
 					ClientController.setTestLocked(false);
-	
+
 				else if (str.equals("lastStudent"))
 					ClientController.setLastStudentInTest(true);
 				else if (str.equals("notLastStudent"))
 					ClientController.setLastStudentInTest(false);
-				
+
 				else if (str.equals("timeForTest"))
 					ClientController.setTimeForTest(true);
 				else if (str.equals("notTimeForTest"))
@@ -199,7 +203,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setStudentAddedToTest(false);
 				else if (str.equals("studentRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(true);
-				else if (str.equals("studentNotRemovedFromTest"))	
+				else if (str.equals("studentNotRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(false);
 				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
