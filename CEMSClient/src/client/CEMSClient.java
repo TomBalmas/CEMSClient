@@ -54,7 +54,7 @@ public class CEMSClient extends ObservableClient {
 				String[] fileNameSplit = split[0].split("-");
 				if (fileNameSplit[1].length() != 0) {
 					TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/"));
-					//System.out.println();
+					// System.out.println();
 					File f = new File((fileNameSplit[1].replace("\\", "/")).substring(1,
 							fileNameSplit[1].replace("\\", "/").length() - 1));
 					byte[] byteArray = new byte[(int) f.length()];
@@ -73,7 +73,7 @@ public class CEMSClient extends ObservableClient {
 			}
 		}
 		awaitResponse = true;
-		//System.out.println(msg);
+		// System.out.println(msg);
 		sendToServer(msg);
 		while (awaitResponse) {
 			Thread.sleep(100);
@@ -231,7 +231,7 @@ public class CEMSClient extends ObservableClient {
 					notifyObservers(splitRes[1]);
 				} else if (str.equals("notifyStudent")) {
 					setChanged();
-					notifyObservers();
+					notifyObservers("lockTest");
 				} else if (str.startsWith("timeExtension")) {
 					setChanged();
 					notifyObservers(str);

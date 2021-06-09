@@ -23,7 +23,7 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="273.0">
                <children>
-                  <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onMouseClicked="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="finishBtn" layoutX="10.0" layoutY="736.0" onAction="#finishTestClicked" text="Finish Test" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="clickedButton" />
                         <String fx:value="button" />
