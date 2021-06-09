@@ -16,13 +16,10 @@ import client.ClientController;
 import common.Course;
 import common.Question;
 import common.Teacher;
-import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,15 +36,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
-import util.PopUp;
 
 public class AddingNewTestUIController implements Initializable {
 
+	private String isEditingTest = null;
 	private static int Screen = 0;
-	private Node QuestionForm;
+	private Node QuestionForm, testBank;
 	private QuestionFormUIController questionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
-	private Node testBank;
 	private Set<Question> pickedQuestions;
 	ArrayList<Question> questions;
 	ObservableList<String> fields = FXCollections.observableArrayList();
@@ -159,6 +155,10 @@ public class AddingNewTestUIController implements Initializable {
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
+	
+	public void setEditingTest(String isEditingTest) {
+		this.isEditingTest = isEditingTest;
+	}
 
 	public class QuestionRow {
 		private String id;
@@ -224,7 +224,7 @@ public class AddingNewTestUIController implements Initializable {
 			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
 			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldCBox.getValue());
 			courses.clear();
-			if (ClientController.getCourses().isEmpty()) {
+			if (ClientController.getCourses() == null || ClientController.getCourses().isEmpty()) {
 				System.out.println("Error: no courses in the field " + selectFieldCBox.getValue());
 				return;
 			}
@@ -392,10 +392,16 @@ public class AddingNewTestUIController implements Initializable {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			System.out.println(sb.toString());
+			//Edit question query
+			if(isEditingTest != null)
+				ClientController.accept("EDIT_TEST-" + isEditingTest + "," + testTitle + ","
+						+ duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+						+ teacherInst + "," + sb.toString());
+			else // Add new test query
 			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
 					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
 					+ teacherInst + "," + sb.toString() + "," + field);
-
+			isEditingTest = null;
 			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
 			contentPaneAnchor.getChildren().setAll(testBank);
 

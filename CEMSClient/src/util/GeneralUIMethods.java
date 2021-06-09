@@ -24,6 +24,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
@@ -159,7 +160,7 @@ public class GeneralUIMethods {
 
 	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID, String testType,
 			FXMLLoader testFormLoader) {
-		if (ClientController.getRoleFrame().equals("Student") || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
+		if ((ClientController.getRoleFrame().equals("Student") && !testType.equals("STUDENT_LOOK")) || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
 		else 
 			ClientController.accept("GET_TEST_BY_ID-" + testCodeOrID);
@@ -179,6 +180,11 @@ public class GeneralUIMethods {
 				controller.getBackBtn().setVisible(false);
 				controller.getTestSideBarAnchor().setVisible(true);
 				controller.setFlag(true);
+				controller.setTestType(testType);
+				if (testType.equals("STUDENT_LOOK")) {
+					//getGradesBySSN query
+					controller.setStudentValues(new Pair<>("99", "test"));
+				}
 				if (testType.equals("Manual")) {
 					controller.getDownloadBtn().setVisible(true);
 					controller.getUploadBtn().setVisible(true);

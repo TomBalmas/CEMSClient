@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -236,6 +237,7 @@ public class CheckTestsUIController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
+		//TODO: ADD MANUAL TESTS
 		tests = ClientController.getFinishedTests();
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
@@ -274,6 +276,11 @@ public class CheckTestsUIController implements Initializable {
 						tfc.getGradeLbl().setText(tr.getGrade() + "");
 						if(tr.getGrade() < 55) tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
 						else tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
+						//TODO: get student answers
+						for (ToggleGroup tg : tfc.getQuestionsToggleGroup()) {
+							tg.getToggles().get(0).setSelected(true);
+						}
+						
 					}
 				});
 			}
