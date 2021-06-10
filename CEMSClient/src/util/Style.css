@@ -217,6 +217,10 @@
 	-fx-border-radius: 12.0px 12.0px 12.0px 12.0px;
 }
 
+JFXTextArea .paragraph-box .paragraph-text {
+	-fx-padding: 5px 5px 5px 5px;
+}
+
 .requestTxtArea {
 	-fx-background-color: #f0f1f1;
 	-fx-border-color: #dce0e0;
@@ -282,6 +286,12 @@
 }
 .table-view:row-selection .table-row-cell:filled:hover .text, .table-row-cell:filled:focused .text, .table-view .table-cell{
     -fx-text-fill: #595869;     
+}
+
+.gradeColor, .gradeColor:hover {
+	-fx-text-fill: red !important;
+	-fx-fill: red !important;
+	-fx-background-color: transparent;
 }
 
 .table-view .glyph-icon {

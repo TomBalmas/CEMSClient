@@ -46,11 +46,11 @@
          <children>
             <TableView fx:id="gradesTable" layoutX="14.0" layoutY="4.0" prefHeight="443.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="testIdCol" prefWidth="155.0" style="-fx-alignment: CENTER;" text="Test ID" />
-                <TableColumn fx:id="courseCol" prefWidth="154.0" text="Course" />
-                  <TableColumn fx:id="titleCol" prefWidth="174.0" text="Title" />
-                  <TableColumn fx:id="gradeCol" prefWidth="197.0" text="Grade" />
-                  <TableColumn fx:id="viewCol" prefWidth="194.0" text="View" />
+                 <TableColumn fx:id="testIdCol" prefWidth="155.0" style="-fx-alignment: center;" text="Test ID" />
+                 <TableColumn fx:id="courseCol" prefWidth="200.0" style="-fx-alignment: center;" text="Course" />
+                  <TableColumn fx:id="titleCol" prefWidth="200.0" style="-fx-alignment: center;" text="Title" />
+                  <TableColumn fx:id="gradeCol" prefWidth="149.0" style="-fx-alignment: center;" text="Grade" />
+                  <TableColumn fx:id="viewCol" prefWidth="149.0" style="-fx-alignment: center;" text="View" />
               </columns>
             </TableView>
          </children>

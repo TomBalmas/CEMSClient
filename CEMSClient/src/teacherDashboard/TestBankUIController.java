@@ -346,6 +346,7 @@ public class TestBankUIController implements Initializable {
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
 									.setText(tr.getTest().getStudentInstructions());
+							editTestController.setEditingTest(tr.getTestId());
 //							Platform.runLater(new Runnable() {
 //								@Override
 //								public void run() {

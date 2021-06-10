@@ -8,10 +8,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
 
 import client.ClientController;
-import common.ActiveTest;
 import common.StudentGrade;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -31,7 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
+import teacherDashboard.TestFormController;
 import util.GeneralUIMethods;
 import util.Navigator;
 
@@ -125,21 +123,28 @@ public class StudentGradesController implements Initializable {
 	}
 
 	public class rowTableGrades {
-
 		private String testId;
 		private String course;
 		private String title;
 		private int grade;
+		private JFXButton gradeBtn;
 		private JFXButton viewBtn;
 
 		public rowTableGrades(StudentGrade studentGrade) {
-
 			this.testId = studentGrade.getTestId();
 			this.course = studentGrade.getCourse();
 			this.title = studentGrade.getTitle();
 			this.grade = studentGrade.getGrade();
+			gradeBtn = new JFXButton(this.grade + "");
 			viewBtn = new JFXButton();
 			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
+			gradeBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #595869;");
+			if(grade < 55) gradeBtn.getStyleClass().add("gradeColor");
+			
+		}
+
+		public JFXButton getGradeBtn() {
+			return gradeBtn;
 		}
 
 		public String getTestId() {
@@ -178,7 +183,7 @@ public class StudentGradesController implements Initializable {
 		testIdCol.setCellValueFactory(new PropertyValueFactory<>("testId"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-		gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+		gradeCol.setCellValueFactory(new PropertyValueFactory<>("gradeBtn"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		if (studentGrades != null)
 			for (StudentGrade studentGrade : studentGrades) {
@@ -190,10 +195,13 @@ public class StudentGradesController implements Initializable {
 				rowTable.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						TestFormController testFormController = testFormLoader.getController();
+						
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
-						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(), "Teacher", loader);
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(), "STUDENT_LOOK", testFormLoader);
+						
 					}
 				});
 			}
@@ -240,12 +248,6 @@ public class StudentGradesController implements Initializable {
 		sortedData.comparatorProperty().bind(gradesTable.comparatorProperty());
 		// Add sorted (and filtered) data to the table.
 		gradesTable.setItems(sortedData);
-		
-		
-		
-		
-	
-
 	}
 	
 	 @FXML
