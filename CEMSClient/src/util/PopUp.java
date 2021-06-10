@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import teacherDashboard.LockTestController;
+import teacherDashboard.QuestionFormUIController;
 import teacherDashboard.SetTestDateController;
 
 public class PopUp {
@@ -35,11 +36,10 @@ public class PopUp {
 		// Initialize
 		StackPane root = GeneralUIMethods.getPopupPane();
 		VBox sideBar = GeneralUIMethods.getSideBar();
-		boolean returnValue = false;
 		AnchorPane fxmlPopUp = null;
 		JFXDialogLayout dialogLayout = new JFXDialogLayout();
 
-		// Bring popup to the front!!! WOO-HOO!!!
+		// Bring popup to the front
 		root.toFront();
 		
 		if(null == btnsList)
@@ -49,8 +49,6 @@ public class PopUp {
 
 		switch (type) {
 		case ALERT:
-//			JFXButton noBtn = new JFXButton("No");
-//			btnsList.add(noBtn);
 			break;
 		case ERROR:
 			break;
@@ -60,22 +58,24 @@ public class PopUp {
 			break;
 		}
 		
-		//Load fxml popup
-		if(null != loader) {
+		// Load fxml popup
+		if (null != loader) {
 			System.out.println(loader);
 			try {
-				fxmlPopUp = loader.load();
+				if (header.equals("ScheduleTest") || header.equals("RescheduleTest")) {
+					fxmlPopUp = loader.load();
+					fxmlPopUp.toFront();
+					dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());
+				} else if (header.equals("LOCK_TEST")) {
+					fxmlPopUp = loader.load();
+					fxmlPopUp.toFront();
+					dialogLayout.setBody(((LockTestController) loader.getController()).getContentPaneAnchor());
+				} else if (header.equals("VIEW_QUESTION"))
+					dialogLayout.setBody(((QuestionFormUIController) loader.getController()).getContentPaneAnchor());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (header.equals("ScheduleTest") || header.equals("RescheduleTest"))
-				dialogLayout.setBody(((SetTestDateController) loader.getController()).getContentPaneAnchor());
-			else if (header.equals("LOCK_TEST"))
-				dialogLayout.setBody(((LockTestController) loader.getController()).getContentPaneAnchor());
-			fxmlPopUp.toFront();
-			System.out.println("yes");
-		}
-		else {
+		} else {
 			dialogLayout.setBody(new Label(body));
 			dialogLayout.setHeading(new Label(header));
 		}
@@ -109,10 +109,10 @@ public class PopUp {
 		dialog.setOnDialogClosed((JFXDialogEvent event1) -> {
 			if (nodeToBeBlurred != null)
 				nodeToBeBlurred.setEffect(null);
-			// Bring popup to the back!!! BOO-HOO!!!
+			// Bring popup to the back
 			if (type != TYPE.SCHEDULE)
 				root.toBack();
 		});
 		return false;
 	}
-} 
+}

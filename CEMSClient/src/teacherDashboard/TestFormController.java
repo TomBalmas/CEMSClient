@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
 import common.Question;
+import common.ScheduledTest;
 import common.Student;
 import common.Test;
 import javafx.beans.value.ChangeListener;
@@ -156,13 +157,15 @@ public class TestFormController implements Initializable {
     private StackPane popUpWindow;
     
 	private VBox vbox = new VBox();
-	private String fileFullPath, fileName, submittedBy = "self", teacherNotesOnTest;
-	private boolean isStudent = false; // flag to decide student/teacher
+	private String fileFullPath = "", fileName, submittedBy = "self", teacherNotesOnTest;
+	private boolean isStudent = false, isDisapproveClicked = false; // flag to decide student/teacher
 	private int totalNumberOfQuestions = 0;
 	private String testType;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
-	private Pair<String, String> studentValues;
+	//private Pair<String, String> studentValues;
 	private long startTime = 0;
+	private ArrayList<String> studentValues = new ArrayList<>(4); // SSN, testId, grade, teacherNotes
+	Node teacherDashboardPageLoader = null;
 	TitleAndInstructionsController titleAndInstructionsController;
 	Label testTitleFromFXMLLbl;
 	Test test = null;
@@ -279,11 +282,11 @@ public class TestFormController implements Initializable {
 		return testTitleFromFXMLLbl;
 	}
 	
-	public Pair<String, String> getStudentValues() {
+	public ArrayList<String> getStudentValues() {
 		return studentValues;
 	}
 
-	public void setStudentValues(Pair<String, String> studentValues) {
+	public void setStudentValues(ArrayList<String> studentValues) {
 		this.studentValues = studentValues;
 	}
 
@@ -307,6 +310,7 @@ public class TestFormController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		isDisapproveClicked = false;
 		studentValues = null;
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		if (ClientController.getRoleFrame().equals("Student"))
@@ -347,8 +351,9 @@ public class TestFormController implements Initializable {
 		vbox.getChildren().add(question);
 		controller.getQuestionNumLbl().setText("Question #" + questionNumber);
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
-		controller.getContantTxt().setText(q.getQuestionText());
-		double questionStyleSpacer = addTextAndresizeTextArea(controller.getContantTxt(), q.getQuestionText());
+		System.out.println(q.getQuestionText());
+		controller.getContentTxt().setText(q.getQuestionText());
+		double questionStyleSpacer = addTextAndresizeTextArea(controller.getContentTxt(), q.getQuestionText());
 		controller.getQuestionAnchor()
 				.setPrefHeight(controller.getQuestionAnchor().getPrefHeight() + questionStyleSpacer * 4);
 		controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY() + questionStyleSpacer * 4);
@@ -383,19 +388,19 @@ public class TestFormController implements Initializable {
 		titleAndInstructionsController = loader.getController();
 		StringBuilder str = new StringBuilder();
 		testTitleFromFXMLLbl = titleAndInstructionsController.getTestTitleLbl();
-		if (testType.equals("STUDENT_LOOK")) {
+		if (null != testType && testType.equals("STUDENT_LOOK")) {
 			// TODO: add select from grades
 			testGradeLbl.setVisible(true);
-			int studentGrade = Integer.parseInt(studentValues.getKey());
+			int studentGrade = Integer.parseInt(studentValues.get(2));
 			if (studentGrade < 55)
 				testGradeLbl.getStyleClass().add("fGradeLbl");
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
-			String teacherNotesOnTest = studentValues.getValue();
+			teacherNotesOnTest = studentValues.get(3);
 			if (teacherNotesOnTest != null) {
 				testGradeLbl.setText(studentGrade + "");
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
-				str.append(studentValues.getValue() + "\n");
+				str.append(teacherNotesOnTest + "\n");
 			}
 		} else {
 			if (!isStudent) {
@@ -507,20 +512,24 @@ public class TestFormController implements Initializable {
 	 */
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
-		if (fileFullPath != null) { // Manual test
-			// ClientController.accept("FILE: " + fileFullPath);
-		} else { // TODO:remove comment when DB is ready // Computed test - save student answers
+		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
+			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
+			ScheduledTest scheduledTest = ClientController.getScheduledTest();
+			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
+					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
+					+ scheduledTest.getStartingTime());
+		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
 				answers += (String.valueOf(tg.getToggles().indexOf(tg.getSelectedToggle()) + 1) + "~");
 			answers = answers.substring(0, answers.length() - 1);
 			ClientController.accept("SAVE_STUDENT_ANSWERS-" + student.getSSN() + "," + test.getID() + "," + answers);
-		}
 
-		// Add the student test to the finished test table
-		ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + "," + 
-				((System.currentTimeMillis() - startTime)/60000) + "," + submittedBy + "," + test.getTitle() + "," + test.getCourse() + "," + "Not checked");
-		
+			// Add the student test to the finished test table
+			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
+					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
+					+ "," + test.getCourse() + "," + "not checked");
+		}
 
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
@@ -563,21 +572,59 @@ public class TestFormController implements Initializable {
 	
 	@FXML
     void approveBtnClicked(MouseEvent event) {
-    	// TODO: add update finished test
-    	Node teacherDashboardPageLoader = null;
-		try {
-			teacherDashboardPageLoader = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		// Update Finished test table
+		if (isDisapproveClicked) {
+			if (!newGrade.getText().matches("\\d+") || Integer.parseInt(newGrade.getText()) < 0
+					|| Integer.parseInt(newGrade.getText()) > 100) {
+				PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Grade text field must be a valid grade.", null,
+						null, null);
+				return;
+			} else if (newGrade.getText().isEmpty() || teacherNotes.getText().isEmpty()) {
+				PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Some field are missing", null, null, null);
+				return;
+			}
+			studentValues.set(2, newGrade.getText());
+			studentValues.set(3, teacherNotes.getText());
 		}
-    	GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
+		ClientController.accept("UPDATE_FINISHED_TEST-" + studentValues.get(1) + "," + studentValues.get(0) + "," + studentValues.get(2));
+		// Add the test to the grades table
+		ClientController.accept("ADD_GRADE-" + studentValues.get(1) + "," + studentValues.get(0) + "," + studentValues.get(3));
+
+		// Show popup window
+		JFXButton okayBtn = new JFXButton("Okay");
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+			try {
+				teacherDashboardPageLoader = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
+		});
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.", teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
     }
 
 	@FXML
     void disapproveBtnClicked(MouseEvent event) {
     	disapproveGradeAnchor.setVisible(true);
     	approveBtn.setText("Approve new grade");
+    	isDisapproveClicked = true;
     }
+	
+	
+	public void setStudentAnswers(String testId, String studentSSN) {
+		// Get students answers and select them
+		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
+		int i = 0;
+		for (ToggleGroup tg : getQuestionsToggleGroup()) {
+			System.out.println(ClientController.getStudentAnswers().get(i).getValue());
+			if (!ClientController.getStudentAnswers().isEmpty()) {
+				tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue()-1).setSelected(true);
+				i++;
+			}
+		}
+		ClientController.setStudentAnswers(null);
+	}
 
 }
  

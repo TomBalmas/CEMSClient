@@ -15,7 +15,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="contantTxt" layoutX="10.0" layoutY="50.0" prefHeight="141.0" prefWidth="651.0" promptText="Question content" />
+      <JFXTextArea fx:id="contentTxt" layoutX="10.0" layoutY="50.0" prefHeight="141.0" prefWidth="651.0" promptText="Question content" />
       <Label fx:id="pointsLbl" layoutX="124.0" layoutY="14.0" text="# Points">
          <font>
             <Font size="20.0" />

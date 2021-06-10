@@ -18,7 +18,7 @@ public class QuestionController {
 	private Label questionNumLbl;
 
 	@FXML
-	private JFXTextArea contantTxt;
+	private JFXTextArea contentTxt;
 
 	@FXML
 	private Label pointsLbl;
@@ -58,8 +58,8 @@ public class QuestionController {
 		return questionNumLbl;
 	}
 
-	public JFXTextArea getContantTxt() {
-		return contantTxt;
+	public JFXTextArea getContentTxt() {
+		return contentTxt;
 	}
 
 	public Label getPointsLbl() {

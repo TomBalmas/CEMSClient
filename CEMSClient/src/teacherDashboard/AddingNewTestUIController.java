@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -33,9 +34,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class AddingNewTestUIController implements Initializable {
 
@@ -123,6 +126,9 @@ public class AddingNewTestUIController implements Initializable {
 
 	@FXML
 	private JFXButton continueWithParametersBtn;
+	
+    @FXML
+    private StackPane popUpWindow;
 	
 	public TableView<QuestionRow> getQuestionTable() {
 		return questionTable;
@@ -213,6 +219,7 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		popUpWindow.toBack();
 		pickedQuestions = new HashSet<>();
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
@@ -223,6 +230,7 @@ public class AddingNewTestUIController implements Initializable {
 
 		selectFieldCBox.setItems(fields);
 		selectFieldCBox.setOnAction(event -> {
+			pickedQuestions.clear();
 			questionTable.getItems().clear();
 			ClientController.accept("QUESTION_BANK-" + selectFieldCBox.getValue());
 			questions = ClientController.getQuestions();
@@ -245,16 +253,17 @@ public class AddingNewTestUIController implements Initializable {
 				questionTable.getItems().add(qr);
 
 				qr.getViewBtn().setOnAction(e -> {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+					FXMLLoader questionFormPageLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 					try {
-						QuestionForm = loader.load();
+						QuestionForm = questionFormPageLoader.load();
+						QuestionForm.toFront();
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 					{
-						questionFormUIController = loader.getController();
+						questionFormUIController = questionFormPageLoader.getController();
 						questionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
-						questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
+						//questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
 						questionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + qr.getID() + " by " + qr.getAuthor());
 						questionFormUIController.getQuestionContentTxt().setEditable(false);
 						questionFormUIController.getFieldCBox().setDisable(true);
@@ -265,7 +274,19 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
 					};
-					GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
+					GeneralUIMethods.getPopupPane().setTranslateX(-208);
+					GeneralUIMethods.getPopupPane().setTranslateY(-280);
+					questionFormUIController.getQuestionsTxtAnchor()
+							.setTranslateY(-1 * (questionFormUIController.getQuestionsTxtAnchor().getLayoutY()
+									- questionFormUIController.getQuestionContentTxt().getLayoutY()) -1 * GeneralUIMethods.resizeTxtArea(questionFormUIController.getQuestionContentTxt()) + 80);
+					questionFormUIController.getContentPaneAnchor().prefHeightProperty().bind(testScrollPane.heightProperty().add(20));
+					questionFormUIController.getContentPaneAnchor().prefWidthProperty().bind(testScrollPane.widthProperty());	
+					questionFormUIController.getInsideContentAnchor().prefHeightProperty().bind(testScrollPane.heightProperty().subtract(100));
+					questionFormUIController.getQuestionAnchor().prefHeightProperty().bind(testScrollPane.heightProperty().subtract(100));
+					
+					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "VIEW_QUESTION", "", contentPaneAnchor,
+							Arrays.asList(new JFXButton("Cancel")), questionFormPageLoader);
+					//GeneralUIMethods.loadPage(testAnchor, QuestionForm);
 				});
 				
 				if (pickedQuestions.size() == 0)
@@ -289,9 +310,7 @@ public class AddingNewTestUIController implements Initializable {
 					System.out.print("]\n");
 				});
 			}
-			pickedQuestions.clear();
 		});
-
 	}
 
 	/**
@@ -346,6 +365,7 @@ public class AddingNewTestUIController implements Initializable {
 		questionTable.setVisible(true);
 		parametersVBox.setVisible(false);
 		headTitleLbl.setText("Choose questions to add to the test");
+		// If editing disable the possibility to change field and course
 	}
 
 	@FXML
@@ -393,30 +413,42 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	void clickFinish(MouseEvent event) {
 		Screen++;
-		try {
-			StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
-			for (Question q : pickedQuestions) {
-				sb.append(q.getID());
-				sb.append("~");
-			}
-			sb.deleteCharAt(sb.length() - 1);
-			System.out.println(sb.toString());
-			//Edit question query
-			if(isEditingTest != null)
-				ClientController.accept("EDIT_TEST-" + isEditingTest + "," + testTitle + ","
-						+ duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
-						+ teacherInst + "," + sb.toString());
-			else // Add new test query
-			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
-					+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
-					+ teacherInst + "," + sb.toString() + "," + field);
-			isEditingTest = null;
-			testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
-			contentPaneAnchor.getChildren().setAll(testBank);
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
+		for (Question q : pickedQuestions) {
+			sb.append(q.getID());
+			sb.append("~");
 		}
+		System.out.println("ok: " + sb.toString());
+		sb.deleteCharAt(sb.length() - 1);
+		System.out.println(sb.toString());
+		String popupMsg = "";
+		//Edit question query
+		if(isEditingTest != null) {
+			ClientController.accept("EDIT_TEST-" + isEditingTest + "," + testTitle + ","
+					+ duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+					+ teacherInst + "," + sb.toString());
+			popupMsg = "The test (ID: " + isEditingTest + ") has been updated!";
+		}
+		else { // Add new test query
+		ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
+				+ course + "," + duration + "," + 100 / pickedQuestions.size() + "," + studentInst + ","
+				+ teacherInst + "," + sb.toString() + "," + field);
+		popupMsg = "The test " + testTitle + " was added to " + course + " in " + field;
+		}
+		isEditingTest = null;
+		// Show popup window
+		JFXButton okayBtn = new JFXButton("Okay");
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+			try {
+				testBank = FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
+		});
+		GeneralUIMethods.setPopupPane(popUpWindow);
+		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", popupMsg, setParametersAnchor, Arrays.asList(okayBtn), null);
+		GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
 	}
 
 }

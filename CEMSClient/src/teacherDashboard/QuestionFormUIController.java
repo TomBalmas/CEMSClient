@@ -41,16 +41,16 @@ public class QuestionFormUIController implements Initializable {
     @FXML
     private JFXButton backBtn;
 
-    @FXML
+	@FXML
     private JFXButton saveBtn;
 
     @FXML
-    private AnchorPane filterAnchor;
+    private AnchorPane insideContentAnchor;
 
     @FXML
-    private AnchorPane insideFilterAnchor;
+    private AnchorPane questionAnchor;
 
-    @FXML
+	@FXML
     private Label chooseAnswersLbl11;
 
     @FXML
@@ -66,9 +66,9 @@ public class QuestionFormUIController implements Initializable {
     private JFXTextArea questionContentTxt;
 
     @FXML
-    private AnchorPane insideFilterAnchor1;
+    private AnchorPane questionsTxtAnchor;
 
-    @FXML
+	@FXML
     private Label chooseAnswersLbl;
 
     @FXML
@@ -106,6 +106,22 @@ public class QuestionFormUIController implements Initializable {
 
     @FXML
     private JFXTextArea answer1Txt;
+    
+    public AnchorPane getContentPaneAnchor() {
+		return contentPaneAnchor;
+	}
+    
+    public AnchorPane getQuestionsTxtAnchor() {
+		return questionsTxtAnchor;
+	}
+    
+    public AnchorPane getInsideContentAnchor() {
+		return insideContentAnchor;
+	}
+
+	public AnchorPane getQuestionAnchor() {
+		return questionAnchor;
+	}
 
 	public int getCorrectAnswer() {
 		return correctAnswer=0;
@@ -146,11 +162,11 @@ public class QuestionFormUIController implements Initializable {
 		Teacher teacher = (Teacher) ClientController.getActiveUser();
 		String teacherId = teacher.getSSN();
 		ArrayList<JFXTextArea> answers = getAnswerTextFields();
-		String questionContent=getQuestionContentTxt().getText();
-		String answer1 = answers.get(0).getText() ;
-		String answer2 = answers.get(1).getText() ;
-		String answer3 = answers.get(2).getText() ;
-		String answer4 = answers.get(3).getText() ;
+		String questionContent = getQuestionContentTxt().getText();
+		String answer1 = answers.get(0).getText();
+		String answer2 = answers.get(1).getText();
+		String answer3 = answers.get(2).getText();
+		String answer4 = answers.get(3).getText();
 		//query to add question to dataBase
 		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
 		{
@@ -286,13 +302,14 @@ public class QuestionFormUIController implements Initializable {
     	return answersBtns;
 	}
 
-    public JFXButton getSaveBtn() {
+	public JFXButton getSaveBtn() {
 		return saveBtn;
 	}
-    
-    public JFXComboBox<?> getFieldCBox() {
+
+	public JFXComboBox<?> getFieldCBox() {
 		return fieldCBox;
 	}
+
 	public String getAuthor() {
 		return author;
 	}

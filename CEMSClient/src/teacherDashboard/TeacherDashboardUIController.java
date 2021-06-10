@@ -77,6 +77,10 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	private Node login;
 	private Node checkTests;
 	private Node scheduledTests;
+	
+	public StackPane getPopUpWindow() {
+		return popUpWindow;
+	}
 
 	/**
 	 * clicking test bank will open the test bank page.
