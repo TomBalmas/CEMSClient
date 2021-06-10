@@ -147,6 +147,15 @@ public class AddingNewTestUIController implements Initializable {
 	public JFXTextArea getTeacherInstructionsTxtArea() {
 		return teacherInstructionsTxtArea;
 	}
+	
+
+	public Set<Question> getPickedQuestions() {
+		return pickedQuestions;
+	}
+
+	public void setPickedQuestions(Set<Question> pickedQuestions) {
+		this.pickedQuestions = pickedQuestions;
+	}
 
 	public JFXTextArea getStudentInstructionsTxtArea() {
 		return studentInstructionsTxtArea;

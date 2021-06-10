@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -12,6 +13,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
+import common.Question;
 import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -110,18 +112,18 @@ public class TestBankUIController implements Initializable {
 
 	@FXML
 	private JFXButton addNewTestButton;
-	
-    @FXML
-    private AnchorPane testAnchor;
 
-    @FXML
-    private JFXButton backToPageBtn;
+	@FXML
+	private AnchorPane testAnchor;
 
-    @FXML
-    private ScrollPane testScrollPane;
+	@FXML
+	private JFXButton backToPageBtn;
 
-    @FXML
-    private AnchorPane testAnchor2;
+	@FXML
+	private ScrollPane testScrollPane;
+
+	@FXML
+	private AnchorPane testAnchor2;
 
 	private Node TestFormNode, addNewTest, AddingFormNode;
 	private FXMLLoader TestFormLoader;
@@ -133,7 +135,7 @@ public class TestBankUIController implements Initializable {
 	// ----------TODO: add teachers for principle
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
-	
+
 	@FXML
 	void searchBtnClicked(MouseEvent event) {
 
@@ -301,7 +303,7 @@ public class TestBankUIController implements Initializable {
 			for (int i = 0; i < tests.size(); i++) {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
-				dataList.add(tr); //add row to dataList to search field.
+				dataList.add(tr); // add row to dataList to search field.
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -337,6 +339,10 @@ public class TestBankUIController implements Initializable {
 									getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 							AddingFormNode = loader.load();
 							AddingNewTestUIController editTestController = loader.getController();
+							Set<Question> picked = editTestController.getPickedQuestions();
+							ClientController.accept("GET_QUESTIONS_FROM_TEST-" + tr.getTestId());
+							for (Question q : ClientController.getQuestions())
+								picked.add(q);
 							editTestController.getSelectFieldCBox().getSelectionModel().select(tr.getField());
 							editTestController.getSelectFieldCBox().fireEvent(arg0);
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
@@ -347,6 +353,7 @@ public class TestBankUIController implements Initializable {
 							editTestController.getStudentInstructionsTxtArea()
 									.setText(tr.getTest().getStudentInstructions());
 							editTestController.setEditingTest(tr.getTestId());
+
 //							Platform.runLater(new Runnable() {
 //								@Override
 //								public void run() {
@@ -379,8 +386,8 @@ public class TestBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")),
-								loader);
+						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "ScheduleTest", "", contentPaneAnchor,
+								Arrays.asList(new JFXButton("Cancel")), loader);
 						// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
 						// loader);
 						SetTestDateController cont = loader.getController();
@@ -419,64 +426,61 @@ public class TestBankUIController implements Initializable {
 					}
 				});
 			}
-			
-			
-			
-			
-			//Search by data which is in a certain row.
+
+			// Search by data which is in a certain row.
 			FilteredList<TestRow> filteredData = new FilteredList<>(dataList, p -> true);
 
-	        //  Set the filter Predicate whenever the filter changes.
+			// Set the filter Predicate whenever the filter changes.
 			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-	            filteredData.setPredicate(myObject -> {
-	                // If filter text is empty, display all persons.
-	                if (newValue == null || newValue.isEmpty()) {
-	                    return true;
-	                }
+				filteredData.setPredicate(myObject -> {
+					// If filter text is empty, display all persons.
+					if (newValue == null || newValue.isEmpty()) {
+						return true;
+					}
 
-	                // Compares what we wrote in the text (we searched for) to the appropriate line.
-	                String lowerCaseFilter = newValue.toLowerCase();
+					// Compares what we wrote in the text (we searched for) to the appropriate line.
+					String lowerCaseFilter = newValue.toLowerCase();
 
-	                if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true;
-	                    // Filter matches code.
-	                } 
-	                
-	            	else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
-	            		return true; // Filter matches field.
-	            	} 
-	                
-	                else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches course.
-	                } 
-	                
-	                else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches name.
-	                } 
-	                
-	                else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches author.
-	                } 
+					if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
+						return true;
+						// Filter matches code.
+					}
 
-	                return false; // Does not match.
-	            });
-	        });
+					else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches field.
+					}
 
-	        //  Wrap the FilteredList in a SortedList. 
-	        SortedList<TestRow> sortedData = new SortedList<>(filteredData);
+					else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches course.
+					}
 
-	        //  Bind the SortedList comparator to the TableView comparator.
-	        sortedData.comparatorProperty().bind(testTable.comparatorProperty());
-	        //  Add sorted (and filtered) data to the table.
-	        testTable.setItems(sortedData);
-	        
+					else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches name.
+					}
+
+					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches author.
+					}
+
+					return false; // Does not match.
+				});
+			});
+
+			// Wrap the FilteredList in a SortedList.
+			SortedList<TestRow> sortedData = new SortedList<>(filteredData);
+
+			// Bind the SortedList comparator to the TableView comparator.
+			sortedData.comparatorProperty().bind(testTable.comparatorProperty());
+			// Add sorted (and filtered) data to the table.
+			testTable.setItems(sortedData);
+
 		}
 	}
-	
-    @FXML
-    void backToPageBtnClicked(MouseEvent event) {
+
+	@FXML
+	void backToPageBtnClicked(MouseEvent event) {
 		testAnchor.setVisible(false);
 		testAnchor.toBack();
-    }
+	}
 
-} 
+}

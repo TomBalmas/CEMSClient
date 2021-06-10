@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
 import client.ClientController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -113,7 +114,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	@FXML
 	void viewActiveTestClicked(MouseEvent event) throws IOException {
 		activeTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_ACTIVE_TESTS.getVal()));
-		//activeTests = loader.load();
+		// activeTests = loader.load();
 		GeneralUIMethods.loadPage(contentPaneAnchor, activeTests);
 		GeneralUIMethods.setMenuStyle(viewActiveTestsBtn, menuVBox);
 	}
@@ -172,17 +173,22 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		String isApproved = null;
-		if (arg instanceof String)
-			isApproved = (String) arg;
-		if (isApproved.equals("approved")) {
-			approvedBtn.setVisible(true);
-			approvedBtn.setText("Approved");
-
-		} else {
-			approvedBtn.setVisible(true);
-			approvedBtn.setText("Disapproved");
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				String isApproved = null;
+				if (arg instanceof String) {
+					isApproved = (String) arg;
+					if (isApproved.equals("approved")) {
+						approvedBtn.setVisible(true);
+						approvedBtn.setText("Approved");
+					} else if (isApproved.equals("disapproved")) {
+						approvedBtn.setVisible(true);
+						approvedBtn.setText("Disapproved");
+					}
+				}
+			}
+		});
 
 	}
 
