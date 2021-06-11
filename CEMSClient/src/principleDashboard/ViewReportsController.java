@@ -127,6 +127,10 @@ public class ViewReportsController implements Initializable {
 
 	}
 
+	/**
+	 * this class represents report row with all relevant data for report row in table
+	 *
+	 */
 	public class reportRow {
 		private String reportId;
 		private String testID;
@@ -219,6 +223,11 @@ public class ViewReportsController implements Initializable {
 
 	}
 
+	/**
+	 
+	 this method sets the values for the graph, and updates them in the report histogram
+	 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		selectTypeCbox.setItems(options);
@@ -230,7 +239,6 @@ public class ViewReportsController implements Initializable {
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
    
-		  
 		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
@@ -291,10 +299,6 @@ public class ViewReportsController implements Initializable {
 				reportRow.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
-						// String average=String.valueOf(reportRow.getAverage());
-						// System.out.println(average);
-
-						// reportFormController.getAverageTxt().setText(average);
 
 					}
 					;

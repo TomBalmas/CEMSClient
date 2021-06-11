@@ -67,6 +67,10 @@ public class StudentTakeTestController implements Initializable, Observer {
     private LocalTime testTime;
     private TestFormController tfc;
 
+	/**
+	 * gets the test for the student when he clicks begin test.
+	 * includes checking all relevant conditions for him to be able to take the test.
+	 */
 	@FXML
 	void beginTestClicked(MouseEvent event) {
 		// Check if the student entered a test code
@@ -124,6 +128,10 @@ public class StudentTakeTestController implements Initializable, Observer {
 		computedBtn.setToggleGroup(testGroup);
 	}
 	
+	/**
+	 this method gets notification from server when the principle approves time extension or locks the test.
+	 test locks, or test gets time time extension on clients side.
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		Platform.runLater(new Runnable() {

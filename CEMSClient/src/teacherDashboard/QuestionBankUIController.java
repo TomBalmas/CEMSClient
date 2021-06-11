@@ -112,7 +112,7 @@ public class QuestionBankUIController implements Initializable {
 	private QuestionFormUIController blankQuestionFormUIController;
 	String authorName;
 
-	// ----------TODO: add teachers for priciple
+
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
 	//lists for combobox fields .fields is for adding a new question.field is for viewing specific question
@@ -155,6 +155,10 @@ public class QuestionBankUIController implements Initializable {
 		return addAnewQuestionBtn;
 	}
 
+	/**
+	 * contains all data to be presented in a question row in the table view
+	 *
+	 */
 	public class questionRow {
 		private String id;
 		private String author;

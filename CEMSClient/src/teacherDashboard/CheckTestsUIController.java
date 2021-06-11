@@ -234,6 +234,9 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
+	/**
+	 initializes test data to be presented for the teacher during test check
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
