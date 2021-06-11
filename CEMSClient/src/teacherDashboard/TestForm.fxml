@@ -51,7 +51,7 @@
                         <String fx:value="button" />
                      </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="downloadBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="380.0" onMouseClicked="#downloadFileClicked" prefHeight="47.0" text="Download Word File" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <JFXButton fx:id="downloadBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="440.0" onMouseClicked="#downloadFileClicked" prefHeight="47.0" text="Download Word File" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="downloadFileButton" />
                         <String fx:value="file" />
@@ -143,7 +143,7 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <JFXButton fx:id="deleteFileBtn" text="" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="16.0">
+                                    <JFXButton fx:id="deleteFileBtn" styleClass="trashBtn" text="" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="16.0">
 				                    	<graphic>
 									 		<FontAwesomeIconView glyphName="TRASH" layoutX="226.0" layoutY="38.0" size="22.0" />
 									 	</graphic>

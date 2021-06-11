@@ -1,6 +1,8 @@
 package teacherDashboard;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import common.Question;
 import common.ScheduledTest;
 import common.Student;
 import common.Test;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,7 +41,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.util.Pair;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -75,7 +77,7 @@ public class TestFormController implements Initializable {
     @FXML
     private AnchorPane questionAnchor;
 
-    @FXML
+	@FXML
     private Label questionLbl;
 
     @FXML
@@ -173,6 +175,10 @@ public class TestFormController implements Initializable {
 	String testCode = null;
 
 	// getters start
+	
+    public AnchorPane getQuestionAnchor() {
+		return questionAnchor;
+	}
 	
     public Label getTestGradeLbl() {
 		return testGradeLbl;
@@ -397,6 +403,7 @@ public class TestFormController implements Initializable {
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
 			teacherNotesOnTest = studentValues.get(3);
+			System.out.println(studentValues.get(3));
 			if (teacherNotesOnTest != null) {
 				testGradeLbl.setText(studentGrade + "");
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
@@ -447,12 +454,27 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * download word file
-	 */
-	@FXML
-	void downloadFileClicked(MouseEvent event) {
-
-	}
+     * Download word file
+     */
+    @FXML
+    void downloadFileClicked(MouseEvent event) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String path = System.getProperty("user.home");
+                    path += "/" + test.getTitle() + "_" +student.getSSN() + ".docx";
+                    File studentWordTest= new File(path);
+                    FileOutputStream fos = new FileOutputStream(studentWordTest);
+                    fos.close();
+                    if (Desktop.isDesktopSupported())
+                        Desktop.getDesktop().open(studentWordTest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 	
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {

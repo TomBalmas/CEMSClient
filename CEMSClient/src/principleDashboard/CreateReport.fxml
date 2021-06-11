@@ -37,7 +37,7 @@
                      </styleClass>
                   </JFXButton>
                   <Label fx:id="selectCourseLbl" layoutX="186.0" layoutY="39.0" prefHeight="21.0" styleClass="pageLabel" text="Select course" visible="false" />
-                  <MenuButton fx:id="menuBtn" layoutX="162.0" layoutY="60.0" mnemonicParsing="false" text="select Courses" textFill="#010011" underline="true">
+                  <MenuButton fx:id="menuBtn" layoutX="162.0" layoutY="60.0" mnemonicParsing="false" text="Select Courses" textFill="#010011" underline="true">
                      <font>
                         <Font size="13.0" />
                      </font></MenuButton>
@@ -47,10 +47,10 @@
       </AnchorPane>
       <AnchorPane fx:id="tableViewAnchor" layoutX="125.0" layoutY="270.0" prefHeight="450.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
          <children>
-            <TableView fx:id="reportsTbl" prefHeight="450.0" prefWidth="875.0">
+            <TableView fx:id="reportsTbl" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                <TableColumn fx:id="nameCol" prefWidth="166.0" text="Name" />
-                <TableColumn fx:id="IDCol" prefWidth="206.0" text="ID" />
+                <TableColumn fx:id="nameCol" prefWidth="426.0" style="-fx-alignment: CENTER;" text="Name" />
+                <TableColumn fx:id="IDCol" prefWidth="426.0" style="-fx-alignment: CENTER;" text="ID" />
               </columns>
             </TableView>
          </children>

@@ -31,7 +31,7 @@ import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
 
-	private static int menuMovementLeftToRight = 1280 - 283 + 1;
+	private static int menuMovementLeftToRight = 1280 - 283 + 1, tempCounter = 0;
 	public static StackPane sp;
 	public static VBox sideBar;
 
@@ -161,6 +161,7 @@ public class GeneralUIMethods {
 
 	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID, String testType,
 			FXMLLoader testFormLoader) {
+		int i = 0;
 		if ((ClientController.getRoleFrame().equals("Student") && !testType.equals("STUDENT_LOOK")) || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
 		else 
@@ -190,15 +191,19 @@ public class GeneralUIMethods {
 				} else
 					controller.getUploadFileAnchor().setVisible(false);
 				if (testType.equals("STUDENT_LOOK")) {
+					ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
+					for (i = 0; i < ClientController.getGrades().size(); i++)
+						if (ClientController.getGrades().get(i).getTestId() != test.getID())
+							break;
 					controller.setStudentValues(new ArrayList<String>() {{
-					    add(null);
-					    add(null);
-					    add("97");
-					    add("wow");
+					    add("A");
+					    add("B");
+					    add(ClientController.getGrades().get(tempCounter).getGrade() + "");
+					    add(ClientController.getGrades().get(tempCounter).getTeacherNotes());
 					}}); //getGradesBySSN query
 				}
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
-				int i = 1;
+				i = 1;
 				for (Question q : testQuestions) {
 					System.out.println(q.getID());
 					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
@@ -218,9 +223,13 @@ public class GeneralUIMethods {
 									node.setDisable(true);
 								});
 							});
-						if(testType.equals("Manual") || testType.equals("Computed") || testType.equals("TEACHER_CHECKING")) {
+						if (testType.equals("Manual"))
+							controller.getQuestionAnchor().setVisible(false);
+						if (testType.equals("Manual") || testType.equals("Computed")
+								|| testType.equals("TEACHER_CHECKING")) {
 							contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
-							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(), testFormNode);
+							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(),
+									testFormNode);
 						}
 						else {
 							controller.getTestSideBarAnchor().setVisible(false);
