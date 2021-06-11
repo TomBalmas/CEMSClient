@@ -234,6 +234,9 @@ public class ViewActiveTestsController implements Initializable {
 
 	}
 
+	/**
+	 set data in active tests table
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<ActiveTest> activeTests = null;

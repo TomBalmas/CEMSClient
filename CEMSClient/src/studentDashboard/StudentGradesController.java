@@ -122,6 +122,10 @@ public class StudentGradesController implements Initializable {
 
 	}
 
+	/**
+	 * class for the grades data to be presented int the table view
+	 *
+	 */
 	public class rowTableGrades {
 		private String testId;
 		private String course;
@@ -169,6 +173,9 @@ public class StudentGradesController implements Initializable {
 
 	}
 
+	/**
+	 sets the grades data into the table view
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// selectCourseCbox.setItems(course);

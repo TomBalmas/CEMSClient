@@ -57,8 +57,6 @@ public class ReportFormController implements Initializable {
 	@FXML
 	private AnchorPane tableViewAnchor;
 
-	@FXML
-	private BarChart<String, Number> histograma;
 
 	@FXML
 	private JFXButton backBtn;
@@ -66,12 +64,17 @@ public class ReportFormController implements Initializable {
 	@FXML
 	private JFXButton deleteBtn;
 	Series<String, Number> set = new XYChart.Series<String, Number>();
+	
+	@FXML
+	private BarChart<String, Number> histograma;
 
+
+	/**
+	 initializing report form with general settings 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// set first bar color
-
-		// TODO Auto-generated method stub
+	
 		xAxisExam.setAnimated(true);
 		histograma.getData().clear();
 		set.getData().clear();
@@ -79,10 +82,8 @@ public class ReportFormController implements Initializable {
 		// Set Font
 		xAxisExam.setTickLabelFont(new Font("Arial", 12));
 		xAxisExam.setAnimated(false);
-
 		yAxisGrades.setLabel("Grades");
 		xAxisExam.setLabel("Exam ID");
-		// histograma.getData().addAll(set);
 		xAxisExam.setAnimated(false);
 
 	}

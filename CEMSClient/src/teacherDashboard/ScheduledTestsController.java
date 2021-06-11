@@ -209,6 +209,9 @@ public class ScheduledTestsController implements Initializable {
 		}
 	}
 
+	/**
+	 initialize colomns and data  in scheduled tests table 
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ClientController.accept("SCHEDULED_TESTS-" + ClientController.getActiveUser().getSSN());

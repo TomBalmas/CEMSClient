@@ -55,7 +55,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" onMouseClicked="#createReportBtn" text="Create">
+      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" text="Create">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="btn" />

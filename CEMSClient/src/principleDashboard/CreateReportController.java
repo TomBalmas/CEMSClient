@@ -110,17 +110,20 @@ public class CreateReportController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> nameCol;
+	
 	@FXML
 	private MenuButton menuBtn;
-
+	
+	@FXML
+	private JFXButton createReportBtn;
+	
 	@FXML
 	private TableColumn<?, ?> IDCol;
+	
 	ArrayList<Student> students = null;
 	ArrayList<Teacher> teachers = null;
 	ArrayList<Course> courses = null;
-
-	@FXML
-	private JFXButton createReportBtn;
+	ArrayList<CheckBox> checkMenuItems = new ArrayList<>();
 	ObservableList coursesSelection = FXCollections.observableArrayList();
 	ObservableList coursesSelected = FXCollections.observableArrayList();
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");
@@ -128,8 +131,8 @@ public class CreateReportController implements Initializable {
 	private Node ReportForm;
 	String median;
 	String average;
-	ArrayList<CheckBox> checkMenuItems = new ArrayList<>();
 
+//row to be presented in table view.General for student,course,teCacher
 	public class Row {
 		private String id;
 		private String author;
@@ -260,6 +263,7 @@ public class CreateReportController implements Initializable {
 							
 							
 						}
+						
 						// teachers report
 						if (selectTypeCbox.getValue().equals("Teacher")) {
 							createReportBtn.setDisable(true);
@@ -302,6 +306,7 @@ public class CreateReportController implements Initializable {
 							}
 
 						}
+						
 						// create course report
 						if (selectTypeCbox.getValue().equals("Courses")) {
 							createReportBtn.setDisable(true);
@@ -368,7 +373,7 @@ public class CreateReportController implements Initializable {
 			;
 		});
 
-		// handke clicking on a student row
+		// handle clicking on a student row
 		reportsTbl.setOnMouseClicked((MouseEvent event) -> {
 			createReportBtn.setDisable(false);
 			Row selected = reportsTbl.getSelectionModel().getSelectedItem();
@@ -477,14 +482,10 @@ public class CreateReportController implements Initializable {
 
 	}
 
-	@FXML
-	void createReportBtn(MouseEvent event) throws IOException {
-
-	}
-
+	
 	@FXML
 	void filterBtn(MouseEvent event) {
-
+		
 	}
 
 }
