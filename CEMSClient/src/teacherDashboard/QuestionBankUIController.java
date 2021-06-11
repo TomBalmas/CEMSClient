@@ -118,7 +118,6 @@ public class QuestionBankUIController implements Initializable {
 	//lists for combobox fields .fields is for adding a new question.field is for viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
 	ObservableList field = FXCollections.observableArrayList();
-	
 
 	private String authorString;
 	public String getAuthorString() {
@@ -317,20 +316,35 @@ public class QuestionBankUIController implements Initializable {
 					}
 				};
 				
-				//Event handler for deletion from table and DB
+				// Event handler for deletion from table and DB
 				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						JFXButton yesBtn = new JFXButton("Yes");
-						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-					    	ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
-					    	if (!ClientController.isQuestionDeleted())
+						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+							ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
+							if (!ClientController.isQuestionDeleted())
 								System.out.println("not working");
-					    	questionBankTable.getItems().remove(questionRow);
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "The question " + questionRow.getID() + " has been deleted", contentPaneAnchor, null, null);
+							else {
+								questionRow selectedItem = questionBankTable.getSelectionModel().getSelectedItem();
+								if (selectedItem != null)
+									questionBankTable.getItems().remove(selectedItem);
+								JFXButton okayBtn = new JFXButton("Okay");
+								okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+									try {
+										GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+												.load(getClass().getResource(Navigator.QUESTION_BANK.getVal())));
+									} catch (IOException e2) {
+										e2.printStackTrace();
+									}
+								});
+								new PopUp(PopUp.TYPE.INFORM, "Information",
+										"The question " + questionRow.getID() + " has been deleted", contentPaneAnchor,
+										Arrays.asList(okayBtn), null);
+							}
 						});
-						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this question?",
-								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);			
+						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this question?",
+								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
 				

@@ -48,6 +48,7 @@ public class AddingNewTestUIController implements Initializable {
 	private QuestionFormUIController questionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
 	private Set<Question> pickedQuestions;
+	boolean flag = false;
 	ArrayList<Question> questions;
 	ObservableList<String> fields = FXCollections.observableArrayList();
 	ObservableList<String> courses = FXCollections.observableArrayList();
@@ -230,7 +231,6 @@ public class AddingNewTestUIController implements Initializable {
 
 		selectFieldCBox.setItems(fields);
 		selectFieldCBox.setOnAction(event -> {
-			pickedQuestions.clear();
 			questionTable.getItems().clear();
 			ClientController.accept("QUESTION_BANK-" + selectFieldCBox.getValue());
 			questions = ClientController.getQuestions();
@@ -251,7 +251,8 @@ public class AddingNewTestUIController implements Initializable {
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
-
+				if (pickedQuestions.contains(q))
+					flag = true;
 				qr.getViewBtn().setOnAction(e -> {
 					FXMLLoader questionFormPageLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 					try {
@@ -283,10 +284,8 @@ public class AddingNewTestUIController implements Initializable {
 					questionFormUIController.getContentPaneAnchor().prefWidthProperty().bind(testScrollPane.widthProperty());	
 					questionFormUIController.getInsideContentAnchor().prefHeightProperty().bind(testScrollPane.heightProperty().subtract(100));
 					questionFormUIController.getQuestionAnchor().prefHeightProperty().bind(testScrollPane.heightProperty().subtract(100));
-					
-					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "VIEW_QUESTION", "", contentPaneAnchor,
+					new PopUp(PopUp.TYPE.INFORM, "VIEW_QUESTION", "", contentPaneAnchor,
 							Arrays.asList(new JFXButton("Cancel")), questionFormPageLoader);
-					//GeneralUIMethods.loadPage(testAnchor, QuestionForm);
 				});
 				
 				if (pickedQuestions.size() == 0)
@@ -310,6 +309,8 @@ public class AddingNewTestUIController implements Initializable {
 					System.out.print("]\n");
 				});
 			}
+			if (flag)
+				pickedQuestions.clear();
 		});
 	}
 
@@ -447,7 +448,7 @@ public class AddingNewTestUIController implements Initializable {
 			GeneralUIMethods.loadPage(contentPaneAnchor, testBank);
 		});
 		GeneralUIMethods.setPopupPane(popUpWindow);
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", popupMsg, setParametersAnchor, Arrays.asList(okayBtn), null);
+		new PopUp(PopUp.TYPE.INFORM, "Information", popupMsg, setParametersAnchor, Arrays.asList(okayBtn), null);
 		GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
 	}
 

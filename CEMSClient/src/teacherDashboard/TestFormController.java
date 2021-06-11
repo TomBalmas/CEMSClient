@@ -534,7 +534,7 @@ public class TestFormController implements Initializable {
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
 		if (!ClientController.isStudentDeletedFromTest()) {
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
+			new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
 					null);
 			return;
 		}
@@ -567,7 +567,7 @@ public class TestFormController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, studentDashboardLoader);
 		});
 
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
+		new PopUp(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
 	}
 	
 	@FXML
@@ -576,11 +576,11 @@ public class TestFormController implements Initializable {
 		if (isDisapproveClicked) {
 			if (!newGrade.getText().matches("\\d+") || Integer.parseInt(newGrade.getText()) < 0
 					|| Integer.parseInt(newGrade.getText()) > 100) {
-				PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Grade text field must be a valid grade.", null,
+				new PopUp(PopUp.TYPE.ERROR, "Error", "Grade text field must be a valid grade.", null,
 						null, null);
 				return;
 			} else if (newGrade.getText().isEmpty() || teacherNotes.getText().isEmpty()) {
-				PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Some field are missing", null, null, null);
+				new PopUp(PopUp.TYPE.ERROR, "Error", "Some field are missing", null, null, null);
 				return;
 			}
 			studentValues.set(2, newGrade.getText());
@@ -601,7 +601,7 @@ public class TestFormController implements Initializable {
 			GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
 		});
 		GeneralUIMethods.setPopupPane(popUpWindow);
-		PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.", teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
+		new PopUp(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.", teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
     }
 
 	@FXML
@@ -616,14 +616,23 @@ public class TestFormController implements Initializable {
 		// Get students answers and select them
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
 		int i = 0;
-		for (ToggleGroup tg : getQuestionsToggleGroup()) {
-			System.out.println(ClientController.getStudentAnswers().get(i).getValue());
+		for (ToggleGroup tg : getQuestionsToggleGroup())
 			if (!ClientController.getStudentAnswers().isEmpty()) {
-				tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue()-1).setSelected(true);
+				tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
 				i++;
 			}
-		}
 		ClientController.setStudentAnswers(null);
+	}
+	
+	public void setQuestionsFromTest(String testId) {
+		ClientController.accept("GET_QUESTIONS_FROM_TEST-" + testId);
+		int i = 0;
+		for (ToggleGroup tg : getQuestionsToggleGroup())
+			if (!ClientController.getQuestions().isEmpty()) {
+				tg.getToggles().get(ClientController.getQuestions().get(i).getCorrectAnswer() - 1).setSelected(true);
+				i++;
+			}
+		ClientController.setQuestions(null);
 	}
 
 }

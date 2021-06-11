@@ -71,7 +71,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 	void beginTestClicked(MouseEvent event) {
 		// Check if the student entered a test code
 		if (testCodeField.getText().equals("")) {
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
+			new PopUp(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
 					null);
 			return;
 		}
@@ -94,7 +94,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 				tfc = testFormLoader.getController();
 				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
 				if (!ClientController.isStudentAddedToTest()) {
-					PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,
+					new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,
 							null);
 					return;
 				}
@@ -113,7 +113,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 			}
 		}
 		else // If the test is not scheduled for now
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
+			new PopUp(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
 					null);
 	}
 

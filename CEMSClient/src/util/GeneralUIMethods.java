@@ -239,10 +239,16 @@ public class GeneralUIMethods {
 					controller.getTestGradeLbl().setVisible(true);
 					controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
 				}
+				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING")) 
+					controller.setQuestionsFromTest(test.getID());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		if (ClientController.getRoleFrame().equals("Teacher"))
+				GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
+		else if (ClientController.getRoleFrame().equals("Principle"))
+				GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
 	}
 	
 	public static double resizeTxtArea(JFXTextArea textArea) {

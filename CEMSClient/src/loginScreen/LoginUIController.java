@@ -78,58 +78,37 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
-		if (usernameTxt.getText().equals("backdoor")) {	//enter the client screens without involving the server
-			try {
-				if (passwordTxt.getText().equals("t"))
-					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-				else if (passwordTxt.getText().equals("p"))
-					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-				else if (passwordTxt.getText().equals("s"))
-					dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-				else
-					return;
-				anchorLogin.getChildren().setAll(dashBoard);
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			};
-		} else {
-			if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
-				return;
-			ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
-			String role = ClientController.getRoleFrame();
-			String error = null;
-			if (!role.equals("null") && !role.equals("userAlreadyConnected")) {
-				GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
-					try {
-						if (role.equals("Teacher")) {
-							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
-						} else if (role.equals("Principle")) {
-							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
-						} else if (role.equals("Student")) {
-							dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-						}
-						anchorLogin.getChildren().setAll(dashBoard);
-					} catch (IOException e1) {
-						e1.printStackTrace();
+		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+			return;
+		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
+		String role = ClientController.getRoleFrame();
+		String error = null;
+		if (!role.equals("null") && !role.equals("userAlreadyConnected")) {
+			GeneralUIMethods.moveItem(menuVBox, menuMovementRightToLeft, 1, (e) -> {
+				try {
+					if (role.equals("Teacher")) {
+						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+					} else if (role.equals("Principle")) {
+						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.PRINCIPLE_DASHBOARD.getVal()));
+					} else if (role.equals("Student")) {
+						dashBoard = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
 					}
-				});
-				GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
-					whiteAnchor.setVisible(false);
-				});
-//			} else {
-//				GeneralUIMethods.setPopupPane(popupStackPane);
-//				GeneralUIMethods.setSideBar(menuVBox);
-//				PopUp.showMaterialDialog(PopUp.TYPE.ALERT,"Error!", "Wrong username or password.", null, null, null);
-//			}
-			} else {
-				if (role.equals("userAlreadyConnected"))
-					error = "User is already connected.";
-				else
-					error = "Wrong username or password.";
-				GeneralUIMethods.setPopupPane(popupStackPane);
-				GeneralUIMethods.setSideBar(menuVBox);
-				PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Error!", error, null, null, null);
-			}
+					anchorLogin.getChildren().setAll(dashBoard);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			});
+			GeneralUIMethods.moveItem(usernameTxt, 0, 0.45, (e) -> {
+				whiteAnchor.setVisible(false);
+			});
+		} else {
+			if (role.equals("userAlreadyConnected"))
+				error = "User is already connected.";
+			else
+				error = "Wrong username or password.";
+			GeneralUIMethods.setPopupPane(popupStackPane);
+			GeneralUIMethods.setSideBar(menuVBox);
+			new PopUp(PopUp.TYPE.LOGIN, "Error!", error, null, null, null);
 		}
 	}
 

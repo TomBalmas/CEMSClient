@@ -297,24 +297,22 @@ public class CheckTestsUIController implements Initializable {
 					return true;
 				// Compare first name and last name field in your object with filter.
 				String lowerCaseFilter = newValue.toLowerCase();
-				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
-					return true;
-					// Filter matches ID.
-				} else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter))
+					return true; // Filter matches ID.
+				else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches course.
-				} else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches title.
-				} else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches date.
-				} else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches starting time.
-				} else if (String.valueOf(myObject.getStudentSSN()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getStudentSSN()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches studentSSN.
-				} else if (String.valueOf(myObject.getGrade()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getGrade()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches grade.
-				} else if (String.valueOf(myObject.getStatus()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getStatus()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches status.
-				}
 				return false; // Does not match.
 			});
 		});

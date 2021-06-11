@@ -2,6 +2,7 @@ package teacherDashboard;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -60,14 +61,8 @@ public class SetTestDateController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		setDateBtn.setDisable(true);
-		dateDP.setOnAction(e -> {
-			if (LocalDate.now().compareTo(dateDP.getValue()) <= 0 )
-				setDateBtn.setDisable(false);
-			else
-				setDateBtn.setDisable(true);
-		});
-		
+		dateDP.setValue(LocalDate.now());
+		timeTP.setValue(LocalTime.now());
 	}
 
 }

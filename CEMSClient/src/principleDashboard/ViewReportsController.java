@@ -310,11 +310,11 @@ public class ViewReportsController implements Initializable {
 							if (!ClientController.isReportDeleted())
 								System.out.println("not working");
 							reportTable.getItems().remove(reportRow);
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+							new PopUp(PopUp.TYPE.INFORM, "Information",
 									"The report " + reportRow.getReportId() + " has been deleted", insideFilterAnchor,
 									null, null);
 						});
-						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert",
+						new PopUp(PopUp.TYPE.ALERT, "Alert",
 								"Are you sure that you want to delete this question?", insideFilterAnchor,
 								Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
