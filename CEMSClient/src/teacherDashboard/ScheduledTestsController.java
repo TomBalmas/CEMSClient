@@ -1,5 +1,6 @@
 package teacherDashboard;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -226,12 +227,12 @@ public class ScheduledTestsController implements Initializable {
 		rescheduleCol.setCellValueFactory(new PropertyValueFactory<>("reScheduleBtn"));
 		codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("removeBtn"));
+		System.out.println(scheduledTestsTbl.getItems().size());
 		if (scheduledTests != null) {
 			for (ScheduledTest test : scheduledTests) {
 				ScheduleTestRow tr = new ScheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
-				dataList.add(tr); //add row to dataList to search field.
-				
+				dataList.add(tr); // add row to dataList to search field.
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -252,41 +253,45 @@ public class ScheduledTestsController implements Initializable {
 						if (!ClientController.isTestRemoved())
 							System.out.println("not working");
 						scheduledTestsTbl.getItems().remove(toDelete);
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+						new PopUp(PopUp.TYPE.INFORM, "Information",
 								"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
 					});
-					PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert",
+					new PopUp(PopUp.TYPE.ALERT, "Alert",
 							"Are you sure that you want to delete this test?", contentPaneAnchor,
 							Arrays.asList(yesBtn, new JFXButton("No")), null);
 				});
 
-				tr.getReScheduleBtn().setOnAction(e -> { // reSchedule
+				tr.getReScheduleBtn().setOnAction(e -> { // Reschedule
 					ScheduleTestRow toReschedule = tr;
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor, null, loader);
+					PopUp rescheduleTestPopUp = new PopUp(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")), loader);
 					SetTestDateController cont = loader.getController();
 					cont.getCodeTxt().setDisable(true);
+					cont.getTestNameLbl().setText(tr.getTitle());
 					cont.getCodeTxt().setText(tr.getCode());
 					cont.getSetDateBtn().setOnMouseClicked(e2 -> {
 						ClientController.accept("RESCHEDULE_TEST-" + tr.getCode() + ","
 								+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 								+ cont.getTimeTP().getValue().toString());
 						if (ClientController.isTestRescheduled()) {
-							PopUp.showMaterialDialog(PopUp.TYPE.SCHEDULE, "Success", "Tests rescheduled successfully",
-									contentPaneAnchor, null, null);
-							scheduledTestsTbl.refresh();
-//							scheduledTestsTbl.getItems().clear();
-//							initialize(arg0, arg1);
+							JFXButton okayBtn = new JFXButton("Okay");
+							okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+								rescheduleTestPopUp.hidePopUp();
+							});
+							new PopUp(PopUp.TYPE.SCHEDULE, "Success", "Tests rescheduled successfully",
+									contentPaneAnchor, Arrays.asList(okayBtn), null);
+							try {
+								GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+										.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal())));
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
 						}
 						else
-							PopUp.showMaterialDialog(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed",
+							new PopUp(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed",
 									contentPaneAnchor, null, null);
 					});
 				});
-				
-				//TODO - view test 
-				
-				
 			}
 			
 			//Search by data which is in a certain row.

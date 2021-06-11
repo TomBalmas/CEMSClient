@@ -248,7 +248,7 @@ public class CreateReportController implements Initializable {
 								else {
 									
 									
-									PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+									new PopUp(PopUp.TYPE.INFORM, "Information",
 											"Relevant tests doesnt exist " + " ", contentPaneAnchor, null, null);
 								}
 							}
@@ -256,7 +256,7 @@ public class CreateReportController implements Initializable {
 							else
 							{
 								menuBtn.lookup(".arrow").setStyle("-fx-background-color: teal;");
-								PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+								new PopUp(PopUp.TYPE.INFORM, "Information",
 										"" + "Please select courses", contentPaneAnchor, null, null);
 								
 							}
@@ -300,7 +300,7 @@ public class CreateReportController implements Initializable {
 								reportFormController.getyAxisGrades().setLabel("Value");
 								GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 							} else {
-								PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+								new PopUp(PopUp.TYPE.INFORM, "Information",
 										"Cant create report. " + "Relevant tests doesnt exist ", contentPaneAnchor,
 										null, null);
 							}
@@ -341,7 +341,7 @@ public class CreateReportController implements Initializable {
 									GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 
 								} else {
-									PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+									new PopUp(PopUp.TYPE.INFORM, "Information",
 											"Cant create report.Relevant tests doesnt exist" + " ", contentPaneAnchor,
 											null, null);
 								}

@@ -183,11 +183,11 @@ public class QuestionFormUIController implements Initializable {
 				//show POP UP:
 				String toShow = "Question ID: ";
 				toShow = toShow.concat(ClientController.getNewQuestionId());
-				PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
+				new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
 			}
 			// handle empty fields
 		} else
-			PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question not saved", "Some fields are empty.",
+			new PopUp(PopUp.TYPE.SUCCESS, "Question not saved", "Some fields are empty.",
 					contentPaneAnchor, list, null);
 		}
 		//query for editing question
@@ -205,10 +205,10 @@ public class QuestionFormUIController implements Initializable {
 				if (answerEdit) {
 					String toShow = "Question ID: ";
 					toShow = toShow.concat(questionID[2]);
-					PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, null, null);
+					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, null, null);
 				}
 			} else
-				PopUp.showMaterialDialog(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!",
+				new PopUp(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!",
 						contentPaneAnchor, null, null);
 		}
 		correctAnswer = 0;

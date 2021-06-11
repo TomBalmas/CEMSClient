@@ -137,10 +137,10 @@ public class ViewActiveTestsController implements Initializable {
 				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // 																				
 		ClientController.accept("NOTIFY_PRINCIPLE");
 		if (ClientController.isPrincipleNotified())
-			PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
+			new PopUp(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
 					contentPaneAnchor, null, null);
 		else
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
+			new PopUp(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
 					null, null);
 	}
 
@@ -278,7 +278,7 @@ public class ViewActiveTestsController implements Initializable {
 					@Override
 					public void handle(ActionEvent arg0) {
 						FXMLLoader lockTestLoader = new FXMLLoader(getClass().getResource(Navigator.LOCK_TEST.getVal()));
-						PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "LOCK_TEST", "", contentPaneAnchor,
+						new PopUp(PopUp.TYPE.INFORM, "LOCK_TEST", "", contentPaneAnchor,
 								Arrays.asList(new JFXButton("Cancel")), lockTestLoader);
 						LockTestController cont = lockTestLoader.getController();
 						cont.getTestNameLbl().setText(tr.getTestName());
@@ -295,12 +295,12 @@ public class ViewActiveTestsController implements Initializable {
 							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString()); //TODO - bohad fixed
 							System.out.println("tom the orange4");
 							if (ClientController.isTestLocked()) {
-								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
+								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
 										contentPaneAnchor, null, null);
 								((JFXButton) arg0.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
 							}
 							else
-								PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID() ,
+								new PopUp(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID() ,
 										contentPaneAnchor, null, null);
 						});
 					}
