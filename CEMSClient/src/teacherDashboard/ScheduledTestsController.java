@@ -258,11 +258,9 @@ public class ScheduledTestsController implements Initializable {
 				});
 
 				tr.getReScheduleBtn().setOnAction(e -> { // reSchedule
-					ScheduleTestRow toReschedule =tr;
+					ScheduleTestRow toReschedule = tr;
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
 					PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor, null, loader);
-					// PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "", "", contentPaneAnchor, null,
-					// loader);
 					SetTestDateController cont = loader.getController();
 					cont.getCodeTxt().setDisable(true);
 					cont.getCodeTxt().setText(tr.getCode());

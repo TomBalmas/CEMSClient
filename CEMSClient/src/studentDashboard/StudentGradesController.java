@@ -171,11 +171,8 @@ public class StudentGradesController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		// selectCourseCbox.setItems(course);
-
 		ArrayList<StudentGrade> studentGrades = null;
-
 		ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
 		studentGrades = ClientController.getGrades(); // Receiving a query from the server.
 		
@@ -196,12 +193,9 @@ public class StudentGradesController implements Initializable {
 					@Override
 					public void handle(ActionEvent arg0) {
 						FXMLLoader testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-						TestFormController testFormController = testFormLoader.getController();
-						
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
 						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(), "STUDENT_LOOK", testFormLoader);
-						
 					}
 				});
 			}

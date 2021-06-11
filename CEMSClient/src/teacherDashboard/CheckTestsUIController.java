@@ -276,11 +276,13 @@ public class CheckTestsUIController implements Initializable {
 						tfc.getGradeLbl().setText(tr.getGrade() + "");
 						if(tr.getGrade() < 55) tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
 						else tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
-						//TODO: get student answers
-						for (ToggleGroup tg : tfc.getQuestionsToggleGroup()) {
-							tg.getToggles().get(0).setSelected(true);
-						}
-						
+						tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and select them
+						tfc.setStudentValues(new ArrayList<String>() {{
+						    add(tr.getStudentSSN());
+						    add(tr.getID());
+						    add(tr.getGrade() + "");
+						    add(null);
+						}});
 					}
 				});
 			}

@@ -265,7 +265,7 @@
             <String fx:value="button" />
          </styleClass>
       </JFXButton>
-      <Label fx:id="testGradeLbl" alignment="CENTER" contentDisplay="CENTER" styleClass="GradeLbl" text="100" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label fx:id="testGradeLbl" alignment="CENTER" contentDisplay="CENTER" styleClass="GradeLbl" text="100" visible="false" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <StackPane fx:id="popUpWindow" layoutX="530.0" layoutY="330.0" prefHeight="150.0" prefWidth="400.0" stylesheets="@../util/Style.css" />
    </children>
 </AnchorPane>

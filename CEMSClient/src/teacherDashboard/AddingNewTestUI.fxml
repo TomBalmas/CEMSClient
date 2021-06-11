@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -119,5 +120,6 @@
             <String fx:value="button" />
          </styleClass>
       </JFXButton>
+      <StackPane fx:id="popUpWindow" layoutX="577.0" layoutY="336.0" prefHeight="150.0" prefWidth="430.0" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="288.5" AnchorPane.topAnchor="325.0" />
    </children>
 </AnchorPane>

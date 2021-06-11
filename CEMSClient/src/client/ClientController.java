@@ -59,6 +59,7 @@ public class ClientController {
 	private static ArrayList<Course> courses = null;
 	private static ArrayList<StudentGrade> grades;
 	private static ArrayList<Pair<String,String>> copiedStudents;
+	private static ArrayList<Pair<String,Integer>> studentAnswers;
 	private static String id = null;
 	private static Test studentTest = null;
 	private static Course course;
@@ -406,6 +407,14 @@ public class ClientController {
 
 	public static void setCopiedStudents(ArrayList<Pair<String, String>> copiedStudents) {
 		ClientController.copiedStudents = copiedStudents;
+	}
+
+	public static ArrayList<Pair<String,Integer>> getStudentAnswers() {
+		return studentAnswers;
+	}
+
+	public static void setStudentAnswers(ArrayList<Pair<String,Integer>> studentAnswers) {
+		ClientController.studentAnswers = studentAnswers;
 	}
 }
  

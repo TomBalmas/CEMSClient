@@ -18,6 +18,7 @@ import common.Teacher;
 import common.Test;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -344,23 +345,26 @@ public class TestBankUIController implements Initializable {
 							for (Question q : ClientController.getQuestions())
 								picked.add(q);
 							editTestController.getSelectFieldCBox().getSelectionModel().select(tr.getField());
+							editTestController.getSelectFieldCBox().setDisable(true);
 							editTestController.getSelectFieldCBox().fireEvent(arg0);
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
+							editTestController.getSelectCourseCBox().setDisable(true);
 							editTestController.getTitleTxt().setText(tr.getTestName());
 							editTestController.getDurationTxt().setText(tr.getTest().getTestDuration().toString());
 							editTestController.getTeacherInstructionsTxtArea()
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
 									.setText(tr.getTest().getStudentInstructions());
-							editTestController.setEditingTest(tr.getTestId());
+							
 
-//							Platform.runLater(new Runnable() {
-//								@Override
-//								public void run() {
-//									//editTestController.getQuestionTable().getSelectionModel().select(1);
-//									//editTestController.setQuestionController(tr.getTestId());
-//								}
-//							});
+							Platform.runLater(new Runnable() {
+								@Override
+								public void run() {
+									editTestController.setEditingTest(tr.getTestId());
+									//editTestController.getQuestionTable().getSelectionModel().select(1);
+									//editTestController.setQuestionController(tr.getTestId());
+								}
+							});
 //
 //							//ClientController.accept("GET_QUESTIONS_FROM_TEST-" + tr.getTestId());
 //							editTestController.getQuestionTable().getItems().remove(0);
@@ -416,9 +420,11 @@ public class TestBankUIController implements Initializable {
 							ClientController.accept("DELETE_TEST-" + tr.test.getID());
 							if (!ClientController.isTestDeleted())
 								System.out.println("not working");
-							testTable.getItems().remove(toDelete);
-							PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
-									"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+							else {
+								testTable.getItems().remove(toDelete);
+								PopUp.showMaterialDialog(PopUp.TYPE.INFORM, "Information",
+										"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+							}
 						});
 						PopUp.showMaterialDialog(PopUp.TYPE.ALERT, "Alert",
 								"Are you sure that you want to delete this test?", contentPaneAnchor,

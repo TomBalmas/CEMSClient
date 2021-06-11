@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
@@ -23,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import teacherDashboard.TestFormController;
@@ -103,7 +105,6 @@ public class GeneralUIMethods {
 	 */
 	public static void setPopupPane(StackPane sp) {
 		GeneralUIMethods.sp = sp;
-		sp.toBack();
 	}
 	
 	public static void setSideBar(VBox sideBar) {
@@ -181,10 +182,6 @@ public class GeneralUIMethods {
 				controller.getTestSideBarAnchor().setVisible(true);
 				controller.setFlag(true);
 				controller.setTestType(testType);
-				if (testType.equals("STUDENT_LOOK")) {
-					//getGradesBySSN query
-					controller.setStudentValues(new Pair<>("99", "test"));
-				}
 				if (testType.equals("Manual")) {
 					controller.getDownloadBtn().setVisible(true);
 					controller.getUploadBtn().setVisible(true);
@@ -192,9 +189,18 @@ public class GeneralUIMethods {
 					controller.getFinishBtn().setVisible(false);
 				} else
 					controller.getUploadFileAnchor().setVisible(false);
+				if (testType.equals("STUDENT_LOOK")) {
+					controller.setStudentValues(new ArrayList<String>() {{
+					    add(null);
+					    add(null);
+					    add("97");
+					    add("wow");
+					}}); //getGradesBySSN query
+				}
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				int i = 1;
 				for (Question q : testQuestions) {
+					System.out.println(q.getID());
 					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
 					i++;
 				}
@@ -228,10 +234,30 @@ public class GeneralUIMethods {
 						}
 					}
 				});
+				// Get students answers and select them
+				if (testType.equals("STUDENT_LOOK")) {
+					controller.getTestGradeLbl().setVisible(true);
+					controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static double resizeTxtArea(JFXTextArea textArea) {
+		Text textBox = new Text(textArea.getText());
+		textBox.setFont(textArea.getFont());
+		StackPane pane = new StackPane(textBox);
+		pane.layout();
+		double paneHeight = pane.getHeight();
+		System.out.println(paneHeight);
+		double textBoxHeight = textBox.getLayoutBounds().getHeight();
+		double paddingToBeAdded = 50;
+		textArea.setMaxHeight(textBoxHeight + paddingToBeAdded);
+		textArea.setText(textArea.getText());
+		System.out.println(textBoxHeight);
+		return paneHeight - textBoxHeight;
 	}
 	
 }
