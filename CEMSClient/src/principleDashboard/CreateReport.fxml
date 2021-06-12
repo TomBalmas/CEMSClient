@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -61,5 +62,13 @@
             <String fx:value="btn" />
          </styleClass>
       </JFXButton>
+      <Label fx:id="promptMessage" layoutX="126.0" layoutY="253.0" prefHeight="21.0" prefWidth="250.0" text="select row to view students courses">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,6 +84,11 @@ public class ReportFormController implements Initializable {
 		yAxisGrades.setLabel("Grades");
 		xAxisExam.setLabel("Exam ID");
 		xAxisExam.setAnimated(false);
+
+	    setMaxBarWidth(40, 10);
+	    histograma.widthProperty().addListener((obs,b,b1)->{
+	        Platform.runLater(()->setMaxBarWidth(40, 10));
+	    });
 
 	}
 
@@ -170,5 +176,25 @@ public class ReportFormController implements Initializable {
 
 	public void setHistograma(BarChart<String, Number> histograma) {
 		this.histograma = histograma;
+	}
+	private void setMaxBarWidth(double maxBarWidth, double minCategoryGap){
+	    double barWidth=0;
+	    do{
+	        double catSpace = xAxisExam.getCategorySpacing();
+	        double avilableBarSpace = catSpace - (histograma.getCategoryGap() + histograma.getBarGap());
+	        barWidth = (avilableBarSpace / histograma.getData().size()) - histograma.getBarGap();
+	        if (barWidth >maxBarWidth){
+	            avilableBarSpace=(maxBarWidth + histograma.getBarGap())* histograma.getData().size();
+	            histograma.setCategoryGap(catSpace-avilableBarSpace-histograma.getBarGap());
+	        }
+	    } while(barWidth>maxBarWidth);
+
+	    do{
+	        double catSpace = xAxisExam.getCategorySpacing();
+	        double avilableBarSpace = catSpace - (minCategoryGap + histograma.getBarGap());
+	        barWidth = Math.min(maxBarWidth, (avilableBarSpace / histograma.getData().size()) - histograma.getBarGap());
+	        avilableBarSpace=(barWidth + histograma.getBarGap())* histograma.getData().size();
+	        histograma.setCategoryGap(catSpace-avilableBarSpace-histograma.getBarGap());
+	    } while(barWidth < maxBarWidth && histograma.getCategoryGap()>minCategoryGap);
 	}
 }
