@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import common.ActiveTest;
 import common.Course;
+import common.EmptyUser;
 import common.FinishedTest;
 import common.Principle;
 import common.Question;
@@ -82,12 +83,9 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		try {
-			msg.equals(null);
-		} catch (NullPointerException e) {
+		if (msg instanceof EmptyUser)
 			ClientController.setRoleFrame("null");
-		}
-		if (msg.equals("userAlreadyConnected")) {
+		else if (msg.equals("userAlreadyConnected")) {
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
 			// case of login
