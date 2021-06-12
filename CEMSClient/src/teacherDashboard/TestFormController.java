@@ -403,8 +403,9 @@ public class TestFormController implements Initializable {
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
 			teacherNotesOnTest = studentValues.get(3);
-			System.out.println(studentValues.get(3));
-			if (teacherNotesOnTest != null) {
+			System.out.println("here: " + teacherNotesOnTest);
+			if (null != teacherNotesOnTest) {
+				System.out.println("fk u");
 				testGradeLbl.setText(studentGrade + "");
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
 				str.append(teacherNotesOnTest + "\n");
@@ -463,7 +464,7 @@ public class TestFormController implements Initializable {
             public void run() {
                 try {
                     String path = System.getProperty("user.home");
-                    path += "/Downloads/" + test.getTitle() + "_" +student.getSSN() + ".docx";
+                    path += "/Downloads/" + test.getID() + "_" + test.getTitle() + "_" +student.getSSN() + ".docx";
                     File studentWordTest= new File(path);
                     FileOutputStream fos = new FileOutputStream(studentWordTest);
                     fos.close();

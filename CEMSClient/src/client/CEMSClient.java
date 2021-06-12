@@ -248,7 +248,8 @@ public class CEMSClient extends ObservableClient {
 					String[] splitRes = str.split(":");
 					setChanged();
 					notifyObservers(splitRes[1]);
-				} else if (str.equals("notifyStudent")) {
+				} else if (str.equals("studentsNotifiedLocked")) {
+					ClientController.setStudentNotified(true);
 					setChanged();
 					notifyObservers("lockTest");
 				} else if (str.startsWith("timeExtension")) {
