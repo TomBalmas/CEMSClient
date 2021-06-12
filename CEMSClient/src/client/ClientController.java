@@ -17,6 +17,7 @@ import common.TimeExtensionRequest;
 import common.User;
 import javafx.util.Pair;
 import principleDashboard.ActiveTestController;
+import principleDashboard.PrincipleDashboardUIController;
 import studentDashboard.StudentTakeTestController;
 import teacherDashboard.TeacherDashboardUIController;
 
@@ -32,6 +33,7 @@ public class ClientController {
 	private static boolean testRescheduled;
 	private static ActiveTestController activeTestController;
 	private static TeacherDashboardUIController teacherDashboardUIController;
+	private static PrincipleDashboardUIController principleDashboardUIController;
 	private static StudentTakeTestController studentTakeTestController;
 	private static boolean questionEdited;
 	private static boolean testScheduled;
@@ -415,6 +417,14 @@ public class ClientController {
 
 	public static void setStudentAnswers(ArrayList<Pair<String,Integer>> studentAnswers) {
 		ClientController.studentAnswers = studentAnswers;
+	}
+
+	public static PrincipleDashboardUIController getPrincipleDashboardUIController() {
+		return principleDashboardUIController;
+	}
+
+	public static void setPrincipleDashboardUIController(PrincipleDashboardUIController principleDashboardUIController) {
+		ClientController.principleDashboardUIController = principleDashboardUIController;
 	}
 }
  
