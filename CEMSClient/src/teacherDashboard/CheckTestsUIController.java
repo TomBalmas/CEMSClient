@@ -37,9 +37,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class CheckTestsUIController implements Initializable {
 
@@ -119,7 +126,7 @@ public class CheckTestsUIController implements Initializable {
 	private JFXButton backToPageBtn;
 
 	private TestFormController tfc;
-	private String manualTestID,manualSSN;
+	private String manualTestID, manualSSN;
 
 	@FXML
 	void filterBtn(MouseEvent event) {
@@ -131,8 +138,6 @@ public class CheckTestsUIController implements Initializable {
 		manualTestCheck.setVisible(false);
 		manualTestCheck.toBack();
 	}
-
-
 
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
@@ -373,15 +378,35 @@ public class CheckTestsUIController implements Initializable {
 				if (testTbl.getSelectionModel().getSelectedItem() != null)
 					selectedRow = testTbl.getSelectionModel().getSelectedItem();
 		});
-		
+
 	}
+
 	@FXML
 	void updateBtnClicked(MouseEvent event) {
-		//testId,studentSSN,grade,comments
-		ClientController.accept("UPDATE_MANUAL_TEST-" + manualTestID + "," + manualSSN + "," + newGrade1.getText()
-				+ "," + notesTxtArea1.getText());
-		manualTestCheck.setVisible(false);
-		manualTestCheck.toBack();
+		int grade = 0;
+		newGrade1.setBorder(null);
+		notesTxtArea1.setBorder(null);
+		Border b = new Border(
+				new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+		if (notesTxtArea1.getText().isEmpty())
+			notesTxtArea1.setBorder(b);
+		if (newGrade1.getText().isEmpty())
+			newGrade1.setBorder(b);
+		if (newGrade1.getText().matches("\\d+"))
+			grade = Integer.parseInt(newGrade1.getText().toString());
+		if (!notesTxtArea1.getText().isEmpty() && !newGrade1.getText().isEmpty() && grade > 0 && grade <=100 ) {
+
+			// testId,studentSSN,grade,comments
+			ClientController.accept("UPDATE_MANUAL_TEST-" + manualTestID + "," + manualSSN + "," + newGrade1.getText()
+					+ "," + notesTxtArea1.getText());
+			manualTestCheck.setVisible(false);
+			manualTestCheck.toBack();
+		} else {
+			if(!newGrade1.getText().matches("\\d+") && !newGrade1.getText().isEmpty() )
+				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "grade must be betweeon 0-100", contentPaneAnchor, null, null);
+			else 
+				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "some fields are missing", contentPaneAnchor, null, null);
+		}
 	}
 
 }
