@@ -57,24 +57,22 @@ public class ReportFormController implements Initializable {
 	@FXML
 	private AnchorPane tableViewAnchor;
 
-
 	@FXML
 	private JFXButton backBtn;
 
 	@FXML
 	private JFXButton deleteBtn;
 	Series<String, Number> set = new XYChart.Series<String, Number>();
-	
+
 	@FXML
 	private BarChart<String, Number> histograma;
 
-
 	/**
-	 initializing report form with general settings 
+	 * initializing report form with general settings
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	
+
 		xAxisExam.setAnimated(true);
 		histograma.getData().clear();
 		set.getData().clear();
@@ -92,8 +90,16 @@ public class ReportFormController implements Initializable {
 	void clickBack() throws IOException {
 		Node page;
 		try {
-			page = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
-			GeneralUIMethods.loadPage(contentPaneAnchor, page);
+			String s=getUserNameLbl().getText();
+			//click back from viewing test reports in view reports 
+			if (s.contains("Test")) {
+				page = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
+				GeneralUIMethods.loadPage(contentPaneAnchor, page);
+				//click back from creating report
+			} else {
+				page = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
+				GeneralUIMethods.loadPage(contentPaneAnchor, page);
+			}
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -157,6 +163,7 @@ public class ReportFormController implements Initializable {
 	public void setMedianTxt(Label medianTxt) {
 		this.medianTxt = medianTxt;
 	}
+
 	public BarChart<String, Number> getHistograma() {
 		return histograma;
 	}
