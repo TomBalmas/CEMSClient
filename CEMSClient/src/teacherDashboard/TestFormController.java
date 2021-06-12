@@ -463,7 +463,7 @@ public class TestFormController implements Initializable {
             public void run() {
                 try {
                     String path = System.getProperty("user.home");
-                    path += "/" + test.getTitle() + "_" +student.getSSN() + ".docx";
+                    path += "/Downloads/" + test.getTitle() + "_" +student.getSSN() + ".docx";
                     File studentWordTest= new File(path);
                     FileOutputStream fos = new FileOutputStream(studentWordTest);
                     fos.close();

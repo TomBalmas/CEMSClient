@@ -32,6 +32,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -336,7 +337,18 @@ public class TestBankUIController implements Initializable {
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
 							editTestController.getSelectCourseCBox().setDisable(true);
 							editTestController.getTitleTxt().setText(tr.getTestName());
-							editTestController.getDurationTxt().setText(tr.getTest().getTestDuration().toString());
+							editTestController.getDurationCbox().setSelectionModel(new SingleSelectionModel<String>() {
+								
+								@Override
+								protected String getModelItem(int index) {
+									return tr.getTest().getTestDuration().toString();
+								}
+								
+								@Override
+								protected int getItemCount() {
+									return 0;
+								}
+							});
 							editTestController.getTeacherInstructionsTxtArea()
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
