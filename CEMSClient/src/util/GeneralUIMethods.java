@@ -257,7 +257,7 @@ public class GeneralUIMethods {
 		if (ClientController.getRoleFrame().equals("Teacher"))
 				GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
 		else if (ClientController.getRoleFrame().equals("Principle"))
-				GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
+				GeneralUIMethods.setPopupPane(ClientController.getPrincipleDashboardUIController().getPopUpWindow());
 	}
 	
 	public static double resizeTxtArea(JFXTextArea textArea) {
