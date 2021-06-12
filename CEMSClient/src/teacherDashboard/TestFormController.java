@@ -357,7 +357,6 @@ public class TestFormController implements Initializable {
 		vbox.getChildren().add(question);
 		controller.getQuestionNumLbl().setText("Question #" + questionNumber);
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
-		System.out.println(q.getQuestionText());
 		controller.getContentTxt().setText(q.getQuestionText());
 		double questionStyleSpacer = addTextAndresizeTextArea(controller.getContentTxt(), q.getQuestionText());
 		controller.getQuestionAnchor()
@@ -403,9 +402,7 @@ public class TestFormController implements Initializable {
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
 			teacherNotesOnTest = studentValues.get(3);
-			System.out.println("here: " + teacherNotesOnTest);
 			if (null != teacherNotesOnTest) {
-				System.out.println("fk u");
 				testGradeLbl.setText(studentGrade + "");
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
 				str.append(teacherNotesOnTest + "\n");
@@ -536,7 +533,6 @@ public class TestFormController implements Initializable {
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
 		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
-			System.out.println(fileFullPath);
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
 			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
@@ -641,9 +637,13 @@ public class TestFormController implements Initializable {
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
 		int i = 0;
 		for (ToggleGroup tg : getQuestionsToggleGroup())
-			if (!ClientController.getStudentAnswers().isEmpty()) {
-				tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
+			if (!ClientController.getStudentAnswers().isEmpty() && !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
+				if(ClientController.getStudentAnswers().get(i).getValue() != 0)
+					tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
 				i++;
+			}
+			else {
+				
 			}
 		ClientController.setStudentAnswers(null);
 	}

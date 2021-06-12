@@ -134,6 +134,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		System.out.println((String) arg1);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -142,13 +143,12 @@ public class StudentTakeTestController implements Initializable, Observer {
 					testTime = testTime.plusMinutes(Integer.parseInt(split[1]));
 					tfc.getTimeLbl1().setText(testTime.toString());
 					tfc.getNewTimeLbl().setVisible(true);
+				} else if (((String) arg1).equals("lockTest")) {
+					if (tfc.getFinishBtn().isDisable())
+						tfc.getFinishBtn().setDisable(false);
+					tfc.setSubmittedBy("Forced");
+					tfc.getFinishBtn().fire();
 				}
-				else if (((String) arg1).equals("lockTest")) {
-                    if (tfc.getFinishBtn().isDisable())
-                        tfc.getFinishBtn().setDisable(false);
-                    tfc.setSubmittedBy("Forced");
-                    tfc.getFinishBtn().fire();
-                }
 			}
 		});
 

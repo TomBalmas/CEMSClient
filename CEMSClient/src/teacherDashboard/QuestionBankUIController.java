@@ -26,19 +26,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.AccessibleAttribute;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import sun.awt.SunHints.Value;
-import teacherDashboard.ScheduledTestsController.ScheduleTestRow;
-import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -252,26 +246,23 @@ public class QuestionBankUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		selectCbox.setItems(filterBySelectBox);
 		ArrayList<Question> questions = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
-			
-			//setting the fields into the combo box
-			
+
+			// Setting the fields into the combo box
 			String[] fieldsSplit = teacher.getFields().split("~");
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
-			
-			//calling query for getting teachers field questions 
+
+			// Calling query for getting teachers field questions
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields());
 			questions = ClientController.getQuestions();
 		}
-
-		if (ClientController.getRoleFrame().equals("Principle")) {
-			Principle  principle  = (Principle) ClientController.getActiveUser();
-			//calling query for getting teachers field questions 
+		else if (ClientController.getRoleFrame().equals("Principle")) {
+			Principle principle = (Principle) ClientController.getActiveUser();
+			// Calling query for getting teachers field questions
 			ClientController.accept("GET_QUESTIONS_TABLE-");
 			questions = ClientController.getQuestions();
 			deleteCol.setVisible(false);
@@ -281,7 +272,7 @@ public class QuestionBankUIController implements Initializable {
 			editCol.setPrefWidth(0);
 		}
 		
-	  //adding PropertyValueFactory for the columns
+	  // Adding PropertyValueFactory for the columns
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
 		PropertyValueFactory fieldfactory = new PropertyValueFactory<>("field");
 		PropertyValueFactory authorFactory = new PropertyValueFactory<>("author");
@@ -306,9 +297,9 @@ public class QuestionBankUIController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
-							QuestionForm = loader.load();
-							blankQuestionFormUIController = loader.getController();
+							FXMLLoader questionFormLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+							QuestionForm = questionFormLoader.load();
+							blankQuestionFormUIController = questionFormLoader.getController();
 							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
 							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
 							for(int j = 0; j < 4; j++)

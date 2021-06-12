@@ -13,6 +13,7 @@ import common.Student;
 import common.StudentGrade;
 import common.Teacher;
 import common.Test;
+import common.TestFile;
 import common.TimeExtensionRequest;
 import common.User;
 import javafx.util.Pair;
@@ -63,6 +64,7 @@ public class ClientController {
 	private static ArrayList<StudentGrade> grades;
 	private static ArrayList<Pair<String,String>> copiedStudents;
 	private static ArrayList<Pair<String,Integer>> studentAnswers;
+	private static TestFile studentAnswersFile;
 	private static String id = null;
 	private static Test studentTest = null;
 	private static Course course;
@@ -138,7 +140,6 @@ public class ClientController {
 	 */
 	public static void accept(String str) {
 		try {
-			System.out.println(str);
 			client.handleMessageFromClientUI(str);
 		} catch (Exception e) {
 			try {
@@ -434,6 +435,14 @@ public class ClientController {
 
 	public static void setStudentNotified(boolean isStudentNotified) {
 		ClientController.isStudentNotified = isStudentNotified;
+	}
+
+	public static TestFile getStudentAnswersFile() {
+		return studentAnswersFile;
+	}
+
+	public static void setStudentAnswersFile(TestFile studentAnswersFile) {
+		ClientController.studentAnswersFile = studentAnswersFile;
 	}
 }
  
