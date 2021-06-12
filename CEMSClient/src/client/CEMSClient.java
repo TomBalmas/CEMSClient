@@ -53,7 +53,7 @@ public class CEMSClient extends ObservableClient {
 				String[] split = msg.split("~");
 				String[] fileNameSplit = split[0].split("-");
 				if (fileNameSplit[1].length() != 0) {
-					TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/").substring(0, fileNameSplit[1].replace("\\", "/").length() - 1));
+					TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/"));
 					File f = new File((fileNameSplit[1].replace("\\", "/")).substring(1,
 							fileNameSplit[1].replace("\\", "/").length() - 1));
 					byte[] byteArray = new byte[(int) f.length()];
