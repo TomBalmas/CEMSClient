@@ -26,7 +26,7 @@
                </VBox.margin>
             </Label>
             <JFXButton fx:id="activeTestRequestsBtn" onMouseClicked="#activeTestRequestClicked" prefHeight="80.0" prefWidth="283.0" styleClass="sideBarButton" text="Active Test Requests" textFill="WHITE" />
-            <JFXButton fx:id="viewReportsBtn" onMouseClicked="#viewReportsClicked" prefHeight="80.0" prefWidth="284.0" styleClass="sideBarButton" text="View Reports" textFill="WHITE">
+            <JFXButton fx:id="viewReportsBtn" onMouseClicked="#viewReportsClicked" prefHeight="80.0" prefWidth="284.0" styleClass="sideBarButton" text="View Test Reports" textFill="WHITE">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
