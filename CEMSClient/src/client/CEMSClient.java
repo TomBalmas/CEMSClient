@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import common.ActiveTest;
 import common.Course;
+import common.EmptyUser;
 import common.FinishedTest;
 import common.Principle;
 import common.Question;
@@ -62,6 +63,7 @@ public class CEMSClient extends ObservableClient {
 					file.initArray(byteArray.length);
 					file.setSize(byteArray.length);
 					bis.read(file.getByteArray(), 0, byteArray.length);
+					String[] args = split[1].split("-");
 					sendToServer(new Pair<TestFile, String>(file, split[1]));
 					bis.close();
 				}
@@ -79,12 +81,9 @@ public class CEMSClient extends ObservableClient {
 	@SuppressWarnings("unchecked")
 	public void handleMessageFromServer(Object msg) {
 		awaitResponse = false;
-		try {
-			msg.equals(null);
-		} catch (NullPointerException e) {
+		if (msg instanceof EmptyUser)
 			ClientController.setRoleFrame("null");
-		}
-		if (msg.equals("userAlreadyConnected")) {
+		else if (msg.equals("userAlreadyConnected")) {
 			ClientController.setRoleFrame("userAlreadyConnected");
 		} else {
 			// case of login
@@ -186,20 +185,19 @@ public class CEMSClient extends ObservableClient {
 				else if (str.equals("testActive")) {
 					ClientController.setIsActiveTest(true);
 					ClientController.setTimeForTest(true);
-				}
-				else if (str.equals("testNotActive"))
+				} else if (str.equals("testNotActive"))
 					ClientController.setIsActiveTest(false);
-				
+
 				else if (str.equals("testLocked"))
 					ClientController.setTestLocked(true);
 				else if (str.equals("testNotLocked"))
 					ClientController.setTestLocked(false);
-	
+
 				else if (str.equals("lastStudent"))
 					ClientController.setLastStudentInTest(true);
 				else if (str.equals("notLastStudent"))
 					ClientController.setLastStudentInTest(false);
-				
+
 				else if (str.equals("timeForTest"))
 					ClientController.setTimeForTest(true);
 				else if (str.equals("notTimeForTest"))
@@ -210,7 +208,7 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setStudentAddedToTest(false);
 				else if (str.equals("studentRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(true);
-				else if (str.equals("studentNotRemovedFromTest"))	
+				else if (str.equals("studentNotRemovedFromTest"))
 					ClientController.setStudentDeletedFromTest(false);
 				else if (questionAdded[0].equals("questionAdded")) {
 					ClientController.setQuestionAdded(true);
@@ -222,12 +220,12 @@ public class CEMSClient extends ObservableClient {
 					String[] tmp = str.split(":");
 					ClientController.setId(tmp[1]);
 				}
-				
+
 				else if (str.equals("finishedTestUpdated"))
 					ClientController.setTestRemoved(true);
 				else if (str.equals("finishedTestNotUpdated"))
-					ClientController.setTestRemoved(false);		
-				
+					ClientController.setTestRemoved(false);
+
 				else if (str.equals("testRemoved"))
 					ClientController.setTestRemoved(true);
 				else if (str.equals("testNotRemoved"))
@@ -253,6 +251,7 @@ public class CEMSClient extends ObservableClient {
 				} else if (str.equals("studentsNotifiedLocked")) {
 					setChanged();
 					notifyObservers();
+					ClientController.setStudentNotified(true);
 				} else if (str.equals("principleNotified"))
 					ClientController.setPrincipleNotified(true);
 				else if (((String) msg).startsWith("name")) {

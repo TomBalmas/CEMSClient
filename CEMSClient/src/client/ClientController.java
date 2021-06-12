@@ -68,6 +68,16 @@ public class ClientController {
 	private static String id = null;
 	private static Test studentTest = null;
 	private static Course course;
+	private static boolean studentLocked = false;
+
+
+	public static boolean isStudentLocked() {
+		return studentLocked;
+	}
+
+	public static void setStudentLocked(boolean studentLocked) {
+		ClientController.studentLocked = studentLocked;
+	}
 
 	public static boolean isPrincipleNotified() {
 		return principleNotified;

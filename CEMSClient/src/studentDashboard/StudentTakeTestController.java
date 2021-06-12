@@ -64,26 +64,26 @@ public class StudentTakeTestController implements Initializable, Observer {
 	FXMLLoader testFormLoader = null;
 	String testType = null;
 	private String testCode;
-    private LocalTime testTime;
-    private TestFormController tfc;
+	private LocalTime testTime;
+	private TestFormController tfc;
 
 	/**
-	 * gets the test for the student when he clicks begin test.
-	 * includes checking all relevant conditions for him to be able to take the test.
+	 * gets the test for the student when he clicks begin test. includes checking
+	 * all relevant conditions for him to be able to take the test.
 	 */
 	@FXML
 	void beginTestClicked(MouseEvent event) {
 		// Check if the student entered a test code
 		if (testCodeField.getText().equals("")) {
-			new PopUp(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null,
-					null);
+			new PopUp(PopUp.TYPE.ERROR, "Error", "Your must enter a test code", contentPaneAnchor, null, null);
 			return;
 		}
 
-		//Check if the test is already active
+		// Check if the test is already active
 		ClientController.accept("IS_TEST_ACTIVE-" + testCodeField.getText());
-		if(!ClientController.getIsActiveTest()) // If not, check if its the time for test
-			ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + "," + LocalTime.now() + "," + testCodeField.getText());
+		if (!ClientController.getIsActiveTest()) // If not, check if its the time for test
+			ClientController.accept("IS_TIME_FOR_TEST-" + GeneralUIMethods.israeliDate(LocalDate.now()) + ","
+					+ LocalTime.now() + "," + testCodeField.getText());
 		if (ClientController.isTimeForTest()) {
 			testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 			if (testGroup.getSelectedToggle().equals(manualBtn))
@@ -96,10 +96,11 @@ public class StudentTakeTestController implements Initializable, Observer {
 			// Add student to the students in tests table
 			if (ClientController.getStudentTest() != null) {
 				tfc = testFormLoader.getController();
-				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + "," + testCodeField.getText());
+				ClientController.accept("ADD_STUDENT_IN_TEST-" + ClientController.getActiveUser().getSSN() + ","
+						+ testCodeField.getText());
 				if (!ClientController.isStudentAddedToTest()) {
-					new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test", contentPaneAnchor, null,
-							null);
+					new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while registration to the test",
+							contentPaneAnchor, null, null);
 					return;
 				}
 				// Set test due to
@@ -115,10 +116,8 @@ public class StudentTakeTestController implements Initializable, Observer {
 				tfc.getTimeLbl1().setText(testTime.toString());
 				// timer comes here maybe: TODO
 			}
-		}
-		else // If the test is not scheduled for now
-			new PopUp(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
-					null);
+		} else // If the test is not scheduled for now
+			new PopUp(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null, null);
 	}
 
 	@Override
@@ -127,10 +126,11 @@ public class StudentTakeTestController implements Initializable, Observer {
 		manualBtn.setToggleGroup(testGroup);
 		computedBtn.setToggleGroup(testGroup);
 	}
-	
+
 	/**
-	 this method gets notification from server when the principle approves time extension or locks the test.
-	 test locks, or test gets time time extension on clients side.
+	 * this method gets notification from server when the principle approves time
+	 * extension or locks the test. test locks, or test gets time time extension on
+	 * clients side.
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -143,11 +143,13 @@ public class StudentTakeTestController implements Initializable, Observer {
 					testTime = testTime.plusMinutes(Integer.parseInt(split[1]));
 					tfc.getTimeLbl1().setText(testTime.toString());
 					tfc.getNewTimeLbl().setVisible(true);
-				} else if (((String) arg1).equals("lockTest")) {
+				} else if (((String) arg1).startsWith("lockTest")) {
 					if (tfc.getFinishBtn().isDisable())
 						tfc.getFinishBtn().setDisable(false);
 					tfc.setSubmittedBy("Forced");
+					ClientController.setStudentLocked(true);
 					tfc.getFinishBtn().fire();
+					ClientController.setStudentLocked(false);
 				}
 			}
 		});

@@ -388,3 +388,21 @@ JFXTextArea .paragraph-box .paragraph-text {
   -fx-shape: " ";  
   -fx-padding: 0.0 0.15em;
 }
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 30px;
+}
+.axis {
+    -fx-font-size: 1.7em;    
+    -fx-font-family: Tahoma;
+ 
+}
+.root {
+  -fx-not-achieved: red;
+  -fx-achieved:     green;
+  -fx-exceeded:      blue;
+}
+
+
