@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 
+import client.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -71,6 +72,10 @@ public class PrincipleDashboardUIController implements Initializable {
 	private FXMLLoader questionBankLoader;
 	private Node testBank;
 	private FXMLLoader testBankLoader;
+	
+	public StackPane getPopUpWindow() {
+		return popUpWindow;
+	}
 
 	/**
 	 * load active test page
@@ -164,6 +169,7 @@ public class PrincipleDashboardUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ClientController.setPrincipleDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
 	}
