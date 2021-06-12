@@ -28,94 +28,100 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
 
 public class QuestionFormUIController implements Initializable {
 
-
-    @FXML
-    private AnchorPane contentPaneAnchor;
-
-    @FXML
-    private JFXButton backBtn;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
 	@FXML
-    private JFXButton saveBtn;
-
-    @FXML
-    private AnchorPane insideContentAnchor;
-
-    @FXML
-    private AnchorPane questionAnchor;
+	private JFXButton backBtn;
 
 	@FXML
-    private Label chooseAnswersLbl11;
-
-    @FXML
-    private JFXComboBox<String> fieldCBox;
+	private JFXButton saveBtn;
 
 	@FXML
-    private Label newQuestionFormLbl;
-
-    @FXML
-    private Label chooseAnswersLbl1;
-
-    @FXML
-    private JFXTextArea questionContentTxt;
-
-    @FXML
-    private AnchorPane questionsTxtAnchor;
+	private AnchorPane insideContentAnchor;
 
 	@FXML
-    private Label chooseAnswersLbl;
+	private AnchorPane questionAnchor;
 
-    @FXML
-    private JFXRadioButton answer1Btn;
+	@FXML
+	private Label chooseAnswersLbl11;
 
-    @FXML
-    private JFXRadioButton answer2Btn;
+	@FXML
+	private JFXComboBox<String> fieldCBox;
 
-    @FXML
-    private JFXRadioButton answer3Btn;
+	@FXML
+	private Label newQuestionFormLbl;
 
-    @FXML
-    private JFXRadioButton answer4Btn;
+	@FXML
+	private Label chooseAnswersLbl1;
 
-    @FXML
-    private Label correctAnswer3Lbl;
+	@FXML
+	private JFXTextArea questionContentTxt;
 
-    @FXML
-    private Label correctAnswer2Lbl;
+	@FXML
+	private AnchorPane questionsTxtAnchor;
 
-    @FXML
-    private Label correctAnswer1Lbl;
+	@FXML
+	private Label chooseAnswersLbl;
 
-    @FXML
-    private Label correctAnswer4Lbl;
+	@FXML
+	private JFXRadioButton answer1Btn;
 
-    @FXML
-    private JFXTextArea answer4Txt;
+	@FXML
+	private JFXRadioButton answer2Btn;
 
-    @FXML
-    private JFXTextArea answer3Txt;
+	@FXML
+	private JFXRadioButton answer3Btn;
 
-    @FXML
-    private JFXTextArea answer2Txt;
+	@FXML
+	private JFXRadioButton answer4Btn;
 
-    @FXML
-    private JFXTextArea answer1Txt;
-    
-    public AnchorPane getContentPaneAnchor() {
+	@FXML
+	private Label correctAnswer3Lbl;
+
+	@FXML
+	private Label correctAnswer2Lbl;
+
+	@FXML
+	private Label correctAnswer1Lbl;
+
+	@FXML
+	private Label correctAnswer4Lbl;
+
+	@FXML
+	private JFXTextArea answer4Txt;
+
+	@FXML
+	private JFXTextArea answer3Txt;
+
+	@FXML
+	private JFXTextArea answer2Txt;
+
+	@FXML
+	private JFXTextArea answer1Txt;
+
+	public AnchorPane getContentPaneAnchor() {
 		return contentPaneAnchor;
 	}
-    
-    public AnchorPane getQuestionsTxtAnchor() {
+
+	public AnchorPane getQuestionsTxtAnchor() {
 		return questionsTxtAnchor;
 	}
-    
-    public AnchorPane getInsideContentAnchor() {
+
+	public AnchorPane getInsideContentAnchor() {
 		return insideContentAnchor;
 	}
 
@@ -124,14 +130,14 @@ public class QuestionFormUIController implements Initializable {
 	}
 
 	public int getCorrectAnswer() {
-		return correctAnswer=0;
+		return correctAnswer = 0;
 	}
 
 	public void setCorrectAnswer(int correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
 
-    private int correctAnswer;
+	private int correctAnswer;
 	private Node questionBank;
 	// toggle group for allowing one choice of radio button
 	final ToggleGroup group = new ToggleGroup();
@@ -150,7 +156,8 @@ public class QuestionFormUIController implements Initializable {
 	}
 
 	/**
-	 *the method handles sending a query to DB for editing question  and adding a new question
+	 * the method handles sending a query to DB for editing question and adding a
+	 * new question
 	 */
 	@FXML
 	void clickSave() throws IOException {
@@ -158,7 +165,7 @@ public class QuestionFormUIController implements Initializable {
 		list.add(new JFXButton("Okay"));
 		if (list.get(0).isPressed())
 			clickBack();
-		//get data from UI 
+		// get data from UI
 		Teacher teacher = (Teacher) ClientController.getActiveUser();
 		String teacherId = teacher.getSSN();
 		ArrayList<JFXTextArea> answers = getAnswerTextFields();
@@ -167,35 +174,58 @@ public class QuestionFormUIController implements Initializable {
 		String answer2 = answers.get(1).getText();
 		String answer3 = answers.get(2).getText();
 		String answer4 = answers.get(3).getText();
-		//query to add question to dataBase
-		if(getNewQuestionFormLbl().getText().toString().equals("New Question Form"))
-		{
-			//send query only if fields arent empty 
-			if( correctAnswer!=0  && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()  && !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty())
-			 {
+		fieldCBox.setBorder(null);
+		chooseAnswersLbl.setTextFill( Color.BLACK);
+		answers.get(0).setBorder(null);
+		answers.get(1).setBorder(null);
+		answers.get(2).setBorder(null);
+		answers.get(3).setBorder(null);
+		// query to add question to dataBase
+		if (getNewQuestionFormLbl().getText().toString().equals("New Question Form")) {
+			// send query only if fields arent empty
+			if (correctAnswer != 0 && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()
+					&& !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty()) {
 				Teacher connected = (Teacher) ClientController.getActiveUser();
-				//author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-				String queryAddQuestion= "ADD_QUESTION-" + connected.getSSN() + "," + questionContent + "," + correctAnswer +"," +fieldCBox.getValue().toString()+ "," +
-						answer1 + "," +  answer2 + "," + answer2 + "," + answer4;
+				// author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
+				String queryAddQuestion = "ADD_QUESTION-" + connected.getSSN() + "," + questionContent + ","
+						+ correctAnswer + "," + fieldCBox.getValue().toString() + "," + answer1 + "," + answer2 + ","
+						+ answer2 + "," + answer4;
 				ClientController.accept(queryAddQuestion);
-				//check if question added correctly
-				if(ClientController.isQuestionAdded()) {
-				//show POP UP:
-				String toShow = "Question ID: ";
-				toShow = toShow.concat(ClientController.getNewQuestionId());
-				new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
+				// check if question added correctly
+				if (ClientController.isQuestionAdded()) {
+					// show POP UP:
+					String toShow = "Question ID: ";
+					toShow = toShow.concat(ClientController.getNewQuestionId());
+					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
+				}
+				// handle empty fields
+			} else {
+				Border b = new Border(
+						new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+				if (questionContent.isEmpty())
+					questionContentTxt.setBorder(b);
+				if (correctAnswer == 0)
+					chooseAnswersLbl.setTextFill(Color.RED);
+				if (fieldCBox.getSelectionModel().isEmpty())
+					fieldCBox.setBorder(b);
+				if (answer1.isEmpty())
+					answers.get(0).setBorder(b);
+				if (answer2.isEmpty())
+					answers.get(1).setBorder(b);
+				if (answer3.isEmpty())
+					answers.get(2).setBorder(b);
+				if (answer4.isEmpty())
+					answers.get(3).setBorder(b);
+
 			}
-			// handle empty fields
-		} else
-			new PopUp(PopUp.TYPE.SUCCESS, "Question not saved", "Some fields are empty.",
-					contentPaneAnchor, list, null);
 		}
-		//query for editing question
+		// query for editing question
 		else {
 			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" ");
 			String queryEditQuestion = "EDIT_QUESTION-" + questionID[2] + "," + teacherId + ","
 					+ getQuestionContentTxt().getText() + "," + correctAnswer + ","
-					+ fieldCBox.getPromptText().toString() + "," + answer1 + "," + answer2 + "," + answer3 + "," + answer4;
+					+ fieldCBox.getPromptText().toString() + "," + answer1 + "," + answer2 + "," + answer3 + ","
+					+ answer4;
 			if (correctAnswer != 0 && !getQuestionContentTxt().getText().isEmpty()
 					&& !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
 					&& !answer3.isEmpty() && !answer4.isEmpty()) { // send query onlt if all fields are not empty
@@ -208,8 +238,8 @@ public class QuestionFormUIController implements Initializable {
 					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, null, null);
 				}
 			} else
-				new PopUp(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!",
-						contentPaneAnchor, null, null);
+				new PopUp(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!", contentPaneAnchor,
+						null, null);
 		}
 		correctAnswer = 0;
 	}
@@ -275,31 +305,31 @@ public class QuestionFormUIController implements Initializable {
 		correctAnswer3Lbl.setVisible(false);
 		correctAnswer4Lbl.setVisible(false);
 	}
-	
-    public Label getNewQuestionFormLbl() {
+
+	public Label getNewQuestionFormLbl() {
 		return newQuestionFormLbl;
 	}
 
-    public JFXTextArea getQuestionContentTxt() {
+	public JFXTextArea getQuestionContentTxt() {
 		return questionContentTxt;
 	}
-    
-    public ArrayList<JFXTextArea> getAnswerTextFields() {
-    	ArrayList<JFXTextArea> answers = new ArrayList<JFXTextArea>();
-    	answers.add(answer1Txt);
-    	answers.add(answer2Txt);
-    	answers.add(answer3Txt);
-    	answers.add(answer4Txt);
-    	return answers;
+
+	public ArrayList<JFXTextArea> getAnswerTextFields() {
+		ArrayList<JFXTextArea> answers = new ArrayList<JFXTextArea>();
+		answers.add(answer1Txt);
+		answers.add(answer2Txt);
+		answers.add(answer3Txt);
+		answers.add(answer4Txt);
+		return answers;
 	}
-    
-    public ArrayList<JFXRadioButton> getAnswerBtns() {
-    	ArrayList<JFXRadioButton> answersBtns = new ArrayList<JFXRadioButton>();
-    	answersBtns.add(answer1Btn);
-    	answersBtns.add(answer2Btn);
-    	answersBtns.add(answer3Btn);
-    	answersBtns.add(answer4Btn);
-    	return answersBtns;
+
+	public ArrayList<JFXRadioButton> getAnswerBtns() {
+		ArrayList<JFXRadioButton> answersBtns = new ArrayList<JFXRadioButton>();
+		answersBtns.add(answer1Btn);
+		answersBtns.add(answer2Btn);
+		answersBtns.add(answer3Btn);
+		answersBtns.add(answer4Btn);
+		return answersBtns;
 	}
 
 	public JFXButton getSaveBtn() {
