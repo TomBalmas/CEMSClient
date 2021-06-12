@@ -535,6 +535,7 @@ public class TestFormController implements Initializable {
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
 		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
+			System.out.println(fileFullPath);
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
 			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
