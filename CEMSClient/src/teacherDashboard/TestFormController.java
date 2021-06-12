@@ -565,13 +565,15 @@ public class TestFormController implements Initializable {
 		
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
-		if (ClientController.isLastStudentInTest()) {
+		if (ClientController.isLastStudentInTest() && !ClientController.isStudentLocked()) {
+			
 			// If so, lock the test
 			ClientController.accept("LOCK_TEST-" + testCode);
 			ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
+			
 		}
 		
 		// Reset variables

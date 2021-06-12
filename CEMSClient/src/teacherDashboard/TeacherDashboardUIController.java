@@ -77,7 +77,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	private Node login;
 	private Node checkTests;
 	private Node scheduledTests;
-	
+
 	public StackPane getPopUpWindow() {
 		return popUpWindow;
 	}
@@ -189,7 +189,8 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 					} else if (isApproved.equals("disapproved")) {
 						approvedBtn.setVisible(true);
 						approvedBtn.setText("Disapproved");
-					}
+					} else
+						return;
 				}
 			}
 		});
