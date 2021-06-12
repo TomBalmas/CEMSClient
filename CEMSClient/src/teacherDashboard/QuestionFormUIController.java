@@ -138,7 +138,6 @@ public class QuestionFormUIController implements Initializable {
 	}
 
 	private int correctAnswer;
-	private Node questionBank;
 	// toggle group for allowing one choice of radio button
 	final ToggleGroup group = new ToggleGroup();
 	private String author;
@@ -161,13 +160,15 @@ public class QuestionFormUIController implements Initializable {
 	 */
 	@FXML
 	void clickSave() throws IOException {
+		String teacherId = null;
 		List<JFXButton> list = new ArrayList<JFXButton>();
 		list.add(new JFXButton("Okay"));
 		if (list.get(0).isPressed())
 			clickBack();
-		// get data from UI
-		Teacher teacher = (Teacher) ClientController.getActiveUser();
-		String teacherId = teacher.getSSN();
+		// Get data from UI
+		if (ClientController.getRoleFrame().equals("Teacher"))
+			teacherId = ClientController.getActiveUser().getSSN();
+
 		ArrayList<JFXTextArea> answers = getAnswerTextFields();
 		String questionContent = getQuestionContentTxt().getText();
 		String answer1 = answers.get(0).getText();
@@ -180,14 +181,13 @@ public class QuestionFormUIController implements Initializable {
 		answers.get(1).setBorder(null);
 		answers.get(2).setBorder(null);
 		answers.get(3).setBorder(null);
-		// query to add question to dataBase
+		// Query to add question to dataBase
 		if (getNewQuestionFormLbl().getText().toString().equals("New Question Form")) {
-			// send query only if fields arent empty
+			// Send query only if fields aren't empty
 			if (correctAnswer != 0 && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()
 					&& !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty()) {
-				Teacher connected = (Teacher) ClientController.getActiveUser();
-				// author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-				String queryAddQuestion = "ADD_QUESTION-" + connected.getSSN() + "," + questionContent + ","
+				// Author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
+				String queryAddQuestion = "ADD_QUESTION-" + teacherId + "," + questionContent + ","
 						+ correctAnswer + "," + fieldCBox.getValue().toString() + "," + answer1 + "," + answer2 + ","
 						+ answer2 + "," + answer4;
 				ClientController.accept(queryAddQuestion);
@@ -249,15 +249,12 @@ public class QuestionFormUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			Teacher teacher = (Teacher) ClientController.getActiveUser();
-			String[] fieldsSplit = teacher.getFields().split("~");
+		String[] fieldsSplit = null;
+		if (ClientController.getRoleFrame().equals("Teacher")) {
+			fieldsSplit = ((Teacher) ClientController.getActiveUser()).getFields().split("~");
 			for (String oneField : fieldsSplit)
 				fields.add(oneField);
 			getFieldCBox().setItems(fields);
-			questionBank = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
 		answer1Btn.setToggleGroup(group);
 		answer2Btn.setToggleGroup(group);

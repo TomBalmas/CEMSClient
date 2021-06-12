@@ -205,7 +205,6 @@ public class GeneralUIMethods {
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				i = 1;
 				for (Question q : testQuestions) {
-					System.out.println(q.getID());
 					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
 					i++;
 				}
@@ -266,12 +265,10 @@ public class GeneralUIMethods {
 		StackPane pane = new StackPane(textBox);
 		pane.layout();
 		double paneHeight = pane.getHeight();
-		System.out.println(paneHeight);
 		double textBoxHeight = textBox.getLayoutBounds().getHeight();
 		double paddingToBeAdded = 50;
 		textArea.setMaxHeight(textBoxHeight + paddingToBeAdded);
 		textArea.setText(textArea.getText());
-		System.out.println(textBoxHeight);
 		return paneHeight - textBoxHeight;
 	}
 	

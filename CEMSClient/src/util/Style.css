@@ -37,7 +37,18 @@
 
 .sideBarButton {
 	-fx-background-color: #393E46;
-	-fx-font-size: 22.0px;
+	-fx-font-size: 25.0px;
+    -fx-padding-right: 15px;
+    -fx-border-insets-right: 15px;
+    -fx-background-insets-right: 15px;
+    -fx-padding-top: 35px;
+    -fx-border-insets-top: 35px;
+    -fx-background-insets-top: 35px;
+}
+
+.sideBarButton .glyph-icon {
+    -fx-font-size: 22px;
+    -fx-fill: white;
 }
 
 .clickedButton {
@@ -57,13 +68,17 @@
 	-fx-border-radius: 4.0px;
 }
 
-.filterButton, .searchButton, .fileBtn {
+.filterButton, .searchButton, .fileBtn, .downloadFileBtn {
 	-fx-background-color: #fff0d9;
 	-fx-border-color: #fec973;
 	-fx-border-radius: 4.0px;
 	-fx-text-fill: #fec973;
 	-fx-fill: #fec973;
 	-fx-font-weight: bold;
+}
+
+.downloadFileBtn {
+	-fx-font-size: 18px;
 }
 
 .filterButton, .searchButton, .fileBtn .glyph-icon {

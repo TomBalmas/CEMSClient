@@ -3,9 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,47 +55,40 @@
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="testAnchor" layoutX="73.0" layoutY="50.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="200.0">
+      <AnchorPane fx:id="manualTestCheck" layoutX="83.0" layoutY="60.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
          <children>
-            <JFXButton fx:id="backToPageBtn" onMouseClicked="#backToPageBtnClicked" styleClass="littleBackBtn" text="&lt;   Back to check tests" textAlignment="CENTER" />
-            <ScrollPane fx:id="testScrollPane" prefHeight="750.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
-               <content>
-                  <AnchorPane fx:id="testAnchor2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="studentTestDetailsAnchor" layoutX="83.0" layoutY="60.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
-         <children>
-            <AnchorPane prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <AnchorPane prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="35.0">
                <children>
                   <Label fx:id="checkingStudentTestLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Checking test">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="notesTxtArea" layoutY="96.0" prefHeight="44.0" prefWidth="735.0" promptText="Notes for the student" />
-                  <JFXButton fx:id="updateBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="786.0" layoutY="111.0" onMouseClicked="#updateBtnClicked" text="Update" textAlignment="CENTER">
+                  <JFXTextArea fx:id="notesTxtArea1" layoutX="4.0" layoutY="202.0" prefHeight="429.0" prefWidth="811.0" promptText="Notes for the student" styleClass="fileCommentsTxtArea" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+                  <JFXButton fx:id="updateBtn1" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="747.0" layoutY="653.0" onMouseClicked="#updateBtnClicked" text="Update" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="filterButton" />
                         <String fx:value="btn" />
                      </styleClass>
                   </JFXButton>
-                  <JFXTextField fx:id="newGrade" layoutX="145.0" layoutY="59.0" prefHeight="31.0" prefWidth="80.0" />
-                  <Label fx:id="automaticGradeLbl" layoutY="32.0" text="Automatic grade:">
+                  <JFXTextField fx:id="newGrade1" labelFloat="true" layoutX="7.0" layoutY="140.0" prefHeight="44.0" prefWidth="96.0" promptText="Grade">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
-                  </Label>
-                  <Label layoutY="63.0" text="Updated grade:">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
+                  </JFXTextField>
+                  <JFXButton fx:id="downloadFileBtn" layoutX="7.0" layoutY="59.0" onMouseClicked="#downloadFileClicked" prefHeight="58.0" prefWidth="227.0" text="Download Word File">
+                     <styleClass>
+                        <String fx:value="clickedButton" />
+                        <String fx:value="downloadFileBtn" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="DOWNLOAD" size="18" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="backToPageBtn" layoutX="-20.0" layoutY="-30.0" onMouseClicked="#backToPageBtnClicked" styleClass="littleBackBtn" text="&lt;   Back to active tests" textAlignment="CENTER" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
    </children>
 </AnchorPane>
-  

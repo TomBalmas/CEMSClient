@@ -64,8 +64,6 @@ public class CEMSClient extends ObservableClient {
 					file.setSize(byteArray.length);
 					bis.read(file.getByteArray(), 0, byteArray.length);
 					String[] args = split[1].split("-");
-
-					System.out.println("split1: " + split[1] + " args1: " + args[1]);
 					sendToServer(new Pair<TestFile, String>(file, split[1]));
 					bis.close();
 				}
@@ -101,7 +99,6 @@ public class CEMSClient extends ObservableClient {
 					activeUser = (Principle) msg;
 				}
 			} else if (msg instanceof TimeExtensionRequest) {
-				System.out.println(((TimeExtensionRequest) msg).getTestCode());
 				ClientController.setTimeExtensionRequest((TimeExtensionRequest) msg);
 			} else if (msg instanceof Report) {
 				ClientController.setReport((Report) msg);
@@ -114,14 +111,13 @@ public class CEMSClient extends ObservableClient {
 					ClientController.setScheduledTests(null);
 					ClientController.setTests(null);
 					ClientController.setTimeExtensionRequests(null);
-				} else if (((ArrayList<?>) msg).get(0) instanceof Pair) {
-					System.out.println("yessssssssssssss");
-					if (((ArrayList<Pair<?, ?>>) msg).get(0).getValue() instanceof Integer) {
-						System.out.println("yes1");
-						ClientController.setStudentAnswers((ArrayList<Pair<String, Integer>>) msg);
-					} else {
-						System.out.println("yes2");
-						ClientController.setCopiedStudents((ArrayList<Pair<String, String>>) msg);
+				}
+				else if (((ArrayList<?>) msg).get(0) instanceof Pair) {
+					if (((ArrayList<Pair<?,?>>) msg).get(0).getValue() instanceof Integer) {
+						ClientController.setStudentAnswers((ArrayList<Pair<String,Integer>>) msg);
+					}
+					else {
+						ClientController.setCopiedStudents((ArrayList<Pair<String,String>>) msg);
 					}
 				}
 				// get questions from questions DB
@@ -164,6 +160,8 @@ public class CEMSClient extends ObservableClient {
 				ClientController.setScheduledTest((ScheduledTest) msg);
 			else if (msg instanceof Course)
 				ClientController.setCourse((Course) msg);
+			else if (msg instanceof TestFile)
+				ClientController.setStudentAnswersFile((TestFile) msg);
 			else if (msg instanceof String) {
 				String str = (String) msg;
 				// getting message from query when adding a new question
@@ -244,12 +242,15 @@ public class CEMSClient extends ObservableClient {
 					setChanged();
 					notifyObservers(splitRes[1]);
 				} else if (str.equals("notifyStudent")) {
+					ClientController.setStudentNotified(true);
 					setChanged();
 					notifyObservers("lockTest");
 				} else if (str.startsWith("timeExtension")) {
 					setChanged();
 					notifyObservers(str);
 				} else if (str.equals("studentsNotifiedLocked")) {
+					setChanged();
+					notifyObservers();
 					ClientController.setStudentNotified(true);
 				} else if (str.equals("principleNotified"))
 					ClientController.setPrincipleNotified(true);

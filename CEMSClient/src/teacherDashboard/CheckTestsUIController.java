@@ -1,8 +1,15 @@
 package teacherDashboard;
 
+import java.awt.Desktop;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import org.omg.CORBA.Environment;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -23,10 +30,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,97 +41,80 @@ import util.Navigator;
 
 public class CheckTestsUIController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private JFXButton submitBtn;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private Label checkTestLbl;
 
-	@FXML
-	private Label checkTestLbl;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private JFXButton filterButton;
 
-	@FXML
-	private JFXButton filterButton;
+    @FXML
+    private Label timeLeftLbl1;
 
-	@FXML
-	private Label timeLeftLbl1;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private TableView<rowTableCheckTests> testTbl;
 
-	@FXML
-	private TableView<rowTableCheckTests> testTbl;
+    @FXML
+    private TableColumn<?, ?> testIDCol;
 
-	@FXML
-	private TableColumn<?, ?> testIDCol;
+    @FXML
+    private TableColumn<?, ?> courseCol;
 
-	@FXML
-	private TableColumn<?, ?> courseCol;
+    @FXML
+    private TableColumn<?, ?> titleCol;
 
-	@FXML
-	private TableColumn<?, ?> titleCol;
+    @FXML
+    private TableColumn<?, ?> dateCol;
 
-	@FXML
-	private TableColumn<?, ?> dateCol;
+    @FXML
+    private TableColumn<?, ?> startingTime;
 
-	@FXML
-	private TableColumn<?, ?> startingTime;
+    @FXML
+    private TableColumn<?, ?> studentSSNCol;
 
-	@FXML
-	private TableColumn<?, ?> studentSSNCol;
+    @FXML
+    private TableColumn<?, ?> GradeCol;
 
-	@FXML
-	private TableColumn<?, ?> GradeCol;
+    @FXML
+    private TableColumn<?, ?> statusCol;
 
-	@FXML
-	private TableColumn<?, ?> statusCol;
-	
     @FXML
     private TableColumn<?, ?> checkCol;
-	
-    @FXML
-    private AnchorPane testAnchor;
 
     @FXML
-    private JFXButton backToPageBtn;
-
-    @FXML
-    private ScrollPane testScrollPane;
-
-    @FXML
-    private AnchorPane testAnchor2;
-
-    @FXML
-    private AnchorPane studentTestDetailsAnchor;
+    private AnchorPane manualTestCheck;
 
     @FXML
     private Label checkingStudentTestLbl;
 
-    @FXML
-    private JFXTextArea notesTxtArea;
+	@FXML
+    private JFXTextArea notesTxtArea1;
 
     @FXML
-    private JFXButton updateBtn;
-    
-    @FXML
-    private JFXTextField newGrade;
+    private JFXButton updateBtn1;
 
     @FXML
-    private Label automaticGradeLbl;
-    
-	private Node checkBtn;
-	private TestFormController testForm;
-	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
-	private rowTableCheckTests selectedRow;
+    private JFXTextField newGrade1;
+
+    @FXML
+    private JFXButton downloadFileBtn;
+
+    @FXML
+    private JFXButton backToPageBtn;
 
 	@FXML
 	void filterBtn(MouseEvent event) {
@@ -135,15 +123,36 @@ public class CheckTestsUIController implements Initializable {
 
     @FXML
     void backToPageBtnClicked(MouseEvent event) {
-		testAnchor.setVisible(false);
-		testAnchor.toBack();
-		studentTestDetailsAnchor.setVisible(false);
+		manualTestCheck.setVisible(false);
+		manualTestCheck.toBack();
     }
     
     @FXML
     void updateBtnClicked(MouseEvent event) {
 
     }
+    
+	@FXML
+	void downloadFileClicked(MouseEvent event) {
+		if (byteArray != null) {
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(byteArray.length);
+			byteArrayOutputStream.write(byteArray, 0, byteArray.length);
+			try (OutputStream outputStream = new FileOutputStream("studentTest.docx")) {
+				byteArrayOutputStream.writeTo(outputStream);
+				File file = File.createTempFile("studentTest", "docx");
+				System.out.println(file.getName());
+				if (Desktop.isDesktopSupported())
+                    Desktop.getDesktop().open(file);
+			} catch (Exception e) {
+			}
+		}
+	}
+    
+	private Node checkBtn;
+	private TestFormController testForm;
+	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
+	private rowTableCheckTests selectedRow;
+	private byte[] byteArray;;
     
 //	@FXML
 //	void submitClicked(MouseEvent event) {
@@ -241,7 +250,13 @@ public class CheckTestsUIController implements Initializable {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
 		//TODO: ADD MANUAL TESTS
-		tests = ClientController.getFinishedTests();
+		if (ClientController.getFinishedTests() != null)
+			tests = ClientController.getFinishedTests();
+		ClientController.setFinishedTests(null);
+		ClientController.accept("GET_MANUAL_TESTS_BY_SCHEDULER_SSN-" + ClientController.getActiveUser().getSSN());
+		if (ClientController.getFinishedTests() != null && (ClientController.getFinishedTests().get(0).getAuthorName()) != null)
+			tests.addAll(ClientController.getFinishedTests());
+			
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -251,7 +266,7 @@ public class CheckTestsUIController implements Initializable {
 		GradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 		checkCol.setCellValueFactory(new PropertyValueFactory<>("checkBtn"));
-
+		
 		if (tests != null)
 			for (FinishedTest test : tests) {
 				rowTableCheckTests tr = new rowTableCheckTests(test);
@@ -262,30 +277,46 @@ public class CheckTestsUIController implements Initializable {
 				tr.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-						GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
-								"TEACHER_CHECKING", testFormLoader);
-						TestFormController tfc = testFormLoader.getController();
-						ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + "," + test.getStartingTime());
-						ArrayList<Pair<String,String>> copiedStudents = ClientController.getCopiedStudents();
-						if(null != copiedStudents && copiedStudents.size() > 0) {
-							tfc.getCopyResultLbl().setText("Yes");
-							tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
-							tfc.getCopyWithLbl().setVisible(true);
+						if (tr.getGrade() == -1) {
+							ClientController.accept("GET_MANUAL_TEST_BY_STUDENT_SSN-" + tr.getID() + "," + tr.getStudentSSN());
+							if(ClientController.getStudentAnswersFile() != null)
+								byteArray = ClientController.getStudentAnswersFile().getByteArray();
+							manualTestCheck.setVisible(true);
+							manualTestCheck.toFront();
+							checkingStudentTestLbl.setText("Checking test \"" + tr.getTitle() + "\" by " + tr.getStudentSSN());
+						} else {
+							FXMLLoader testFormLoader = new FXMLLoader(
+									getClass().getResource(Navigator.TEST_FORM.getVal()));
+							GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
+									"TEACHER_CHECKING", testFormLoader);
+							TestFormController tfc = testFormLoader.getController();
+							ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + ","
+									+ test.getStartingTime());
+							ArrayList<Pair<String, String>> copiedStudents = ClientController.getCopiedStudents();
+							if (null != copiedStudents && copiedStudents.size() > 0) {
+								tfc.getCopyResultLbl().setText("Yes");
+								tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
+								tfc.getCopyWithLbl().setVisible(true);
+							}
+							tfc.getScrollPane().setTranslateX(0);
+							tfc.getTestTitleFromFXMLLbl()
+									.setText("Viewing test " + tr.getTitle() + " by " + tr.getStudentSSN());
+							tfc.getTeacherCheckTestSideBar().setVisible(true);
+							tfc.getGradeLbl().setText(tr.getGrade() + "");
+							if (tr.getGrade() < 55)
+								tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
+							else
+								tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
+							tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and select them
+							tfc.setStudentValues(new ArrayList<String>() {
+								{
+									add(tr.getStudentSSN());
+									add(tr.getID());
+									add(tr.getGrade() + "");
+									add(null);
+								}
+							});
 						}
-						tfc.getScrollPane().setTranslateX(0);
-						tfc.getTestTitleFromFXMLLbl().setText("Viewing test " + tr.getTitle() + " by " + tr.getStudentSSN());
-						tfc.getTeacherCheckTestSideBar().setVisible(true);
-						tfc.getGradeLbl().setText(tr.getGrade() + "");
-						if(tr.getGrade() < 55) tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
-						else tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
-						tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and select them
-						tfc.setStudentValues(new ArrayList<String>() {{
-						    add(tr.getStudentSSN());
-						    add(tr.getID());
-						    add(tr.getGrade() + "");
-						    add(null);
-						}});
 					}
 				});
 			}
