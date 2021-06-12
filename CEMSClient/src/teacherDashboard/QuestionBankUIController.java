@@ -293,6 +293,10 @@ public class QuestionBankUIController implements Initializable {
 				questionBankTable.getItems().add(questionRow);
 				dataList.add(questionRow); //add row to dataList to search field.
 				tableViewAnchor.setMouseTransparent(false);
+				if(!questionRow.getAuthor().equals(ClientController.getActiveUser().getName())) {
+					questionRow.getEditBtn().setDisable(true);
+					questionRow.getDeleteBtn().setDisable(true);
+				}
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 					@Override
 					public void handle(ActionEvent event) {

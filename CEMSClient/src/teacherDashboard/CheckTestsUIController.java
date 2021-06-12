@@ -118,6 +118,9 @@ public class CheckTestsUIController implements Initializable {
 	@FXML
 	private JFXButton backToPageBtn;
 
+	private TestFormController tfc;
+	private String manualTestID,manualSSN;
+
 	@FXML
 	void filterBtn(MouseEvent event) {
 
@@ -129,10 +132,7 @@ public class CheckTestsUIController implements Initializable {
 		manualTestCheck.toBack();
 	}
 
-	@FXML
-	void updateBtnClicked(MouseEvent event) {
 
-	}
 
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
@@ -290,6 +290,8 @@ public class CheckTestsUIController implements Initializable {
 								byteArray = ClientController.getStudentAnswersFile().getByteArray();
 							manualTestCheck.setVisible(true);
 							manualTestCheck.toFront();
+							manualTestID = tr.getID();
+							manualSSN = tr.getStudentSSN();
 							checkingStudentTestLbl
 									.setText("Checking test \"" + tr.getTitle() + "\" by " + tr.getStudentSSN());
 						} else {
@@ -297,7 +299,7 @@ public class CheckTestsUIController implements Initializable {
 									getClass().getResource(Navigator.TEST_FORM.getVal()));
 							GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
 									"TEACHER_CHECKING", testFormLoader);
-							TestFormController tfc = testFormLoader.getController();
+							tfc = testFormLoader.getController();
 							ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + ","
 									+ test.getStartingTime());
 							ArrayList<Pair<String, String>> copiedStudents = ClientController.getCopiedStudents();
@@ -371,7 +373,15 @@ public class CheckTestsUIController implements Initializable {
 				if (testTbl.getSelectionModel().getSelectedItem() != null)
 					selectedRow = testTbl.getSelectionModel().getSelectedItem();
 		});
-
+		
+	}
+	@FXML
+	void updateBtnClicked(MouseEvent event) {
+		//testId,studentSSN,grade,comments
+		ClientController.accept("UPDATE_MANUAL_TEST-" + manualTestID + "," + manualSSN + "," + newGrade1.getText()
+				+ "," + notesTxtArea1.getText());
+		manualTestCheck.setVisible(false);
+		manualTestCheck.toBack();
 	}
 
 }
