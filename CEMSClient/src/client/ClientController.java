@@ -43,6 +43,7 @@ public class ClientController {
 	private static boolean isActiveTest;
 	private static boolean isLastStudentInTest;
 	private static boolean isTestLocked;
+	private static boolean isStudentNotified;
 	private static String authorName = null;
 	private static String newQuestionId;
 	private static Report report;
@@ -425,6 +426,14 @@ public class ClientController {
 
 	public static void setPrincipleDashboardUIController(PrincipleDashboardUIController principleDashboardUIController) {
 		ClientController.principleDashboardUIController = principleDashboardUIController;
+	}
+
+	public static boolean isStudentNotified() {
+		return isStudentNotified;
+	}
+
+	public static void setStudentNotified(boolean isStudentNotified) {
+		ClientController.isStudentNotified = isStudentNotified;
 	}
 }
  

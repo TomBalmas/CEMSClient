@@ -292,12 +292,12 @@ public class ViewActiveTestsController implements Initializable {
 							}
 							sb.deleteCharAt(sb.length() - 1);
 							System.out.println(sb);
-							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString()); //TODO - bohad fixed
-							System.out.println("tom the orange4");
-							if (ClientController.isTestLocked()) {
+							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString());
+							if (ClientController.isStudentNotified()) {
 								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
 										contentPaneAnchor, null, null);
 								((JFXButton) arg0.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
+								ClientController.setStudentNotified(false);
 							}
 							else
 								new PopUp(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID() ,
