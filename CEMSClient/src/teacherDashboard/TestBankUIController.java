@@ -337,18 +337,7 @@ public class TestBankUIController implements Initializable {
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
 							editTestController.getSelectCourseCBox().setDisable(true);
 							editTestController.getTitleTxt().setText(tr.getTestName());
-							editTestController.getDurationCbox().setSelectionModel(new SingleSelectionModel<String>() {
-								
-								@Override
-								protected String getModelItem(int index) {
-									return tr.getTest().getTestDuration().toString();
-								}
-								
-								@Override
-								protected int getItemCount() {
-									return 0;
-								}
-							});
+							editTestController.getDurationCbox().getSelectionModel().select(tr.getTest().getTestDuration().toString());
 							editTestController.getTeacherInstructionsTxtArea()
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
