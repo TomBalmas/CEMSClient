@@ -143,11 +143,13 @@ public class StudentTakeTestController implements Initializable, Observer {
 					testTime = testTime.plusMinutes(Integer.parseInt(split[1]));
 					tfc.getTimeLbl1().setText(testTime.toString());
 					tfc.getNewTimeLbl().setVisible(true);
-				} else if (((String) arg1).equals("lockTest")) {
+				} else if (((String) arg1).startsWith("lockTest")) {
 					if (tfc.getFinishBtn().isDisable())
 						tfc.getFinishBtn().setDisable(false);
 					tfc.setSubmittedBy("Forced");
+					ClientController.setStudentLocked(true);
 					tfc.getFinishBtn().fire();
+					ClientController.setStudentLocked(false);
 				}
 			}
 		});
