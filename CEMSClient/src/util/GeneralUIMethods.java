@@ -240,7 +240,6 @@ public class GeneralUIMethods {
 					TestFormController controller = testFormLoader.getController();
 					controller.setTest(test);
 					controller.setTestCode(testCodeOrID.toString());
-					controller.getEditBtn().setVisible(false);
 					controller.getBackBtn().setVisible(false);
 					controller.getTestSideBarAnchor().setVisible(true);
 					controller.setFlag(true);

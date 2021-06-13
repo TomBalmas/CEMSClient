@@ -37,6 +37,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
 import teacherDashboard.QuestionBankUIController.questionRow;
+import teacherDashboard.ScheduledTestsController.ScheduleTestRow;
 import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -122,7 +123,6 @@ public class ViewReportsController implements Initializable {
 		private double average;
 		private double median;
 		private JFXButton ViewBtn;
-		private JFXButton DeleteBtn;
 		Report report;
 
 		public reportRow(Report report) {
@@ -133,10 +133,7 @@ public class ViewReportsController implements Initializable {
 			average = report.getAverage();
 			median = report.getMedian();
 			this.ViewBtn = new JFXButton();
-			this.DeleteBtn = new JFXButton();
-			DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
-			DeleteBtn.setStyle("-fx-fill: red !important;");
 		}
 
 		public JFXButton getViewBtn() {
@@ -145,14 +142,6 @@ public class ViewReportsController implements Initializable {
 
 		public void setViewBtn(JFXButton viewBtn) {
 			this.ViewBtn = viewBtn;
-		}
-
-		public JFXButton getDeleteBtn() {
-			return DeleteBtn;
-		}
-
-		public void setDeleteBtn(JFXButton deleteBtn) {
-			this.DeleteBtn = deleteBtn;
 		}
 
 		public String getReportId() {
@@ -230,7 +219,6 @@ public class ViewReportsController implements Initializable {
 		studentNumCol.setCellValueFactory(studentNumFactory);
 		medianCol.setCellValueFactory(medianFactory);
 		averageCol.setCellValueFactory(averageFactory);
-		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 
 		if (reports != null) {
 			for (int i = 0; i < reports.size(); i++) {
@@ -244,7 +232,6 @@ public class ViewReportsController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
 							ReportForm = loader.load();
 							reportFormController = loader.getController();
@@ -264,7 +251,6 @@ public class ViewReportsController implements Initializable {
 								reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
 							else
 								reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
-
 							reportFormController.getxAxisExam().setLabel("range");
 							reportFormController.getyAxisGrades().setLabel("Students");
 							reportFormController.setUserNameLbl("Test: " + reportRow.getTestID());
@@ -298,32 +284,9 @@ public class ViewReportsController implements Initializable {
 				};
 				reportRow.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
-					{
-
-					}
-					;
 				});
-
-				// Event handler for deletion from table and DB
-				reportRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
-					@Override
-					public void handle(ActionEvent event) {
-						JFXButton yesBtn = new JFXButton("Yes");
-						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-							ClientController.accept("DELETE_REPORT-" + reportRow.getReportId());
-							if (ClientController.isReportDeleted()) {
-								reportTable.getItems().remove(reportRow);
-								new PopUp(PopUp.TYPE.INFORM, "Information",
-										"The report " + reportRow.getReportId() + " has been deleted",
-										insideFilterAnchor, null, null);
-							}
-						});
-						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this report?",
-								insideFilterAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
-					}
-				});
-
 			}
+			
 			// Search by data which is in a certain row.
 			FilteredList<reportRow> filteredData = new FilteredList<>(dataList, p -> true);
 
@@ -331,17 +294,14 @@ public class ViewReportsController implements Initializable {
 			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 				filteredData.setPredicate(myObject -> {
 				
-					if (newValue == null || newValue.isEmpty()) {
+					if (newValue == null || newValue.isEmpty())
 						return true;
-					}
 
 					// Compares what we wrote in the text (we searched for) to the appropriate line.
 					String lowerCaseFilter = newValue.toLowerCase();
 
-					if (String.valueOf(myObject.getReportId()).toLowerCase().contains(lowerCaseFilter)) {
-						return true;
-						// Filter matches code.
-					}
+					if (String.valueOf(myObject.getReportId()).toLowerCase().contains(lowerCaseFilter))
+						return true; // Filter matches code.
 
 					else if (String.valueOf(myObject.getTestID()).toLowerCase().contains(lowerCaseFilter)) {
 						return true; // Filter matches field.

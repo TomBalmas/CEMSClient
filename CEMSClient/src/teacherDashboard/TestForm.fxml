@@ -19,7 +19,7 @@
          <padding>
             <Insets bottom="10.0" left="10.0" top="5.0" />
          </padding></ScrollPane>
-      <AnchorPane fx:id="testSideBarAnchor" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane fx:id="testSideBarAnchor" maxWidth="273.0" prefHeight="780.0" prefWidth="273.0" styleClass="paneBorder" stylesheets="@../util/Style.css" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="273.0">
                <children>
@@ -154,11 +154,6 @@
                                     <String fx:value="fileGrayPane" />
                                  </styleClass>
                               </AnchorPane>
-                              <JFXTextArea fx:id="fileCommentsTxtArea" focusColor="#405aa800" prefHeight="159.0" prefWidth="249.0" promptText="Comments" styleClass="fileCommentsTxtArea" unFocusColor="GREY">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </JFXTextArea>
                            </children>
                         </VBox>
                      </children>
@@ -256,15 +251,6 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="editBtn" layoutX="10.0" layoutY="10.0" stylesheets="@../util/Style.css" text="Edit test" textAlignment="RIGHT">
-         <font>
-            <Font size="19.0" />
-         </font>
-         <styleClass>
-            <String fx:value="clickedButton" />
-            <String fx:value="button" />
-         </styleClass>
-      </JFXButton>
       <Label fx:id="testGradeLbl" alignment="CENTER" contentDisplay="CENTER" styleClass="GradeLbl" text="100" visible="false" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <StackPane fx:id="popUpWindow" layoutX="530.0" layoutY="330.0" prefHeight="150.0" prefWidth="400.0" stylesheets="@../util/Style.css" />
    </children>
