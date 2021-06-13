@@ -175,7 +175,7 @@ public class QuestionFormUIController implements Initializable {
 				// Author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
 				String queryAddQuestion = "ADD_QUESTION-" + teacherId + "," + questionContent + ","
 						+ correctAnswer + "," + fieldCBox.getValue().toString() + "," + answer1 + "," + answer2 + ","
-						+ answer2 + "," + answer4;
+						+ answer3 + "," + answer4;
 				ClientController.accept(queryAddQuestion);
 				// check if question added correctly
 				if (ClientController.isQuestionAdded()) {

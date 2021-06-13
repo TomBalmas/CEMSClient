@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -23,14 +22,12 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="selectCbox" focusColor="#2486b6" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Anyone" styleClass="selector" visibleRowCount="3" AnchorPane.topAnchor="62.0" />
-                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="154.0" layoutY="62.0" prefHeight="31.0" prefWidth="658.0" promptText="Search by question code or subject, course etc..." styleClass="searchRow" AnchorPane.topAnchor="62.0" />
-                  <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Created by" />
+                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="18.0" layoutY="62.0" prefHeight="31.0" prefWidth="800.0" promptText="Search by question code or subject, course etc..." styleClass="searchRow" AnchorPane.topAnchor="62.0" />
                   <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" visible="false" />
                   <JFXDatePicker fx:id="startCoursesDP" defaultColor="#2486b6" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
                   <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" visible="false" />
                   <JFXDatePicker fx:id="finishCoursesDP" defaultColor="#2486b6" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <FontAwesomeIconView glyphName="SEARCH" layoutX="137.0" layoutY="82.0" size="15" />
+                  <FontAwesomeIconView glyphName="SEARCH" layoutY="82.0" size="15" />
                </children>
             </AnchorPane>
          </children>

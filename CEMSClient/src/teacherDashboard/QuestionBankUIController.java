@@ -41,74 +41,66 @@ import util.PopUp;
 
 public class QuestionBankUIController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private Label questionBankLbl;
+    @FXML
+    private Label questionBankLbl;
 
-	@FXML
-	private JFXComboBox<?> selectCbox;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private Label startDPlbl;
 
-	@FXML
-	private Label startDPlbl;
+    @FXML
+    private JFXDatePicker startCoursesDP;
 
-	@FXML
-	private JFXDatePicker startCoursesDP;
+    @FXML
+    private Label endDPlbl;
 
-	@FXML
-	private Label endDPlbl;
+    @FXML
+    private JFXDatePicker finishCoursesDP;
 
-	@FXML
-	private JFXDatePicker finishCoursesDP;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private JFXButton searchBtn;
+    @FXML
+    private TableView<questionRow> questionBankTable;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private TableColumn<?, ?> IDCol;
 
-	@FXML
-	private TableView<questionRow> questionBankTable;
+    @FXML
+    private TableColumn<?, ?> authorCol;
 
-	@FXML
-	private TableColumn<?, ?> IDCol;
+    @FXML
+    private TableColumn<?, ?> fieldCol;
 
-	@FXML
-	private TableColumn<?, ?> authorCol;
+    @FXML
+    private TableColumn<?, ?> contentCol;
 
-	@FXML
-	private TableColumn<?, ?> fieldCol;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private TableColumn<?, ?> viewCol;
+    @FXML
+    private TableColumn<?, ?> editCol;
 
-	@FXML
-	private TableColumn<?, ?> editCol;
+    @FXML
+    private TableColumn<?, ?> deleteCol;
 
-	@FXML
-	private TableColumn<?, ?> deleteCol;
-
-	@FXML
-	private TableColumn<?, ?> contentCol;
-
-	@FXML
-	private JFXButton addAnewQuestionBtn;
+    @FXML
+    private JFXButton addAnewQuestionBtn;
 
 	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
 	String authorName;
-
-	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
 	// lists for combobox fields .fields is for adding a new question.field is for
 	// viewing specific question
@@ -123,11 +115,6 @@ public class QuestionBankUIController implements Initializable {
 
 	public void setAuthorString(String authorString) {
 		this.authorString = authorString;
-	}
-
-	@FXML
-	void searchBtnClicked(MouseEvent event) {
-
 	}
 
 	/**
@@ -250,7 +237,6 @@ public class QuestionBankUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		selectCbox.setItems(filterBySelectBox);
 		ArrayList<Question> questions = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
