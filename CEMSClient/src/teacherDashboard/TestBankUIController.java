@@ -309,6 +309,10 @@ public class TestBankUIController implements Initializable {
 				testTable.getItems().add(tr);
 				dataList.add(tr); // Add row to dataList to search field.
 				datarow.add(tr);
+				if (!ClientController.getActiveUser().getName().equals(tr.getAuthor())) {
+					tr.getEditBtn().setDisable(true);
+					tr.getDeleteBtn().setDisable(true);
+				}
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
