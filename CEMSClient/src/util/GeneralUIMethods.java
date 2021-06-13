@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -136,6 +137,14 @@ public class GeneralUIMethods {
 				}
 				else
 					((JFXComboBox) e).getStyleClass().remove("ErrorLine");
+			}
+			else if (e instanceof JFXRadioButton) {
+				if (!((JFXRadioButton) e).isSelected()){
+					isFieldEmpty = true;
+					((JFXRadioButton) e).getStyleClass().add("ErrorLine");
+				}
+				else
+					((JFXRadioButton) e).getStyleClass().remove("ErrorLine");
 			}
 		});
 		return isFieldEmpty;
