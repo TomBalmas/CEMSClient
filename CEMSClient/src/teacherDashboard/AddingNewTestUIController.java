@@ -47,7 +47,7 @@ public class AddingNewTestUIController implements Initializable {
 	private Node QuestionForm, testBank;
 	private QuestionFormUIController questionFormUIController;
 	private String testTitle, duration, course, studentInst, teacherInst, field;
-	private Set<Question> pickedQuestions;
+	private Set<Question> pickedQuestions, savedPickedQuestion;
 	boolean flag = false;
 	ArrayList<Question> questions;
 	ObservableList<String> fields = FXCollections.observableArrayList();
@@ -320,8 +320,11 @@ public class AddingNewTestUIController implements Initializable {
 					System.out.print("]\n");
 				});
 			}
-			if (flag)
+			if (flag) {
+				savedPickedQuestion = new HashSet<>();
+				savedPickedQuestion.addAll(pickedQuestions);
 				pickedQuestions.clear();
+			}
 		});
 	}
 
@@ -416,8 +419,6 @@ public class AddingNewTestUIController implements Initializable {
 			test.prefWidthProperty().bind(testScrollPane.widthProperty());
 			test.prefHeightProperty().bind(testScrollPane.heightProperty().add(28));
 			TestFormController controller = loader.getController();
-//			controller.getScrollPane().setLayoutX(testScrollPane.layoutXProperty().doubleValue());
-//			controller.getScrollPane().setLayoutY(testScrollPane.layoutYProperty().doubleValue());
 			controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty().add(20));
 			controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
 			controller.getScrollPane().setTranslateX(10);
@@ -425,8 +426,9 @@ public class AddingNewTestUIController implements Initializable {
 			controller.getEditBtn().setVisible(false);
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
-			for (Question q : pickedQuestions) {
-				controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // adding questions to preview
+			for (Question q : savedPickedQuestion) {
+				System.out.println("here2");
+				controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size()); // Adding questions to preview
 				i++;
 			}
 			GeneralUIMethods.loadPage(testAnchor, test);
