@@ -312,9 +312,7 @@ public class QuestionBankUIController implements Initializable {
 						JFXButton yesBtn = new JFXButton("Yes");
 						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 							ClientController.accept("DELETE_QUESTION-" + questionRow.getID());
-							if (!ClientController.isQuestionDeleted())
-								System.out.println("not working");
-							else {
+							if (ClientController.isQuestionDeleted()) {
 								questionRow selectedItem = questionBankTable.getSelectionModel().getSelectedItem();
 								if (selectedItem != null)
 									questionBankTable.getItems().remove(selectedItem);

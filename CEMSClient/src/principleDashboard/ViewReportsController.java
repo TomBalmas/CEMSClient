@@ -311,12 +311,12 @@ public class ViewReportsController implements Initializable {
 						JFXButton yesBtn = new JFXButton("Yes");
 						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 							ClientController.accept("DELETE_REPORT-" + reportRow.getReportId());
-							if (!ClientController.isReportDeleted())
-								System.out.println("not working");
-							reportTable.getItems().remove(reportRow);
-							new PopUp(PopUp.TYPE.INFORM, "Information",
-									"The report " + reportRow.getReportId() + " has been deleted", insideFilterAnchor,
-									null, null);
+							if (ClientController.isReportDeleted()) {
+								reportTable.getItems().remove(reportRow);
+								new PopUp(PopUp.TYPE.INFORM, "Information",
+										"The report " + reportRow.getReportId() + " has been deleted",
+										insideFilterAnchor, null, null);
+							}
 						});
 						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this report?",
 								insideFilterAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);

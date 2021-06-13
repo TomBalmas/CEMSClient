@@ -254,10 +254,8 @@ public class AddingNewTestUIController implements Initializable {
 			selectCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
 			ClientController.accept("GET_COURSES_BY_FIELD-" + selectFieldCBox.getValue());
 			courses.clear();
-			if (ClientController.getCourses() == null || ClientController.getCourses().isEmpty()) {
-				System.out.println("Error: no courses in the field " + selectFieldCBox.getValue());
+			if (ClientController.getCourses() == null || ClientController.getCourses().isEmpty())
 				return;
-			}
 			// Add courses to the combo box
 			for (Course course : ClientController.getCourses())
 				courses.add(course.getName());
@@ -325,12 +323,6 @@ public class AddingNewTestUIController implements Initializable {
 						if (pickedQuestions.size() == 0)
 							previewTestBtn.setDisable(true);
 					}
-					System.out.print("[");
-					for (Question qe : pickedQuestions) {
-						System.out.print(qe.getID());
-						System.out.print(",");
-					}
-					System.out.print("]\n");
 				});
 			}
 			if (flag) {
@@ -474,9 +466,7 @@ public class AddingNewTestUIController implements Initializable {
 				sb.append(q.getID());
 				sb.append("~");
 			}
-		System.out.println("ok: " + sb.toString());
 		sb.deleteCharAt(sb.length() - 1);
-		System.out.println(sb.toString());
 		String popupMsg = "";
 		// Edit question query
 		if (isEditingTest != null) {
