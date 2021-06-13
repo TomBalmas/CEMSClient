@@ -237,9 +237,8 @@ public class GeneralUIMethods {
 				i = 1;
 				QuestionController questionController;
 				for (Question q : testQuestions) {
-					//questionLoader = controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
+					questionController = controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
 					i++;
-					//Question = questionLoader.getController();
 				}
 				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
 
