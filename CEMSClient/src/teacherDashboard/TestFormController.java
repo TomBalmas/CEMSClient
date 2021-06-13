@@ -627,12 +627,12 @@ public class TestFormController implements Initializable {
 		JFXButton okayBtn = new JFXButton("Okay");
 		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 			try {
-				teacherDashboardPageLoader = FXMLLoader
-						.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+				GeneralUIMethods.setCheckingtest(true);
+				GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+						.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal())));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
 		});
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		new PopUp(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.",
@@ -657,7 +657,9 @@ public class TestFormController implements Initializable {
 					tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
 				i++;
 			}
-		ArrayList<Question> returnedQuestions = setQuestionsFromTest(testId);
+		
+		
+		//ArrayList<Question> returnedQuestions = setQuestionsFromTest(testId);
 
 		ClientController.setStudentAnswers(null);
 	}

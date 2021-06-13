@@ -251,9 +251,9 @@ public class CheckTestsUIController implements Initializable {
 	 initializes test data to be presented for the teacher during test check
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Adding unchecked tests to the table from the database
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
-		//TODO: ADD MANUAL TESTS
 		if (ClientController.getFinishedTests() != null)
 			tests = ClientController.getFinishedTests();
 		ClientController.setFinishedTests(null);
@@ -274,9 +274,10 @@ public class CheckTestsUIController implements Initializable {
 		if (tests != null)
 			for (FinishedTest test : tests) {
 				rowTableCheckTests tr = new rowTableCheckTests(test);
-				testTbl.getItems().add(tr);
-				dataList.add(tr); // add row to dataList to search field.
-
+				if (!tr.getStatus().equals("Checked")) {
+					testTbl.getItems().add(tr);
+					dataList.add(tr); // add row to dataList to search field.
+				}
 				// View button
 				tr.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override

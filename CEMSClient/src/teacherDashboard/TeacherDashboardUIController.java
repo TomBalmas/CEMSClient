@@ -175,10 +175,18 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		GeneralUIMethods.setSideBar(menuVBox);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 		try {
-			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()))).load());
+			if (GeneralUIMethods.isCheckingtest()) {
+				GeneralUIMethods.loadPage(contentPaneAnchor,
+						(new FXMLLoader(getClass().getResource(Navigator.CHECK_TESTS.getVal()))).load());
+				GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
+				GeneralUIMethods.setCheckingtest(false);	
+			}
+			else
+				GeneralUIMethods.loadPage(contentPaneAnchor,
+						(new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()))).load());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}			
+		}
 	}
 
 	@Override
