@@ -61,17 +61,17 @@ public class ClientController {
 	private static ArrayList<ActiveTest> activeTests;
 	private static ArrayList<FinishedTest> finishedTests = null;
 	private static ArrayList<Course> courses = null;
+	private static ArrayList<Integer> studentsInTestDetails = null;
+
 	private static ArrayList<StudentGrade> grades;
-	private static ArrayList<Pair<String,String>> copiedStudents;
-	private static ArrayList<Pair<String,Integer>> studentAnswers;
+	private static ArrayList<Pair<String, String>> copiedStudents;
+	private static ArrayList<Pair<String, Integer>> studentAnswers;
 	private static TestFile studentAnswersFile;
 	private static String id = null;
 	private static Test studentTest = null;
 	private static Course course;
 	private static boolean studentLocked = false;
 	private static String testType;
-
-	
 
 	public static String getTestType() {
 		return testType;
@@ -425,7 +425,7 @@ public class ClientController {
 		ClientController.isTestLocked = isTestLocked;
 	}
 
-	public static ArrayList<Pair<String,String>> getCopiedStudents() {
+	public static ArrayList<Pair<String, String>> getCopiedStudents() {
 		return copiedStudents;
 	}
 
@@ -433,11 +433,11 @@ public class ClientController {
 		ClientController.copiedStudents = copiedStudents;
 	}
 
-	public static ArrayList<Pair<String,Integer>> getStudentAnswers() {
+	public static ArrayList<Pair<String, Integer>> getStudentAnswers() {
 		return studentAnswers;
 	}
 
-	public static void setStudentAnswers(ArrayList<Pair<String,Integer>> studentAnswers) {
+	public static void setStudentAnswers(ArrayList<Pair<String, Integer>> studentAnswers) {
 		ClientController.studentAnswers = studentAnswers;
 	}
 
@@ -445,7 +445,8 @@ public class ClientController {
 		return principleDashboardUIController;
 	}
 
-	public static void setPrincipleDashboardUIController(PrincipleDashboardUIController principleDashboardUIController) {
+	public static void setPrincipleDashboardUIController(
+			PrincipleDashboardUIController principleDashboardUIController) {
 		ClientController.principleDashboardUIController = principleDashboardUIController;
 	}
 
@@ -464,5 +465,13 @@ public class ClientController {
 	public static void setStudentAnswersFile(TestFile studentAnswersFile) {
 		ClientController.studentAnswersFile = studentAnswersFile;
 	}
+
+	public static ArrayList<Integer> getStudentsInTestDetails() {
+		return studentsInTestDetails;
+	}
+
+	public static void setStudentsInTestDetails(ArrayList<Integer> studentsInTestDetails) {
+		ClientController.studentsInTestDetails = studentsInTestDetails;
+	}
+
 }
- 
