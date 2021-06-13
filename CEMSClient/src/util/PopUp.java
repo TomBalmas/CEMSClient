@@ -106,7 +106,6 @@ public class PopUp {
 	public void setFXMLLoader(FXMLLoader loader) {
 		// Load fxml popup
 		if (null != loader) {
-			System.out.println(loader);
 			try {
 				if (header.equals("ScheduleTest") || header.equals("RescheduleTest")) {
 					fxmlPopUp = loader.load();

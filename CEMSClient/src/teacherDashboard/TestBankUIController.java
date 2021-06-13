@@ -395,9 +395,7 @@ public class TestBankUIController implements Initializable {
 						JFXButton yesBtn = new JFXButton("Yes");
 						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 							ClientController.accept("DELETE_TEST-" + tr.test.getID());
-							if (!ClientController.isTestDeleted())
-								System.out.println("not working");
-							else {
+							if (ClientController.isTestDeleted()) {
 								TestRow selectedItem = testTable.getSelectionModel().getSelectedItem();
 								if (selectedItem != null)
 									testTable.getItems().remove(selectedItem);

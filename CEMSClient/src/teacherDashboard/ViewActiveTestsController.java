@@ -300,7 +300,6 @@ public class ViewActiveTestsController implements Initializable {
 								sb.append(",");
 							}
 							sb.deleteCharAt(sb.length() - 1);
-							System.out.println(sb);
 							ClientController.accept("NOTIFY_STUDENTS_BY_SSN-" + sb.toString());
 							if (ClientController.isStudentNotified()) {
 								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",

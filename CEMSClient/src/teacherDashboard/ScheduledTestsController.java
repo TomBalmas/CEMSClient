@@ -226,7 +226,6 @@ public class ScheduledTestsController implements Initializable {
 		rescheduleCol.setCellValueFactory(new PropertyValueFactory<>("reScheduleBtn"));
 		codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("removeBtn"));
-		System.out.println(scheduledTestsTbl.getItems().size());
 		if (scheduledTests != null) {
 			for (ScheduledTest test : scheduledTests) {
 				ScheduleTestRow tr = new ScheduleTestRow(test);
@@ -250,9 +249,7 @@ public class ScheduledTestsController implements Initializable {
 					JFXButton yesBtn = new JFXButton("Yes");
 					yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e2) -> {
 						ClientController.accept("REMOVE_SCHEDULED_TEST-" + tr.getCode());
-						if (!ClientController.isTestRemoved())
-							System.out.println("not working");
-						else {
+						if (ClientController.isTestRemoved()) {
 							ScheduleTestRow selectedItem = scheduledTestsTbl.getSelectionModel().getSelectedItem();
 							if (selectedItem != null)
 								scheduledTestsTbl.getItems().remove(selectedItem);

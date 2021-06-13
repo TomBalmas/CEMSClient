@@ -134,7 +134,6 @@ public class StudentTakeTestController implements Initializable, Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println((String) arg1);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
