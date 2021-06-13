@@ -2,6 +2,7 @@ package teacherDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -23,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.GeneralUIMethods;
 import util.Navigator;
+import util.PopUp;
 
 public class TeacherDashboardUIController implements Initializable, Observer {
 
@@ -196,14 +198,14 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 			public void run() {
 				String isApproved = null;
 				if (arg instanceof String) {
+					String responseMsg = "";
 					isApproved = (String) arg;
-					if (isApproved.equals("approved")) {
-						approvedBtn.setVisible(true);
-						approvedBtn.setText("Approved");
-					} else if (isApproved.equals("disapproved")) {
-						approvedBtn.setVisible(true);
-						approvedBtn.setText("Disapproved");
-					}
+					if (isApproved.equals("approved"))
+						responseMsg = "Approved";
+					else if (isApproved.equals("disapproved"))
+						responseMsg = "Disapproved";
+					new PopUp(PopUp.TYPE.INFORM, "Information", "Your time request has been " + responseMsg,
+							contentPaneAnchor, null, null);
 				}
 			}
 		});
