@@ -286,6 +286,8 @@ public class CheckTestsUIController implements Initializable {
 					public void handle(ActionEvent arg0) {
 						if (tr.getGrade() == -1) {
 							ClientController.accept("GET_MANUAL_TEST_BY_STUDENT_SSN-" + tr.getID() + "," + tr.getStudentSSN());
+							manualTestID = tr.getID();
+							manualSSN = tr.getStudentSSN();
 							if(ClientController.getStudentAnswersFile() != null)
 								byteArray = ClientController.getStudentAnswersFile().getByteArray();
 							manualTestCheck.setVisible(true);
