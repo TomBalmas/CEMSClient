@@ -22,12 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import teacherDashboard.QuestionController;
 import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
@@ -235,9 +235,11 @@ public class GeneralUIMethods {
 					controller.getUploadFileAnchor().setVisible(false);
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				i = 1;
+				QuestionController questionController;
 				for (Question q : testQuestions) {
-					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
+					//questionLoader = controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
 					i++;
+					//Question = questionLoader.getController();
 				}
 				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
 

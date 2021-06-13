@@ -48,77 +48,77 @@ import util.PopUp;
 
 public class CheckTestsUIController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
+
+    @FXML
+    private AnchorPane filterAnchor;
+
+    @FXML
+    private AnchorPane insideFilterAnchor;
+
+    @FXML
+    private Label checkTestLbl;
+
+    @FXML
+    private JFXTextField searchField;
+
+    @FXML
+    private JFXButton filterButton;
+
+    @FXML
+    private Label timeLeftLbl1;
+
+    @FXML
+    private AnchorPane tableViewAnchor;
+
+    @FXML
+    private TableView<rowTableCheckTests> testTbl;
+
+    @FXML
+    private TableColumn<?, ?> testIDCol;
+
+    @FXML
+    private TableColumn<?, ?> courseCol;
+
+    @FXML
+    private TableColumn<?, ?> titleCol;
+
+    @FXML
+    private TableColumn<?, ?> dateCol;
+
+    @FXML
+    private TableColumn<?, ?> startingTime;
+
+    @FXML
+    private TableColumn<?, ?> studentSSNCol;
+
+    @FXML
+    private TableColumn<?, ?> GradeCol;
+
+    @FXML
+    private TableColumn<?, ?> statusCol;
+
+    @FXML
+    private TableColumn<?, ?> checkCol;
+
+    @FXML
+    private AnchorPane manualTestCheck;
+
+    @FXML
+    private Label checkingStudentTestLbl;
 
 	@FXML
-	private AnchorPane filterAnchor;
+    private JFXTextArea notesTxtArea1;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private JFXButton updateBtn1;
 
-	@FXML
-	private Label checkTestLbl;
+    @FXML
+    private JFXTextField newGrade1;
 
-	@FXML
-	private JFXTextField searchField;
-
-	@FXML
-	private JFXButton filterButton;
-
-	@FXML
-	private Label timeLeftLbl1;
-
-	@FXML
-	private AnchorPane tableViewAnchor;
-
-	@FXML
-	private TableView<rowTableCheckTests> testTbl;
-
-	@FXML
-	private TableColumn<?, ?> testIDCol;
-
-	@FXML
-	private TableColumn<?, ?> courseCol;
-
-	@FXML
-	private TableColumn<?, ?> titleCol;
-
-	@FXML
-	private TableColumn<?, ?> dateCol;
-
-	@FXML
-	private TableColumn<?, ?> startingTime;
-
-	@FXML
-	private TableColumn<?, ?> studentSSNCol;
-
-	@FXML
-	private TableColumn<?, ?> GradeCol;
-
-	@FXML
-	private TableColumn<?, ?> statusCol;
-
-	@FXML
-	private TableColumn<?, ?> checkCol;
-
-	@FXML
-	private AnchorPane manualTestCheck;
-
-	@FXML
-	private Label checkingStudentTestLbl;
-
-	@FXML
-	private JFXTextArea notesTxtArea1;
-
-	@FXML
-	private JFXButton updateBtn1;
-
-	@FXML
-	private JFXTextField newGrade1;
-
-	@FXML
-	private JFXButton downloadFileBtn;
+    @FXML
+    private JFXButton downloadFileBtn;
 
 	@FXML
 	private JFXButton backToPageBtn;
@@ -131,12 +131,14 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
-	@FXML
-	void backToPageBtnClicked(MouseEvent event) {
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
 		manualTestCheck.setVisible(false);
 		manualTestCheck.toBack();
-	}
-
+    }
+    
+  
+	
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
 		if (byteArray != null) {
@@ -147,18 +149,18 @@ public class CheckTestsUIController implements Initializable {
 				File file = File.createTempFile("studentTest", "docx");
 				System.out.println(file.getName());
 				if (Desktop.isDesktopSupported())
-					Desktop.getDesktop().open(file);
+                    Desktop.getDesktop().open(file);
 			} catch (Exception e) {
 			}
 		}
 	}
-
+    
 	private Node checkBtn;
 	private TestFormController testForm;
 	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
 	private rowTableCheckTests selectedRow;
 	private byte[] byteArray;;
-
+    
 //	@FXML
 //	void submitClicked(MouseEvent event) {
 //		try {
@@ -249,20 +251,19 @@ public class CheckTestsUIController implements Initializable {
 	}
 
 	/**
-	 * initializes test data to be presented for the teacher during test check
+	 initializes test data to be presented for the teacher during test check
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<FinishedTest> tests = null;
 		ClientController.accept("FINISHED_TESTS-" + ClientController.getActiveUser().getSSN());
-		// TODO: ADD MANUAL TESTS
+		//TODO: ADD MANUAL TESTS
 		if (ClientController.getFinishedTests() != null)
 			tests = ClientController.getFinishedTests();
 		ClientController.setFinishedTests(null);
 		ClientController.accept("GET_MANUAL_TESTS_BY_SCHEDULER_SSN-" + ClientController.getActiveUser().getSSN());
-		if (ClientController.getFinishedTests() != null
-				&& (ClientController.getFinishedTests().get(0).getAuthorName()) != null)
+		if (ClientController.getFinishedTests() != null && (ClientController.getFinishedTests().get(0).getAuthorName()) != null)
 			tests.addAll(ClientController.getFinishedTests());
-
+			
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -272,66 +273,59 @@ public class CheckTestsUIController implements Initializable {
 		GradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 		checkCol.setCellValueFactory(new PropertyValueFactory<>("checkBtn"));
-
+		
 		if (tests != null)
 			for (FinishedTest test : tests) {
 				rowTableCheckTests tr = new rowTableCheckTests(test);
-				if (tr.status.equals("UnChecked")) {
-					testTbl.getItems().add(tr);
-					dataList.add(tr); // add row to dataList to search field.
+				testTbl.getItems().add(tr);
+				dataList.add(tr); // add row to dataList to search field.
 
-					// View button
-					tr.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent arg0) {
-							if (tr.getGrade() == -1) {
-								ClientController.accept(
-										"GET_MANUAL_TEST_BY_STUDENT_SSN-" + tr.getID() + "," + tr.getStudentSSN());
-								manualTestID = tr.getID();
-								manualSSN = tr.getStudentSSN();
-								if (ClientController.getStudentAnswersFile() != null)
-									byteArray = ClientController.getStudentAnswersFile().getByteArray();
-								manualTestCheck.setVisible(true);
-								manualTestCheck.toFront();
-								checkingStudentTestLbl
-										.setText("Checking test \"" + tr.getTitle() + "\" by " + tr.getStudentSSN());
-							} else {
-								FXMLLoader testFormLoader = new FXMLLoader(
-										getClass().getResource(Navigator.TEST_FORM.getVal()));
-								GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
-										"TEACHER_CHECKING", testFormLoader);
-								TestFormController tfc = testFormLoader.getController();
-								ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + ","
-										+ test.getStartingTime());
-								ArrayList<Pair<String, String>> copiedStudents = ClientController.getCopiedStudents();
-								if (null != copiedStudents && copiedStudents.size() > 0) {
-									tfc.getCopyResultLbl().setText("Yes");
-									tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
-									tfc.getCopyWithLbl().setVisible(true);
-								}
-								tfc.getScrollPane().setTranslateX(0);
-								tfc.getTestTitleFromFXMLLbl()
-										.setText("Viewing test " + tr.getTitle() + " by " + tr.getStudentSSN());
-								tfc.getTeacherCheckTestSideBar().setVisible(true);
-								tfc.getGradeLbl().setText(tr.getGrade() + "");
-								if (tr.getGrade() < 55)
-									tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
-								else
-									tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
-								tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and
-																							// select them
-								tfc.setStudentValues(new ArrayList<String>() {
-									{
-										add(tr.getStudentSSN());
-										add(tr.getID());
-										add(tr.getGrade() + "");
-										add(null);
-									}
-								});
+				// View button
+				tr.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						if (tr.getGrade() == -1) {
+							ClientController.accept("GET_MANUAL_TEST_BY_STUDENT_SSN-" + tr.getID() + "," + tr.getStudentSSN());
+							if(ClientController.getStudentAnswersFile() != null)
+								byteArray = ClientController.getStudentAnswersFile().getByteArray();
+							manualTestCheck.setVisible(true);
+							manualTestCheck.toFront();
+							checkingStudentTestLbl.setText("Checking test \"" + tr.getTitle() + "\" by " + tr.getStudentSSN());
+						} else {
+							FXMLLoader testFormLoader = new FXMLLoader(
+									getClass().getResource(Navigator.TEST_FORM.getVal()));
+							GeneralUIMethods.buildTestForm(contentPaneAnchor, null, tr.getTest().getID(),
+									"TEACHER_CHECKING", testFormLoader);
+							TestFormController tfc = testFormLoader.getController();
+							ClientController.accept("GET_COPY_SUSPECTS-" + test.getID() + "," + test.getDate() + ","
+									+ test.getStartingTime());
+							ArrayList<Pair<String, String>> copiedStudents = ClientController.getCopiedStudents();
+							if (null != copiedStudents && copiedStudents.size() > 0) {
+								tfc.getCopyResultLbl().setText("Yes");
+								tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
+								tfc.getCopyWithLbl().setVisible(true);
 							}
+							tfc.getScrollPane().setTranslateX(0);
+							tfc.getTestTitleFromFXMLLbl()
+									.setText("Viewing test " + tr.getTitle() + " by " + tr.getStudentSSN());
+							tfc.getTeacherCheckTestSideBar().setVisible(true);
+							tfc.getGradeLbl().setText(tr.getGrade() + "");
+							if (tr.getGrade() < 55)
+								tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
+							else
+								tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
+							tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and select them
+							tfc.setStudentValues(new ArrayList<String>() {
+								{
+									add(tr.getStudentSSN());
+									add(tr.getID());
+									add(tr.getGrade() + "");
+									add(null);
+								}
+							});
 						}
-					});
-				}
+					}
+				});
 			}
 
 		// Search by data which is in a certain row.
@@ -391,7 +385,7 @@ public class CheckTestsUIController implements Initializable {
 			newGrade1.setBorder(b);
 		if (newGrade1.getText().matches("\\d+"))
 			grade = Integer.parseInt(newGrade1.getText().toString());
-		if (!notesTxtArea1.getText().isEmpty() && !newGrade1.getText().isEmpty() && grade > 0 && grade <= 100) {
+		if (!notesTxtArea1.getText().isEmpty() && !newGrade1.getText().isEmpty() && grade > 0 && grade <=100 ) {
 
 			// testId,studentSSN,grade,comments
 			ClientController.accept("UPDATE_MANUAL_TEST-" + manualTestID + "," + manualSSN + "," + newGrade1.getText()
@@ -399,13 +393,12 @@ public class CheckTestsUIController implements Initializable {
 			manualTestCheck.setVisible(false);
 			manualTestCheck.toBack();
 		} else {
-			if (!newGrade1.getText().matches("\\d+") && !newGrade1.getText().isEmpty())
-				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "grade must be betweeon 0-100", contentPaneAnchor, null,
-						null);
-			else
-				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "some fields are missing", contentPaneAnchor, null,
-						null);
+			if(!newGrade1.getText().matches("\\d+") && !newGrade1.getText().isEmpty() )
+				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "grade must be betweeon 0-100", contentPaneAnchor, null, null);
+			else 
+				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "some fields are missing", contentPaneAnchor, null, null);
 		}
 	}
 
-}
+} 
+ 

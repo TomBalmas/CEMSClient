@@ -22,7 +22,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutX="20.0" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Enter text to search" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="20.0" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Enter text to search" styleClass="searchRow" />
                   <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on the test row you wish to check, and then click on the check button.">
                      <font>
                         <Font size="19.0" />
@@ -59,14 +59,14 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="notesTxtArea1" layoutX="4.0" layoutY="202.0" prefHeight="429.0" prefWidth="811.0" promptText="Notes for the student" styleClass="fileCommentsTxtArea" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+                  <JFXTextArea fx:id="notesTxtArea1" focusColor="#2486b6" layoutX="4.0" layoutY="202.0" prefHeight="429.0" prefWidth="811.0" promptText="Notes for the student" styleClass="fileCommentsTxtArea" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
                   <JFXButton fx:id="updateBtn1" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="747.0" layoutY="653.0" onMouseClicked="#updateBtnClicked" text="Update" textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="filterButton" />
                         <String fx:value="btn" />
                      </styleClass>
                   </JFXButton>
-                  <JFXTextField fx:id="newGrade1" labelFloat="true" layoutX="7.0" layoutY="140.0" prefHeight="44.0" prefWidth="96.0" promptText="Grade">
+                  <JFXTextField fx:id="newGrade1" focusColor="#2486b6" labelFloat="true" layoutX="7.0" layoutY="140.0" prefHeight="44.0" prefWidth="96.0" promptText="Grade">
                      <font>
                         <Font size="18.0" />
                      </font>

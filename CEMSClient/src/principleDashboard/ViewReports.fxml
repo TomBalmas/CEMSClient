@@ -23,13 +23,13 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="selectTypeCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutX="20.0" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by anything" styleClass="searchRow" />
+                  <JFXComboBox fx:id="selectTypeCbox" focusColor="#2486b6" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
+                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="20.0" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by anything" styleClass="searchRow" />
                   <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
                   <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" />
-                  <JFXDatePicker fx:id="startReportCreatedDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
+                  <JFXDatePicker fx:id="startReportCreatedDP" defaultColor="#2486b6" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
                   <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" />
-                  <JFXDatePicker fx:id="endReportCreatedDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
+                  <JFXDatePicker fx:id="endReportCreatedDP" defaultColor="#2486b6" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
                   <JFXButton fx:id="filterButton" layoutX="599.0" layoutY="61.0" onMouseClicked="#filterBtn" text="Filter">
                      <styleClass>
                         <String fx:value="filterButton" />

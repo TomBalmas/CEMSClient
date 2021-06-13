@@ -96,6 +96,12 @@ public class StudentDashboardUIController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
+		GeneralUIMethods.setMenuStyle(takeTestBtn, menuVBox);
+		try {
+			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()))).load());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 
 }

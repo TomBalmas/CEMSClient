@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -16,7 +17,14 @@
       <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" styleClass="body" stylesheets="@../util/Style.css" />
       <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
          <children>
-            <ImageView fx:id="logoImg" fitHeight="157.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../lib/images/logo.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </VBox.margin>
+            </ImageView>
             <Label fx:id="studentDashboardLbl" alignment="CENTER" prefHeight="40.0" prefWidth="283.0" text="Student Dashboard" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="29.0" />
@@ -25,12 +33,31 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <JFXButton fx:id="gradesBtn" onMouseClicked="#gradesPage" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Grades" textFill="WHITE" />
-            <JFXButton fx:id="takeTestBtn" onMouseClicked="#takeTestPage" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Take Test" textFill="WHITE" />
-            <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="60.0" prefWidth="294.0" text="dark mode" textFill="WHITE" visible="false" />
-            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOut" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="takeTestBtn" alignment="TOP_LEFT" onMouseClicked="#takeTestPage" prefWidth="283.0" styleClass="sideBarButton" text=" Take Test" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="FILE_ALT" size="23" />
+			  </graphic>
                <VBox.margin>
-                  <Insets top="275.0" />
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="13.0" top="20.0" />
+               </padding>            
+            </JFXButton>
+            <JFXButton fx:id="gradesBtn" alignment="TOP_LEFT" onMouseClicked="#gradesPage" prefWidth="283.0" styleClass="sideBarButton" text=" Grades" textFill="WHITE">
+               <graphic>
+      				<FontAwesomeIconView glyphName="QUESTION_CIRCLE" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="13.0" top="20.0" />
+               </padding>           
+            </JFXButton>
+            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOutButton" text="Sign Out" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="375.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>

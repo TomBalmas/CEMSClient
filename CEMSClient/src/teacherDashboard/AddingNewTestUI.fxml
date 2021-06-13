@@ -36,15 +36,15 @@
                               </TableView>
                               <VBox fx:id="parametersVBox" fillWidth="false" prefHeight="525.0" prefWidth="776.0" spacing="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
                                  <children>
-                                    <JFXComboBox fx:id="selectFieldCBox" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
-                                    <JFXComboBox fx:id="selectCourseCBox" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
-                                    <JFXTextField fx:id="titleTxt" labelFloat="true" prefWidth="155.0" promptText="Title" />
-                                    <JFXComboBox fx:id="durationCbox" prefHeight="25.0" prefWidth="158.0" promptText="Duration" />
-                                    <JFXTextArea fx:id="teacherInstructionsTxtArea" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea">
+                                    <JFXComboBox fx:id="selectFieldCBox" focusColor="#2486b6" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
+                                    <JFXComboBox fx:id="selectCourseCBox" focusColor="#2486b6" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
+                                    <JFXTextField fx:id="titleTxt" focusColor="#2486b6" labelFloat="true" prefWidth="155.0" promptText="Title" />
+                                    <JFXComboBox fx:id="durationCbox" focusColor="#2486b6" prefHeight="25.0" prefWidth="158.0" promptText="Duration" />
+                                    <JFXTextArea fx:id="teacherInstructionsTxtArea" focusColor="#2486b6" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding></JFXTextArea>
-                                    <JFXTextArea fx:id="studentInstructionsTxtArea" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea">
+                                    <JFXTextArea fx:id="studentInstructionsTxtArea" focusColor="#2486b6" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Student Instructions" styleClass="questionTxtArea">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding></JFXTextArea>

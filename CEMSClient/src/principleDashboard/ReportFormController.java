@@ -61,24 +61,6 @@ public class ReportFormController implements Initializable {
 	private JFXButton backBtn;
 
 	@FXML
-	private Label totalStudentsLbl;
-
-	@FXML
-	private Label totalStudentsTxt;
-
-	@FXML
-	private Label finishedOnTimeLbl;
-
-	@FXML
-	private Label finishedOnTimeTxt;
-
-	@FXML
-	private Label forcedSubmittionLbl;
-
-	@FXML
-	private Label forcedSubmittionTxt;
-	
-	@FXML
 	private JFXButton deleteBtn;
 	Series<String, Number> set = new XYChart.Series<String, Number>();
 
@@ -108,12 +90,12 @@ public class ReportFormController implements Initializable {
 	void clickBack() throws IOException {
 		Node page;
 		try {
-			String s = getUserNameLbl().getText();
-			// click back from viewing test reports in view reports
+			String s=getUserNameLbl().getText();
+			//click back from viewing test reports in view reports 
 			if (s.contains("Test")) {
 				page = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
 				GeneralUIMethods.loadPage(contentPaneAnchor, page);
-				// click back from creating report
+				//click back from creating report
 			} else {
 				page = FXMLLoader.load(getClass().getResource(Navigator.CREATE_REPORT.getVal()));
 				GeneralUIMethods.loadPage(contentPaneAnchor, page);

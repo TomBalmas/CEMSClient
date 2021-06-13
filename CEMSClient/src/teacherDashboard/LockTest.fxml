@@ -18,7 +18,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="codeTxt" labelFloat="true" layoutX="110.0" layoutY="56.0" promptText="Test code" />
-      <JFXButton fx:id="confirmTestLock" layoutX="110.0" layoutY="117.0" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: #1eae98;" text="Cofirm &amp; Lock test" />
+      <JFXTextField fx:id="codeTxt" focusColor="#2486b6" labelFloat="true" layoutX="110.0" layoutY="56.0" promptText="Test code" />
+      <JFXButton fx:id="confirmTestLock" layoutX="110.0" layoutY="117.0" prefHeight="31.0" prefWidth="169.0" styleClass="clickedButton" text="Cofirm &amp; Lock test" />
    </children>
 </AnchorPane>

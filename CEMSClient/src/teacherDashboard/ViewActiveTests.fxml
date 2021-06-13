@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutX="20.0" layoutY="72.0" prefHeight="31.0" prefWidth="806.0" promptText="Enter text to search" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="20.0" layoutY="72.0" prefHeight="31.0" prefWidth="806.0" promptText="Enter text to search" styleClass="searchRow" />
                   <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on a test you wish to ask for time extension or lock it">
                      <font>
                         <Font size="19.0" />
@@ -87,7 +87,7 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="minutesTxt" labelFloat="true" layoutY="160.0" promptText="Minutes to add" />
+                  <JFXTextField fx:id="minutesTxt" focusColor="#2486b6" labelFloat="true" layoutY="160.0" promptText="Minutes to add" />
                </children>
             </AnchorPane>
          </children>

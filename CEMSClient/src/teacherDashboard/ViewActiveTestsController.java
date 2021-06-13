@@ -23,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -132,6 +133,19 @@ public class ViewActiveTestsController implements Initializable {
 	 */
 	@FXML
 	void clicksendForApproval(MouseEvent event) {
+		// Validate empty fields
+		if (selectedRow == null) {
+			new PopUp(PopUp.TYPE.LOGIN, "Error", "You need to select a row", contentPaneAnchor, null, null);
+			return;
+		}
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(reasonForRequestTxt);
+		nodes.add(minutesTxt);
+		if (GeneralUIMethods.checkEmptyFields(nodes)) {
+			new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
+			return;
+		}
+		
 		// Request for time extension
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
 				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // 																				

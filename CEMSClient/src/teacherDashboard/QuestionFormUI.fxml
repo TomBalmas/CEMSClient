@@ -38,7 +38,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="fieldCBox" labelFloat="true" layoutY="53.0" prefWidth="150.0" promptText="Select field" />
+                  <JFXComboBox fx:id="fieldCBox" focusColor="#2486b6" labelFloat="true" layoutY="53.0" prefWidth="150.0" promptText="Select field" />
                   <Label fx:id="newQuestionFormLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="New Question Form">
                      <font>
                         <Font name="System Bold" size="23.0" />
@@ -49,7 +49,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="questionContentTxt" labelFloat="true" layoutY="119.0" prefHeight="200.0" promptText="Question content" styleClass="questionTxtArea" unFocusColor="#4d4d4d" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0">
+                  <JFXTextArea fx:id="questionContentTxt" focusColor="#2486b6" labelFloat="true" layoutY="119.0" prefHeight="200.0" promptText="Question content" styleClass="questionTxtArea" unFocusColor="#4d4d4d" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -87,22 +87,22 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="answer4Txt" layoutX="35.0" layoutY="230.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 4">
+                  <JFXTextArea fx:id="answer4Txt" focusColor="#2486b6" layoutX="35.0" layoutY="230.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 4">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer3Txt" layoutX="37.0" layoutY="169.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 3">
+                  <JFXTextArea fx:id="answer3Txt" focusColor="#2486b6" layoutX="37.0" layoutY="169.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 3">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer2Txt" layoutX="37.0" layoutY="107.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 2">
+                  <JFXTextArea fx:id="answer2Txt" focusColor="#2486b6" layoutX="37.0" layoutY="107.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 2">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXTextArea fx:id="answer1Txt" layoutX="35.0" layoutY="45.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 1">
+                  <JFXTextArea fx:id="answer1Txt" focusColor="#2486b6" layoutX="35.0" layoutY="45.0" prefHeight="45.0" prefWidth="670.0" promptText="answer 1">
                      <font>
                         <Font size="15.0" />
                      </font>
