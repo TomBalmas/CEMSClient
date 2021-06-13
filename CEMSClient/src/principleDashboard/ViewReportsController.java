@@ -1,3 +1,4 @@
+
 package principleDashboard;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,6 +38,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
 import teacherDashboard.QuestionBankUIController.questionRow;
+import teacherDashboard.TestBankUIController.TestRow;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -98,6 +102,7 @@ public class ViewReportsController implements Initializable {
 	@FXML
 	private TableColumn<?, ?> deleteCol;
 
+
 	@FXML
 	private JFXButton deleteBtn;
 
@@ -106,6 +111,7 @@ public class ViewReportsController implements Initializable {
 	private Node ReportForm;
 	private ReportFormController reportFormController;
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");;
+	private final ObservableList<reportRow> dataList = FXCollections.observableArrayList();
 	ArrayList<Integer> studentsDetails = new ArrayList<>();
 
 	@FXML
@@ -240,7 +246,7 @@ public class ViewReportsController implements Initializable {
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
-
+		;
 		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
@@ -259,12 +265,9 @@ public class ViewReportsController implements Initializable {
 		if (reports != null) {
 			for (int i = 0; i < reports.size(); i++) {
 				reportRow reportRow = new reportRow(reports.get(i));
-				/*
-				 * ClientController.accept("GET_NUMBER_OF_STUDENTS_DETAILS_BY_TEST_REPORT_ID"+
-				 * reportRow.getReportId());
-				 * studentsDetails=ClientController.getStudentsInTestDetails();
-				 * System.out.println(studentsDetails.toString());
-				 */
+				dataList.add(reportRow); // Add row to dataList to search field.
+				ClientController.accept("GET_NUMBER_OF_STUDENTS_DETAILS_BY_TEST_REPORT_ID-" + reportRow.getReportId());
+				studentsDetails = ClientController.getStudentsInTestDetails();
 				reportTable.getItems().addAll(reportRow);
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
@@ -279,6 +282,9 @@ public class ViewReportsController implements Initializable {
 							String median = String.valueOf(reportRow.getMedian());
 							reportFormController.getAverageTxt().setText(average);
 							reportFormController.getMedianTxt().setText(median);
+							reportFormController.getTotalStudentsTxt().setText(studentsDetails.get(0).toString());
+							reportFormController.getFinishedOnTimeTxt().setText(studentsDetails.get(2).toString());
+							reportFormController.getForcedSubmittionTxt().setText(studentsDetails.get(1).toString());
 							if (Double.parseDouble(average) < 55)
 								reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
 							else
@@ -348,6 +354,53 @@ public class ViewReportsController implements Initializable {
 				});
 
 			}
+			// Search by data which is in a certain row.
+			FilteredList<reportRow> filteredData = new FilteredList<>(dataList, p -> true);
+
+			// Set the filter Predicate whenever the filter changes.
+			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+				filteredData.setPredicate(myObject -> {
+				
+					if (newValue == null || newValue.isEmpty()) {
+						return true;
+					}
+
+					// Compares what we wrote in the text (we searched for) to the appropriate line.
+					String lowerCaseFilter = newValue.toLowerCase();
+
+					if (String.valueOf(myObject.getReportId()).toLowerCase().contains(lowerCaseFilter)) {
+						return true;
+						// Filter matches code.
+					}
+
+					else if (String.valueOf(myObject.getTestID()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches field.
+					}
+
+					else if (String.valueOf(myObject.getNumberOfStudents()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches course.
+					}
+
+					else if (String.valueOf(myObject.getMedian()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches name.
+					}
+
+					else if (String.valueOf(myObject.getAverage()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches author.
+					}
+
+					return false; // Does not match.
+				});
+			});
+
+			// Wrap the FilteredList in a SortedList.
+			SortedList<reportRow> sortedData = new SortedList<>(filteredData);
+
+			// Bind the SortedList comparator to the TableView comparator.
+			sortedData.comparatorProperty().bind(reportTable.comparatorProperty());
+			// Add sorted (and filtered) data to the table.
+			reportTable.setItems(sortedData);
+			
 
 		}
 	}
