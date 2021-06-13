@@ -106,6 +106,7 @@ public class ViewReportsController implements Initializable {
 	private Node ReportForm;
 	private ReportFormController reportFormController;
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");;
+	ArrayList<Integer> studentsDetails = new ArrayList<>();
 
 	@FXML
 	void deleteReportBtn(MouseEvent event) {
@@ -128,7 +129,8 @@ public class ViewReportsController implements Initializable {
 	}
 
 	/**
-	 * this class represents report row with all relevant data for report row in table
+	 * this class represents report row with all relevant data for report row in
+	 * table
 	 *
 	 */
 	public class reportRow {
@@ -142,7 +144,7 @@ public class ViewReportsController implements Initializable {
 		Report report;
 
 		public reportRow(Report report) {
-			this.report=report;
+			this.report = report;
 			this.reportId = report.getId();
 			testID = report.getTestId();
 			numberOfStudents = report.getNumberOfStudents();
@@ -154,7 +156,6 @@ public class ViewReportsController implements Initializable {
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			DeleteBtn.setStyle("-fx-fill: red !important;");
 		}
-		
 
 		public JFXButton getViewBtn() {
 			return ViewBtn;
@@ -224,21 +225,22 @@ public class ViewReportsController implements Initializable {
 	}
 
 	/**
-	 
-	 this method sets the values for the graph, and updates them in the report histogram
-	 
+	 * 
+	 * this method sets the values for the graph, and updates them in the report
+	 * histogram
+	 * 
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		selectTypeCbox.setItems(options);
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-				selectTypeCbox.getSelectionModel().select(0);
-				selectTypeCbox.setDisable(true);
+			selectTypeCbox.getSelectionModel().select(0);
+			selectTypeCbox.setDisable(true);
 		}
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
-   
+
 		// adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
@@ -257,6 +259,12 @@ public class ViewReportsController implements Initializable {
 		if (reports != null) {
 			for (int i = 0; i < reports.size(); i++) {
 				reportRow reportRow = new reportRow(reports.get(i));
+				/*
+				 * ClientController.accept("GET_NUMBER_OF_STUDENTS_DETAILS_BY_TEST_REPORT_ID"+
+				 * reportRow.getReportId());
+				 * studentsDetails=ClientController.getStudentsInTestDetails();
+				 * System.out.println(studentsDetails.toString());
+				 */
 				reportTable.getItems().addAll(reportRow);
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
@@ -275,29 +283,35 @@ public class ViewReportsController implements Initializable {
 								reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
 							else
 								reportFormController.getAverageTxt().getStyleClass().add("aGradeLbl");
-							
+
 							if (Double.parseDouble(median) < 55)
 								reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
 							else
 								reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
-							
+
 							reportFormController.getxAxisExam().setLabel("range");
 							reportFormController.getyAxisGrades().setLabel("Students");
-							reportFormController.setUserNameLbl("Test: "+reportRow.getTestID());
-							  Series<String,Number> set = new XYChart.Series<String,Number>();
-							  set.getData().add(new XYChart.Data<String,Number>("0-54.9",reportRow.getReport().getF())); 
-							  set.getData().add(new XYChart.Data<String,Number>("55-64",reportRow.getReport().getDMinus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("65-69",reportRow.getReport().getDPlus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("70-74",reportRow.getReport().getCMinus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("75-79",reportRow.getReport().getCPlus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("80-84",reportRow.getReport().getBMinus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("85-59",reportRow.getReport().getBPlus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("90-94",reportRow.getReport().getAMinus())); 
-							  set.getData().add(new XYChart.Data<String,Number>("95-100",reportRow.getReport().getAPlus())); 
-							  reportFormController.setSet(set);
-								reportFormController.getHistograma().getData().addAll(set);
-							
-							
+							reportFormController.setUserNameLbl("Test: " + reportRow.getTestID());
+							Series<String, Number> set = new XYChart.Series<String, Number>();
+							set.getData().add(new XYChart.Data<String, Number>("0-54.9", reportRow.getReport().getF()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("55-64", reportRow.getReport().getDMinus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("65-69", reportRow.getReport().getDPlus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("70-74", reportRow.getReport().getCMinus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("75-79", reportRow.getReport().getCPlus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("80-84", reportRow.getReport().getBMinus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("85-59", reportRow.getReport().getBPlus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("90-94", reportRow.getReport().getAMinus()));
+							set.getData()
+									.add(new XYChart.Data<String, Number>("95-100", reportRow.getReport().getAPlus()));
+							reportFormController.setSet(set);
+							reportFormController.getHistograma().getData().addAll(set);
 
 						} catch (IOException e1) {
 							e1.printStackTrace();
@@ -328,9 +342,8 @@ public class ViewReportsController implements Initializable {
 									"The report " + reportRow.getReportId() + " has been deleted", insideFilterAnchor,
 									null, null);
 						});
-						new PopUp(PopUp.TYPE.ALERT, "Alert",
-								"Are you sure that you want to delete this report?", insideFilterAnchor,
-								Arrays.asList(yesBtn, new JFXButton("No")), null);
+						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this report?",
+								insideFilterAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
 
