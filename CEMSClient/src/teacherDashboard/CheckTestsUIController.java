@@ -120,22 +120,20 @@ public class CheckTestsUIController implements Initializable {
 	@FXML
 	private JFXButton backToPageBtn;
 
-	private TestFormController tfc;
 	private String manualTestID, manualSSN;
 
-	@FXML
-	void filterBtn(MouseEvent event) {
-
-	}
-
+	/*
+	 * Go back to the previouse page
+	 */
     @FXML
     void backToPageBtnClicked(MouseEvent event) {
 		manualTestCheck.setVisible(false);
 		manualTestCheck.toBack();
     }
-    
   
-	
+	/*
+	 * Download the student test file
+	 */
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
 		if (byteArray != null) {
@@ -151,31 +149,16 @@ public class CheckTestsUIController implements Initializable {
 			}
 		}
 	}
-    
-	private Node checkBtn;
-	private TestFormController testForm;
+
 	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
 	private rowTableCheckTests selectedRow;
 	private byte[] byteArray;;
-    
-//	@FXML
-//	void submitClicked(MouseEvent event) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
-//			checkBtn = loader.load();
-//			TestFormController cont = loader.getController();// TODO: Ohad get content from selectedRow.getTest();
-//			GeneralUIMethods.loadPage(contentPaneAnchor, checkBtn);
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * Internal class to define a row in tableView.
 	 *
 	 */
 	public class rowTableCheckTests {
-
 		private String ID;
 		private String course;
 		private String title;
@@ -247,8 +230,8 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
-	/**
-	 initializes test data to be presented for the teacher during test check
+	/*
+	 * Initializes test data to be presented for the teacher during test check
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Adding unchecked tests to the table from the database
@@ -276,7 +259,7 @@ public class CheckTestsUIController implements Initializable {
 				rowTableCheckTests tr = new rowTableCheckTests(test);
 				if (!tr.getStatus().equals("Checked")) {
 					testTbl.getItems().add(tr);
-					dataList.add(tr); // add row to dataList to search field.
+					dataList.add(tr); // Add row to dataList to search field
 				}
 				// View button
 				tr.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -372,6 +355,9 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
+	/*
+	 * Update the student grade
+	 */
 	@FXML
 	void updateBtnClicked(MouseEvent event) {
 		int grade = 0;
@@ -387,14 +373,13 @@ public class CheckTestsUIController implements Initializable {
 			grade = Integer.parseInt(newGrade1.getText().toString());
 		if (!notesTxtArea1.getText().isEmpty() && !newGrade1.getText().isEmpty() && grade > 0 && grade <=100 ) {
 
-			// testId,studentSSN,grade,comments
 			ClientController.accept("UPDATE_MANUAL_TEST-" + manualTestID + "," + manualSSN + "," + newGrade1.getText()
 					+ "," + notesTxtArea1.getText());
 			manualTestCheck.setVisible(false);
 			manualTestCheck.toBack();
 		} else {
 			if(!newGrade1.getText().matches("\\d+") && !newGrade1.getText().isEmpty() )
-				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "grade must be betweeon 0-100", contentPaneAnchor, null, null);
+				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "grade must be between 0-100", contentPaneAnchor, null, null);
 			else 
 				new PopUp(PopUp.TYPE.ERROR, "Test not checked", "some fields are missing", contentPaneAnchor, null, null);
 		}

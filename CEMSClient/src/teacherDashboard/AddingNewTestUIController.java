@@ -171,7 +171,16 @@ public class AddingNewTestUIController implements Initializable {
 	public void setEditingTest(String isEditingTest) {
 		this.isEditingTest = isEditingTest;
 	}
+	
+	public JFXComboBox<String> getDurationCbox() {
+		return durationCbox;
+	}
 
+	public void setDurationCbox(JFXComboBox<String> durationCbox) {
+		this.durationCbox = durationCbox;
+	}
+
+	// QuestionRow for table
 	public class QuestionRow {
 		private String id;
 		private String author;
@@ -216,12 +225,15 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Initalize duration combo box
 		for (int i = 30; i <= 180; i += 5)
 			durationList.add(String.valueOf(i));
 		durationCbox.setItems(durationList);
 		durationCbox.getSelectionModel().select(6);
 		popUpWindow.toBack();
 		pickedQuestions = new HashSet<>();
+		
+		// Add fields to the combo box
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
 			String[] fieldsSplit = teacher.getFields().split("~");
@@ -229,6 +241,7 @@ public class AddingNewTestUIController implements Initializable {
 				fields.add(oneField);
 		}
 
+		// Get courses by the field
 		selectFieldCBox.setItems(fields);
 		selectFieldCBox.setOnAction(event -> {
 			questionTable.getItems().clear();
@@ -245,9 +258,11 @@ public class AddingNewTestUIController implements Initializable {
 				System.out.println("Error: no courses in the field " + selectFieldCBox.getValue());
 				return;
 			}
+			// Add courses to the combo box
 			for (Course course : ClientController.getCourses())
 				courses.add(course.getName());
 			selectCourseCBox.setItems(courses);
+			// Set the rows of the table
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
@@ -276,8 +291,7 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
-					}
-					;
+					};
 					GeneralUIMethods.getPopupPane().setTranslateX(-208);
 					GeneralUIMethods.getPopupPane().setTranslateY(-280);
 					questionFormUIController.getQuestionsTxtAnchor().setTranslateY(-1
@@ -296,7 +310,7 @@ public class AddingNewTestUIController implements Initializable {
 					new PopUp(PopUp.TYPE.INFORM, "VIEW_QUESTION", "", contentPaneAnchor,
 							Arrays.asList(new JFXButton("Cancel")), questionFormPageLoader);
 				});
-
+				// Set the picked questions string
 				if (pickedQuestions.size() == 0)
 					previewTestBtn.setDisable(true);
 				if (pickedQuestions.contains(q))
@@ -327,7 +341,7 @@ public class AddingNewTestUIController implements Initializable {
 	}
 
 	/**
-	 * clicking back will go back to the test bank screen
+	 * Clicking back will go back to the relevant screen
 	 * 
 	 * @param event
 	 */
@@ -362,7 +376,7 @@ public class AddingNewTestUIController implements Initializable {
 	}
 
 	/*
-	 * testTitle, duration, course, studentInst, teacherInst//
+	 * Set parameters and move to the questions screen
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
@@ -371,8 +385,8 @@ public class AddingNewTestUIController implements Initializable {
 		nodes.add(durationCbox);
 		nodes.add(selectFieldCBox);
 		nodes.add(selectCourseCBox);
-//		nodes.add(teacherInstructionsTxtArea);
-//		nodes.add(studentInstructionsTxtArea);
+		nodes.add(teacherInstructionsTxtArea);
+		nodes.add(studentInstructionsTxtArea);
 		if (GeneralUIMethods.checkEmptyFields(nodes))
 			new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
 		else {
@@ -395,14 +409,9 @@ public class AddingNewTestUIController implements Initializable {
 		// If editing disable the possibility to change field and course
 	}
 
-	public JFXComboBox<String> getDurationCbox() {
-		return durationCbox;
-	}
-
-	public void setDurationCbox(JFXComboBox<String> durationCbox) {
-		this.durationCbox = durationCbox;
-	}
-
+	/*
+	 * Preview the test
+	 */
 	@FXML
 	void clickPreviewTest(MouseEvent event) {
 		Screen++;
@@ -425,29 +434,24 @@ public class AddingNewTestUIController implements Initializable {
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
 			if (savedPickedQuestion != null)
+				// Adding questions to preview
 				for (Question q : savedPickedQuestion) {
-					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size()); // Adding questions to //
-																								// preview
+					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size());
 					i++;
 				}
-			else if (pickedQuestions != null)
+			else if (pickedQuestions != null) // Adding questions to preview
 				for (Question q : pickedQuestions) {
-					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // Adding questions to //
-																								// preview
+					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size());
 					i++;
 				}
-
 			GeneralUIMethods.loadPage(testAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// -------------need to implement an if statement that will block passage if no
-		// questions were selected--------------
 	}
 
 	/**
-	 * clicking continue will move to blank test form only if at least one question
+	 * Clicking continue will move to blank test form only if at least one question
 	 * was chosen.
 	 * 
 	 * @param event
@@ -455,7 +459,7 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	void clickFinish(MouseEvent event) {
 		Screen++;
-		StringBuilder sb = new StringBuilder(); // changing the set to and array like : 12~1~5~5
+		StringBuilder sb = new StringBuilder();
 		for (Question q : pickedQuestions) {
 			sb.append(q.getID());
 			sb.append("~");

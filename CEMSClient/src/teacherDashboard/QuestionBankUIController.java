@@ -102,8 +102,8 @@ public class QuestionBankUIController implements Initializable {
 	private QuestionFormUIController blankQuestionFormUIController;
 	String authorName;
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
-	// lists for combobox fields .fields is for adding a new question.field is for
-	// viewing specific question
+	// Lists for Combobox fields. Fields is for adding a new question. 
+	// Field is for viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
 	ObservableList field = FXCollections.observableArrayList();
 
@@ -118,7 +118,7 @@ public class QuestionBankUIController implements Initializable {
 	}
 
 	/**
-	 * clicking add a new question will go to blank question for page.
+	 * Clicking add a new question will go to blank question for page.
 	 * 
 	 * @param event
 	 */
