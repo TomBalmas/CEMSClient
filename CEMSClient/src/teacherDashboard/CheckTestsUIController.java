@@ -137,11 +137,8 @@ public class CheckTestsUIController implements Initializable {
 		manualTestCheck.toBack();
     }
     
-    @FXML
-    void updateBtnClicked(MouseEvent event) {
-
-    }
-	}
+  
+	
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
 		if (byteArray != null) {
