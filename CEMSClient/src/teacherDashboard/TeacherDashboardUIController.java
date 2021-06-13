@@ -79,7 +79,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	private Node login;
 	private Node checkTests;
 	private Node scheduledTests;
-	
+
 	public StackPane getPopUpWindow() {
 		return popUpWindow;
 	}
@@ -181,9 +181,8 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 				GeneralUIMethods.loadPage(contentPaneAnchor,
 						(new FXMLLoader(getClass().getResource(Navigator.CHECK_TESTS.getVal()))).load());
 				GeneralUIMethods.setMenuStyle(checkTestsBtn, menuVBox);
-				GeneralUIMethods.setCheckingtest(false);	
-			}
-			else
+				GeneralUIMethods.setCheckingtest(false);
+			} else
 				GeneralUIMethods.loadPage(contentPaneAnchor,
 						(new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()))).load());
 		} catch (IOException e) {
@@ -193,22 +192,19 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				String isApproved = null;
-				if (arg instanceof String) {
-					String responseMsg = "";
-					isApproved = (String) arg;
-					if (isApproved.equals("approved"))
-						responseMsg = "Approved";
-					else if (isApproved.equals("disapproved"))
-						responseMsg = "Disapproved";
-					new PopUp(PopUp.TYPE.INFORM, "Information", "Your time request has been " + responseMsg,
+		if (arg != null) {
+			String isApproved = null;
+			if (arg instanceof String) {
+				isApproved = (String) arg;
+				if (isApproved.equals("approved"))
+					new PopUp(PopUp.TYPE.INFORM, "Information", "Your time request has been Approved :)",
 							contentPaneAnchor, null, null);
-				}
+				else if (isApproved.equals("disapproved"))
+					new PopUp(PopUp.TYPE.INFORM, "Information", "Your time request has been Disapproved :(",
+							contentPaneAnchor, null, null);
+
 			}
-		});
+		}
 
 	}
 
