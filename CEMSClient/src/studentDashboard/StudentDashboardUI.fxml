@@ -15,7 +15,7 @@
    <children>
       <StackPane fx:id="popUpWindow" layoutX="567.0" layoutY="326.0" prefHeight="150.0" prefWidth="430.0" stylesheets="@../util/Style.css" />
       <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" styleClass="body" stylesheets="@../util/Style.css" />
-      <VBox fx:id="menuVBox" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
+      <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
          <children>
             <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -55,9 +55,9 @@
                   <Insets bottom="20.0" left="13.0" top="20.0" />
                </padding>           
             </JFXButton>
-            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOutButton" text="Sign Out" textFill="WHITE">
+            <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" style="-fx-background-color: red;" styleClass="signOutButton" text="Sign Out" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="300.0" />
+                  <Insets top="380.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
