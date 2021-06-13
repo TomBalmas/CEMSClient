@@ -36,18 +36,8 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <Label fx:id="averageTxt" alignment="CENTER" layoutX="7.0" layoutY="86.0" text="100" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="GradeLbl" />
-                        <String fx:value="aGradeLbl" />
-                     </styleClass>
-                  </Label>
-                  <Label fx:id="medianTxt" alignment="CENTER" layoutX="178.0" layoutY="86.0" text="40" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="GradeLbl" />
-                        <String fx:value="fGradeLbl" />
-                     </styleClass>
-                  </Label>
+                  <Label fx:id="averageTxt" alignment="CENTER" layoutX="7.0" layoutY="86.0" styleClass="GradeLbl" text="100" textAlignment="CENTER" />
+                  <Label fx:id="medianTxt" alignment="CENTER" layoutX="178.0" layoutY="86.0" styleClass="GradeLbl" text="40" textAlignment="CENTER" />
                   <ScrollPane layoutY="204.0" prefHeight="404.0" prefWidth="812.0" />
                </children>
             </AnchorPane>

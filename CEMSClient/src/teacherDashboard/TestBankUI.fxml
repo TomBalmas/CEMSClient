@@ -25,21 +25,13 @@
                      </font>
                   </Label>
                   <JFXComboBox fx:id="selectCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Anyone" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutX="137.0" layoutY="62.0" prefHeight="31.0" prefWidth="610.0" promptText="Search by test code or subject" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" layoutX="165.0" layoutY="62.0" prefHeight="31.0" prefWidth="641.0" promptText="Search by test code or subject" styleClass="searchRow" />
                   <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Created by" />
                   <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" visible="false" />
                   <JFXDatePicker fx:id="startCoursesDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
                   <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" visible="false" />
                   <JFXDatePicker fx:id="finishCoursesDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <JFXButton fx:id="searchBtn" layoutX="757.0" layoutY="63.0" onMouseClicked="#searchBtnClicked" text="Search">
-                     <styleClass>
-                        <String fx:value="searchButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                     <graphic>
-					 	<FontAwesomeIconView glyphName="SEARCH" size="16.0" />
-					 </graphic>
-                  </JFXButton>
+                  <FontAwesomeIconView glyphName="SEARCH" layoutX="144.0" layoutY="82.0" size="15" />
                </children>
             </AnchorPane>
          </children>
@@ -61,7 +53,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="addNewTestButton" layoutX="786.0" layoutY="730.0" onMouseClicked="#addNewTest" text="Add a new test">
+      <JFXButton fx:id="addNewTestButton" layoutX="771.0" layoutY="730.0" onMouseClicked="#addNewTest" text="Add a new test">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="btn" />
@@ -69,6 +61,9 @@
          <font>
             <Font size="19.0" />
          </font>
+         <graphic>
+            <FontAwesomeIconView glyphName="PLUS" layoutX="144.0" layoutY="82.0" size="15" /> 
+         </graphic>
       </JFXButton>
       <AnchorPane fx:id="testAnchor" layoutX="63.0" layoutY="40.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
          <children>

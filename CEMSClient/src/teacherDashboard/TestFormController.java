@@ -352,8 +352,6 @@ public class TestFormController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
-//		if (flag)
-//			controller.getTeacherNotesTxt().setVisible(false);
 		vbox.getChildren().add(question);
 		controller.getQuestionNumLbl().setText("Question #" + questionNumber);
 		controller.getPointsLbl().setText(String.format("Points: %d", points));
@@ -362,8 +360,6 @@ public class TestFormController implements Initializable {
 		controller.getQuestionAnchor()
 				.setPrefHeight(controller.getQuestionAnchor().getPrefHeight() + questionStyleSpacer * 4);
 		controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY() + questionStyleSpacer * 4);
-		// controller.getQuestionsVBox().setLayoutY(controller.getQuestionsVBox().getLayoutY()
-		// + questionStyleSpacer);
 		controller.getAnswer1Btn().setText(q.getAnswers().get(0));
 		controller.getAnswer2Btn().setText(q.getAnswers().get(1));
 		controller.getAnswer3Btn().setText(q.getAnswers().get(2));
@@ -383,30 +379,47 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * adds title and instructions to the test form's scroll pane
+	 * Adds title and instructions to the test form's scroll pane
 	 * 
 	 * @throws IOException
 	 */
 	public void addTitleAndInstructionsToTest(String title, String teacherInst, String studentInst) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
-		Region element = loader.load();
-		titleAndInstructionsController = loader.getController();
+		FXMLLoader titleAndInstructionsLoader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
+		Region titleAndInstructionsPage = titleAndInstructionsLoader.load();
+		titleAndInstructionsController = titleAndInstructionsLoader.getController();
 		StringBuilder str = new StringBuilder();
 		testTitleFromFXMLLbl = titleAndInstructionsController.getTestTitleLbl();
 		if (null != testType && testType.equals("STUDENT_LOOK")) {
-			// TODO: add select from grades
+			int i = 0;
+			ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
+			System.out.println(test.getID());
+			for (i = 0; i < ClientController.getGrades().size(); i++) {
+				System.out.println(i + " " + ClientController.getGrades().get(i).getTestId());
+				if (ClientController.getGrades().get(i).getTestId().equals(test.getID())) {
+					System.out.println("here");
+					break;
+				}
+			}
 			testGradeLbl.setVisible(true);
-			int studentGrade = Integer.parseInt(studentValues.get(2));
+			System.out.println(ClientController.getGrades().get(i).getGrade());
+			int studentGrade = ClientController.getGrades().get(i).getGrade();
+			testGradeLbl.setText(studentGrade + "");
 			if (studentGrade < 55)
 				testGradeLbl.getStyleClass().add("fGradeLbl");
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
-			teacherNotesOnTest = studentValues.get(3);
-			if (null != teacherNotesOnTest) {
-				testGradeLbl.setText(studentGrade + "");
+			System.out.println(ClientController.getGrades().get(i).getTeacherNotes());
+			teacherNotesOnTest = ClientController.getGrades().get(i).getTeacherNotes();
+			if (null != teacherNotesOnTest
+					&& (!teacherNotesOnTest.equals("")
+							|| !teacherNotesOnTest.equals("null")
+							|| !teacherNotesOnTest.equals(null)
+							|| !teacherNotesOnTest.isEmpty())) {
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
 				str.append(teacherNotesOnTest + "\n");
 			}
+			else titleAndInstructionsController.getInstructionsLbl().setVisible(false);
+			ClientController.setGrades(null);
 		} else {
 			if (!isStudent) {
 				str.append("Teacher instructions:\n");
@@ -415,15 +428,11 @@ public class TestFormController implements Initializable {
 			str.append("Student instructions:\n");
 			str.append(studentInst);
 		}
-//		cont.getInstructionsTxtArea().appendText("Teacher instructions:\n");
-//		cont.getInstructionsTxtArea().appendText(teacherInst);
-//		cont.getInstructionsTxtArea().appendText("\nStudent instructions:\n");
-//		cont.getInstructionsTxtArea().appendText(studentInst);
 		
 		addTextAndresizeTextArea(titleAndInstructionsController.getInstructionsTxtArea(), str.toString());
 		titleAndInstructionsController.getTestTitleLbl().setText(title);
-		vbox.getChildren().add(element);
-		element.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
+		vbox.getChildren().add(titleAndInstructionsPage);
+		titleAndInstructionsPage.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
 		scrollPane.setContent(vbox);
 	}
 
@@ -561,15 +570,13 @@ public class TestFormController implements Initializable {
 		
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
-		if (ClientController.isLastStudentInTest() && !ClientController.isStudentLocked()) {
-			
+		if (ClientController.isLastStudentInTest()) {
 			// If so, lock the test
 			ClientController.accept("LOCK_TEST-" + testCode);
 			ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
-			
 		}
 		
 		// Reset variables
@@ -637,6 +644,7 @@ public class TestFormController implements Initializable {
 	public void setStudentAnswers(String testId, String studentSSN) {
 		// Get students answers and select them
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
+		System.out.println(ClientController.getStudentAnswers().get(0).getValue());
 		int i = 0;
 		for (ToggleGroup tg : getQuestionsToggleGroup())
 			if (!ClientController.getStudentAnswers().isEmpty() && !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
@@ -660,6 +668,8 @@ public class TestFormController implements Initializable {
 			}
 		ClientController.setQuestions(null);
 	}
+	
+	
 
 }
  

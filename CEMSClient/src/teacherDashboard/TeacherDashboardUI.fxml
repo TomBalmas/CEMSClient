@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -14,10 +15,18 @@
    <children>
       <StackPane fx:id="popUpWindow" layoutX="567.0" layoutY="326.0" prefHeight="150.0" prefWidth="430.0" stylesheets="@../util/Style.css" />
       <AnchorPane fx:id="contentPaneAnchor" layoutX="282.0" prefHeight="800.0" prefWidth="1000.0" styleClass="body" stylesheets="@../util/Style.css" />
-      <VBox fx:id="menuVBox" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
+      <VBox prefHeight="200.0" prefWidth="100.0" />
+      <VBox fx:id="menuVBox" maxHeight="800.0" maxWidth="283.0" prefHeight="800.0" prefWidth="283.0" styleClass="sideBar" stylesheets="@../util/Style.css">
          <children>
-            <ImageView fx:id="logoImg" fitHeight="157.0" fitWidth="284.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="teacherDashboardLbl" alignment="CENTER" prefHeight="73.0" prefWidth="283.0" text="Teacher Dashboard" textFill="WHITE">
+            <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+			   <image>
+                  <Image url="@../../lib/images/logo.png" />
+			   </image>
+               <VBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </VBox.margin>
+			</ImageView>
+            <Label fx:id="teacherDashboardLbl" alignment="CENTER" prefHeight="73.0" prefWidth="283.0" text="T  E  A  C   H  E  R" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>
@@ -25,17 +34,62 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <JFXButton fx:id="questionBankBtn" onMouseClicked="#questionBankClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Question Bank" textFill="WHITE" />
-            <JFXButton fx:id="testBankBtn" onMouseClicked="#testBankClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Test Bank" textFill="WHITE" />
-            <JFXButton fx:id="viewActiveTestsBtn" onMouseClicked="#viewActiveTestClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="View Active Tests" textFill="WHITE" />
-            <JFXButton fx:id="scheduledTestsBtn" onMouseClicked="#scheduledTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Scheduled Tests" textFill="WHITE" />
-            <JFXButton fx:id="testReportsBtn" onMouseClicked="#testReportsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Test Reports" textFill="WHITE" />
-            <JFXButton fx:id="checkTestsBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Check Tests" textFill="WHITE" />
-            <JFXButton fx:id="approvedBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Approved" textFill="#9884e8" visible="false" />
-            <JFXToggleButton fx:id="darkModeToggleBtn" prefHeight="60.0" prefWidth="289.0" text="dark mode" textFill="WHITE" visible="false" />
+            <JFXButton fx:id="questionBankBtn" alignment="TOP_LEFT" onMouseClicked="#questionBankClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text="   Question Bank" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="QUESTION" size="23" translateX="5.0" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="testBankBtn" alignment="TOP_LEFT" onMouseClicked="#testBankClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text="  Test Bank" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="LIST_ALT" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="viewActiveTestsBtn" alignment="TOP_LEFT" onMouseClicked="#viewActiveTestClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text="  View Active Tests" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="EYE" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="scheduledTestsBtn" alignment="TOP_LEFT" onMouseClicked="#scheduledTestsClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text="  Scheduled Tests" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="CALENDAR" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="testReportsBtn" alignment="TOP_LEFT" onMouseClicked="#testReportsClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text=" Test Reports" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="BAR_CHART" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="checkTestsBtn" alignment="TOP_LEFT" onMouseClicked="#checkTestsClicked" prefHeight="70.0" prefWidth="283.0" styleClass="sideBarButton" text="  Check Tests" textFill="WHITE">
+              <graphic>
+      				<FontAwesomeIconView glyphName="CHECK_SQUARE" size="23" />
+			  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>                     
+            </JFXButton>
+            <JFXButton fx:id="approvedBtn" onMouseClicked="#checkTestsClicked" prefHeight="83.0" prefWidth="283.0" styleClass="sideBarButton" text="Approved" textFill="#9884e8" visible="false">
+              <graphic>
+				<FontAwesomeIconView glyphName="UPLOAD" size="16.0" />
+			  </graphic>                     
+            </JFXButton>
             <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOut" text="Sign Out" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="120.0" />
+                  <Insets />
                </VBox.margin>
             </JFXButton>
          </children></VBox>

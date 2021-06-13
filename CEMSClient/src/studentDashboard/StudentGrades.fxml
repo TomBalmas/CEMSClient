@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -24,13 +25,13 @@
                      </font>
                   </Label>
                   <JFXComboBox fx:id="selectFieldCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Field" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by anything" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" layoutX="20.0" layoutY="134.0" prefHeight="31.0" prefWidth="794.0" promptText="Search by anything" styleClass="searchRow" />
                   <Label layoutY="41.0" prefHeight="21.0" prefWidth="132.0" styleClass="pageLabel" text="Field" />
                   <Label fx:id="startDPlbl" layoutX="353.0" layoutY="41.0" text="Tests from" />
                   <JFXDatePicker fx:id="testsFromDP" layoutX="353.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
                   <Label fx:id="endDPlbl" layoutX="582.0" layoutY="41.0" text="Till" />
                   <JFXDatePicker fx:id="testTillDP" layoutX="584.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" />
-                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="134.0" onMouseClicked="#filterBtn" text="Filter">
+                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="62.0" onMouseClicked="#filterBtn" text="Filter">
                      <styleClass>
                         <String fx:value="filterButton" />
                         <String fx:value="btn" />
@@ -38,6 +39,7 @@
                   </JFXButton>
                   <JFXComboBox fx:id="selectCourseCbox" layoutX="173.0" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Course" styleClass="selector" visibleRowCount="3" />
                   <Label layoutX="173.0" layoutY="41.0" prefHeight="21.0" prefWidth="132.0" styleClass="pageLabel" text="Course" />
+                  <FontAwesomeIconView glyphName="SEARCH" layoutX="2.0" layoutY="155.0" size="15" />
                </children>
             </AnchorPane>
          </children>
