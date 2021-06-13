@@ -117,7 +117,7 @@ public class StudentTakeTestController implements Initializable, Observer {
 			}
 		}
 		else // If the test is not scheduled for now
-			new PopUp(PopUp.TYPE.ERROR, "Error", "The test is locked for entrance", contentPaneAnchor, null,
+			new PopUp(PopUp.TYPE.LOGIN, "Error", "The test is locked for entrance", contentPaneAnchor, null,
 					null);
 	}
 
