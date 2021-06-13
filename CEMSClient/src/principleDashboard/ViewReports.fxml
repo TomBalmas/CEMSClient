@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ViewReportsController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="10.0" prefHeight="153.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="53.0" prefHeight="138.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="53.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
@@ -25,9 +25,9 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="270.0" prefHeight="582.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="270.0" prefHeight="576.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <TableView fx:id="reportTable" prefHeight="464.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <TableView fx:id="reportTable" layoutX="10.0" layoutY="10.0" prefHeight="464.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
                   <TableColumn fx:id="reportIDCol" prefWidth="130.0" style="-fx-alignment: center;" text="Report ID" />
                   <TableColumn fx:id="testIDCol" prefWidth="130.0" style="-fx-alignment: center;" text="Test ID" />

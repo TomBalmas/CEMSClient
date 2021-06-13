@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ActiveTestController">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="225.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.51" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
+      <AnchorPane layoutX="63.0" layoutY="54.0" prefHeight="721.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="54.0">
          <children>
             <AnchorPane prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
@@ -23,7 +23,7 @@
 					 	<FontAwesomeIconView glyphName="REFRESH" size="25" />
 					 </graphic>
 				  </JFXButton>                  
-                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="631.0" prefWidth="805.0" styleClass="scrolledPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <ScrollPane fx:id="scrollPane" layoutX="7.0" layoutY="62.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="601.0" prefWidth="815.0" styleClass="scrolledPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                </children>
             </AnchorPane>
          </children>

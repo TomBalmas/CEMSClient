@@ -63,6 +63,9 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	@FXML
 	private StackPane popUpWindow;
+	
+    @FXML
+    private Label nameLbl;
 
 	private Node viewReports;
 	private Node createReport;
@@ -184,6 +187,7 @@ public class PrincipleDashboardUIController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		nameLbl.setText(ClientController.getActiveUser().getName() + " " + ClientController.getActiveUser().getSurName());
 	}
 
 }

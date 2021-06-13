@@ -70,6 +70,9 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	@FXML
 	private StackPane popUpWindow;
+	
+    @FXML
+    private Label nameLbl;
 
 	private Node testBank;
 	private Node questionBank;
@@ -186,6 +189,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		nameLbl.setText(ClientController.getActiveUser().getName() + " " + ClientController.getActiveUser().getSurName());
 	}
 
 	@Override
