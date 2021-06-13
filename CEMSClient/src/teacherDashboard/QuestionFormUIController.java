@@ -179,20 +179,20 @@ public class QuestionFormUIController implements Initializable {
 				ClientController.accept(queryAddQuestion);
 				// check if question added correctly
 				if (ClientController.isQuestionAdded()) {
-					// show POP UP:
+					// Show popup window
 					String toShow = "Question ID: ";
 					toShow = toShow.concat(ClientController.getNewQuestionId());
 					JFXButton okayBtn = new JFXButton("Okay");
 					okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 						try {
-							GeneralUIMethods.loadPage(null, (new FXMLLoader(
-									getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()))).load());
+							GeneralUIMethods.loadPage(contentPaneAnchor,
+									FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal())));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 					});
-					System.out.println("here");
-					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, Arrays.asList(okayBtn), null);
+					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, Arrays.asList(okayBtn),
+							null);
 				}
 				// handle empty fields
 			} else {
@@ -203,6 +203,12 @@ public class QuestionFormUIController implements Initializable {
 				nodes.add(answer2Txt);
 				nodes.add(answer3Txt);
 				nodes.add(answer4Txt);
+				if (!answer1Btn.isSelected() && !answer2Btn.isSelected() && !answer3Btn.isSelected() && !answer4Btn.isSelected()) {	
+					nodes.add(answer1Btn);
+					nodes.add(answer2Btn);
+					nodes.add(answer3Btn);
+					nodes.add(answer4Btn);
+				}
 				if (GeneralUIMethods.checkEmptyFields(nodes))
 					new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
 			}
@@ -221,12 +227,22 @@ public class QuestionFormUIController implements Initializable {
 				boolean answerEdit = ClientController.isQuestionEdited();
 				// check if answer edited correctly in DB
 				if (answerEdit) {
+					// Show popup window
 					String toShow = "Question ID: ";
 					toShow = toShow.concat(questionID[2]);
-					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, null, null);
+					JFXButton okayBtn = new JFXButton("Okay");
+					okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+						try {
+							GeneralUIMethods.loadPage(contentPaneAnchor,
+									FXMLLoader.load(getClass().getResource(Navigator.QUESTION_BANK.getVal())));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					});
+					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, Arrays.asList(okayBtn), null);
 				}
 			} else
-				new PopUp(PopUp.TYPE.SUCCESS, "Question not edited", "Some fields are missing!", contentPaneAnchor,
+				new PopUp(PopUp.TYPE.ERROR, "Question not edited", "Some fields are missing!", contentPaneAnchor,
 						null, null);
 		}
 		correctAnswer = 0;
@@ -250,10 +266,9 @@ public class QuestionFormUIController implements Initializable {
 		answer4Btn.setToggleGroup(group);
 		setToggleGroupNotVisible();
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			// Observable to view changes in radio button
 			@Override
-			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {// observable to view
-																									// changes in radio
-																									// button
+			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
 				if (group.getSelectedToggle() != null) {
 					JFXRadioButton button = (JFXRadioButton) group.getSelectedToggle();
 					setToggleGroupNotVisible();
