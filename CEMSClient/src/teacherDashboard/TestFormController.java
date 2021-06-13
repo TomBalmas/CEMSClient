@@ -646,22 +646,29 @@ public class TestFormController implements Initializable {
 		isDisapproveClicked = true;
 	}
 
-	public void setStudentAnswers(String testId, String studentSSN) {
+	public ArrayList<Integer> setStudentAnswers(String testId, String studentSSN) {
+		ArrayList<Integer> wrongAnswers = new ArrayList<Integer>();
+		ArrayList<Question> returnedQuestions = new ArrayList<Question>();
+		returnedQuestions = ClientController.getQuestions();
+		ClientController.accept("GET_QUESTIONS_FROM_TEST-" + testId);
+
 		// Get students answers and select them
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
 		int i = 0;
-		for (ToggleGroup tg : getQuestionsToggleGroup())
+		for (ToggleGroup tg : getQuestionsToggleGroup()) {
 			if (!ClientController.getStudentAnswers().isEmpty()
 					&& !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
-				if (ClientController.getStudentAnswers().get(i).getValue() != 0)
+				if (ClientController.getStudentAnswers().get(i).getValue() != 0) {
 					tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
+					if (ClientController.getStudentAnswers().get(i).getValue() != ClientController.getQuestions().get(i)
+							.getCorrectAnswer())
+						wrongAnswers.add(i);
+				}
 				i++;
 			}
-		
-		
-		//ArrayList<Question> returnedQuestions = setQuestionsFromTest(testId);
-
+		}
 		ClientController.setStudentAnswers(null);
+		return wrongAnswers;
 	}
 
 	public ArrayList<Question> setQuestionsFromTest(String testId) {

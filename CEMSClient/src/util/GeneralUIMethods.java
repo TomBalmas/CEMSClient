@@ -264,9 +264,9 @@ public class GeneralUIMethods {
 					controller.getUploadFileAnchor().setVisible(false);
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				i = 1;
-				QuestionController questionController;
+				ArrayList<QuestionController> questionController = new ArrayList<QuestionController>();
 				for (Question q : testQuestions) {
-					questionController = controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
+					questionController.add(controller.addQuestionToTestForm(q, i, 100 / testQuestions.size())); // Adding questions to preview
 					i++;
 				}
 				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
@@ -303,9 +303,14 @@ public class GeneralUIMethods {
 						}
 					}
 				});
+				ArrayList<Integer> wrongAnswers;
 				// Get students answers and select them
-				if (testType.equals("STUDENT_LOOK") || testType.equals("TEACHER_CHECKING"))
-					controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
+				if (testType.equals("STUDENT_LOOK")) {
+					wrongAnswers = controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
+					for(int j = 0; j < wrongAnswers.size(); j++)
+						questionController.get(wrongAnswers.get(j)).getWrongAnswerImage().setVisible(true);
+				}
+				else if (testType.equals("TEACHER_CHECKING")) controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
 				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING"))
 					controller.setQuestionsFromTest(test.getID());
 			} catch (IOException e) {
