@@ -423,7 +423,6 @@ public class AddingNewTestUIController implements Initializable {
 			controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
 			controller.getScrollPane().setTranslateX(10);
 			controller.getScrollPane().setTranslateY(11);
-			controller.getEditBtn().setVisible(false);
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
 			if (savedPickedQuestion != null)

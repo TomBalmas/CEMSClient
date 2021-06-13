@@ -29,13 +29,12 @@
          <children>
             <TableView fx:id="reportTable" prefHeight="464.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
-                  <TableColumn fx:id="reportIDCol" prefWidth="110.0" style="-fx-alignment: center;" text="Report ID" />
-                  <TableColumn fx:id="testIDCol" prefWidth="100.0" style="-fx-alignment: center;" text="Test ID" />
-                  <TableColumn fx:id="studentNumCol" prefWidth="160.0" style="-fx-alignment: center;" text="Number of students" />
-                  <TableColumn fx:id="averageCol" prefWidth="150.0" style="-fx-alignment: center;" text="Average" />
+                  <TableColumn fx:id="reportIDCol" prefWidth="130.0" style="-fx-alignment: center;" text="Report ID" />
+                  <TableColumn fx:id="testIDCol" prefWidth="130.0" style="-fx-alignment: center;" text="Test ID" />
+                  <TableColumn fx:id="studentNumCol" prefWidth="170.0" style="-fx-alignment: center;" text="Number of students" />
+                  <TableColumn fx:id="averageCol" prefWidth="160.0" style="-fx-alignment: center;" text="Average" />
                   <TableColumn fx:id="medianCol" prefWidth="150.0" style="-fx-alignment: center;" text="Median" />
-                  <TableColumn fx:id="viewCol" prefWidth="91.0" style="-fx-alignment: center;" text="View" />
-                  <TableColumn fx:id="deleteCol" prefWidth="91.0" style="-fx-alignment: center;" text="Delete" />
+                  <TableColumn fx:id="viewCol" prefWidth="112.0" style="-fx-alignment: center;" text="View" />
               </columns>
             </TableView>
          </children>

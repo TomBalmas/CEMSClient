@@ -47,116 +47,110 @@ import util.PopUp;
 
 public class TestFormController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private ScrollPane scrollPane;
+    @FXML
+    private ScrollPane scrollPane;
 
-	@FXML
-	private AnchorPane testSideBarAnchor;
+    @FXML
+    private AnchorPane testSideBarAnchor;
 
-	@FXML
-	private JFXButton finishBtn;
+    @FXML
+    private JFXButton finishBtn;
 
-	@FXML
-	private JFXButton uploadBtn;
+    @FXML
+    private JFXButton uploadBtn;
 
-	@FXML
-	private JFXButton backBtn;
+    @FXML
+    private JFXButton backBtn;
 
-	@FXML
-	private JFXButton downloadBtn;
+    @FXML
+    private JFXButton downloadBtn;
 
-	@FXML
-	private AnchorPane uploadFileAnchor;
+    @FXML
+    private AnchorPane uploadFileAnchor;
 
-	@FXML
-	private JFXTextArea uploadFileTxtArea;
+    @FXML
+    private JFXTextArea uploadFileTxtArea;
 
-	@FXML
-	private AnchorPane questionAnchor;
+    @FXML
+    private AnchorPane questionAnchor;
 
-	@FXML
-	private Label questionLbl;
+    @FXML
+    private Label questionLbl;
 
-	@FXML
-	private AnchorPane insideQuestionAnchor;
+    @FXML
+    private AnchorPane insideQuestionAnchor;
 
-	@FXML
-	private Label questionAnsweredLbl;
+    @FXML
+    private Label questionAnsweredLbl;
 
-	@FXML
-	private Label questionAnsweredLbl1;
+    @FXML
+    private Label questionAnsweredLbl1;
 
-	@FXML
-	private Label totalQuestionsLbl;
+    @FXML
+    private Label totalQuestionsLbl;
 
-	@FXML
-	private AnchorPane timeAnchor;
+    @FXML
+    private AnchorPane timeAnchor;
 
-	@FXML
-	private Label timeLbl;
+    @FXML
+    private Label timeLbl;
 
-	@FXML
-	private AnchorPane timeValueAnchor;
+    @FXML
+    private AnchorPane timeValueAnchor;
 
-	@FXML
-	private Label timeLbl1;
+    @FXML
+    private Label timeLbl1;
 
-	@FXML
-	private Label newTimeLbl;
+    @FXML
+    private Label newTimeLbl;
 
-	@FXML
-	private AnchorPane fileUploadedAnchor;
+    @FXML
+    private AnchorPane fileUploadedAnchor;
 
-	@FXML
-	private AnchorPane timeAnchor1;
+    @FXML
+    private AnchorPane timeAnchor1;
 
-	@FXML
-	private Label fileNameLbl;
+    @FXML
+    private Label fileNameLbl;
 
-	@FXML
-	private JFXButton deleteFileBtn;
+    @FXML
+    private JFXButton deleteFileBtn;
 
-	@FXML
-	private JFXTextArea fileCommentsTxtArea;
+    @FXML
+    private AnchorPane teacherCheckTestSideBar;
 
-	@FXML
-	private AnchorPane teacherCheckTestSideBar;
+    @FXML
+    private JFXButton approveBtn;
 
-	@FXML
-	private JFXButton approveBtn;
+    @FXML
+    private JFXButton disapproveBtn;
 
-	@FXML
-	private JFXButton disapproveBtn;
+    @FXML
+    private Label copyResultLbl;
 
-	@FXML
-	private Label copyResultLbl;
+    @FXML
+    private Label copyWithLbl;
 
-	@FXML
-	private Label copyWithLbl;
+    @FXML
+    private Label gradeLbl;
 
-	@FXML
-	private Label gradeLbl;
+    @FXML
+    private AnchorPane disapproveGradeAnchor;
 
-	@FXML
-	private AnchorPane disapproveGradeAnchor;
+    @FXML
+    private JFXTextField newGrade;
 
-	@FXML
-	private JFXTextField newGrade;
+    @FXML
+    private JFXTextArea teacherNotes;
 
-	@FXML
-	private JFXTextArea teacherNotes;
+    @FXML
+    private Label testGradeLbl;
 
-	@FXML
-	private JFXButton editBtn;
-
-	@FXML
-	private Label testGradeLbl;
-
-	@FXML
-	private StackPane popUpWindow;
+    @FXML
+    private StackPane popUpWindow;
 
 	private VBox vbox = new VBox();
 	private String fileFullPath = "", fileName, submittedBy = "self", teacherNotesOnTest;
@@ -237,10 +231,6 @@ public class TestFormController implements Initializable {
 
 	public AnchorPane getUploadFileAnchor() {
 		return uploadFileAnchor;
-	}
-
-	public JFXButton getEditBtn() {
-		return editBtn;
 	}
 
 	public JFXButton getBackBtn() {

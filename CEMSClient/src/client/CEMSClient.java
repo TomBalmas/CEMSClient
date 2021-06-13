@@ -55,8 +55,7 @@ public class CEMSClient extends ObservableClient {
 				String[] fileNameSplit = split[0].split("-");
 				if (fileNameSplit[1].length() != 0) {
 					TestFile file = new TestFile(fileNameSplit[1].replace("\\", "/"));
-					File f = new File((fileNameSplit[1].replace("\\", "/")).substring(1,
-							fileNameSplit[1].replace("\\", "/").length() - 1));
+					File f = new File((fileNameSplit[1].replace("\\", "/")));
 					byte[] byteArray = new byte[(int) f.length()];
 					FileInputStream fis = new FileInputStream(f);
 					BufferedInputStream bis = new BufferedInputStream(fis);
