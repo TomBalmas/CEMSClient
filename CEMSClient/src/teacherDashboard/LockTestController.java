@@ -1,17 +1,13 @@
 package teacherDashboard;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class LockTestController implements Initializable {
+public class LockTestController {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
@@ -41,11 +37,6 @@ public class LockTestController implements Initializable {
 
 	public JFXButton getConfirmTestLock() {
 		return confirmTestLock;
-	}
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
 	}
 
 }
