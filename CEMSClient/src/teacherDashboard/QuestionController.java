@@ -12,43 +12,42 @@ import javafx.scene.layout.VBox;
 
 public class QuestionController {
 
+	@FXML
+	private AnchorPane questionAnchor;
 
-    @FXML
-    private AnchorPane questionAnchor;
+	@FXML
+	private Label questionNumLbl;
 
-    @FXML
-    private Label questionNumLbl;
+	@FXML
+	private JFXTextArea contentTxt;
 
-    @FXML
-    private JFXTextArea contentTxt;
+	@FXML
+	private Label pointsLbl;
 
-    @FXML
-    private Label pointsLbl;
+	@FXML
+	private VBox questionsVBox;
 
-    @FXML
-    private VBox questionsVBox;
+	@FXML
+	private JFXRadioButton answer1Btn;
 
-    @FXML
-    private JFXRadioButton answer1Btn;
+	@FXML
+	private JFXRadioButton answer2Btn;
 
-    @FXML
-    private JFXRadioButton answer2Btn;
+	@FXML
+	private JFXRadioButton answer3Btn;
 
-    @FXML
-    private JFXRadioButton answer3Btn;
+	@FXML
+	private JFXRadioButton answer4Btn;
 
-    @FXML
-    private JFXRadioButton answer4Btn;
-
-    @FXML
-    private ImageView wrongAnswerImage;
+	@FXML
+	private ImageView wrongAnswerImage;
 
 	final ToggleGroup group = new ToggleGroup();
 
 	public ToggleGroup getGroup() {
 		return group;
 	}
-	
+
 	public AnchorPane getQuestionAnchor() {
 		return questionAnchor;
 	}
@@ -64,7 +63,7 @@ public class QuestionController {
 	public Label getPointsLbl() {
 		return pointsLbl;
 	}
-	
+
 	public VBox getQuestionsVBox() {
 		return questionsVBox;
 	}
@@ -84,7 +83,7 @@ public class QuestionController {
 	public JFXRadioButton getAnswer4Btn() {
 		return answer4Btn;
 	}
-	
+
 	public ImageView getWrongAnswerImage() {
 		return wrongAnswerImage;
 	}

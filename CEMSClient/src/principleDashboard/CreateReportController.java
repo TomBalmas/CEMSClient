@@ -1,33 +1,20 @@
 package principleDashboard;
 
-import java.awt.CheckboxMenuItem;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXNodesList;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.CustomMenuItem;
+
 import client.ClientController;
 import common.Course;
-import common.Question;
 import common.Report;
 import common.Student;
 import common.Teacher;
 import common.User;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,91 +22,58 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 import javafx.util.Pair;
-import teacherDashboard.QuestionBankUIController.questionRow;
-import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
-import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.control.cell.ComboBoxListCell;
 
 public class CreateReportController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private JFXComboBox<?> selectTypeCbox;
+    @FXML
+    private JFXComboBox<?> selectTypeCbox;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private Label selectCourseLbl;
 
-	@FXML
-	private Label startDPlbl;
+    @FXML
+    private MenuButton menuBtn;
 
-	@FXML
-	private JFXDatePicker startCoursesDP;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private Label endDPlbl;
+    @FXML
+    private TableView<Row> reportsTbl;
 
-	@FXML
-	private JFXDatePicker finishCoursesDP;
+    @FXML
+    private TableColumn<?, ?> nameCol;
 
-	@FXML
-	private JFXButton filterButton;
+    @FXML
+    private TableColumn<?, ?> IDCol;
 
-	@FXML
-	private Label selectCourseLbl;
-
-	@FXML
-	private AnchorPane tableViewAnchor;
-
-	@FXML
-	private TableView<Row> reportsTbl;
-
-	@FXML
-	private TableColumn<?, ?> nameCol;
-
-	@FXML
-	private MenuButton menuBtn;
-
-	@FXML
-	private JFXButton createReportBtn;
-
-	@FXML
-	private TableColumn<?, ?> IDCol;
+    @FXML
+    private JFXButton createReportBtn;
 
 	ArrayList<Student> students = null;
 	ArrayList<Teacher> teachers = null;
@@ -133,7 +87,7 @@ public class CreateReportController implements Initializable {
 	String median;
 	String average;
 
-//row to be presented in table view.General for student,course,teCacher
+	//row to be presented in table view.General for student,course,teCacher
 	public class Row {
 		private String id;
 		private String author;
@@ -189,7 +143,6 @@ public class CreateReportController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-
 					Node createReport = null;
 					createReport = FXMLLoader.load(getClass().getResource(Navigator.REPORT_CHART.getVal()));
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
@@ -388,18 +341,10 @@ public class CreateReportController implements Initializable {
 
 		createReportBtn.setOnAction(e -> {
 			btnEventHandler.handle(e);
-			{
-
-			}
-			;
 		});
 
 		menuBtn.setOnAction(e -> {
 			btnEventHandler.handle(e);
-			{
-
-			}
-			;
 		});
 
 		// handle clicking on a student row
@@ -452,32 +397,19 @@ public class CreateReportController implements Initializable {
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
 				menuBtn.setVisible(true);
-				startCoursesDP.setVisible(false);
-				finishCoursesDP.setVisible(false);
-				startDPlbl.setVisible(false);
-				endDPlbl.setVisible(false);
 				selectCourseLbl.setVisible(true);
-				searchField.setPromptText("Search by student name/last name");
 				ClientController.accept("GET_STUDENTS-");
 				students = ClientController.getStudents();
 				reportsTbl.getItems().clear();
-				if (students != null) {
+				if (students != null) 
 					for (int i = 0; i < students.size(); i++) {
 						Row usersRow = new Row(students.get(i));
 						tableViewAnchor.setMouseTransparent(false);
 						reportsTbl.getItems().add(usersRow);
-
 					}
-				}
-
 			} else if (selectTypeCbox.getValue().equals("Courses")) {
 				menuBtn.setVisible(false);
-				startCoursesDP.setVisible(true);
-				finishCoursesDP.setVisible(true);
-				startDPlbl.setVisible(true);
-				endDPlbl.setVisible(true);
 				selectCourseLbl.setVisible(false);
-				searchField.setPromptText("Search by field/course name or code");
 				ClientController.accept("GET_COURSES-");
 				courses = ClientController.getCourses();
 				reportsTbl.getItems().clear();
@@ -488,34 +420,21 @@ public class CreateReportController implements Initializable {
 						reportsTbl.getItems().add(courseRow);
 					}
 				}
-				// teacher
+			// teacher
 			} else {
 				menuBtn.setVisible(false);
-				startCoursesDP.setVisible(false);
-				finishCoursesDP.setVisible(false);
-				startDPlbl.setVisible(false);
-				endDPlbl.setVisible(false);
 				selectCourseLbl.setVisible(false);
-				searchField.setPromptText("Search by teacher name/last name");
 				ClientController.accept("GET_TEACHERS-");
 				reportsTbl.getItems().clear();
 				teachers = ClientController.getTeachers();
-				if (teachers != null) {
+				if (teachers != null)
 					for (int i = 0; i < teachers.size(); i++) {
 						Row usersRow = new Row(teachers.get(i));
 						tableViewAnchor.setMouseTransparent(false);
 						reportsTbl.getItems().add(usersRow);
 					}
-				}
 			}
-
 		});
-
-	}
-
-	@FXML
-	void filterBtn(MouseEvent event) {
-
 	}
 
 }

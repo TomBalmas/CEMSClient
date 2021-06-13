@@ -145,23 +145,16 @@ public class ViewActiveTestsController implements Initializable {
 			new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
 			return;
 		}
-		
+
 		// Request for time extension
 		ClientController.accept("ADD_TIME_EXTENSION_REQUEST-" + ClientController.getActiveUser().getSSN() + ","
-				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); // 																				
+				+ reasonForRequestTxt.getText() + "," + selectedRow + "," + minutesTxt.getText()); //
 		ClientController.accept("NOTIFY_PRINCIPLE");
 		if (ClientController.isPrincipleNotified())
-			new PopUp(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!",
-					contentPaneAnchor, null, null);
-		else
-			new PopUp(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor,
+			new PopUp(PopUp.TYPE.INFORM, "Information", "Your request sent for principles approval!", contentPaneAnchor,
 					null, null);
-	}
-
-	// -----------TODO--------------
-	@FXML
-	void searchBtnClicked(MouseEvent event) {
-
+		else
+			new PopUp(PopUp.TYPE.ERROR, "Information", "Error in sending request!", contentPaneAnchor, null, null);
 	}
 
 	/**
@@ -249,7 +242,7 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	/**
-	 set data in active tests table
+	 * set data in active tests table
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -257,7 +250,7 @@ public class ViewActiveTestsController implements Initializable {
 
 		// Request from the client(query) to the server.
 		if (ClientController.getRoleFrame().equals("Teacher")) {
-			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN()); 
+			ClientController.accept("ACTIVE_TEST-" + ClientController.getActiveUser().getSSN());
 			activeTests = ClientController.getActiveTests(); // Receiving data the query in the server
 		}
 		// Insert into columns of the table, columns from DB.
@@ -280,7 +273,8 @@ public class ViewActiveTestsController implements Initializable {
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader viewTestLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader viewTestLoader = new FXMLLoader(
+								getClass().getResource(Navigator.TEST_FORM.getVal()));
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
 						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getActiveTest().getCode(),
@@ -291,7 +285,8 @@ public class ViewActiveTestsController implements Initializable {
 				tr.getLockBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader lockTestLoader = new FXMLLoader(getClass().getResource(Navigator.LOCK_TEST.getVal()));
+						FXMLLoader lockTestLoader = new FXMLLoader(
+								getClass().getResource(Navigator.LOCK_TEST.getVal()));
 						new PopUp(PopUp.TYPE.INFORM, "LOCK_TEST", "", contentPaneAnchor,
 								Arrays.asList(new JFXButton("Cancel")), lockTestLoader);
 						LockTestController cont = lockTestLoader.getController();
@@ -310,11 +305,11 @@ public class ViewActiveTestsController implements Initializable {
 							if (ClientController.isStudentNotified()) {
 								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests " + tr.getID() + " is now locked.",
 										contentPaneAnchor, null, null);
-								((JFXButton) arg0.getSource()).setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
+								((JFXButton) arg0.getSource())
+										.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UNLOCK));
 								ClientController.setStudentNotified(false);
-							}
-							else
-								new PopUp(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID() ,
+							} else
+								new PopUp(PopUp.TYPE.ALERT, "Failed", "Could not lock test " + tr.getID(),
 										contentPaneAnchor, null, null);
 						});
 					}
@@ -339,7 +334,7 @@ public class ViewActiveTestsController implements Initializable {
 					return true; // Filter matches field.
 				else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches test name.
-				else if (String.valueOf(myObject.getAuthorName()).toLowerCase().contains(lowerCaseFilter)) 
+				else if (String.valueOf(myObject.getAuthorName()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches author name.
 				else if (String.valueOf(myObject.getStartTimeTest()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches start time.
@@ -356,13 +351,12 @@ public class ViewActiveTestsController implements Initializable {
 		// Add sorted (and filtered) data to the table.
 		activeTestsTbl.setItems(sortedData);
 
-		// An event lets us click on a row in the table to see details like ID, Finish Time and Time Left.
+		// An event lets us click on a row in the table to see details like ID, Finish
+		// Time and Time Left.
 		activeTestsTbl.setOnMouseClicked((MouseEvent event) -> {
 			if (event.getClickCount() >= 1)
 				if (activeTestsTbl.getSelectionModel().getSelectedItem() != null) {
 					rowTableActiveTest selected = activeTestsTbl.getSelectionModel().getSelectedItem();
-					// timeLeftField.setText(selected.get); // TODO: in the future
-					// testCodeLable.setText(selected.arg0);
 					selectedRow = selected.getActiveTest().getCode(); // Get the ID to request query from server about
 					testSelectedLbl2.setText(selected.getTestName() + " (" + selectedRow + ")"); // time extension.
 				}
@@ -376,4 +370,3 @@ public class ViewActiveTestsController implements Initializable {
 		testAnchor.toBack();
 	}
 }
- 

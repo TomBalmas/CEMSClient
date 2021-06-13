@@ -48,7 +48,7 @@ public class StudentDashboardUIController implements Initializable {
 
 	@FXML
 	private AnchorPane contentPaneAnchor;
-	
+
 	@FXML
 	private StackPane popUpWindow;
 
@@ -60,7 +60,7 @@ public class StudentDashboardUIController implements Initializable {
 	 * clicking grades will open the grades page.
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void gradesPage(MouseEvent event) throws IOException {
@@ -80,7 +80,7 @@ public class StudentDashboardUIController implements Initializable {
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void signOutClicked(MouseEvent event) throws IOException {
@@ -90,7 +90,7 @@ public class StudentDashboardUIController implements Initializable {
 	}
 
 	/**
-	 *initializes all the FXML files for easier access.
+	 * initializes all the FXML files for easier access.
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -98,10 +98,11 @@ public class StudentDashboardUIController implements Initializable {
 		GeneralUIMethods.setSideBar(menuVBox);
 		GeneralUIMethods.setMenuStyle(takeTestBtn, menuVBox);
 		try {
-			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()))).load());
+			GeneralUIMethods.loadPage(contentPaneAnchor,
+					(new FXMLLoader(getClass().getResource(Navigator.STUDENT_TAKE_TEST.getVal()))).load());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 }

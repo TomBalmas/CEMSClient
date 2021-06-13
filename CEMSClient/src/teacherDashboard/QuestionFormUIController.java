@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -14,8 +13,6 @@ import com.jfoenix.controls.JFXTextArea;
 
 import client.ClientController;
 import common.Teacher;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -172,10 +169,9 @@ public class QuestionFormUIController implements Initializable {
 			// Send query only if fields aren't empty
 			if (correctAnswer != 0 && !questionContent.isEmpty() && !fieldCBox.getValue().toString().isEmpty()
 					&& !answer1.isEmpty() && !answer2.isEmpty() && !answer3.isEmpty() && !answer4.isEmpty()) {
-				// Author,questionContent,correctAnswer,field,answer1,answer2,answer3,answer4
-				String queryAddQuestion = "ADD_QUESTION-" + teacherId + "," + questionContent + ","
-						+ correctAnswer + "," + fieldCBox.getValue().toString() + "," + answer1 + "," + answer2 + ","
-						+ answer3 + "," + answer4;
+				String queryAddQuestion = "ADD_QUESTION-" + teacherId + "," + questionContent + "," + correctAnswer
+						+ "," + fieldCBox.getValue().toString() + "," + answer1 + "," + answer2 + "," + answer3 + ","
+						+ answer4;
 				ClientController.accept(queryAddQuestion);
 				// check if question added correctly
 				if (ClientController.isQuestionAdded()) {
@@ -203,7 +199,8 @@ public class QuestionFormUIController implements Initializable {
 				nodes.add(answer2Txt);
 				nodes.add(answer3Txt);
 				nodes.add(answer4Txt);
-				if (!answer1Btn.isSelected() && !answer2Btn.isSelected() && !answer3Btn.isSelected() && !answer4Btn.isSelected()) {	
+				if (!answer1Btn.isSelected() && !answer2Btn.isSelected() && !answer3Btn.isSelected()
+						&& !answer4Btn.isSelected()) {
 					nodes.add(answer1Btn);
 					nodes.add(answer2Btn);
 					nodes.add(answer3Btn);
@@ -239,11 +236,12 @@ public class QuestionFormUIController implements Initializable {
 							e1.printStackTrace();
 						}
 					});
-					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, Arrays.asList(okayBtn), null);
+					new PopUp(PopUp.TYPE.SUCCESS, "Question edited", toShow, contentPaneAnchor, Arrays.asList(okayBtn),
+							null);
 				}
 			} else
-				new PopUp(PopUp.TYPE.ERROR, "Question not edited", "Some fields are missing!", contentPaneAnchor,
-						null, null);
+				new PopUp(PopUp.TYPE.ERROR, "Question not edited", "Some fields are missing!", contentPaneAnchor, null,
+						null);
 		}
 		correctAnswer = 0;
 	}

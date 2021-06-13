@@ -2,36 +2,37 @@ package studentDashboard;
 
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class QuestionController {
 
-    @FXML
-    private Label questionNumLbl;
-
-    @FXML
-    private JFXTextArea contantTxt;
-
-    @FXML
-    private Label pointsLbl;
-
-    
 	@FXML
-    private JFXRadioButton answer1Btn;
+	private Label questionNumLbl;
 
-    @FXML
-    private JFXRadioButton answer2Btn;
+	@FXML
+	private JFXTextArea contantTxt;
 
-    @FXML
-    private JFXRadioButton answer3Btn;
+	@FXML
+	private Label pointsLbl;
 
-    @FXML
-    private JFXRadioButton answer4Btn;
+	@FXML
+	private JFXRadioButton answer1Btn;
 
-    @FXML
-    private JFXTextArea studentNotesTxt;
-    public Label getQuestionNumLbl() {
+	@FXML
+	private JFXRadioButton answer2Btn;
+
+	@FXML
+	private JFXRadioButton answer3Btn;
+
+	@FXML
+	private JFXRadioButton answer4Btn;
+
+	@FXML
+	private JFXTextArea studentNotesTxt;
+
+	public Label getQuestionNumLbl() {
 		return questionNumLbl;
 	}
 
@@ -62,6 +63,5 @@ public class QuestionController {
 	public JFXTextArea getStudentNotesTxt() {
 		return studentNotesTxt;
 	}
-
 
 }

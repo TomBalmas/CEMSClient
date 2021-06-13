@@ -74,7 +74,6 @@ public class ActiveTestController implements Initializable, Observer {
 	 * window of the principal so that he can approve requests for extra time.
 	 *
 	 */
-
 	public void addTeacherRequest(TimeExtensionRequest currentRequest, String teacherName) {
 
 		try {

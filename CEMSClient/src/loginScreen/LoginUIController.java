@@ -84,14 +84,6 @@ public class LoginUIController implements Initializable {
 	void clickLogin(Event event) {
 		GeneralUIMethods.setPopupPane(popupStackPane);
 		GeneralUIMethods.setSideBar(menuVBox);
-//		if (usernameTxt.getText().isEmpty()) { emptyField = true; usernameTxt.getStyleClass().add("ErrorLine"); }
-//		else usernameTxt.getStyleClass().remove("ErrorLine");
-//		if (passwordTxt.getText().isEmpty()) { emptyField = true;  passwordTxt.getStyleClass().add("ErrorLine"); }
-//		else passwordTxt.getStyleClass().remove("ErrorLine");
-//		if (emptyField) {
-//			new PopUp(PopUp.TYPE.ERROR, "Error", "Some fields are missing", null, null, null); 
-//			return;
-//		}
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		nodes.add(usernameTxt);
 		nodes.add(passwordTxt);

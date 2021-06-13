@@ -25,44 +25,44 @@ import util.Navigator;
 
 public class PrincipleDashboardUIController implements Initializable {
 
-    @FXML
-    private AnchorPane anchorLogin;
+	@FXML
+	private AnchorPane anchorLogin;
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private VBox menuVBox;
+	@FXML
+	private VBox menuVBox;
 
-    @FXML
-    private ImageView logoImg;
+	@FXML
+	private ImageView logoImg;
 
-    @FXML
-    private Label teacherDashboardLbl;
+	@FXML
+	private Label teacherDashboardLbl;
 
-    @FXML
-    private JFXButton activeTestRequestsBtn;
+	@FXML
+	private JFXButton activeTestRequestsBtn;
 
-    @FXML
-    private JFXButton viewReportsBtn;
+	@FXML
+	private JFXButton viewReportsBtn;
 
-    @FXML
-    private JFXButton createReportBtn;
+	@FXML
+	private JFXButton createReportBtn;
 
-    @FXML
-    private JFXButton testBankBtn;
+	@FXML
+	private JFXButton testBankBtn;
 
-    @FXML
-    private JFXButton questionBankBtn;
+	@FXML
+	private JFXButton questionBankBtn;
 
-    @FXML
-    private JFXToggleButton darkModeToggleBtn;
+	@FXML
+	private JFXToggleButton darkModeToggleBtn;
 
-    @FXML
-    private JFXButton signOutBtn;
+	@FXML
+	private JFXButton signOutBtn;
 
-    @FXML
-    private StackPane popUpWindow;
+	@FXML
+	private StackPane popUpWindow;
 
 	private Node viewReports;
 	private Node createReport;
@@ -72,17 +72,18 @@ public class PrincipleDashboardUIController implements Initializable {
 	private FXMLLoader questionBankLoader;
 	private Node testBank;
 	private FXMLLoader testBankLoader;
-	
+
 	public StackPane getPopUpWindow() {
 		return popUpWindow;
 	}
 
 	/**
 	 * load active test page
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 *
 	 */
-	
+
 	@FXML
 	void activeTestRequestClicked(MouseEvent event) {
 
@@ -90,7 +91,7 @@ public class PrincipleDashboardUIController implements Initializable {
 			contentPaneAnchor.getChildren().clear();
 			activeTests = FXMLLoader.load(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()));
 			contentPaneAnchor.getChildren().addAll(activeTests);
-			GeneralUIMethods.setMenuStyle(activeTestRequestsBtn,menuVBox);
+			GeneralUIMethods.setMenuStyle(activeTestRequestsBtn, menuVBox);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +100,8 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load create report page
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 *
 	 */
 	@FXML
@@ -111,7 +113,8 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load question bank page
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 *
 	 */
 	@FXML
@@ -126,7 +129,8 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load test bank page
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 *
 	 */
 	@FXML
@@ -141,7 +145,8 @@ public class PrincipleDashboardUIController implements Initializable {
 
 	/**
 	 * load view reports page
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 *
 	 */
 	@FXML
@@ -155,7 +160,7 @@ public class PrincipleDashboardUIController implements Initializable {
 	 * clicking sign out will go back to the login screen
 	 * 
 	 * @param event
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@FXML
 	void signOutClicked(MouseEvent event) throws IOException {
@@ -174,7 +179,8 @@ public class PrincipleDashboardUIController implements Initializable {
 		GeneralUIMethods.setSideBar(menuVBox);
 		GeneralUIMethods.setMenuStyle(activeTestRequestsBtn, menuVBox);
 		try {
-			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()))).load());
+			GeneralUIMethods.loadPage(contentPaneAnchor,
+					(new FXMLLoader(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()))).load());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
