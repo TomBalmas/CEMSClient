@@ -47,117 +47,117 @@ import util.PopUp;
 
 public class TestFormController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private AnchorPane testSideBarAnchor;
-
-    @FXML
-    private JFXButton finishBtn;
-
-    @FXML
-    private JFXButton uploadBtn;
-
-    @FXML
-    private JFXButton backBtn;
-
-    @FXML
-    private JFXButton downloadBtn;
-
-    @FXML
-    private AnchorPane uploadFileAnchor;
-
-    @FXML
-    private JFXTextArea uploadFileTxtArea;
-
-    @FXML
-    private AnchorPane questionAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
 	@FXML
-    private Label questionLbl;
-
-    @FXML
-    private AnchorPane insideQuestionAnchor;
-
-    @FXML
-    private Label questionAnsweredLbl;
-
-    @FXML
-    private Label questionAnsweredLbl1;
-
-    @FXML
-    private Label totalQuestionsLbl;
-
-    @FXML
-    private AnchorPane timeAnchor;
-
-    @FXML
-    private Label timeLbl;
-
-    @FXML
-    private AnchorPane timeValueAnchor;
-
-    @FXML
-    private Label timeLbl1;
-
-    @FXML
-    private Label newTimeLbl;
-
-    @FXML
-    private AnchorPane fileUploadedAnchor;
-
-    @FXML
-    private AnchorPane timeAnchor1;
-
-    @FXML
-    private Label fileNameLbl;
-
-    @FXML
-    private JFXButton deleteFileBtn;
-
-    @FXML
-    private JFXTextArea fileCommentsTxtArea;
-
-    @FXML
-    private AnchorPane teacherCheckTestSideBar;
+	private ScrollPane scrollPane;
 
 	@FXML
-    private JFXButton approveBtn;
-
-    @FXML
-    private JFXButton disapproveBtn;
-
-    @FXML
-    private Label copyResultLbl;
-
-    @FXML
-    private Label copyWithLbl;
-
-    @FXML
-    private Label gradeLbl;
+	private AnchorPane testSideBarAnchor;
 
 	@FXML
-    private AnchorPane disapproveGradeAnchor;
-
-    @FXML
-    private JFXTextField newGrade;
-
-    @FXML
-    private JFXTextArea teacherNotes;
-
-    @FXML
-    private JFXButton editBtn;
-    
-    @FXML
-    private Label testGradeLbl;
+	private JFXButton finishBtn;
 
 	@FXML
-    private StackPane popUpWindow;
-    
+	private JFXButton uploadBtn;
+
+	@FXML
+	private JFXButton backBtn;
+
+	@FXML
+	private JFXButton downloadBtn;
+
+	@FXML
+	private AnchorPane uploadFileAnchor;
+
+	@FXML
+	private JFXTextArea uploadFileTxtArea;
+
+	@FXML
+	private AnchorPane questionAnchor;
+
+	@FXML
+	private Label questionLbl;
+
+	@FXML
+	private AnchorPane insideQuestionAnchor;
+
+	@FXML
+	private Label questionAnsweredLbl;
+
+	@FXML
+	private Label questionAnsweredLbl1;
+
+	@FXML
+	private Label totalQuestionsLbl;
+
+	@FXML
+	private AnchorPane timeAnchor;
+
+	@FXML
+	private Label timeLbl;
+
+	@FXML
+	private AnchorPane timeValueAnchor;
+
+	@FXML
+	private Label timeLbl1;
+
+	@FXML
+	private Label newTimeLbl;
+
+	@FXML
+	private AnchorPane fileUploadedAnchor;
+
+	@FXML
+	private AnchorPane timeAnchor1;
+
+	@FXML
+	private Label fileNameLbl;
+
+	@FXML
+	private JFXButton deleteFileBtn;
+
+	@FXML
+	private JFXTextArea fileCommentsTxtArea;
+
+	@FXML
+	private AnchorPane teacherCheckTestSideBar;
+
+	@FXML
+	private JFXButton approveBtn;
+
+	@FXML
+	private JFXButton disapproveBtn;
+
+	@FXML
+	private Label copyResultLbl;
+
+	@FXML
+	private Label copyWithLbl;
+
+	@FXML
+	private Label gradeLbl;
+
+	@FXML
+	private AnchorPane disapproveGradeAnchor;
+
+	@FXML
+	private JFXTextField newGrade;
+
+	@FXML
+	private JFXTextArea teacherNotes;
+
+	@FXML
+	private JFXButton editBtn;
+
+	@FXML
+	private Label testGradeLbl;
+
+	@FXML
+	private StackPane popUpWindow;
+
 	private VBox vbox = new VBox();
 	private String fileFullPath = "", fileName, submittedBy = "self", teacherNotesOnTest;
 	private boolean isStudent = false, isDisapproveClicked = false; // flag to decide student/teacher
@@ -174,32 +174,32 @@ public class TestFormController implements Initializable {
 	String testCode = null;
 
 	// getters start
-	
-    public AnchorPane getQuestionAnchor() {
+
+	public AnchorPane getQuestionAnchor() {
 		return questionAnchor;
 	}
-	
-    public Label getTestGradeLbl() {
+
+	public Label getTestGradeLbl() {
 		return testGradeLbl;
 	}
-	
+
 	public void setTeacherNotesOnTest(String teacherNotesOnTest) {
 		this.teacherNotesOnTest = teacherNotesOnTest;
 	}
-	
-    public Label getCopyResultLbl() {
+
+	public Label getCopyResultLbl() {
 		return copyResultLbl;
 	}
 
 	public Label getCopyWithLbl() {
 		return copyWithLbl;
 	}
-	
-    public Label getGradeLbl() {
+
+	public Label getGradeLbl() {
 		return gradeLbl;
 	}
-    
-    public AnchorPane getTeacherCheckTestSideBar() {
+
+	public AnchorPane getTeacherCheckTestSideBar() {
 		return teacherCheckTestSideBar;
 	}
 
@@ -246,7 +246,7 @@ public class TestFormController implements Initializable {
 	public JFXButton getBackBtn() {
 		return backBtn;
 	}
-	
+
 	public Label getNewTimeLbl() {
 		return newTimeLbl;
 	}
@@ -282,11 +282,11 @@ public class TestFormController implements Initializable {
 	public ArrayList<ToggleGroup> getQuestionsToggleGroup() {
 		return questionsToggleGroup;
 	}
-	
+
 	public Label getTestTitleFromFXMLLbl() {
 		return testTitleFromFXMLLbl;
 	}
-	
+
 	public ArrayList<String> getStudentValues() {
 		return studentValues;
 	}
@@ -296,8 +296,8 @@ public class TestFormController implements Initializable {
 	}
 
 	// getters end
-	
-    public void setSubmittedBy(String submittedBy) {
+
+	public void setSubmittedBy(String submittedBy) {
 		this.submittedBy = submittedBy;
 	}
 
@@ -308,7 +308,7 @@ public class TestFormController implements Initializable {
 	public void setTestType(String testType) {
 		this.testType = testType;
 	}
-	
+
 	public void setTestFrom() {
 
 	}
@@ -323,10 +323,10 @@ public class TestFormController implements Initializable {
 		downloadBtn.setVisible(false);
 		uploadBtn.setVisible(false);
 		vbox.setSpacing(10);
-		
+
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			scrollPane.setTranslateX(-280);
-		
+
 		setDraggedFileEvents();
 		deleteFileBtn.setOnAction((new EventHandler<ActionEvent>() {
 			@Override
@@ -343,7 +343,8 @@ public class TestFormController implements Initializable {
 
 	/**
 	 * Adds questions to the test form's scroll pane
-	 * @return 
+	 * 
+	 * @return
 	 * 
 	 * @throws IOException
 	 *
@@ -385,7 +386,8 @@ public class TestFormController implements Initializable {
 	 * @throws IOException
 	 */
 	public void addTitleAndInstructionsToTest(String title, String teacherInst, String studentInst) throws IOException {
-		FXMLLoader titleAndInstructionsLoader = new FXMLLoader(getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
+		FXMLLoader titleAndInstructionsLoader = new FXMLLoader(
+				getClass().getResource(Navigator.TITLE_AND_INSTRUCTIONS.getVal()));
 		Region titleAndInstructionsPage = titleAndInstructionsLoader.load();
 		titleAndInstructionsController = titleAndInstructionsLoader.getController();
 		StringBuilder str = new StringBuilder();
@@ -404,15 +406,12 @@ public class TestFormController implements Initializable {
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
 			teacherNotesOnTest = ClientController.getGrades().get(i).getTeacherNotes();
-			if (null != teacherNotesOnTest
-					&& (!teacherNotesOnTest.equals("")
-							|| !teacherNotesOnTest.equals("null")
-							|| !teacherNotesOnTest.equals(null)
-							|| !teacherNotesOnTest.isEmpty())) {
+			if (null != teacherNotesOnTest && (!teacherNotesOnTest.equals("") || !teacherNotesOnTest.equals("null")
+					|| !teacherNotesOnTest.equals(null) || !teacherNotesOnTest.isEmpty())) {
 				titleAndInstructionsController.getInstructionsLbl().setText("Teacher notes:");
 				str.append(teacherNotesOnTest + "\n");
-			}
-			else titleAndInstructionsController.getInstructionsLbl().setVisible(false);
+			} else
+				titleAndInstructionsController.getInstructionsLbl().setVisible(false);
 			ClientController.setGrades(null);
 		} else {
 			if (!isStudent) {
@@ -422,7 +421,7 @@ public class TestFormController implements Initializable {
 			str.append("Student instructions:\n");
 			str.append(studentInst);
 		}
-		
+
 		addTextAndresizeTextArea(titleAndInstructionsController.getInstructionsTxtArea(), str.toString());
 		titleAndInstructionsController.getTestTitleLbl().setText(title);
 		vbox.getChildren().add(titleAndInstructionsPage);
@@ -455,28 +454,28 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-     * Download word file
-     */
-    @FXML
-    void downloadFileClicked(MouseEvent event) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String path = System.getProperty("user.home");
-                    path += "/Downloads/" + test.getID() + "_" + test.getTitle() + "_" +student.getSSN() + ".docx";
-                    File studentWordTest= new File(path);
-                    FileOutputStream fos = new FileOutputStream(studentWordTest);
-                    fos.close();
-                    if (Desktop.isDesktopSupported())
-                        Desktop.getDesktop().open(studentWordTest);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-	
+	 * Download word file
+	 */
+	@FXML
+	void downloadFileClicked(MouseEvent event) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					String path = System.getProperty("user.home");
+					path += "/Downloads/" + test.getID() + "_" + test.getTitle() + "_" + student.getSSN() + ".docx";
+					File studentWordTest = new File(path);
+					FileOutputStream fos = new FileOutputStream(studentWordTest);
+					fos.close();
+					if (Desktop.isDesktopSupported())
+						Desktop.getDesktop().open(studentWordTest);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
@@ -541,6 +540,7 @@ public class TestFormController implements Initializable {
 			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
 					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
 					+ scheduledTest.getStartingTime());
+			ClientController.setTestType("Manual");
 		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
@@ -551,28 +551,37 @@ public class TestFormController implements Initializable {
 			// Add the student test to the finished test table
 			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
 					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
-					+ "," + test.getCourse() + "," + "not checked");
+					+ "," + test.getCourse() + "," + "UnChecked");
+			ClientController.setTestType("Computed");
 		}
 
 		// Delete the student from the test
 		ClientController.accept("DELETE_STUDENT_FROM_TEST-" + ClientController.getActiveUser().getSSN());
 		if (!ClientController.isStudentDeletedFromTest()) {
-			new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor, null,
-					null);
+			new PopUp(PopUp.TYPE.ERROR, "Error", "An error accured while submission of the test", contentPaneAnchor,
+					null, null);
 			return;
 		}
-		
+
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
-		if (ClientController.isLastStudentInTest()) {
-			// If so, lock the test
+		if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Computed")) {
+			// If so, lock the computed test
 			ClientController.accept("LOCK_TEST-" + testCode);
 			ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
+			
+		}else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
+			// If so, lock the manual test
+			ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
+			ClientController.setStudentTest(null);
+			ClientController.setTimeForTest(false);
+			ClientController.setTestLocked(false);
+			ClientController.setLastStudentInTest(false);
 		}
-		
+
 		// Reset variables
 		ClientController.setStudentTest(null);
 		ClientController.setIsActiveTest(false);
@@ -580,27 +589,26 @@ public class TestFormController implements Initializable {
 
 		// Show popup window
 		JFXButton okayBtn = new JFXButton("Okay");
-		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-		Node studentDashboardLoader = null;
-		try {
-			studentDashboardLoader = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		GeneralUIMethods.loadPage(contentPaneAnchor, studentDashboardLoader);
+		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+			Node studentDashboardLoader = null;
+			try {
+				studentDashboardLoader = FXMLLoader.load(getClass().getResource(Navigator.STUDENT_DASHBOARD.getVal()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			GeneralUIMethods.loadPage(contentPaneAnchor, studentDashboardLoader);
 		});
 
-		new PopUp(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);	
+		new PopUp(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);
 	}
-	
+
 	@FXML
-    void approveBtnClicked(MouseEvent event) {
+	void approveBtnClicked(MouseEvent event) {
 		// Update Finished test table
 		if (isDisapproveClicked) {
 			if (!newGrade.getText().matches("\\d+") || Integer.parseInt(newGrade.getText()) < 0
 					|| Integer.parseInt(newGrade.getText()) > 100) {
-				new PopUp(PopUp.TYPE.ERROR, "Error", "Grade text field must be a valid grade.", null,
-						null, null);
+				new PopUp(PopUp.TYPE.ERROR, "Error", "Grade text field must be a valid grade.", null, null, null);
 				return;
 			} else if (newGrade.getText().isEmpty() || teacherNotes.getText().isEmpty()) {
 				new PopUp(PopUp.TYPE.ERROR, "Error", "Some field are missing", null, null, null);
@@ -609,49 +617,51 @@ public class TestFormController implements Initializable {
 			studentValues.set(2, newGrade.getText());
 			studentValues.set(3, teacherNotes.getText());
 		}
-		ClientController.accept("UPDATE_FINISHED_TEST-" + studentValues.get(1) + "," + studentValues.get(0) + "," + studentValues.get(2));
+		ClientController.accept("UPDATE_FINISHED_TEST-" + studentValues.get(1) + "," + studentValues.get(0) + ","
+				+ studentValues.get(2));
 		// Add the test to the grades table
-		ClientController.accept("ADD_GRADE-" + studentValues.get(1) + "," + studentValues.get(0) + "," + studentValues.get(3));
+		ClientController
+				.accept("ADD_GRADE-" + studentValues.get(1) + "," + studentValues.get(0) + "," + studentValues.get(3));
 
 		// Show popup window
 		JFXButton okayBtn = new JFXButton("Okay");
 		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 			try {
-				teacherDashboardPageLoader = FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
+				teacherDashboardPageLoader = FXMLLoader
+						.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			GeneralUIMethods.loadPage(contentPaneAnchor, teacherDashboardPageLoader);
 		});
 		GeneralUIMethods.setPopupPane(popUpWindow);
-		new PopUp(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.", teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
-    }
+		new PopUp(PopUp.TYPE.INFORM, "Information", "You succesfully checked " + studentValues.get(1) + " test.",
+				teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
+	}
 
 	@FXML
-    void disapproveBtnClicked(MouseEvent event) {
-    	disapproveGradeAnchor.setVisible(true);
-    	approveBtn.setText("Approve new grade");
-    	isDisapproveClicked = true;
-    }
-	
-	
+	void disapproveBtnClicked(MouseEvent event) {
+		disapproveGradeAnchor.setVisible(true);
+		approveBtn.setText("Approve new grade");
+		isDisapproveClicked = true;
+	}
+
 	public void setStudentAnswers(String testId, String studentSSN) {
 		// Get students answers and select them
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
 		int i = 0;
 		for (ToggleGroup tg : getQuestionsToggleGroup())
-			if (!ClientController.getStudentAnswers().isEmpty() && !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
-				if(ClientController.getStudentAnswers().get(i).getValue() != 0)
+			if (!ClientController.getStudentAnswers().isEmpty()
+					&& !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
+				if (ClientController.getStudentAnswers().get(i).getValue() != 0)
 					tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
 				i++;
 			}
 		ArrayList<Question> returnedQuestions = setQuestionsFromTest(testId);
-		
-		
-		
+
 		ClientController.setStudentAnswers(null);
 	}
-	
+
 	public ArrayList<Question> setQuestionsFromTest(String testId) {
 		ArrayList<Question> returnedQuestions = new ArrayList<Question>();
 		returnedQuestions = ClientController.getQuestions();
@@ -667,4 +677,3 @@ public class TestFormController implements Initializable {
 	}
 
 }
- 
