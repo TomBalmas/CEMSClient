@@ -44,89 +44,80 @@ import util.PopUp;
 
 public class TestBankUIController implements Initializable {
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private AnchorPane anchorLogin;
+    @FXML
+    private Label testBankLbl;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private JFXComboBox<?> selectCbox;
+    @FXML
+    private Label startDPlbl;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private JFXDatePicker startCoursesDP;
 
-	@FXML
-	private Label startDPlbl;
+    @FXML
+    private Label endDPlbl;
 
-	@FXML
-	private JFXDatePicker startCoursesDP;
+    @FXML
+    private JFXDatePicker finishCoursesDP;
 
-	@FXML
-	private Label endDPlbl;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private JFXDatePicker finishCoursesDP;
+    @FXML
+    private TableView<TestRow> testTable;
 
-	@FXML
-	private JFXButton searchBtn;
+    @FXML
+    private TableColumn<?, ?> IDcol;
 
-	@FXML
-	private Label testBankLbl;
+    @FXML
+    private TableColumn<?, ?> fieldCol;
 
-	@FXML
-	private TableView<TestRow> testTable;
+    @FXML
+    private TableColumn<?, ?> courseCol;
 
-	@FXML
-	private TableColumn<?, ?> IDcol;
+    @FXML
+    private TableColumn<?, ?> testNameCol;
 
-	@FXML
-	private TableColumn<?, ?> testNameCol;
+    @FXML
+    private TableColumn<?, ?> authorCol;
 
-	@FXML
-	private TableColumn<?, ?> authorCol;
+    @FXML
+    private TableColumn<?, ?> setDateCol;
 
-	@FXML
-	private TableColumn<?, ?> courseCol;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private TableColumn<?, ?> fieldCol;
+    @FXML
+    private TableColumn<?, ?> editCol;
 
-	@FXML
-	private TableColumn<?, ?> editCol;
+    @FXML
+    private TableColumn<?, ?> deleteCol;
 
-	@FXML
-	private TableColumn<?, ?> setDateCol;
+    @FXML
+    private JFXButton addNewTestButton;
 
-	@FXML
-	private TableColumn<?, ?> viewCol;
+    @FXML
+    private AnchorPane testAnchor;
 
-	@FXML
-	private TableColumn<?, ?> deleteCol;
+    @FXML
+    private JFXButton backToPageBtn;
 
-	@FXML
-	private JFXButton addNewTestButton;
+    @FXML
+    private ScrollPane testScrollPane;
 
-	@FXML
-	private AnchorPane testAnchor;
-
-	@FXML
-	private JFXButton backToPageBtn;
-
-	@FXML
-	private ScrollPane testScrollPane;
-
-	@FXML
-	private AnchorPane testAnchor2;
+    @FXML
+    private AnchorPane testAnchor2;
 
 	private Node TestFormNode, addNewTest, AddingFormNode;
 	private FXMLLoader TestFormLoader;
@@ -135,8 +126,6 @@ public class TestBankUIController implements Initializable {
 		return addNewTestButton;
 	}
 
-	// ----------TODO: add teachers for principle
-	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "vered");
 	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
 	private final ObservableList<TestRow> datarow = FXCollections.observableArrayList();
 
@@ -146,7 +135,7 @@ public class TestBankUIController implements Initializable {
 	}
 
 	/**
-	 * clicking add new test opens question bank screen
+	 * Clicking add new test opens question bank screen
 	 * 
 	 * @param event
 	 */
@@ -263,7 +252,6 @@ public class TestBankUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		selectCbox.setItems(filterBySelectBox);
 		ArrayList<Test> tests = null;
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();

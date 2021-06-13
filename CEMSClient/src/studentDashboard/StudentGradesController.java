@@ -35,57 +35,39 @@ import util.Navigator;
 
 public class StudentGradesController implements Initializable {
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private JFXComboBox<?> selectFieldCbox;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private Label startDPlbl;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private JFXDatePicker testsFromDP;
+    @FXML
+    private TableView<rowTableGrades> gradesTable;
 
-	@FXML
-	private Label endDPlbl;
+    @FXML
+    private TableColumn<?, ?> testIdCol;
 
-	@FXML
-	private JFXDatePicker testTillDP;
+    @FXML
+    private TableColumn<?, ?> courseCol;
 
-	@FXML
-	private JFXButton filterButton;
+    @FXML
+    private TableColumn<?, ?> titleCol;
 
-	@FXML
-	private JFXComboBox<?> selectCourseCbox;
+    @FXML
+    private TableColumn<?, ?> gradeCol;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private TableView<rowTableGrades> gradesTable;
-
-	@FXML
-	private TableColumn<?, ?> testIdCol;
-
-	@FXML
-	private TableColumn<?, ?> courseCol;
-
-	@FXML
-	private TableColumn<?, ?> titleCol;
-
-	@FXML
-	private TableColumn<?, ?> gradeCol;
-	
-	@FXML
-	private TableColumn<?, ?> viewCol;
-	
     @FXML
     private AnchorPane testAnchor;
 
@@ -94,33 +76,17 @@ public class StudentGradesController implements Initializable {
 
     @FXML
     private ScrollPane testScrollPane;
-    
+
     @FXML
     private AnchorPane testAnchor2;
 
+	@FXML
+	void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+	}
+
 	private final ObservableList<rowTableGrades> dataList = FXCollections.observableArrayList();
-
-
-
-	@FXML
-	void filterBtn(MouseEvent event) {
-
-	}
-
-	@FXML
-	void courseFilterClick(MouseEvent event) {
-
-	}
-
-	@FXML
-	void dpFilter(MouseEvent event) {
-
-	}
-
-	@FXML
-	void filedFilterClick(MouseEvent event) {
-
-	}
 
 	/**
 	 * class for the grades data to be presented int the table view
@@ -250,11 +216,5 @@ public class StudentGradesController implements Initializable {
 		// Add sorted (and filtered) data to the table.
 		gradesTable.setItems(sortedData);
 	}
-	
-	 @FXML
-	    void backToPageBtnClicked(MouseEvent event) {
-			testAnchor.setVisible(false);
-			testAnchor.toBack();
-	    }
 
 }
