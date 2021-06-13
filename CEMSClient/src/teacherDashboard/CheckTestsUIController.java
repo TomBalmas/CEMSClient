@@ -1,10 +1,9 @@
 package teacherDashboard;
 
 import java.awt.Desktop;
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -140,12 +139,12 @@ public class CheckTestsUIController implements Initializable {
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
 		if (byteArray != null) {
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(byteArray.length);
-			byteArrayOutputStream.write(byteArray, 0, byteArray.length);
-			try (OutputStream outputStream = new FileOutputStream("studentTest.docx")) {
-				byteArrayOutputStream.writeTo(outputStream);
-				File file = File.createTempFile("studentTest", "docx");
-				System.out.println(file.getName());
+			String path = System.getProperty("user.home") + "/Downloads/studentTest.docx";
+			File file = new File(path);
+			try {
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
+				BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+				bufferedOutputStream.write(byteArray, 0, byteArray.length);
 				if (Desktop.isDesktopSupported())
                     Desktop.getDesktop().open(file);
 			} catch (Exception e) {
