@@ -39,7 +39,7 @@
                                     <JFXComboBox fx:id="selectFieldCBox" focusColor="#2486b6" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Field" />
                                     <JFXComboBox fx:id="selectCourseCBox" focusColor="#2486b6" labelFloat="true" prefHeight="25.0" prefWidth="157.0" promptText="Select Course" />
                                     <JFXTextField fx:id="titleTxt" focusColor="#2486b6" labelFloat="true" prefWidth="155.0" promptText="Title" />
-                                    <JFXComboBox fx:id="durationCbox" focusColor="#2486b6" prefHeight="25.0" prefWidth="158.0" promptText="Duration" />
+                                    <JFXComboBox fx:id="durationCbox" focusColor="#2486b6" labelFloat="true" prefHeight="25.0" prefWidth="158.0" promptText="Duration" />
                                     <JFXTextArea fx:id="teacherInstructionsTxtArea" focusColor="#2486b6" labelFloat="true" prefHeight="115.0" prefWidth="756.0" promptText="Teacher Instructions" styleClass="questionTxtArea">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
