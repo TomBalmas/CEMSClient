@@ -572,8 +572,8 @@ public class TestFormController implements Initializable {
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
-			
-		}else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
+
+		} else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
 			// If so, lock the manual test
 			ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
 			ClientController.setStudentTest(null);
@@ -628,8 +628,8 @@ public class TestFormController implements Initializable {
 		okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 			try {
 				GeneralUIMethods.setCheckingtest(true);
-				GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
-						.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal())));
+				GeneralUIMethods.loadPage(contentPaneAnchor,
+						FXMLLoader.load(getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal())));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

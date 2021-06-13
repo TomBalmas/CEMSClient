@@ -6,7 +6,6 @@ package util;
  */
 public enum Navigator {
 	LOGIN ("/loginScreen/LoginUI.fxml"),
-	
 	PRINCIPLE_DASHBOARD("/principleDashboard/PrincipleDashboardUI.fxml"),
 	ACTIVE_TESTS("/principleDashboard/ActiveTestsPage.fxml"),
 	CREATE_REPORT ("/principleDashboard/CreateReport.fxml"),
@@ -25,15 +24,12 @@ public enum Navigator {
 	TEST_FORM("/teacherDashboard/TestForm.fxml"),
 	TITLE_AND_INSTRUCTIONS ("/teacherDashboard/TitleAndInstructions.fxml"),
 	VIEW_ACTIVE_TESTS ("/teacherDashboard/ViewActiveTests.fxml"),
-	
 	STUDENT_DASHBOARD ("/studentDashboard/StudentDashboardUI.fxml"),
 	GRADES ("StudentGrades.fxml"),
 	STUDENT_TAKE_TEST ("StudentTakeTest.fxml"),
 	STUDENT_TEST("/studentDashboard/ActiveTest.fxml"),
 	REPORT_FORM ("/principleDashboard/ReportForm.fxml");
 	
-	
-  
 	private final String val;
 
 	Navigator(String val) {

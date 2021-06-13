@@ -1,4 +1,3 @@
-
 package principleDashboard;
 
 import java.io.IOException;
@@ -45,69 +44,46 @@ import util.PopUp;
 
 public class ViewReportsController implements Initializable {
 
-	@FXML
-	private AnchorPane filterAnchor;
+    @FXML
+    private AnchorPane contentPaneAnchor;
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane filterAnchor;
 
-	@FXML
-	private AnchorPane insideFilterAnchor;
+    @FXML
+    private AnchorPane insideFilterAnchor;
 
-	@FXML
-	private JFXComboBox<?> selectTypeCbox;
+    @FXML
+    private JFXTextField searchField;
 
-	@FXML
-	private JFXTextField searchField;
+    @FXML
+    private AnchorPane tableViewAnchor;
 
-	@FXML
-	private Label startDPlbl;
+    @FXML
+    private TableView<reportRow> reportTable;
 
-	@FXML
-	private JFXDatePicker startReportCreatedDP;
+    @FXML
+    private TableColumn<?, ?> reportIDCol;
 
-	@FXML
-	private Label endDPlbl;
+    @FXML
+    private TableColumn<?, ?> testIDCol;
 
-	@FXML
-	private JFXDatePicker endReportCreatedDP;
+    @FXML
+    private TableColumn<?, ?> studentNumCol;
 
-	@FXML
-	private JFXButton filterButton;
+    @FXML
+    private TableColumn<?, ?> averageCol;
 
-	@FXML
-	private AnchorPane tableViewAnchor;
+    @FXML
+    private TableColumn<?, ?> medianCol;
 
-	@FXML
-	private TableView<reportRow> reportTable;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private TableColumn<?, ?> reportIDCol;
-
-	@FXML
-	private TableColumn<?, ?> testIDCol;
-
-	@FXML
-	private TableColumn<?, ?> studentNumCol;
-
-	@FXML
-	private TableColumn<?, ?> averageCol;
-
-	@FXML
-	private TableColumn<?, ?> medianCol;
-
-	@FXML
-	private TableColumn<?, ?> viewCol;
-
-	@FXML
-	private TableColumn<?, ?> deleteCol;
-
-
-	@FXML
-	private JFXButton deleteBtn;
-
-	@FXML
-	private JFXButton createReportBtn;
+    @FXML
+    private TableColumn<?, ?> deleteCol;
+	
+	
 	private Node ReportForm;
 	private ReportFormController reportFormController;
 	private ObservableList options = FXCollections.observableArrayList("Student", "Teacher", "Courses");;
@@ -238,16 +214,10 @@ public class ViewReportsController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		selectTypeCbox.setItems(options);
-		if (ClientController.getRoleFrame().equals("Teacher")) {
-			selectTypeCbox.getSelectionModel().select(0);
-			selectTypeCbox.setDisable(true);
-		}
 		ArrayList<Report> reports = null;
 		ClientController.accept("GET_REPORTS-");
 		reports = ClientController.getReports();
-		;
-		// adding PropertyValueFactory for the columns
+		// Adding PropertyValueFactory for the columns
 		PropertyValueFactory reportIDfactory = new PropertyValueFactory<>("reportId");
 		PropertyValueFactory testIDFactory = new PropertyValueFactory<>("testID");
 		PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");

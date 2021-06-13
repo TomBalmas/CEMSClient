@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
@@ -17,8 +16,6 @@ import common.Question;
 import common.Teacher;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,68 +38,68 @@ import util.PopUp;
 
 public class QuestionBankUIController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private Label questionBankLbl;
+	@FXML
+	private Label questionBankLbl;
 
-    @FXML
-    private JFXTextField searchField;
+	@FXML
+	private JFXTextField searchField;
 
-    @FXML
-    private Label startDPlbl;
+	@FXML
+	private Label startDPlbl;
 
-    @FXML
-    private JFXDatePicker startCoursesDP;
+	@FXML
+	private JFXDatePicker startCoursesDP;
 
-    @FXML
-    private Label endDPlbl;
+	@FXML
+	private Label endDPlbl;
 
-    @FXML
-    private JFXDatePicker finishCoursesDP;
+	@FXML
+	private JFXDatePicker finishCoursesDP;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private TableView<questionRow> questionBankTable;
+	@FXML
+	private TableView<questionRow> questionBankTable;
 
-    @FXML
-    private TableColumn<?, ?> IDCol;
+	@FXML
+	private TableColumn<?, ?> IDCol;
 
-    @FXML
-    private TableColumn<?, ?> authorCol;
+	@FXML
+	private TableColumn<?, ?> authorCol;
 
-    @FXML
-    private TableColumn<?, ?> fieldCol;
+	@FXML
+	private TableColumn<?, ?> fieldCol;
 
-    @FXML
-    private TableColumn<?, ?> contentCol;
+	@FXML
+	private TableColumn<?, ?> contentCol;
 
-    @FXML
-    private TableColumn<?, ?> viewCol;
+	@FXML
+	private TableColumn<?, ?> viewCol;
 
-    @FXML
-    private TableColumn<?, ?> editCol;
+	@FXML
+	private TableColumn<?, ?> editCol;
 
-    @FXML
-    private TableColumn<?, ?> deleteCol;
+	@FXML
+	private TableColumn<?, ?> deleteCol;
 
-    @FXML
-    private JFXButton addAnewQuestionBtn;
+	@FXML
+	private JFXButton addAnewQuestionBtn;
 
 	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
 	String authorName;
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
-	// Lists for Combobox fields. Fields is for adding a new question. 
+	// Lists for Combobox fields. Fields is for adding a new question.
 	// Field is for viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
 	ObservableList field = FXCollections.observableArrayList();

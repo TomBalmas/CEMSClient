@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import client.ClientController;
@@ -22,63 +20,61 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.TestFormController;
 import util.GeneralUIMethods;
 import util.Navigator;
 
 public class StudentGradesController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private JFXTextField searchField;
+	@FXML
+	private JFXTextField searchField;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private TableView<rowTableGrades> gradesTable;
+	@FXML
+	private TableView<rowTableGrades> gradesTable;
 
-    @FXML
-    private TableColumn<?, ?> testIdCol;
+	@FXML
+	private TableColumn<?, ?> testIdCol;
 
-    @FXML
-    private TableColumn<?, ?> courseCol;
+	@FXML
+	private TableColumn<?, ?> courseCol;
 
-    @FXML
-    private TableColumn<?, ?> titleCol;
+	@FXML
+	private TableColumn<?, ?> titleCol;
 
-    @FXML
-    private TableColumn<?, ?> gradeCol;
+	@FXML
+	private TableColumn<?, ?> gradeCol;
 
-    @FXML
-    private TableColumn<?, ?> viewCol;
+	@FXML
+	private TableColumn<?, ?> viewCol;
 
-    @FXML
-    private AnchorPane testAnchor;
+	@FXML
+	private AnchorPane testAnchor;
 
-    @FXML
-    private JFXButton backToPageBtn;
+	@FXML
+	private JFXButton backToPageBtn;
 
-    @FXML
-    private ScrollPane testScrollPane;
+	@FXML
+	private ScrollPane testScrollPane;
 
-    @FXML
-    private AnchorPane testAnchor2;
+	@FXML
+	private AnchorPane testAnchor2;
 
 	@FXML
 	void backToPageBtnClicked(MouseEvent event) {
@@ -109,8 +105,9 @@ public class StudentGradesController implements Initializable {
 			viewBtn = new JFXButton();
 			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 			gradeBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #595869;");
-			if(grade < 55) gradeBtn.getStyleClass().add("gradeColor");
-			
+			if (grade < 55)
+				gradeBtn.getStyleClass().add("gradeColor");
+
 		}
 
 		public JFXButton getGradeBtn() {
@@ -132,7 +129,7 @@ public class StudentGradesController implements Initializable {
 		public int getGrade() {
 			return grade;
 		}
-		
+
 		public JFXButton getViewBtn() {
 			return viewBtn;
 		}
@@ -140,7 +137,7 @@ public class StudentGradesController implements Initializable {
 	}
 
 	/**
-	 sets the grades data into the table view
+	 * sets the grades data into the table view
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -148,7 +145,7 @@ public class StudentGradesController implements Initializable {
 		ArrayList<StudentGrade> studentGrades = null;
 		ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
 		studentGrades = ClientController.getGrades(); // Receiving a query from the server.
-		
+
 		// Insert into columns of the table, columns from DB.
 		testIdCol.setCellValueFactory(new PropertyValueFactory<>("testId"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
@@ -165,10 +162,12 @@ public class StudentGradesController implements Initializable {
 				rowTable.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
-						FXMLLoader testFormLoader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
+						FXMLLoader testFormLoader = new FXMLLoader(
+								getClass().getResource(Navigator.TEST_FORM.getVal()));
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
-						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(), "STUDENT_LOOK", testFormLoader);
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, rowTable.getTestId(),
+								"STUDENT_LOOK", testFormLoader);
 					}
 				});
 			}

@@ -20,7 +20,7 @@ public class LockTestController {
 
 	@FXML
 	private JFXButton confirmTestLock;
-	
+
 	public AnchorPane getContentPaneAnchor() {
 		return contentPaneAnchor;
 	}
@@ -29,11 +29,9 @@ public class LockTestController {
 		return testNameLbl;
 	}
 
-
 	public JFXTextField getCodeTxt() {
 		return codeTxt;
 	}
-
 
 	public JFXButton getConfirmTestLock() {
 		return confirmTestLock;

@@ -29,8 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import teacherDashboard.TestBankUIController.TestRow;
-import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -90,19 +88,19 @@ public class ScheduledTestsController implements Initializable {
 
 	@FXML
 	private JFXButton searchBtn;
-	
+
 	private final ObservableList<ScheduleTestRow> dataList = FXCollections.observableArrayList();
-    @FXML
-    private AnchorPane testAnchor;
+	@FXML
+	private AnchorPane testAnchor;
 
-    @FXML
-    private JFXButton backToPageBtn;
+	@FXML
+	private JFXButton backToPageBtn;
 
-    @FXML
-    private ScrollPane testScrollPane;
+	@FXML
+	private ScrollPane testScrollPane;
 
-    @FXML
-    private AnchorPane testAnchor2;
+	@FXML
+	private AnchorPane testAnchor2;
 
 	public class ScheduleTestRow {
 		private String title;
@@ -212,7 +210,7 @@ public class ScheduledTestsController implements Initializable {
 	}
 
 	/**
-	 initialize colomns and data  in scheduled tests table 
+	 * initialize colomns and data in scheduled tests table
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -241,10 +239,11 @@ public class ScheduledTestsController implements Initializable {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
-						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getCode(), "TEACHER_VIEW_TEST_BY_CODE", loader);
+						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getCode(),
+								"TEACHER_VIEW_TEST_BY_CODE", loader);
 					}
 				});
-				
+
 				// remove button functionality
 				tr.getRemoveBtn().setOnMouseClicked(e -> {
 					ScheduleTestRow toDelete = tr;
@@ -268,18 +267,18 @@ public class ScheduledTestsController implements Initializable {
 							});
 							new PopUp(PopUp.TYPE.INFORM, "Information",
 									"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor,
-									Arrays.asList(okayBtn), null);	
+									Arrays.asList(okayBtn), null);
 						}
 					});
-					new PopUp(PopUp.TYPE.ALERT, "Alert",
-							"Are you sure that you want to delete this test?", contentPaneAnchor,
-							Arrays.asList(yesBtn, new JFXButton("No")), null);
+					new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
+							contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 				});
 
 				tr.getReScheduleBtn().setOnAction(e -> { // Reschedule
 					ScheduleTestRow toReschedule = tr;
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
-					PopUp rescheduleTestPopUp = new PopUp(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor, Arrays.asList(new JFXButton("Cancel")), loader);
+					PopUp rescheduleTestPopUp = new PopUp(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor,
+							Arrays.asList(new JFXButton("Cancel")), loader);
 					SetTestDateController cont = loader.getController();
 					cont.getCodeTxt().setDisable(true);
 					cont.getTestNameLbl().setText(tr.getTitle());
@@ -296,90 +295,78 @@ public class ScheduledTestsController implements Initializable {
 							new PopUp(PopUp.TYPE.SCHEDULE, "Success", "Tests rescheduled successfully",
 									contentPaneAnchor, Arrays.asList(okayBtn), null);
 							try {
-								GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
-										.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal())));
+								GeneralUIMethods.loadPage(contentPaneAnchor,
+										FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal())));
 							} catch (IOException e1) {
 								e1.printStackTrace();
 							}
-						}
-						else
-							new PopUp(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed",
-									contentPaneAnchor, null, null);
+						} else
+							new PopUp(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed", contentPaneAnchor, null,
+									null);
 					});
 				});
 			}
-			
-			//Search by data which is in a certain row.
+
+			// Search by data which is in a certain row.
 			FilteredList<ScheduleTestRow> filteredData = new FilteredList<>(dataList, p -> true);
 
-	        //  Set the filter Predicate whenever the filter changes.
+			// Set the filter Predicate whenever the filter changes.
 			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-	            filteredData.setPredicate(myObject -> {
-	                // If filter text is empty, display all persons.
-	                if (newValue == null || newValue.isEmpty()) {
-	                    return true;
-	                }
+				filteredData.setPredicate(myObject -> {
+					// If filter text is empty, display all persons.
+					if (newValue == null || newValue.isEmpty()) {
+						return true;
+					}
 
-	                // Compares what we wrote in the text (we searched for) to the appropriate line.
-	                String lowerCaseFilter = newValue.toLowerCase();
+					// Compares what we wrote in the text (we searched for) to the appropriate line.
+					String lowerCaseFilter = newValue.toLowerCase();
 
-	                if (String.valueOf(myObject.getCode()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true;
-	                    // Filter matches code.
-	                } 
-	                
-	            	else if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
-	            		return true; // Filter matches test id.
-	            	} 
-	                
-	                else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches title.
-	                } 
-	                
-	                else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches date.
-	                } 
-	                
-	                else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches author.
-	                } 
-	                else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches starting time.
-	                } 
-	                
-	                else if (String.valueOf(myObject.getDuration()).toLowerCase().contains(lowerCaseFilter)) {
-	                    return true; // Filter matches duration.
-	                } 
+					if (String.valueOf(myObject.getCode()).toLowerCase().contains(lowerCaseFilter)) {
+						return true;
+						// Filter matches code.
+					}
 
-	                return false; // Does not match.
-	            });
-	        });
+					else if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches test id.
+					}
 
-	        //  Wrap the FilteredList in a SortedList. 
-	        SortedList<ScheduleTestRow> sortedData = new SortedList<>(filteredData);
+					else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches title.
+					}
 
-	        //  Bind the SortedList comparator to the TableView comparator.
-	        sortedData.comparatorProperty().bind(scheduledTestsTbl.comparatorProperty());
-	        //  Add sorted (and filtered) data to the table.
-	        scheduledTestsTbl.setItems(sortedData);
-	        
-			
+					else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches date.
+					}
+
+					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches author.
+					} else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches starting time.
+					}
+
+					else if (String.valueOf(myObject.getDuration()).toLowerCase().contains(lowerCaseFilter)) {
+						return true; // Filter matches duration.
+					}
+
+					return false; // Does not match.
+				});
+			});
+
+			// Wrap the FilteredList in a SortedList.
+			SortedList<ScheduleTestRow> sortedData = new SortedList<>(filteredData);
+			// Bind the SortedList comparator to the TableView comparator.
+			sortedData.comparatorProperty().bind(scheduledTestsTbl.comparatorProperty());
+			// Add sorted (and filtered) data to the table.
+			scheduledTestsTbl.setItems(sortedData);
 
 		}
-		
-		
-		
+
 	}
 
 	@FXML
-	void searchBtnClicked(MouseEvent event) {
-		// TODO -- implement filter
-	}
-	
-    @FXML
-    void backToPageBtnClicked(MouseEvent event) {
+	void backToPageBtnClicked(MouseEvent event) {
 		testAnchor.setVisible(false);
 		testAnchor.toBack();
-    }
+	}
 
 }

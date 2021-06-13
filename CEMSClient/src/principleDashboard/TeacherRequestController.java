@@ -9,29 +9,35 @@ import javafx.scene.layout.AnchorPane;
 
 public class TeacherRequestController {
 
-	
-	    @FXML
-	    private AnchorPane requestPane;
+	@FXML
+	private AnchorPane requestPane;
 
-	    @FXML
-	    private JFXTextArea textArea;
-	    
-	    @FXML
-	    private Label teacherName;;
+	@FXML
+	private JFXTextArea textArea;
 
-	    @FXML
-	    private JFXButton btnDisapprove;
+	@FXML
+	private Label teacherName;;
 
-	    @FXML
-	    private JFXButton btnAprove;
-	
-	
-	public JFXButton getDisapprove() {return btnDisapprove;}
-		
-	public JFXButton getApprove() {return btnAprove;}
-	
-	public Label getTeacherName() {return teacherName;}
-	
-	public JFXTextArea getTextArea() {return textArea;}
-	
+	@FXML
+	private JFXButton btnDisapprove;
+
+	@FXML
+	private JFXButton btnAprove;
+
+	public JFXButton getDisapprove() {
+		return btnDisapprove;
+	}
+
+	public JFXButton getApprove() {
+		return btnAprove;
+	}
+
+	public Label getTeacherName() {
+		return teacherName;
+	}
+
+	public JFXTextArea getTextArea() {
+		return textArea;
+	}
+
 }

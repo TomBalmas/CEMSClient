@@ -171,7 +171,7 @@ public class AddingNewTestUIController implements Initializable {
 	public void setEditingTest(String isEditingTest) {
 		this.isEditingTest = isEditingTest;
 	}
-	
+
 	public JFXComboBox<String> getDurationCbox() {
 		return durationCbox;
 	}
@@ -232,7 +232,7 @@ public class AddingNewTestUIController implements Initializable {
 		durationCbox.getSelectionModel().select(6);
 		popUpWindow.toBack();
 		pickedQuestions = new HashSet<>();
-		
+
 		// Add fields to the combo box
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
@@ -291,7 +291,8 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
-					};
+					}
+					;
 					GeneralUIMethods.getPopupPane().setTranslateX(-208);
 					GeneralUIMethods.getPopupPane().setTranslateY(-280);
 					questionFormUIController.getQuestionsTxtAnchor().setTranslateY(-1
@@ -437,13 +438,15 @@ public class AddingNewTestUIController implements Initializable {
 				// Adding questions to preview
 				for (Question q : savedPickedQuestion) {
 					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size());
-					controller.getQuestionsToggleGroup().get(i-1).getToggles().get(q.getCorrectAnswer()).setSelected(true);
+					controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer())
+							.setSelected(true);
 					i++;
 				}
 			else if (pickedQuestions != null) // Adding questions to preview
 				for (Question q : pickedQuestions) {
 					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size());
-					controller.getQuestionsToggleGroup().get(i-1).getToggles().get(q.getCorrectAnswer()).setSelected(true);
+					controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer())
+							.setSelected(true);
 					i++;
 				}
 			GeneralUIMethods.loadPage(testAnchor, test);

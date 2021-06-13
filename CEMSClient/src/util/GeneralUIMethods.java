@@ -40,7 +40,7 @@ public class GeneralUIMethods {
 	static Region testFormNode;
 	private static AnchorPane mainAnchorPane;
 	private static boolean isCheckingtest = false;
-	
+
 	public static AnchorPane getMainAnchorPane() {
 		return mainAnchorPane;
 	}
@@ -48,7 +48,7 @@ public class GeneralUIMethods {
 	public static void setMainAnchorPane(AnchorPane mainAnchorPane) {
 		GeneralUIMethods.mainAnchorPane = mainAnchorPane;
 	}
-	
+
 	public static boolean isCheckingtest() {
 		return isCheckingtest;
 	}
@@ -102,7 +102,7 @@ public class GeneralUIMethods {
 			t.setStyle("");
 		button.setStyle("-fx-background-color: #2486b6;");
 	}
-	
+
 	public static boolean checkEmptyFields(ArrayList<Node> n) {
 		isFieldEmpty = false;
 		n.forEach(e -> {
@@ -110,40 +110,31 @@ public class GeneralUIMethods {
 				if (((JFXTextField) e).getText().isEmpty()) {
 					isFieldEmpty = true;
 					((JFXTextField) e).getStyleClass().add("ErrorLine");
-				}
-				else
+				} else
 					((JFXTextField) e).getStyleClass().remove("ErrorLine");
-			}
-			else if (e instanceof JFXPasswordField) {
-				if (((JFXPasswordField) e).getText().isEmpty()){
+			} else if (e instanceof JFXPasswordField) {
+				if (((JFXPasswordField) e).getText().isEmpty()) {
 					isFieldEmpty = true;
 					((JFXPasswordField) e).getStyleClass().add("ErrorLine");
-				}
-				else
+				} else
 					((JFXPasswordField) e).getStyleClass().remove("ErrorLine");
-			}
-			else if (e instanceof JFXTextArea) {
-				if (((JFXTextArea) e).getText().isEmpty()){
+			} else if (e instanceof JFXTextArea) {
+				if (((JFXTextArea) e).getText().isEmpty()) {
 					isFieldEmpty = true;
 					((JFXTextArea) e).getStyleClass().add("ErrorLine");
-				}
-				else
+				} else
 					((JFXTextArea) e).getStyleClass().remove("ErrorLine");
-			}
-			else if (e instanceof JFXComboBox) {
-				if (null == ((JFXComboBox) e).getValue()){
+			} else if (e instanceof JFXComboBox) {
+				if (null == ((JFXComboBox) e).getValue()) {
 					isFieldEmpty = true;
 					((JFXComboBox) e).getStyleClass().add("ErrorLine");
-				}
-				else
+				} else
 					((JFXComboBox) e).getStyleClass().remove("ErrorLine");
-			}
-			else if (e instanceof JFXRadioButton) {
-				if (!((JFXRadioButton) e).isSelected()){
+			} else if (e instanceof JFXRadioButton) {
+				if (!((JFXRadioButton) e).isSelected()) {
 					isFieldEmpty = true;
 					((JFXRadioButton) e).getStyleClass().add("ErrorLine");
-				}
-				else
+				} else
 					((JFXRadioButton) e).getStyleClass().remove("ErrorLine");
 			}
 		});
@@ -177,15 +168,15 @@ public class GeneralUIMethods {
 	public static void setPopupPane(StackPane sp) {
 		GeneralUIMethods.sp = sp;
 	}
-	
+
 	public static void setSideBar(VBox sideBar) {
 		GeneralUIMethods.sideBar = sideBar;
 	}
-	
+
 	public static VBox getSideBar() {
 		return sideBar;
 	}
-	
+
 	/**
 	 * compares the text in the text field to the string
 	 * 
@@ -193,19 +184,18 @@ public class GeneralUIMethods {
 	 * @param string
 	 */
 	public static boolean validateCode(JFXTextField textField, String string) {
-		if(textField.getText().equals(string))
+		if (textField.getText().equals(string))
 			return true;
 		return false;
 	}
-	
+
 	/**
 	 * closes the connection of the client to the server
 	 */
 	public static void closeConnection() {
 		ClientController.accept("SIGN_OUT");
 	}
-	
-	
+
 	public static String israeliDate(LocalDate date) {
 		String[] arr = date.toString().split("-");
 		StringBuilder sb = new StringBuilder();
@@ -216,113 +206,114 @@ public class GeneralUIMethods {
 		sb.append(arr[0]);
 		return sb.toString();
 	}
-	
+
 	public interface Func<T, V> {
-	    boolean compare(T t, V v);
-	}
-	
-	
-	public static <T> void autoSelectComboBoxValue(JFXComboBox<T> comboBox, String value, Func<T, String> f) {
-	    for (T t : comboBox.getItems()) {
-	        if (f.compare(t, value)) {
-	            comboBox.setValue(t);
-	        }
-	    }
+		boolean compare(T t, V v);
 	}
 
-	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID, String testType,
-			FXMLLoader testFormLoader) {
+	public static <T> void autoSelectComboBoxValue(JFXComboBox<T> comboBox, String value, Func<T, String> f) {
+		for (T t : comboBox.getItems()) {
+			if (f.compare(t, value)) {
+				comboBox.setValue(t);
+			}
+		}
+	}
+
+	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID,
+			String testType, FXMLLoader testFormLoader) {
 		testFormNode = null;
 		int i = 0;
-		if ((ClientController.getRoleFrame().equals("Student") && !testType.equals("STUDENT_LOOK")) || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
+		if ((ClientController.getRoleFrame().equals("Student") && !testType.equals("STUDENT_LOOK"))
+				|| testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
-		else 
+		else
 			ClientController.accept("GET_TEST_BY_ID-" + testCodeOrID);
 		Test test = ClientController.getStudentTest();
 		if (null == test)
-			PopUp.showMaterialDialog(PopUp.TYPE.ERROR, "Error", "Your code is invalid", contentPaneAnchor, null, null);
+			new PopUp(PopUp.TYPE.ERROR, "Error", "Your code is invalid", contentPaneAnchor, null, null);
 		else {
 			ClientController.accept("GET_QUESTIONS_FROM_TEST-" + test.getID());
 			ArrayList<Question> testQuestions = ClientController.getQuestions();
 			if (null != testQuestions)
-			try {
-				testFormNode = testFormLoader.load();
-				TestFormController controller = testFormLoader.getController();
-				controller.setTest(test);
-				controller.setTestCode(testCodeOrID.toString());
-				controller.getEditBtn().setVisible(false);
-				controller.getBackBtn().setVisible(false);
-				controller.getTestSideBarAnchor().setVisible(true);
-				controller.setFlag(true);
-				controller.setTestType(testType);
-				if (testType.equals("Manual")) {
-					controller.getDownloadBtn().setVisible(true);
-					controller.getUploadBtn().setVisible(true);
-					controller.getUploadFileAnchor().setVisible(true);
-					controller.getFinishBtn().setVisible(false);
-				} else
-					controller.getUploadFileAnchor().setVisible(false);
-				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
-				i = 1;
-				ArrayList<QuestionController> questionController = new ArrayList<QuestionController>();
-				for (Question q : testQuestions) {
-					questionController.add(controller.addQuestionToTestForm(q, i, 100 / testQuestions.size())); // Adding questions to preview
-					i++;
-				}
-				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
-
-				// Set the correct view for the student
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						if (!testType.equals("Computed"))
-							controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
-								ToggleGroup tGroup = (ToggleGroup) toggleGroup;
-								tGroup.getToggles().forEach(toggle -> {
-									Node node = (Node) toggle;
-									node.setDisable(true);
-								});
-							});
-						if (testType.equals("Manual"))
-							controller.getQuestionAnchor().setVisible(false);
-						if (testType.equals("Manual") || testType.equals("Computed")
-								|| testType.equals("TEACHER_CHECKING")) {
-							contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
-							GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(),
-									testFormNode);
-						}
-						else {
-							controller.getTestSideBarAnchor().setVisible(false);
-							testFormNode.prefWidthProperty().bind(testScrollPane.widthProperty().subtract(12));
-							testFormNode.prefHeightProperty().bind(testScrollPane.heightProperty());
-							controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
-							controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
-							controller.getScrollPane().setTranslateX(20);
-							controller.getScrollPane().setTranslateY(45);
-							GeneralUIMethods.loadPage(contentPaneAnchor, testFormNode);
-						}
+				try {
+					testFormNode = testFormLoader.load();
+					TestFormController controller = testFormLoader.getController();
+					controller.setTest(test);
+					controller.setTestCode(testCodeOrID.toString());
+					controller.getEditBtn().setVisible(false);
+					controller.getBackBtn().setVisible(false);
+					controller.getTestSideBarAnchor().setVisible(true);
+					controller.setFlag(true);
+					controller.setTestType(testType);
+					if (testType.equals("Manual")) {
+						controller.getDownloadBtn().setVisible(true);
+						controller.getUploadBtn().setVisible(true);
+						controller.getUploadFileAnchor().setVisible(true);
+						controller.getFinishBtn().setVisible(false);
+					} else
+						controller.getUploadFileAnchor().setVisible(false);
+					controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
+					i = 1;
+					ArrayList<QuestionController> questionController = new ArrayList<QuestionController>();
+					for (Question q : testQuestions) {
+						// Adding questions to preview
+						questionController.add(controller.addQuestionToTestForm(q, i, 100 / testQuestions.size())); 
+						i++;
 					}
-				});
-				ArrayList<Integer> wrongAnswers;
-				// Get students answers and select them
-				if (testType.equals("STUDENT_LOOK")) {
-					wrongAnswers = controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
-					for(int j = 0; j < wrongAnswers.size(); j++)
-						questionController.get(wrongAnswers.get(j)).getWrongAnswerImage().setVisible(true);
+					controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
+
+					// Set the correct view for the student
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (!testType.equals("Computed"))
+								controller.getQuestionsToggleGroup().forEach(toggleGroup -> {
+									ToggleGroup tGroup = (ToggleGroup) toggleGroup;
+									tGroup.getToggles().forEach(toggle -> {
+										Node node = (Node) toggle;
+										node.setDisable(true);
+									});
+								});
+							if (testType.equals("Manual"))
+								controller.getQuestionAnchor().setVisible(false);
+							if (testType.equals("Manual") || testType.equals("Computed")
+									|| testType.equals("TEACHER_CHECKING")) {
+								contentPaneAnchor.setTranslateX(-1 * (controller.getTestSideBarAnchor().getWidth()));
+								GeneralUIMethods.loadPage((AnchorPane) contentPaneAnchor.getParent().getParent(),
+										testFormNode);
+							} else {
+								controller.getTestSideBarAnchor().setVisible(false);
+								testFormNode.prefWidthProperty().bind(testScrollPane.widthProperty().subtract(12));
+								testFormNode.prefHeightProperty().bind(testScrollPane.heightProperty());
+								controller.getScrollPane().prefHeightProperty().bind(testScrollPane.heightProperty());
+								controller.getScrollPane().prefWidthProperty().bind(testScrollPane.widthProperty());
+								controller.getScrollPane().setTranslateX(20);
+								controller.getScrollPane().setTranslateY(45);
+								GeneralUIMethods.loadPage(contentPaneAnchor, testFormNode);
+							}
+						}
+					});
+					ArrayList<Integer> wrongAnswers;
+					// Get students answers and select them
+					if (testType.equals("STUDENT_LOOK")) {
+						wrongAnswers = controller.setStudentAnswers(test.getID(),
+								ClientController.getActiveUser().getSSN());
+						for (int j = 0; j < wrongAnswers.size(); j++)
+							questionController.get(wrongAnswers.get(j)).getWrongAnswerImage().setVisible(true);
+					} else if (testType.equals("TEACHER_CHECKING"))
+						controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
+					else if (ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING"))
+						controller.setQuestionsFromTest(test.getID());
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				else if (testType.equals("TEACHER_CHECKING")) controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
-				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING"))
-					controller.setQuestionsFromTest(test.getID());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		if (ClientController.getRoleFrame().equals("Teacher"))
-				GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
+			GeneralUIMethods.setPopupPane(ClientController.getTeacherDashboardUIController().getPopUpWindow());
 		else if (ClientController.getRoleFrame().equals("Principle"))
-				GeneralUIMethods.setPopupPane(ClientController.getPrincipleDashboardUIController().getPopUpWindow());
+			GeneralUIMethods.setPopupPane(ClientController.getPrincipleDashboardUIController().getPopUpWindow());
 	}
-	
+
 	public static double resizeTxtArea(JFXTextArea textArea) {
 		Text textBox = new Text(textArea.getText());
 		textBox.setFont(textArea.getFont());
@@ -337,4 +328,3 @@ public class GeneralUIMethods {
 	}
 
 }
- 
