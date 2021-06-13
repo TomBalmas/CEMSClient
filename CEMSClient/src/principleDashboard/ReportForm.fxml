@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.ReportFormController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="73.0" layoutY="72.0" prefHeight="189.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="64.0" layoutY="60.0" prefHeight="665.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="60.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
@@ -88,11 +88,14 @@
             </BarChart>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="702.0" onMouseClicked="#clickBack" text="Back">
+      <JFXButton fx:id="backBtn" layoutX="63.0" layoutY="737.0" onMouseClicked="#clickBack" prefHeight="34.0" prefWidth="79.0" text="Back">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="button" />
          </styleClass>
+         <font>
+            <Font size="19.0" />
+         </font>
       </JFXButton>
    </children>
 </AnchorPane>

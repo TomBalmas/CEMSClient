@@ -306,7 +306,7 @@ JFXTextArea .paragraph-box .paragraph-text {
 }
 
 .table-view:row-selection .table-row-cell:filled:hover, .table-row-cell:filled:focused {
-    -fx-background-color: #E9E8EB;
+    -fx-background-color: #9e9da1;
 }
 .table-view:row-selection .table-row-cell:filled:hover .text, .table-row-cell:filled:focused .text, .table-view .table-cell{
     -fx-text-fill: #595869;     

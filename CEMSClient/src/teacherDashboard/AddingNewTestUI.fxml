@@ -17,9 +17,9 @@
 
 <AnchorPane fx:id="contentPaneAnchor" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.AddingNewTestUIController">
    <children>
-      <AnchorPane fx:id="setParametersAnchor" layoutX="30.0" layoutY="30.0" prefHeight="680.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
+      <AnchorPane fx:id="setParametersAnchor" layoutX="63.0" layoutY="50.0" prefHeight="660.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <AnchorPane fx:id="insidesetParametersAnchor" prefHeight="80.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <AnchorPane fx:id="insidesetParametersAnchor" prefHeight="80.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
                <children>
                   <AnchorPane fx:id="parameterTitleAnchor" layoutY="40.0" prefHeight="605.0" prefWidth="422.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="12.0">
                      <children>

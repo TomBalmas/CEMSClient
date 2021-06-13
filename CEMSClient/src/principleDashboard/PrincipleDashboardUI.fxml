@@ -92,9 +92,19 @@
                </padding></JFXButton>
             <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOutButton" text="Sign Out" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="100.0" />
+                  <Insets top="125.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
+      <AnchorPane fx:id="filterAnchor" layoutX="959.0" layoutY="-20.0" prefHeight="64.0" prefWidth="250.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.rightAnchor="58.0">
+         <children>
+            <AnchorPane fx:id="insideFilterAnchor" layoutX="26.0" layoutY="26.0" prefHeight="31.0" prefWidth="283.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="115.0" styleClass="pageLabel" text="Logged in as " />
+                  <Label fx:id="nameLbl" layoutX="90.0" prefHeight="28.0" text="Daniel ben david" textFill="#616161" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
