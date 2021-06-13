@@ -215,6 +215,11 @@
 	-fx-border-color: #f6827a;
 }
 
+.NaturalLbl {
+	-fx-background-color: #e7e7e7;
+	-fx-border-color: #595869;
+}
+
 .approve {
 	-fx-min-width: 290.0;
 	-fx-min-height: 20.0;

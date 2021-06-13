@@ -26,7 +26,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <JFXTextArea fx:id="instructionsTxtArea" focusColor="#2486b6">
+            <JFXTextArea fx:id="instructionsTxtArea" editable="false" focusColor="#2486b6">
                <font>
                   <Font size="20.0" />
                </font></JFXTextArea>

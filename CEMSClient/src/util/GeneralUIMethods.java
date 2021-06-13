@@ -32,12 +32,13 @@ import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
 
-	private static int menuMovementLeftToRight = 1280 - 283 + 1, tempCounter = 0;
+	private static int menuMovementLeftToRight = 1280 - 283 + 1;
 	public static StackPane sp;
 	public static VBox sideBar;
 	static boolean isFieldEmpty = false;
 	static Region testFormNode;
 	private static AnchorPane mainAnchorPane;
+	private static boolean isCheckingtest = false;
 	
 	public static AnchorPane getMainAnchorPane() {
 		return mainAnchorPane;
@@ -45,6 +46,14 @@ public class GeneralUIMethods {
 
 	public static void setMainAnchorPane(AnchorPane mainAnchorPane) {
 		GeneralUIMethods.mainAnchorPane = mainAnchorPane;
+	}
+	
+	public static boolean isCheckingtest() {
+		return isCheckingtest;
+	}
+
+	public static void setCheckingtest(boolean isCheckingtest) {
+		GeneralUIMethods.isCheckingtest = isCheckingtest;
 	}
 
 	/**
@@ -286,10 +295,9 @@ public class GeneralUIMethods {
 					}
 				});
 				// Get students answers and select them
-				if (testType.equals("STUDENT_LOOK")) {
+				if (testType.equals("STUDENT_LOOK") || testType.equals("TEACHER_CHECKING"))
 					controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
-				}
-				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING")) 
+				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING"))
 					controller.setQuestionsFromTest(test.getID());
 			} catch (IOException e) {
 				e.printStackTrace();
