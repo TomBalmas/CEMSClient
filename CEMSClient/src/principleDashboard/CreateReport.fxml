@@ -4,12 +4,12 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,23 +25,18 @@
                      </font>
                   </Label>
                   <JFXComboBox fx:id="selectTypeCbox" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
-                  <JFXTextField fx:id="searchField" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by student name/last name" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" layoutX="19.0" layoutY="134.0" prefHeight="31.0" prefWidth="735.0" promptText="Search by student name/last name" styleClass="searchRow" />
                   <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
                   <Label fx:id="startDPlbl" layoutX="182.0" layoutY="41.0" text="Start Date" visible="false" />
                   <JFXDatePicker fx:id="startCoursesDP" layoutX="182.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
                   <Label fx:id="endDPlbl" layoutX="413.0" layoutY="41.0" text="Finish Date" visible="false" />
                   <JFXDatePicker fx:id="finishCoursesDP" layoutX="415.0" layoutY="62.0" prefHeight="31.0" prefWidth="162.0" visible="false" />
-                  <JFXButton fx:id="filterButton" layoutX="758.0" layoutY="134.0" onMouseClicked="#filterBtn" text="Filter">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
                   <Label fx:id="selectCourseLbl" layoutX="186.0" layoutY="39.0" prefHeight="21.0" styleClass="pageLabel" text="Select course" visible="false" />
                   <MenuButton fx:id="menuBtn" layoutX="162.0" layoutY="60.0" mnemonicParsing="false" text="Select Courses" textFill="#010011" underline="true">
                      <font>
                         <Font size="13.0" />
                      </font></MenuButton>
+                  <FontAwesomeIconView glyphName="SEARCH" layoutY="155.0" size="15" />
                </children>
             </AnchorPane>
          </children>
@@ -62,13 +57,5 @@
             <String fx:value="btn" />
          </styleClass>
       </JFXButton>
-      <Label fx:id="promptMessage" layoutX="126.0" layoutY="253.0" prefHeight="21.0" prefWidth="250.0" text="select row to view students courses">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <effect>
-            <Glow />
-         </effect>
-      </Label>
    </children>
 </AnchorPane>

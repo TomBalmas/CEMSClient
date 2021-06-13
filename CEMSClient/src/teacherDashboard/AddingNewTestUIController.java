@@ -33,15 +33,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -370,19 +364,16 @@ public class AddingNewTestUIController implements Initializable {
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
-		Border border = new Border(
-				new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
-		if (titleTxt.getText().isEmpty() || durationCbox.getSelectionModel().isEmpty()
-				|| selectFieldCBox.getSelectionModel().isEmpty() || selectCourseCBox.getSelectionModel().isEmpty()) {
-			if ((titleTxt.getText().isEmpty()))
-				titleTxt.setBorder(border);
-			if (durationCbox.getSelectionModel().isEmpty())
-				durationCbox.setBorder(border);
-			if (selectFieldCBox.getSelectionModel().isEmpty())
-				selectFieldCBox.setBorder(border);
-			if (selectCourseCBox.getSelectionModel().isEmpty())
-				selectCourseCBox.setBorder(border);
-		} else {
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(titleTxt);
+		nodes.add(durationCbox);
+		nodes.add(selectFieldCBox);
+		nodes.add(selectCourseCBox);
+//		nodes.add(teacherInstructionsTxtArea);
+//		nodes.add(studentInstructionsTxtArea);
+		if (GeneralUIMethods.checkEmptyFields(nodes))
+			new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
+		else {
 			Screen++;
 			testTitle = titleTxt.getText();
 			duration = durationCbox.getValue().toString();

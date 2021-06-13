@@ -1,6 +1,7 @@
 package loginScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -78,8 +79,23 @@ public class LoginUIController {
 	 */
 	@FXML
 	void clickLogin(Event event) {
-		if (usernameTxt.getText().isEmpty() || passwordTxt.getText().isEmpty())
+		GeneralUIMethods.setPopupPane(popupStackPane);
+		GeneralUIMethods.setSideBar(menuVBox);
+//		if (usernameTxt.getText().isEmpty()) { emptyField = true; usernameTxt.getStyleClass().add("ErrorLine"); }
+//		else usernameTxt.getStyleClass().remove("ErrorLine");
+//		if (passwordTxt.getText().isEmpty()) { emptyField = true;  passwordTxt.getStyleClass().add("ErrorLine"); }
+//		else passwordTxt.getStyleClass().remove("ErrorLine");
+//		if (emptyField) {
+//			new PopUp(PopUp.TYPE.ERROR, "Error", "Some fields are missing", null, null, null); 
+//			return;
+//		}
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(usernameTxt);
+		nodes.add(passwordTxt);
+		if (GeneralUIMethods.checkEmptyFields(nodes)) {
+			new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", null, null, null);
 			return;
+		}
 		ClientController.accept("LOGIN-" + usernameTxt.getText() + "," + passwordTxt.getText());
 		String role = ClientController.getRoleFrame();
 		String error = null;
@@ -106,8 +122,6 @@ public class LoginUIController {
 				error = "User is already connected.";
 			else
 				error = "Wrong username or password.";
-			GeneralUIMethods.setPopupPane(popupStackPane);
-			GeneralUIMethods.setSideBar(menuVBox);
 			new PopUp(PopUp.TYPE.LOGIN, "Error!", error, null, null, null);
 		}
 	}

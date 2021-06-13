@@ -120,8 +120,7 @@ public class ActiveTestController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if (arg1 == null)
-			refreshBtn.setDisable(false);
+		refreshBtn.setDisable(false);
 	}
 
 }

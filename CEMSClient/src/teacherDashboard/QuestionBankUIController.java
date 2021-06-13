@@ -17,6 +17,8 @@ import common.Question;
 import common.Teacher;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -105,7 +107,6 @@ public class QuestionBankUIController implements Initializable {
 	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
 	String authorName;
-
 
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
@@ -293,10 +294,6 @@ public class QuestionBankUIController implements Initializable {
 				questionBankTable.getItems().add(questionRow);
 				dataList.add(questionRow); //add row to dataList to search field.
 				tableViewAnchor.setMouseTransparent(false);
-				if(!questionRow.getAuthor().equals(ClientController.getActiveUser().getName())) {
-					questionRow.getEditBtn().setDisable(true);
-					questionRow.getDeleteBtn().setDisable(true);
-				}
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
 					@Override
 					public void handle(ActionEvent event) {
@@ -427,7 +424,6 @@ public class QuestionBankUIController implements Initializable {
         sortedData.comparatorProperty().bind(questionBankTable.comparatorProperty());
         //  Add sorted (and filtered) data to the table.
         questionBankTable.setItems(sortedData);
-
 	}
 
 }

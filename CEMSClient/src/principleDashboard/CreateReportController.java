@@ -120,9 +120,6 @@ public class CreateReportController implements Initializable {
 	@FXML
 	private TableColumn<?, ?> IDCol;
 	
-    @FXML
-    private Label promptMessage;
-	
 	ArrayList<Student> students = null;
 	ArrayList<Teacher> teachers = null;
 	ArrayList<Course> courses = null;
@@ -286,6 +283,8 @@ public class CreateReportController implements Initializable {
 								for (int i = 0; i < testsAveragesMedians.size(); i++) {
 									Series<String, Number> DataSet = new XYChart.Series<String, Number>();
 									DataSet.getData().clear();
+								
+								
 									DataSet.getData()
 											.add(new XYChart.Data<String, Number>(
 													testsAveragesMedians.get(i).getKey() + " median",
@@ -421,7 +420,6 @@ public class CreateReportController implements Initializable {
 
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
-				promptMessage.setVisible(true);
 				menuBtn.setVisible(true);
 				startCoursesDP.setVisible(false);
 				finishCoursesDP.setVisible(false);
@@ -442,7 +440,6 @@ public class CreateReportController implements Initializable {
 				}
 
 			} else if (selectTypeCbox.getValue().equals("Courses")) {
-				promptMessage.setVisible(false);
 				menuBtn.setVisible(false);
 				startCoursesDP.setVisible(true);
 				finishCoursesDP.setVisible(true);
@@ -462,7 +459,6 @@ public class CreateReportController implements Initializable {
 				}
 				// teacher
 			} else {
-				promptMessage.setVisible(false);
 				menuBtn.setVisible(false);
 				startCoursesDP.setVisible(false);
 				finishCoursesDP.setVisible(false);
@@ -491,8 +487,5 @@ public class CreateReportController implements Initializable {
 	void filterBtn(MouseEvent event) {
 		
 	}
-	
-		  
-
 
 }

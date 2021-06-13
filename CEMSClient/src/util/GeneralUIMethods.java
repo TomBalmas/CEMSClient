@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -21,12 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import javafx.util.Pair;
 import teacherDashboard.TestFormController;
 
 public class GeneralUIMethods {
@@ -34,6 +35,8 @@ public class GeneralUIMethods {
 	private static int menuMovementLeftToRight = 1280 - 283 + 1, tempCounter = 0;
 	public static StackPane sp;
 	public static VBox sideBar;
+	static boolean isFieldEmpty = false;
+	static Region testFormNode;
 
 	/**
 	 * moves object on the screen "layoutX" pixels in "time" seconds.
@@ -78,7 +81,46 @@ public class GeneralUIMethods {
 	public static void setMenuStyle(JFXButton button, VBox menuVBox) {
 		for (Node t : menuVBox.getChildren())
 			t.setStyle("");
-		button.setStyle("-fx-background-color:#00ADB5;");
+		button.setStyle("-fx-background-color: #2486b6;");
+	}
+	
+	public static boolean checkEmptyFields(ArrayList<Node> n) {
+		isFieldEmpty = false;
+		n.forEach(e -> {
+			if (e instanceof JFXTextField) {
+				if (((JFXTextField) e).getText().isEmpty()) {
+					isFieldEmpty = true;
+					((JFXTextField) e).getStyleClass().add("ErrorLine");
+				}
+				else
+					((JFXTextField) e).getStyleClass().remove("ErrorLine");
+			}
+			else if (e instanceof JFXPasswordField) {
+				if (((JFXPasswordField) e).getText().isEmpty()){
+					isFieldEmpty = true;
+					((JFXPasswordField) e).getStyleClass().add("ErrorLine");
+				}
+				else
+					((JFXPasswordField) e).getStyleClass().remove("ErrorLine");
+			}
+			else if (e instanceof JFXTextArea) {
+				if (((JFXTextArea) e).getText().isEmpty()){
+					isFieldEmpty = true;
+					((JFXTextArea) e).getStyleClass().add("ErrorLine");
+				}
+				else
+					((JFXTextArea) e).getStyleClass().remove("ErrorLine");
+			}
+			else if (e instanceof JFXComboBox) {
+				if (null == ((JFXComboBox) e).getValue()){
+					isFieldEmpty = true;
+					((JFXComboBox) e).getStyleClass().add("ErrorLine");
+				}
+				else
+					((JFXComboBox) e).getStyleClass().remove("ErrorLine");
+			}
+		});
+		return isFieldEmpty;
 	}
 
 	/**
@@ -161,6 +203,7 @@ public class GeneralUIMethods {
 
 	public static void buildTestForm(AnchorPane contentPaneAnchor, ScrollPane testScrollPane, String testCodeOrID, String testType,
 			FXMLLoader testFormLoader) {
+		testFormNode = null;
 		int i = 0;
 		if ((ClientController.getRoleFrame().equals("Student") && !testType.equals("STUDENT_LOOK")) || testType.equals("TEACHER_VIEW_TEST_BY_CODE"))
 			ClientController.accept("GET_TEST_BY_CODE-" + testCodeOrID);
@@ -174,7 +217,7 @@ public class GeneralUIMethods {
 			ArrayList<Question> testQuestions = ClientController.getQuestions();
 			if (null != testQuestions)
 			try {
-				Region testFormNode = testFormLoader.load();
+				testFormNode = testFormLoader.load();
 				TestFormController controller = testFormLoader.getController();
 				controller.setTest(test);
 				controller.setTestCode(testCodeOrID.toString());
@@ -190,22 +233,10 @@ public class GeneralUIMethods {
 					controller.getFinishBtn().setVisible(false);
 				} else
 					controller.getUploadFileAnchor().setVisible(false);
-				if (testType.equals("STUDENT_LOOK")) {
-					ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
-					for (i = 0; i < ClientController.getGrades().size(); i++)
-						if (ClientController.getGrades().get(i).getTestId() != test.getID())
-							break;
-					controller.setStudentValues(new ArrayList<String>() {{
-					    add("A");
-					    add("B");
-					    add(ClientController.getGrades().get(tempCounter).getGrade() + "");
-					    add(ClientController.getGrades().get(tempCounter).getTeacherNotes());
-					}}); //getGradesBySSN query
-				}
 				controller.addTitleAndInstructionsToTest(test.getTitle(), null, test.getStudentInstructions());
 				i = 1;
 				for (Question q : testQuestions) {
-					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // adding questions to preview
+					controller.addQuestionToTestForm(q, i, 100 / testQuestions.size()); // Adding questions to preview
 					i++;
 				}
 				controller.getTotalQuestionsLbl().setText(String.valueOf(--i));
@@ -244,7 +275,6 @@ public class GeneralUIMethods {
 				});
 				// Get students answers and select them
 				if (testType.equals("STUDENT_LOOK")) {
-					controller.getTestGradeLbl().setVisible(true);
 					controller.setStudentAnswers(test.getID(), ClientController.getActiveUser().getSSN());
 				}
 				else if(ClientController.getRoleFrame().equals("Teacher") && !testType.equals("TEACHER_CHECKING")) 
@@ -271,6 +301,8 @@ public class GeneralUIMethods {
 		textArea.setText(textArea.getText());
 		return paneHeight - textBoxHeight;
 	}
+
+
 	
 }
  

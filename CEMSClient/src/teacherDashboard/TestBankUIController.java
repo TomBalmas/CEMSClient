@@ -136,8 +136,9 @@ public class TestBankUIController implements Initializable {
 	}
 
 	// ----------TODO: add teachers for principle
-	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
+	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "vered");
 	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
+	private final ObservableList<TestRow> datarow = FXCollections.observableArrayList();
 
 	@FXML
 	void searchBtnClicked(MouseEvent event) {
@@ -293,7 +294,6 @@ public class TestBankUIController implements Initializable {
 		setDateCol.setCellValueFactory(new PropertyValueFactory<>("setDateBtn"));
 		viewCol.setCellValueFactory(new PropertyValueFactory<>("viewBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("editBtn"));
-
 		Node viewTest;
 		FXMLLoader viewTestLoader = new FXMLLoader(getClass().getResource(Navigator.ADDING_NEW_TEST.getVal()));
 		AddingNewTestUIController addingNewTestUIController = viewTestLoader.getController();
@@ -308,10 +308,7 @@ public class TestBankUIController implements Initializable {
 				TestRow tr = new TestRow(tests.get(i));
 				testTable.getItems().add(tr);
 				dataList.add(tr); // Add row to dataList to search field.
-				if (!ClientController.getActiveUser().getName().equals(tr.getAuthor())) {
-					tr.getEditBtn().setDisable(true);
-					tr.getDeleteBtn().setDisable(true);
-				}
+				datarow.add(tr);
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -342,19 +339,19 @@ public class TestBankUIController implements Initializable {
 							editTestController.getSelectCourseCBox().getSelectionModel().select(tr.getCourse());
 							editTestController.getSelectCourseCBox().setDisable(true);
 							editTestController.getTitleTxt().setText(tr.getTestName());
-							editTestController.getDurationCbox().getSelectionModel()
-									.select(tr.getTest().getTestDuration().toString());
+							editTestController.getDurationCbox().getSelectionModel().select(tr.getTest().getTestDuration().toString());
 							editTestController.getTeacherInstructionsTxtArea()
 									.setText(tr.getTest().getTeacherInstructions());
 							editTestController.getStudentInstructionsTxtArea()
 									.setText(tr.getTest().getStudentInstructions());
+							
 
 							Platform.runLater(new Runnable() {
 								@Override
 								public void run() {
 									editTestController.setEditingTest(tr.getTestId());
-									// editTestController.getQuestionTable().getSelectionModel().select(1);
-									// editTestController.setQuestionController(tr.getTestId());
+									//editTestController.getQuestionTable().getSelectionModel().select(1);
+									//editTestController.setQuestionController(tr.getTestId());
 								}
 							});
 //
@@ -387,18 +384,16 @@ public class TestBankUIController implements Initializable {
 						SetTestDateController cont = loader.getController();
 						cont.getTestNameLbl().setText(tr.getTestName());
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
-							if (cont.getCodeTxt().getText().isEmpty()
-									|| cont.getDateDP().getValue().toString().isEmpty()
-									|| cont.getTimeTP().toString().isEmpty()) {
+							if (cont.getCodeTxt().getText().isEmpty() || cont.getDateDP().getValue().toString().isEmpty() || cont.getTimeTP().toString().isEmpty()) {
 								new PopUp(PopUp.TYPE.ERROR, "Error", "Some fields are missing", contentPaneAnchor, null,
 										null);
 								return;
-							} else if (cont.getCodeTxt().getText().length() != 4) {
-								new PopUp(PopUp.TYPE.ERROR, "Error",
-										"Test code must be assembled from 4 chars and/or numbers", contentPaneAnchor,
-										null, null);
-								return;
 							}
+							else if (cont.getCodeTxt().getText().length() != 4) {
+								new PopUp(PopUp.TYPE.ERROR, "Error", "Test code must be assembled from 4 chars and/or numbers", contentPaneAnchor, null,
+										null);
+								return;
+							} 
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
 									+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 									+ cont.getTimeTP().getValue().toString() + ","
@@ -410,7 +405,8 @@ public class TestBankUIController implements Initializable {
 								});
 								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests scheduled successfully",
 										contentPaneAnchor, Arrays.asList(okayBtn), null);
-							} else
+							}
+							else
 								new PopUp(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed, that code already exsist",
 										contentPaneAnchor, null, null);
 						});
@@ -433,8 +429,8 @@ public class TestBankUIController implements Initializable {
 								JFXButton okayBtn = new JFXButton("Okay");
 								okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
 									try {
-										GeneralUIMethods.loadPage(contentPaneAnchor,
-												FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal())));
+										GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+												.load(getClass().getResource(Navigator.TEST_BANK.getVal())));
 									} catch (IOException e2) {
 										e2.printStackTrace();
 									}
@@ -444,9 +440,10 @@ public class TestBankUIController implements Initializable {
 										Arrays.asList(okayBtn), null);
 							}
 						});
-
-						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
-								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
+						
+						new PopUp(PopUp.TYPE.ALERT, "Alert",
+								"Are you sure that you want to delete this test?", contentPaneAnchor,
+								Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
 			}
@@ -497,6 +494,32 @@ public class TestBankUIController implements Initializable {
 			sortedData.comparatorProperty().bind(testTable.comparatorProperty());
 			// Add sorted (and filtered) data to the table.
 			testTable.setItems(sortedData);
+			
+			// --------------------------------------------------------------------------------------------
+			
+//			FilteredList<TestRow> filteredData1 = new FilteredList<>(datarow, e -> true);
+//            // Set the filter Predicate whenever the filter changes.
+//            selectCbox.valueProperty().addListener((observable, oldValue, newValue) -> {
+//                filteredData1.setPredicate(myObject -> {
+//                    // Compares what we wrote in the text (we searched for) to the appropriate line.
+//                    String lowerCaseFilter1 = ((String) newValue).toLowerCase();
+//                    System.out.println(lowerCaseFilter1);
+//                    if(newValue.equals("Anyone"))
+//                            return true;
+//                    //String lowerCaseFilter = ((String) newValue).toLowerCase();
+//                    else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter1))
+//                        return true; // Filter matches author.   
+//                    return false; // Does not match.
+//                });
+//            });
+//
+//            // Wrap the FilteredList in a SortedList.
+//            SortedList<TestRow> sortedData1 = new SortedList<>(filteredData1);
+//            // Bind the SortedList comparator to the TableView comparator.
+//            sortedData1.comparatorProperty().bind(testTable.comparatorProperty());
+//            // Add sorted (and filtered) data to the table.
+//            testTable.setItems(sortedData1);
+
 
 		}
 	}

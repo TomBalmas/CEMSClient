@@ -15,25 +15,20 @@
    <children>
       <AnchorPane fx:id="filterAnchor" layoutX="83.0" layoutY="60.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
          <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <AnchorPane fx:id="insideFilterAnchor" prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
                   <Label fx:id="checkTestLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Check Tests">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Enter text to search" styleClass="searchRow" />
-                  <JFXButton fx:id="filterButton" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="757.0" layoutY="72.0" onMouseClicked="#filterBtn" text="Filter" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
+                  <JFXTextField fx:id="searchField" layoutX="20.0" layoutY="72.0" prefHeight="31.0" prefWidth="735.0" promptText="Enter text to search" styleClass="searchRow" />
                   <Label fx:id="timeLeftLbl1" layoutY="32.0" text="Click on the test row you wish to check, and then click on the check button.">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </Label>
+                  <FontAwesomeIconView glyphName="SEARCH" layoutX="3.0" layoutY="93.0" size="15" />
                </children>
             </AnchorPane>
          </children>

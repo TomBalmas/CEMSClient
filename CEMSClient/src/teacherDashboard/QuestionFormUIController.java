@@ -3,7 +3,6 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -14,11 +13,12 @@ import com.jfoenix.controls.JFXTextArea;
 
 import client.ClientController;
 import common.Teacher;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,15 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -169,18 +161,14 @@ public class QuestionFormUIController implements Initializable {
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			teacherId = ClientController.getActiveUser().getSSN();
 
+		// Set answers
 		ArrayList<JFXTextArea> answers = getAnswerTextFields();
 		String questionContent = getQuestionContentTxt().getText();
 		String answer1 = answers.get(0).getText();
 		String answer2 = answers.get(1).getText();
 		String answer3 = answers.get(2).getText();
 		String answer4 = answers.get(3).getText();
-		fieldCBox.setBorder(null);
-		chooseAnswersLbl.setTextFill( Color.BLACK);
-		answers.get(0).setBorder(null);
-		answers.get(1).setBorder(null);
-		answers.get(2).setBorder(null);
-		answers.get(3).setBorder(null);
+
 		// Query to add question to dataBase
 		if (getNewQuestionFormLbl().getText().toString().equals("New Question Form")) {
 			// Send query only if fields aren't empty
@@ -200,23 +188,15 @@ public class QuestionFormUIController implements Initializable {
 				}
 				// handle empty fields
 			} else {
-				Border b = new Border(
-						new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
-				if (questionContent.isEmpty())
-					questionContentTxt.setBorder(b);
-				if (correctAnswer == 0)
-					chooseAnswersLbl.setTextFill(Color.RED);
-				if (fieldCBox.getSelectionModel().isEmpty())
-					fieldCBox.setBorder(b);
-				if (answer1.isEmpty())
-					answers.get(0).setBorder(b);
-				if (answer2.isEmpty())
-					answers.get(1).setBorder(b);
-				if (answer3.isEmpty())
-					answers.get(2).setBorder(b);
-				if (answer4.isEmpty())
-					answers.get(3).setBorder(b);
-
+				ArrayList<Node> nodes = new ArrayList<Node>();
+				nodes.add(fieldCBox);
+				nodes.add(questionContentTxt);
+				nodes.add(answer1Txt);
+				nodes.add(answer2Txt);
+				nodes.add(answer3Txt);
+				nodes.add(answer4Txt);
+				if (GeneralUIMethods.checkEmptyFields(nodes))
+					new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
 			}
 		}
 		// query for editing question

@@ -19,8 +19,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,7 +35,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
 import teacherDashboard.QuestionBankUIController.questionRow;
-import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
 import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
@@ -129,7 +126,7 @@ public class ViewReportsController implements Initializable {
 	void viewReportsBtn(MouseEvent event) {
 
 	}
-	private final ObservableList<reportRow> dataList = FXCollections.observableArrayList();
+
 	/**
 	 * this class represents report row with all relevant data for report row in table
 	 *
@@ -261,7 +258,6 @@ public class ViewReportsController implements Initializable {
 			for (int i = 0; i < reports.size(); i++) {
 				reportRow reportRow = new reportRow(reports.get(i));
 				reportTable.getItems().addAll(reportRow);
-				dataList.add(reportRow); // Add row to dataList to search field
 				tableViewAnchor.setMouseTransparent(false);
 				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
 					@Override
@@ -275,6 +271,16 @@ public class ViewReportsController implements Initializable {
 							String median = String.valueOf(reportRow.getMedian());
 							reportFormController.getAverageTxt().setText(average);
 							reportFormController.getMedianTxt().setText(median);
+							if (Double.parseDouble(average) < 55)
+								reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
+							else
+								reportFormController.getAverageTxt().getStyleClass().add("aGradeLbl");
+							
+							if (Double.parseDouble(median) < 55)
+								reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
+							else
+								reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
+							
 							reportFormController.getxAxisExam().setLabel("range");
 							reportFormController.getyAxisGrades().setLabel("Students");
 							reportFormController.setUserNameLbl("Test: "+reportRow.getTestID());
@@ -323,43 +329,12 @@ public class ViewReportsController implements Initializable {
 									null, null);
 						});
 						new PopUp(PopUp.TYPE.ALERT, "Alert",
-								"Are you sure that you want to delete this question?", insideFilterAnchor,
+								"Are you sure that you want to delete this report?", insideFilterAnchor,
 								Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
 
 			}
-			// Search by data which is in a certain row.
-			FilteredList<reportRow> filteredData = new FilteredList<>(dataList, p -> true);
-			// Set the filter Predicate whenever the filter changes.
-			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-				filteredData.setPredicate(myObject -> {
-					// If filter text is empty, display all persons.
-					if (newValue == null || newValue.isEmpty())
-						return true; 
-					// Compares what we wrote in the text (we searched for) to the appropriate line.
-					String lowerCaseFilter = newValue.toLowerCase();
-					// Filter matches report id.
-					if (String.valueOf(myObject.getReportId()).toLowerCase().contains(lowerCaseFilter))
-						return true;
-					else if (String.valueOf(myObject.getTestID()).toLowerCase().contains(lowerCaseFilter))
-						return true; // Filter matches test id.
-					else if (String.valueOf(myObject.getNumberOfStudents()).toLowerCase().contains(lowerCaseFilter))
-						return true; // Filter matches number of students.
-					else if (String.valueOf(myObject.getAverage()).toLowerCase().contains(lowerCaseFilter))
-						return true; // Filter matches average.
-					else if (String.valueOf(myObject.getMedian()).toLowerCase().contains(lowerCaseFilter)) 
-						return true; // Filter matches median.
-					return false; // Does not match.
-				});
-			});
-
-			// Wrap the FilteredList in a SortedList.
-			SortedList<reportRow> sortedData = new SortedList<>(filteredData);
-			// Bind the SortedList comparator to the TableView comparator.
-			sortedData.comparatorProperty().bind(reportTable.comparatorProperty());
-			// Add sorted (and filtered) data to the table.
-			reportTable.setItems(sortedData);
 
 		}
 	}
