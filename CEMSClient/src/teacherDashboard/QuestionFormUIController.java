@@ -3,6 +3,7 @@ package teacherDashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -153,10 +155,6 @@ public class QuestionFormUIController implements Initializable {
 	@FXML
 	void clickSave() throws IOException {
 		String teacherId = null;
-		List<JFXButton> list = new ArrayList<JFXButton>();
-		list.add(new JFXButton("Okay"));
-		if (list.get(0).isPressed())
-			clickBack();
 		// Get data from UI
 		if (ClientController.getRoleFrame().equals("Teacher"))
 			teacherId = ClientController.getActiveUser().getSSN();
@@ -184,7 +182,17 @@ public class QuestionFormUIController implements Initializable {
 					// show POP UP:
 					String toShow = "Question ID: ";
 					toShow = toShow.concat(ClientController.getNewQuestionId());
-					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, list, null);
+					JFXButton okayBtn = new JFXButton("Okay");
+					okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+						try {
+							GeneralUIMethods.loadPage(null, (new FXMLLoader(
+									getClass().getResource(Navigator.TEACHER_DASHBOARD.getVal()))).load());
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					});
+					System.out.println("here");
+					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, Arrays.asList(okayBtn), null);
 				}
 				// handle empty fields
 			} else {

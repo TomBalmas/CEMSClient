@@ -37,6 +37,15 @@ public class GeneralUIMethods {
 	public static VBox sideBar;
 	static boolean isFieldEmpty = false;
 	static Region testFormNode;
+	private static AnchorPane mainAnchorPane;
+	
+	public static AnchorPane getMainAnchorPane() {
+		return mainAnchorPane;
+	}
+
+	public static void setMainAnchorPane(AnchorPane mainAnchorPane) {
+		GeneralUIMethods.mainAnchorPane = mainAnchorPane;
+	}
 
 	/**
 	 * moves object on the screen "layoutX" pixels in "time" seconds.
@@ -131,6 +140,8 @@ public class GeneralUIMethods {
 	 * @param page
 	 */
 	public static void loadPage(AnchorPane anchor, Node page) {
+		if (anchor == null)
+			anchor = mainAnchorPane;
 		anchor.getChildren().clear();
 		anchor.getChildren().setAll(page);
 	}
@@ -303,7 +314,5 @@ public class GeneralUIMethods {
 		return paneHeight - textBoxHeight;
 	}
 
-
-	
 }
  

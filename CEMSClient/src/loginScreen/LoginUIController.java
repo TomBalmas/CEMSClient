@@ -1,7 +1,9 @@
 package loginScreen;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -12,6 +14,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +27,7 @@ import util.GeneralUIMethods;
 import util.Navigator;
 import util.PopUp;
 
-public class LoginUIController {
+public class LoginUIController implements Initializable {
     @FXML
     private AnchorPane anchorLogin;
 
@@ -124,6 +127,11 @@ public class LoginUIController {
 				error = "Wrong username or password.";
 			new PopUp(PopUp.TYPE.LOGIN, "Error!", error, null, null, null);
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		GeneralUIMethods.setMainAnchorPane(anchorLogin);
 	}
 
 }

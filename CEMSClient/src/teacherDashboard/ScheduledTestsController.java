@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import teacherDashboard.TestBankUIController.TestRow;
 import teacherDashboard.ViewActiveTestsController.rowTableActiveTest;
 import util.GeneralUIMethods;
 import util.Navigator;
@@ -252,9 +253,23 @@ public class ScheduledTestsController implements Initializable {
 						ClientController.accept("REMOVE_SCHEDULED_TEST-" + tr.getCode());
 						if (!ClientController.isTestRemoved())
 							System.out.println("not working");
-						scheduledTestsTbl.getItems().remove(toDelete);
-						new PopUp(PopUp.TYPE.INFORM, "Information",
-								"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor, null, null);
+						else {
+							ScheduleTestRow selectedItem = scheduledTestsTbl.getSelectionModel().getSelectedItem();
+							if (selectedItem != null)
+								scheduledTestsTbl.getItems().remove(selectedItem);
+							JFXButton okayBtn = new JFXButton("Okay");
+							okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+								try {
+									GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+											.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal())));
+								} catch (IOException e3) {
+									e3.printStackTrace();
+								}
+							});
+							new PopUp(PopUp.TYPE.INFORM, "Information",
+									"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor,
+									Arrays.asList(okayBtn), null);	
+						}
 					});
 					new PopUp(PopUp.TYPE.ALERT, "Alert",
 							"Are you sure that you want to delete this test?", contentPaneAnchor,
