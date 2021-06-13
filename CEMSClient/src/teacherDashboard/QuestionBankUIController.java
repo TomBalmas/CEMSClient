@@ -97,9 +97,9 @@ public class QuestionBankUIController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> deleteCol;
-	
-    @FXML
-    private TableColumn<?, ?> contentCol;
+
+	@FXML
+	private TableColumn<?, ?> contentCol;
 
 	@FXML
 	private JFXButton addAnewQuestionBtn;
@@ -110,11 +110,13 @@ public class QuestionBankUIController implements Initializable {
 
 	private ObservableList filterBySelectBox = FXCollections.observableArrayList("Anyone", "You", "Others");
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
-	//lists for combobox fields .fields is for adding a new question.field is for viewing specific question
+	// lists for combobox fields .fields is for adding a new question.field is for
+	// viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
 	ObservableList field = FXCollections.observableArrayList();
 
 	private String authorString;
+
 	public String getAuthorString() {
 		return authorString;
 	}
@@ -135,10 +137,10 @@ public class QuestionBankUIController implements Initializable {
 	 */
 	@FXML
 	void clickAddAnewQuestion(MouseEvent event) {
-	
+
 		try {
 			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
-			
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -243,7 +245,8 @@ public class QuestionBankUIController implements Initializable {
 	}
 
 	/**
-	 getting data from question table into question bank screen according to teachers fields
+	 * getting data from question table into question bank screen according to
+	 * teachers fields
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -260,8 +263,7 @@ public class QuestionBankUIController implements Initializable {
 			// Calling query for getting teachers field questions
 			ClientController.accept("QUESTION_BANK-" + teacher.getFields());
 			questions = ClientController.getQuestions();
-		}
-		else if (ClientController.getRoleFrame().equals("Principle")) {
+		} else if (ClientController.getRoleFrame().equals("Principle")) {
 			Principle principle = (Principle) ClientController.getActiveUser();
 			// Calling query for getting teachers field questions
 			ClientController.accept("GET_QUESTIONS_TABLE-");
@@ -272,14 +274,14 @@ public class QuestionBankUIController implements Initializable {
 			deleteCol.setPrefWidth(0);
 			editCol.setPrefWidth(0);
 		}
-		
-	  // Adding PropertyValueFactory for the columns
+
+		// Adding PropertyValueFactory for the columns
 		PropertyValueFactory IDfactory = new PropertyValueFactory<>("ID");
 		PropertyValueFactory fieldfactory = new PropertyValueFactory<>("field");
 		PropertyValueFactory authorFactory = new PropertyValueFactory<>("author");
 		PropertyValueFactory viewFactory = new PropertyValueFactory<>("ViewBtn");
 		PropertyValueFactory contentFactory = new PropertyValueFactory<>("content");
-		
+
 		fieldCol.setCellValueFactory(fieldfactory);
 		IDCol.setCellValueFactory(IDfactory);
 		authorCol.setCellValueFactory(authorFactory);
@@ -287,31 +289,39 @@ public class QuestionBankUIController implements Initializable {
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("DeleteBtn"));
 		editCol.setCellValueFactory(new PropertyValueFactory<>("EditBtn"));
 		contentCol.setCellValueFactory(contentFactory);
-		
+
 		if (questions != null) {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow questionRow = new questionRow(questions.get(i));
 				questionBankTable.getItems().add(questionRow);
-				dataList.add(questionRow); //add row to dataList to search field.
+				dataList.add(questionRow); // add row to dataList to search field.
 				tableViewAnchor.setMouseTransparent(false);
-				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() { 
+				if (!questionRow.getAuthor().equals(ClientController.getActiveUser().getName())) {
+					questionRow.getEditBtn().setDisable(true);
+					questionRow.getDeleteBtn().setDisable(true);
+				}
+				EventHandler<ActionEvent> btnEventHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
-							FXMLLoader questionFormLoader = new FXMLLoader(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+							FXMLLoader questionFormLoader = new FXMLLoader(
+									getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 							QuestionForm = questionFormLoader.load();
 							blankQuestionFormUIController = questionFormLoader.getController();
-							blankQuestionFormUIController.getQuestionContentTxt().setText(questionRow.getQuestion().getQuestionText());
-							blankQuestionFormUIController.getAnswerBtns().get(questionRow.getQuestion().getCorrectAnswer()-1).setSelected(true);
-							for(int j = 0; j < 4; j++)
-								blankQuestionFormUIController.getAnswerTextFields().get(j).setText(questionRow.getQuestion().getAnswers().get(j));
+							blankQuestionFormUIController.getQuestionContentTxt()
+									.setText(questionRow.getQuestion().getQuestionText());
+							blankQuestionFormUIController.getAnswerBtns()
+									.get(questionRow.getQuestion().getCorrectAnswer() - 1).setSelected(true);
+							for (int j = 0; j < 4; j++)
+								blankQuestionFormUIController.getAnswerTextFields().get(j)
+										.setText(questionRow.getQuestion().getAnswers().get(j));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 						GeneralUIMethods.loadPage(contentPaneAnchor, QuestionForm);
 					}
 				};
-				
+
 				// Event handler for deletion from table and DB
 				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
 					@Override
@@ -343,87 +353,89 @@ public class QuestionBankUIController implements Initializable {
 								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
 				});
-				
-				//event handler for view button 
-				questionRow.getViewBtn().setOnAction(e ->{
+
+				// event handler for view button
+				questionRow.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
-				    {
-				    	field.add(questionRow.getField());
-						blankQuestionFormUIController.getNewQuestionFormLbl().setText("Viewing question " + questionRow.getID() + " by " + questionRow.getAuthor());
-				    	blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
-				    	blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
-				    	blankQuestionFormUIController.getFieldCBox().setDisable(true);
-						for(int p = 0; p < 4; p++) {
+					{
+						field.add(questionRow.getField());
+						blankQuestionFormUIController.getNewQuestionFormLbl()
+								.setText("Viewing question " + questionRow.getID() + " by " + questionRow.getAuthor());
+						blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
+						blankQuestionFormUIController.getQuestionContentTxt().setEditable(false);
+						blankQuestionFormUIController.getFieldCBox().setDisable(true);
+						for (int p = 0; p < 4; p++) {
 							blankQuestionFormUIController.getAnswerTextFields().get(p).setEditable(false);
 							blankQuestionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							blankQuestionFormUIController.getSaveBtn().setVisible(false);
 						}
-				    };
+					}
+					;
 				});
-				
+
 				// event handler for edit button
 				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
-						blankQuestionFormUIController.getNewQuestionFormLbl().setText(
-								"Editing question " + questionRow.getID() + " by " + questionRow.getAuthor());
+						blankQuestionFormUIController.getNewQuestionFormLbl()
+								.setText("Editing question " + questionRow.getID() + " by " + questionRow.getAuthor());
 						field.add(questionRow.getField());
 						blankQuestionFormUIController.getFieldCBox().setPromptText(field.get(0).toString());
 						blankQuestionFormUIController.getFieldCBox().setDisable(true);
-					};
+					}
+					;
 				});
 
 			}
 
 		}
-		
-		
-		//Search by data which is in a certain row.
+
+		// Search by data which is in a certain row.
 		FilteredList<questionRow> filteredData = new FilteredList<>(dataList, p -> true);
 
-        //  Set the filter Predicate whenever the filter changes.
+		// Set the filter Predicate whenever the filter changes.
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(myObject -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+			filteredData.setPredicate(myObject -> {
+				// If filter text is empty, display all persons.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
 
-                // Compares what we wrote in the text (we searched for) to the appropriate line.
-                String lowerCaseFilter = newValue.toLowerCase();
+				// Compares what we wrote in the text (we searched for) to the appropriate line.
+				String lowerCaseFilter = newValue.toLowerCase();
 
-                if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                    // Filter matches ID.
-                } 
-                
-            	else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
-            		return true; // Filter matches author.
-            	} 
-                
-                else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches field.
-                } 
-                
-                else if (String.valueOf(myObject.getContent()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches content.
-                } 
-                
-                else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches author.
-                } 
+				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+					// Filter matches ID.
+				}
 
-                return false; // Does not match.
-            });
-        });
+				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches author.
+				}
 
-        //  Wrap the FilteredList in a SortedList. 
-        SortedList<questionRow> sortedData = new SortedList<questionRow>(filteredData);
+				else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches field.
+				}
 
-        //  Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(questionBankTable.comparatorProperty());
-        //  Add sorted (and filtered) data to the table.
-        questionBankTable.setItems(sortedData);
+				else if (String.valueOf(myObject.getContent()).toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches content.
+				}
+
+				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches author.
+				}
+
+				return false; // Does not match.
+			});
+		});
+
+		// Wrap the FilteredList in a SortedList.
+		SortedList<questionRow> sortedData = new SortedList<questionRow>(filteredData);
+
+		// Bind the SortedList comparator to the TableView comparator.
+		sortedData.comparatorProperty().bind(questionBankTable.comparatorProperty());
+		// Add sorted (and filtered) data to the table.
+		questionBankTable.setItems(sortedData);
 	}
 
 }
