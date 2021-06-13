@@ -437,11 +437,13 @@ public class AddingNewTestUIController implements Initializable {
 				// Adding questions to preview
 				for (Question q : savedPickedQuestion) {
 					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size());
+					controller.getQuestionsToggleGroup().get(i-1).getToggles().get(q.getCorrectAnswer()).setSelected(true);
 					i++;
 				}
 			else if (pickedQuestions != null) // Adding questions to preview
 				for (Question q : pickedQuestions) {
 					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size());
+					controller.getQuestionsToggleGroup().get(i-1).getToggles().get(q.getCorrectAnswer()).setSelected(true);
 					i++;
 				}
 			GeneralUIMethods.loadPage(testAnchor, test);
@@ -464,6 +466,11 @@ public class AddingNewTestUIController implements Initializable {
 			sb.append(q.getID());
 			sb.append("~");
 		}
+		if (pickedQuestions.size() == 0)
+			for (Question q : savedPickedQuestion) {
+				sb.append(q.getID());
+				sb.append("~");
+			}
 		System.out.println("ok: " + sb.toString());
 		sb.deleteCharAt(sb.length() - 1);
 		System.out.println(sb.toString());
@@ -471,7 +478,7 @@ public class AddingNewTestUIController implements Initializable {
 		// Edit question query
 		if (isEditingTest != null) {
 			ClientController.accept("EDIT_TEST-" + isEditingTest + "," + testTitle + "," + duration + ","
-					+ 100 / pickedQuestions.size() + "," + studentInst + "," + teacherInst + "," + sb.toString());
+					+ 100 / savedPickedQuestion.size() + "," + studentInst + "," + teacherInst + "," + sb.toString());
 			popupMsg = "The test (ID: " + isEditingTest + ") has been updated!";
 		} else { // Add new test query
 			ClientController.accept("ADD_TEST-" + ClientController.getActiveUser().getSSN() + "," + testTitle + ","
