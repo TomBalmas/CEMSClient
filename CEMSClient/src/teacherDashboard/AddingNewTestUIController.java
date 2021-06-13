@@ -102,7 +102,6 @@ public class AddingNewTestUIController implements Initializable {
 	@FXML
 	private JFXComboBox<String> durationCbox;
 
-
 	@FXML
 	private JFXTextArea teacherInstructionsTxtArea;
 
@@ -148,7 +147,6 @@ public class AddingNewTestUIController implements Initializable {
 	public JFXTextField getTitleTxt() {
 		return titleTxt;
 	}
-
 
 	public JFXTextArea getTeacherInstructionsTxtArea() {
 		return teacherInstructionsTxtArea;
@@ -426,11 +424,19 @@ public class AddingNewTestUIController implements Initializable {
 			controller.getEditBtn().setVisible(false);
 			controller.addTitleAndInstructionsToTest(testTitle, teacherInst, studentInst);
 			int i = 1;
-			for (Question q : savedPickedQuestion) {
-				System.out.println("here2");
-				controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size()); // Adding questions to preview
-				i++;
-			}
+			if (savedPickedQuestion != null)
+				for (Question q : savedPickedQuestion) {
+					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size()); // Adding questions to //
+																								// preview
+					i++;
+				}
+			else if (pickedQuestions != null)
+				for (Question q : pickedQuestions) {
+					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size()); // Adding questions to //
+																								// preview
+					i++;
+				}
+
 			GeneralUIMethods.loadPage(testAnchor, test);
 		} catch (IOException e) {
 			e.printStackTrace();
