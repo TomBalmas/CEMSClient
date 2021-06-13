@@ -342,23 +342,8 @@ public class TestBankUIController implements Initializable {
 								@Override
 								public void run() {
 									editTestController.setEditingTest(tr.getTestId());
-									//editTestController.getQuestionTable().getSelectionModel().select(1);
-									//editTestController.setQuestionController(tr.getTestId());
 								}
 							});
-//
-//							//ClientController.accept("GET_QUESTIONS_FROM_TEST-" + tr.getTestId());
-//							editTestController.getQuestionTable().getItems().remove(0);
-//							for (Question question : ClientController.getQuestions()) {
-//								//System.out.println(editTestController.getQuestionTable().getItems().forEach(null));
-//								//if(ClientController.getQuestions())
-//								editTestController.getQuestionTable().getItems().forEach(e -> {
-//									if(e.getID().equals(question.getID())) editTestController.getQuestionTable().getSelectionModel().select(e);
-//								});
-//								editTestController.getQuestionTable().getItems().removeIf((t) -> {
-//									return false || !((QuestionRow) t).getID().equals(question);
-//								});
-//							}
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
