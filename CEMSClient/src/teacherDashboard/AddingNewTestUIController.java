@@ -221,6 +221,7 @@ public class AddingNewTestUIController implements Initializable {
 		for (int i = 30; i <= 180; i += 5)
 			durationList.add(String.valueOf(i));
 		durationCbox.setItems(durationList);
+		durationCbox.getSelectionModel().select(6);
 		popUpWindow.toBack();
 		pickedQuestions = new HashSet<>();
 		if (ClientController.getRoleFrame().equals("Teacher")) {
