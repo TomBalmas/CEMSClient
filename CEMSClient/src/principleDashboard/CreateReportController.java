@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -110,16 +111,16 @@ public class CreateReportController implements Initializable {
 
 	@FXML
 	private TableColumn<?, ?> nameCol;
-	
+
 	@FXML
 	private MenuButton menuBtn;
-	
+
 	@FXML
 	private JFXButton createReportBtn;
-	
+
 	@FXML
 	private TableColumn<?, ?> IDCol;
-	
+
 	ArrayList<Student> students = null;
 	ArrayList<Teacher> teachers = null;
 	ArrayList<Course> courses = null;
@@ -197,6 +198,12 @@ public class CreateReportController implements Initializable {
 					ReportForm = loader.load();
 					reportFormController = loader.getController();
 					if (selected != null) {
+						reportFormController.getTotalStudentsTxt().setVisible(false);
+						reportFormController.getFinishedOnTimeTxt().setVisible(false);
+						reportFormController.getForcedSubmittionTxt().setVisible(false);
+						reportFormController.getTotalStudentsLbl().setVisible(false);
+						reportFormController.getFinishedOnTimeLbl().setVisible(false);
+						reportFormController.getForcedSubmittionLbl().setVisible(false);
 						if (selectTypeCbox.getValue().equals("Student")) {
 							createReportBtn.setDisable(true);
 							coursesSelection.clear();
@@ -223,6 +230,15 @@ public class CreateReportController implements Initializable {
 									median = String.valueOf(report.getMedian());
 									average = String.valueOf(report.getAverage());
 									GeneralUIMethods.loadPage(contentPaneAnchor, createReport);
+									if (Double.parseDouble(average) < 55)
+										reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
+									else
+										reportFormController.getAverageTxt().getStyleClass().add("aGradeLbl");
+
+									if (Double.parseDouble(median) < 55)
+										reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
+									else
+										reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
 									reportFormController.getAverageTxt().setText(median);
 									reportFormController.getMedianTxt().setText(average);
 									reportFormController.setUserNameLbl("Student: " + selected.getId());
@@ -244,26 +260,22 @@ public class CreateReportController implements Initializable {
 										reportFormController.setSet(set);
 										GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 									}
-								}
-								else {
-									
-									
-									new PopUp(PopUp.TYPE.INFORM, "Information",
-											"Relevant tests doesnt exist " + " ", contentPaneAnchor, null, null);
+								} else {
+
+									new PopUp(PopUp.TYPE.INFORM, "Information", "Relevant tests doesnt exist " + " ",
+											contentPaneAnchor, null, null);
 								}
 							}
-							//courses not selected
-							else
-							{
+							// courses not selected
+							else {
 								menuBtn.lookup(".arrow").setStyle("-fx-background-color: teal;");
-								new PopUp(PopUp.TYPE.INFORM, "Information",
-										"" + "Please select courses", contentPaneAnchor, null, null);
-								
+								new PopUp(PopUp.TYPE.INFORM, "Information", "" + "Please select courses",
+										contentPaneAnchor, null, null);
+
 							}
-							
-							
+
 						}
-						
+
 						// teachers report
 						if (selectTypeCbox.getValue().equals("Teacher")) {
 							createReportBtn.setDisable(true);
@@ -274,6 +286,15 @@ public class CreateReportController implements Initializable {
 							if (teachersReport.isFlag()) {
 								String Tmedian = new DecimalFormat("##.##").format(teachersReport.getMedian());
 								String Taverage = new DecimalFormat("##.##").format(teachersReport.getAverage());
+								if (Double.parseDouble(Taverage) < 55)
+									reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
+								else
+									reportFormController.getAverageTxt().getStyleClass().add("aGradeLbl");
+
+								if (Double.parseDouble(Tmedian) < 55)
+									reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
+								else
+									reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
 								reportFormController.getAverageTxt().setText(Taverage);
 								reportFormController.getMedianTxt().setText(Tmedian);
 
@@ -283,8 +304,7 @@ public class CreateReportController implements Initializable {
 								for (int i = 0; i < testsAveragesMedians.size(); i++) {
 									Series<String, Number> DataSet = new XYChart.Series<String, Number>();
 									DataSet.getData().clear();
-								
-								
+
 									DataSet.getData()
 											.add(new XYChart.Data<String, Number>(
 													testsAveragesMedians.get(i).getKey() + " median",
@@ -306,7 +326,7 @@ public class CreateReportController implements Initializable {
 							}
 
 						}
-						
+
 						// create course report
 						if (selectTypeCbox.getValue().equals("Courses")) {
 							createReportBtn.setDisable(true);
@@ -315,8 +335,17 @@ public class CreateReportController implements Initializable {
 								ClientController.accept("CREATE_COURSE_REPORT-" + selected.getId());
 								Report courseReport = ClientController.getReport();
 								report = ClientController.getReport();
-								String cMedian =  new DecimalFormat("##.##").format(courseReport.getMedian());
+								String cMedian = new DecimalFormat("##.##").format(courseReport.getMedian());
 								String cAverage = new DecimalFormat("##.##").format(courseReport.getAverage());
+								if (Double.parseDouble(cAverage) < 55)
+									reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
+								else
+									reportFormController.getAverageTxt().getStyleClass().add("aGradeLbl");
+
+								if (Double.parseDouble(cMedian) < 55)
+									reportFormController.getMedianTxt().getStyleClass().add("fGradeLbl");
+								else
+									reportFormController.getMedianTxt().getStyleClass().add("aGradeLbl");
 								reportFormController.getAverageTxt().setText(cAverage);
 								reportFormController.getMedianTxt().setText(cMedian);
 								ArrayList<Pair<String, Pair<Double, Double>>> tests = courseReport
@@ -348,7 +377,7 @@ public class CreateReportController implements Initializable {
 							}
 						}
 					}
-				
+
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -360,7 +389,7 @@ public class CreateReportController implements Initializable {
 		createReportBtn.setOnAction(e -> {
 			btnEventHandler.handle(e);
 			{
-				
+
 			}
 			;
 		});
@@ -381,9 +410,9 @@ public class CreateReportController implements Initializable {
 				if (selected != null) {
 					createReportBtn.setDisable(false);
 					ClientController.accept("GET_COURSES_BY_STUDENT-" + selected.getId());
-					
 					courses = ClientController.getCourses();
 					coursesSelection.clear();
+
 					if (courses != null) {
 
 						menuBtn.getItems().clear();
@@ -403,6 +432,8 @@ public class CreateReportController implements Initializable {
 					}
 
 					else {
+						new PopUp(PopUp.TYPE.INFORM, "Information", "This student did not take any tests yet" + "",
+								insideFilterAnchor, null, null);
 						menuBtn.getItems().clear();
 						coursesSelection.clear();
 
@@ -411,7 +442,7 @@ public class CreateReportController implements Initializable {
 					ClientController.setCourses(null);
 
 				}
-				
+
 			}
 
 		});
@@ -482,10 +513,9 @@ public class CreateReportController implements Initializable {
 
 	}
 
-	
 	@FXML
 	void filterBtn(MouseEvent event) {
-		
+
 	}
 
 }
