@@ -173,6 +173,12 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		ClientController.setTeacherDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
+		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
+		try {
+			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.TEST_BANK.getVal()))).load());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
 	}
 
 	@Override

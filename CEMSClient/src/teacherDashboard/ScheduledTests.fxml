@@ -39,7 +39,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="searchField" layoutX="23.0" layoutY="40.0" prefHeight="31.0" prefWidth="796.0" promptText="Enter text to search" styleClass="searchRow" />
+                  <JFXTextField fx:id="searchField" focusColor="#2486b6" layoutX="23.0" layoutY="40.0" prefHeight="31.0" prefWidth="796.0" promptText="Enter text to search" styleClass="searchRow" />
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="7.0" layoutY="60.0" size="15" />
                </children>
             </AnchorPane>

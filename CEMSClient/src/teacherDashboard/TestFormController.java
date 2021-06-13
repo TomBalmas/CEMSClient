@@ -164,7 +164,6 @@ public class TestFormController implements Initializable {
 	private int totalNumberOfQuestions = 0;
 	private String testType;
 	final ArrayList<ToggleGroup> questionsToggleGroup = new ArrayList<>();
-	//private Pair<String, String> studentValues;
 	private long startTime = 0;
 	private ArrayList<String> studentValues = new ArrayList<>(4); // SSN, testId, grade, teacherNotes
 	Node teacherDashboardPageLoader = null;
@@ -343,12 +342,13 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * this function adds questions to the test form's scroll pane
+	 * Adds questions to the test form's scroll pane
+	 * @return 
 	 * 
 	 * @throws IOException
 	 *
 	 */
-	public void addQuestionToTestForm(Question q, int questionNumber, int points) throws IOException {
+	public QuestionController addQuestionToTestForm(Question q, int questionNumber, int points) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.QUESTION.getVal()));
 		Node question = loader.load();
 		QuestionController controller = loader.getController();
@@ -376,6 +376,7 @@ public class TestFormController implements Initializable {
 		});
 		questionsToggleGroup.add(controller.getGroup());
 		scrollPane.setContent(vbox);
+		return controller;
 	}
 
 	/**
@@ -392,11 +393,9 @@ public class TestFormController implements Initializable {
 		if (null != testType && testType.equals("STUDENT_LOOK")) {
 			int i = 0;
 			ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
-			for (i = 0; i < ClientController.getGrades().size(); i++) {
-				if (ClientController.getGrades().get(i).getTestId().equals(test.getID())) {
+			for (i = 0; i < ClientController.getGrades().size(); i++)
+				if (ClientController.getGrades().get(i).getTestId().equals(test.getID()))
 					break;
-				}
-			}
 			testGradeLbl.setVisible(true);
 			int studentGrade = ClientController.getGrades().get(i).getGrade();
 			testGradeLbl.setText(studentGrade + "");
@@ -445,7 +444,7 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * back to previous screen
+	 * Move back to previous screen
 	 * 
 	 * @throws IOException
 	 */
@@ -512,7 +511,7 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * upload file
+	 * Upload file
 	 */
 	@FXML
 	void uploadFileClicked(MouseEvent event) {
@@ -530,20 +529,18 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * finish test clicked, load dashboard
+	 * Finish test clicked, load dashboard
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
-		System.out.println(testType);
 		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
 			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
 					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
 					+ scheduledTest.getStartingTime());
-			ClientController.setTestType("Manual");
 		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
@@ -554,8 +551,7 @@ public class TestFormController implements Initializable {
 			// Add the student test to the finished test table
 			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
 					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
-					+ "," + test.getCourse() + "," + "UnChecked");
-			ClientController.setTestType("Computed");
+					+ "," + test.getCourse() + "," + "not checked");
 		}
 
 		// Delete the student from the test
@@ -568,16 +564,9 @@ public class TestFormController implements Initializable {
 		
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
-		if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Computed")) {
-			// If so, lock the computed test
+		if (ClientController.isLastStudentInTest()) {
+			// If so, lock the test
 			ClientController.accept("LOCK_TEST-" + testCode);
-			ClientController.setStudentTest(null);
-			ClientController.setTimeForTest(false);
-			ClientController.setTestLocked(false);
-			ClientController.setLastStudentInTest(false);
-		} else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
-			// If so, lock the manual test
-			ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
 			ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
@@ -656,13 +645,16 @@ public class TestFormController implements Initializable {
 					tg.getToggles().get(ClientController.getStudentAnswers().get(i).getValue() - 1).setSelected(true);
 				i++;
 			}
-			else {
-				
-			}
+		ArrayList<Question> returnedQuestions = setQuestionsFromTest(testId);
+		
+		
+		
 		ClientController.setStudentAnswers(null);
 	}
 	
-	public void setQuestionsFromTest(String testId) {
+	public ArrayList<Question> setQuestionsFromTest(String testId) {
+		ArrayList<Question> returnedQuestions = new ArrayList<Question>();
+		returnedQuestions = ClientController.getQuestions();
 		ClientController.accept("GET_QUESTIONS_FROM_TEST-" + testId);
 		int i = 0;
 		for (ToggleGroup tg : getQuestionsToggleGroup())
@@ -671,9 +663,8 @@ public class TestFormController implements Initializable {
 				i++;
 			}
 		ClientController.setQuestions(null);
+		return returnedQuestions;
 	}
-	
-	
 
 }
  

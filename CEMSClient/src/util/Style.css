@@ -43,15 +43,20 @@
     -fx-background-insets-right: 15px;
     -fx-padding-top: 35px;
     -fx-border-insets-top: 35px;
-    -fx-background-insets-top: 35px;
+    -fx-background-insets-top: 35px;    
 }
 
 .sideBarButton .glyph-icon {
     -fx-fill: white;
 }
 
-.clickedButton {
-	-fx-background-color: #2486b6;
+.longText {
+	-fx-font-size: 24px !important;
+}
+
+.clickedButton, .timepicker-digital-display, .timepicker-close,
+.timepicker-canvas line, .timepicker-tick:hover, .date-picker-popup > .month-year-pane, .picker__date-display, .picker__weekday-display, .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    -fx-background-color: #2486b6;
 }
 
 .downloadFileButton {
@@ -208,10 +213,6 @@
 .fGradeLbl {
 	-fx-background-color: #ffe8e6;
 	-fx-border-color: #f6827a;
-}
-.NaturalLbl {
-	-fx-background-color: #e7e7e7;
-	-fx-border-color: #595869;
 }
 
 .approve {

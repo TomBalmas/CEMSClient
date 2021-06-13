@@ -172,6 +172,12 @@ public class PrincipleDashboardUIController implements Initializable {
 		ClientController.setPrincipleDashboardUIController(this);
 		GeneralUIMethods.setPopupPane(popUpWindow);
 		GeneralUIMethods.setSideBar(menuVBox);
+		GeneralUIMethods.setMenuStyle(activeTestRequestsBtn, menuVBox);
+		try {
+			GeneralUIMethods.loadPage(contentPaneAnchor, (new FXMLLoader(getClass().getResource(Navigator.ACTIVE_TESTS.getVal()))).load());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
