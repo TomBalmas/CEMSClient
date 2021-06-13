@@ -69,7 +69,17 @@ public class ClientController {
 	private static Test studentTest = null;
 	private static Course course;
 	private static boolean studentLocked = false;
+	private static String testType;
 
+	
+
+	public static String getTestType() {
+		return testType;
+	}
+
+	public static void setTestType(String testType) {
+		ClientController.testType = testType;
+	}
 
 	public static boolean isStudentLocked() {
 		return studentLocked;

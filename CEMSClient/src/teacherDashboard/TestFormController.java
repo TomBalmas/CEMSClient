@@ -392,23 +392,18 @@ public class TestFormController implements Initializable {
 		if (null != testType && testType.equals("STUDENT_LOOK")) {
 			int i = 0;
 			ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
-			System.out.println(test.getID());
 			for (i = 0; i < ClientController.getGrades().size(); i++) {
-				System.out.println(i + " " + ClientController.getGrades().get(i).getTestId());
 				if (ClientController.getGrades().get(i).getTestId().equals(test.getID())) {
-					System.out.println("here");
 					break;
 				}
 			}
 			testGradeLbl.setVisible(true);
-			System.out.println(ClientController.getGrades().get(i).getGrade());
 			int studentGrade = ClientController.getGrades().get(i).getGrade();
 			testGradeLbl.setText(studentGrade + "");
 			if (studentGrade < 55)
 				testGradeLbl.getStyleClass().add("fGradeLbl");
 			else
 				testGradeLbl.getStyleClass().add("aGradeLbl");
-			System.out.println(ClientController.getGrades().get(i).getTeacherNotes());
 			teacherNotesOnTest = ClientController.getGrades().get(i).getTeacherNotes();
 			if (null != teacherNotesOnTest
 					&& (!teacherNotesOnTest.equals("")
@@ -541,12 +536,14 @@ public class TestFormController implements Initializable {
 	 */
 	@FXML
 	void finishTestClicked(ActionEvent event) throws IOException {
+		System.out.println(testType);
 		if (fileFullPath != "" || testType.equals("Manual")) { // Manual test
 			ClientController.accept("GET_SCHEDULED_TEST_BY_CODE-" + testCode);
 			ScheduledTest scheduledTest = ClientController.getScheduledTest();
 			ClientController.accept("FILE-" + fileFullPath + "~" + "ADD_MANUAL_TEST-" + test.getID() + ","
 					+ student.getSSN() + "," + scheduledTest.getBelongsToID() + "," + scheduledTest.getDate() + ","
 					+ scheduledTest.getStartingTime());
+			ClientController.setTestType("Manual");
 		} else { // Computed test - save student answers
 			String answers = "";
 			for (ToggleGroup tg : questionsToggleGroup)
@@ -557,7 +554,8 @@ public class TestFormController implements Initializable {
 			// Add the student test to the finished test table
 			ClientController.accept("ADD_FINISHED_TEST-" + student.getSSN() + "," + test.getID() + "," + testCode + ","
 					+ ((System.currentTimeMillis() - startTime) / 60000) + "," + submittedBy + "," + test.getTitle()
-					+ "," + test.getCourse() + "," + "not checked");
+					+ "," + test.getCourse() + "," + "UnChecked");
+			ClientController.setTestType("Computed");
 		}
 
 		// Delete the student from the test
@@ -570,9 +568,16 @@ public class TestFormController implements Initializable {
 		
 		// Check if its the last student in the
 		ClientController.accept("IS_LAST_STUDENT_IN_TEST-" + testCode);
-		if (ClientController.isLastStudentInTest()) {
-			// If so, lock the test
+		if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Computed")) {
+			// If so, lock the computed test
 			ClientController.accept("LOCK_TEST-" + testCode);
+			ClientController.setStudentTest(null);
+			ClientController.setTimeForTest(false);
+			ClientController.setTestLocked(false);
+			ClientController.setLastStudentInTest(false);
+		} else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
+			// If so, lock the manual test
+			ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
 			ClientController.setStudentTest(null);
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
@@ -644,7 +649,6 @@ public class TestFormController implements Initializable {
 	public void setStudentAnswers(String testId, String studentSSN) {
 		// Get students answers and select them
 		ClientController.accept("GET_STUDENT_ANSWERS_BY_SSN_AND_TEST_ID-" + testId + "," + studentSSN);
-		System.out.println(ClientController.getStudentAnswers().get(0).getValue());
 		int i = 0;
 		for (ToggleGroup tg : getQuestionsToggleGroup())
 			if (!ClientController.getStudentAnswers().isEmpty() && !ClientController.getStudentAnswers().get(0).getKey().equals("studentDidn'tTakeTest")) {
