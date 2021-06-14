@@ -89,7 +89,6 @@ public class ScheduledTestsController implements Initializable {
 	@FXML
 	private JFXButton searchBtn;
 
-	private final ObservableList<ScheduleTestRow> dataList = FXCollections.observableArrayList();
 	@FXML
 	private AnchorPane testAnchor;
 
@@ -101,6 +100,9 @@ public class ScheduledTestsController implements Initializable {
 
 	@FXML
 	private AnchorPane testAnchor2;
+	
+	private final ObservableList<ScheduleTestRow> dataList = FXCollections.observableArrayList();
+	PopUp p;
 
 	public class ScheduleTestRow {
 		private String title;
@@ -230,7 +232,7 @@ public class ScheduledTestsController implements Initializable {
 			for (ScheduledTest test : scheduledTests) {
 				ScheduleTestRow tr = new ScheduleTestRow(test);
 				scheduledTestsTbl.getItems().add(tr);
-				dataList.add(tr); // add row to dataList to search field.
+				dataList.add(tr); // Add row to dataList to search field.
 				// View button
 				tr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -243,7 +245,7 @@ public class ScheduledTestsController implements Initializable {
 					}
 				});
 
-				// remove button functionality
+				// Remove button functionality
 				tr.getRemoveBtn().setOnMouseClicked(e -> {
 					ScheduleTestRow toDelete = tr;
 					JFXButton yesBtn = new JFXButton("Yes");
@@ -281,6 +283,19 @@ public class ScheduledTestsController implements Initializable {
 					cont.getTestNameLbl().setText(tr.getTitle());
 					cont.getCodeTxt().setText(tr.getCode());
 					cont.getSetDateBtn().setOnMouseClicked(e2 -> {
+						JFXButton approveBtn = new JFXButton("Okay");
+						approveBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+							p.closePopUp();
+						});	
+						// Check if empty fields
+						if (cont.getCodeTxt().getText().isEmpty()
+								|| cont.getDateDP().getValue() == null
+								|| cont.getTimeTP().getValue() == null) {
+							p = new PopUp(PopUp.TYPE.ALERT, "Error", "Some fields are missing", contentPaneAnchor,
+									Arrays.asList(approveBtn), null);
+							return;
+						}
+						else {
 						ClientController.accept("RESCHEDULE_TEST-" + tr.getCode() + ","
 								+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 								+ cont.getTimeTP().getValue().toString());
@@ -300,6 +315,7 @@ public class ScheduledTestsController implements Initializable {
 						} else
 							new PopUp(PopUp.TYPE.SCHEDULE, "Failed", "Tests reschedule failed", contentPaneAnchor, null,
 									null);
+						}
 					});
 				});
 			}

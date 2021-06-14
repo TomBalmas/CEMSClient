@@ -75,6 +75,10 @@ public class PopUp {
 		root.toBack();
 	}
 
+	public void closePopUp() {
+		dialog.close();
+	}
+	
 	public void setBlur() {
 		// Blur the background and prevent from user to access anywhere but the popup
 		if (nodeToBeBlurred != null) {
@@ -96,7 +100,10 @@ public class PopUp {
 				if (nodeToBeBlurred != null)
 					nodeToBeBlurred.removeEventFilter(MouseEvent.ANY, handler);
 				sideBar.removeEventFilter(MouseEvent.ANY, handler);
-				hidePopUp();
+				if (type == TYPE.ALERT) 
+					dialog.close();
+				else
+					hidePopUp();
 			});
 		});
 	}
