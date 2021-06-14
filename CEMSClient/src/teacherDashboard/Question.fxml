@@ -36,7 +36,7 @@
       </VBox>
       <ImageView fx:id="wrongAnswerImage" fitHeight="100.0" fitWidth="200.0" layoutX="392.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" visible="false" x="150.0" y="175.0">
          <image>
-            <Image url="@../../lib/wrongAnswer.png" />
+            <Image url="@../loginScreen/wrongAnswer.png" />
          </image>
       </ImageView>
    </children>
