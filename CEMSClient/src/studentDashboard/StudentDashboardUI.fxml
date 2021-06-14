@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../lib/logo.png" />
+                  <Image url="@../loginScreen/logo.png" />
                </image>
                <VBox.margin>
                   <Insets left="15.0" top="15.0" />
@@ -57,7 +57,7 @@
             </JFXButton>
             <JFXButton fx:id="signOutBtn" onMouseClicked="#signOutClicked" prefHeight="85.0" prefWidth="283.0" styleClass="signOutButton" text="Sign Out" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="380.0" />
+                  <Insets top="275.0" />
                </VBox.margin>
             </JFXButton>
          </children></VBox>
