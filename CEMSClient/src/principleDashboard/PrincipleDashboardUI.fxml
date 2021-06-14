@@ -96,7 +96,7 @@
                </VBox.margin>
             </JFXButton>
          </children></VBox>
-      <AnchorPane fx:id="filterAnchor" layoutX="959.0" layoutY="-20.0" prefHeight="64.0" prefWidth="250.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.rightAnchor="58.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="959.0" layoutY="-20.0" prefHeight="64.0" prefWidth="230.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.rightAnchor="58.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" layoutX="26.0" layoutY="26.0" prefHeight="31.0" prefWidth="283.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                <children>

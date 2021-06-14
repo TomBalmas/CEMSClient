@@ -399,10 +399,10 @@ JFXTextArea .paragraph-box .paragraph-text {
 }
 
 .ErrorLine {
-    -jfx-focus-color: #A60204;
-    -jfx-unfocus-color: #A60204;
+  -jfx-focus-color: #A60204;
+  -jfx-unfocus-color: #A60204;
 }
 
-.searchRow::before {
-  content: "Read this -";
+.default-color0.chart-bar {
+  -fx-bar-fill: #2486b6;
 }
