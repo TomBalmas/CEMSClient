@@ -121,8 +121,8 @@ public class ViewReportsController implements Initializable {
 		private String reportId;
 		private String testID;
 		private int numberOfStudents;
-		private double average;
-		private double median;
+		private String average;
+		private String median;
 		private JFXButton ViewBtn;
 		Report report;
 
@@ -131,8 +131,8 @@ public class ViewReportsController implements Initializable {
 			this.reportId = report.getId();
 			testID = report.getTestId();
 			numberOfStudents = report.getNumberOfStudents();
-			average = report.getAverage();
-			median = report.getMedian();
+			 median = new DecimalFormat("##.##").format(report.getMedian());
+			 average = new DecimalFormat("##.##").format(report.getAverage());
 			this.ViewBtn = new JFXButton();
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
 		}
@@ -161,19 +161,19 @@ public class ViewReportsController implements Initializable {
 			this.numberOfStudents = numberOfStudents;
 		}
 
-		public double getAverage() {
+		public String getAverage() {
 			return average;
 		}
 
-		public void setAverage(double average) {
+		public void setAverage(String average) {
 			this.average = average;
 		}
 
-		public double getMedian() {
+		public String getMedian() {
 			return median;
 		}
 
-		public void setMedian(double median) {
+		public void setMedian(String median) {
 			this.median = median;
 		}
 
@@ -236,8 +236,8 @@ public class ViewReportsController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
 							ReportForm = loader.load();
 							reportFormController = loader.getController();
-							String median = new DecimalFormat("##.##").format(reportRow.getMedian());
-							String average = new DecimalFormat("##.##").format(reportRow.getAverage());
+							String median = reportRow.getMedian();
+							String average = reportRow.getAverage();
 							reportFormController.getAverageTxt().setText(average);
 							reportFormController.getMedianTxt().setText(median);
 							reportFormController.getTotalStudentsTxt().setText(studentsDetails.get(0).toString());
