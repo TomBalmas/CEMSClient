@@ -2,6 +2,7 @@ package principleDashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -235,8 +236,8 @@ public class ViewReportsController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.REPORT_FORM.getVal()));
 							ReportForm = loader.load();
 							reportFormController = loader.getController();
-							String average = String.valueOf(reportRow.getAverage());
-							String median = String.valueOf(reportRow.getMedian());
+							String median = new DecimalFormat("##.##").format(reportRow.getMedian());
+							String average = new DecimalFormat("##.##").format(reportRow.getAverage());
 							reportFormController.getAverageTxt().setText(average);
 							reportFormController.getMedianTxt().setText(median);
 							reportFormController.getTotalStudentsTxt().setText(studentsDetails.get(0).toString());
