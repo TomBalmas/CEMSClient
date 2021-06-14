@@ -21,6 +21,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,84 +55,104 @@ public class AddingNewTestUIController implements Initializable {
 	ObservableList<String> fields = FXCollections.observableArrayList();
 	ObservableList<String> courses = FXCollections.observableArrayList();
 	ObservableList<String> durationList = FXCollections.observableArrayList();
+	
+    @FXML
+    private AnchorPane contentPaneAnchor;
+    
+    @FXML
+    private StackPane popUpWindow;
 
-	@FXML
-	private AnchorPane contentPaneAnchor;
+    @FXML
+    private AnchorPane setParametersAnchor;
 
-	@FXML
-	private AnchorPane setParametersAnchor;
+    @FXML
+    private AnchorPane insidesetParametersAnchor;
 
-	@FXML
-	private AnchorPane insidesetParametersAnchor;
+    @FXML
+    private AnchorPane parameterTitleAnchor;
 
-	@FXML
-	private AnchorPane parameterTitleAnchor;
+    @FXML
+    private AnchorPane insideparameterTitleAnchor;
 
-	@FXML
-	private AnchorPane insideparameterTitleAnchor;
+    @FXML
+    private TableView<QuestionRow> questionTable;
 
-	@FXML
-	private TableView<QuestionRow> questionTable;
+    @FXML
+    private TableColumn<?, ?> selectCol;
 
-	@FXML
-	private TableColumn<?, ?> selectCol;
+    @FXML
+    private TableColumn<?, ?> idCol;
 
-	@FXML
-	private TableColumn<?, ?> idCol;
+    @FXML
+    private TableColumn<?, ?> authorCol;
 
-	@FXML
-	private TableColumn<?, ?> authorCol;
+    @FXML
+    private TableColumn<?, ?> textCol;
 
-	@FXML
-	private TableColumn<?, ?> textCol;
+    @FXML
+    private TableColumn<?, ?> viewCol;
 
-	@FXML
-	private TableColumn<?, ?> viewCol;
+    @FXML
+    private VBox parametersVBox;
 
-	@FXML
-	private VBox parametersVBox;
+    @FXML
+    private JFXComboBox<String> selectFieldCBox;
 
-	@FXML
-	private JFXComboBox<String> selectFieldCBox;
+    @FXML
+    private JFXComboBox<String> selectCourseCBox;
 
-	@FXML
-	private JFXComboBox<String> selectCourseCBox;
+    @FXML
+    private JFXTextField titleTxt;
 
-	@FXML
-	private JFXTextField titleTxt;
+    @FXML
+    private JFXComboBox<String> durationCbox;
 
-	@FXML
-	private JFXComboBox<String> durationCbox;
+    @FXML
+    private JFXTextArea teacherInstructionsTxtArea;
 
-	@FXML
-	private JFXTextArea teacherInstructionsTxtArea;
+    @FXML
+    private JFXTextArea studentInstructionsTxtArea;
 
-	@FXML
-	private JFXTextArea studentInstructionsTxtArea;
+    @FXML
+    private AnchorPane testAnchor;
 
-	@FXML
-	private AnchorPane testAnchor;
+    @FXML
+    private ScrollPane testScrollPane;
 
-	@FXML
-	private ScrollPane testScrollPane;
+    @FXML
+    private Label headTitleLbl;
 
-	@FXML
-	private Label headTitleLbl;
+    @FXML
+    private JFXButton backBtn;
 
-	@FXML
-	private JFXButton backBtn;
+    @FXML
+    private JFXButton finishBtn;
 
-	@FXML
-	private JFXButton finishBtn;
+    @FXML
+    private JFXButton previewTestBtn;
 
-	@FXML
-	private JFXButton previewTestBtn;
+    @FXML
+    private JFXButton continueWithParametersBtn;
 
-	@FXML
-	private JFXButton continueWithParametersBtn;
+    @FXML
+    private AnchorPane questionAnchor;
 
-	@FXML
-	private StackPane popUpWindow;
+    @FXML
+    private ScrollPane questionScrollPane;
+
+    @FXML
+    private AnchorPane testAnchor2;
+
+    @FXML
+    private JFXButton backToPageBtn;
+    
+    @FXML
+    void backToPageBtnClicked(MouseEvent event) {
+		questionAnchor.setVisible(false);
+		questionAnchor.toBack();
+		backBtn.setVisible(true);
+		previewTestBtn.setVisible(true);
+    }
 
 	public TableView<QuestionRow> getQuestionTable() {
 		return questionTable;
@@ -230,9 +252,8 @@ public class AddingNewTestUIController implements Initializable {
 			durationList.add(String.valueOf(i));
 		durationCbox.setItems(durationList);
 		durationCbox.getSelectionModel().select(6);
-		popUpWindow.toBack();
 		pickedQuestions = new HashSet<>();
-
+		savedPickedQuestion = new HashSet<>();
 		// Add fields to the combo box
 		if (ClientController.getRoleFrame().equals("Teacher")) {
 			Teacher teacher = (Teacher) ClientController.getActiveUser();
@@ -261,24 +282,35 @@ public class AddingNewTestUIController implements Initializable {
 				courses.add(course.getName());
 			selectCourseCBox.setItems(courses);
 			// Set the rows of the table
+			if (ClientController.getQuestions() == null) {
+				new PopUp(PopUp.TYPE.ERROR, "Error", "There are no questions in this field. Please create a question or change field.", contentPaneAnchor, null, null);
+				continueWithParametersBtn.setDisable(true);
+				return;
+			}
+			else
+				continueWithParametersBtn.setDisable(false);
 			for (Question q : questions) {
 				QuestionRow qr = new QuestionRow(q);
 				questionTable.getItems().add(qr);
 				if (pickedQuestions.contains(q))
 					flag = true;
-				qr.getViewBtn().setOnAction(e -> {
-					FXMLLoader questionFormPageLoader = new FXMLLoader(
-							getClass().getResource(Navigator.QUESTION_FORM.getVal()));
-					try {
-						QuestionForm = questionFormPageLoader.load();
-						QuestionForm.toFront();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					{
+				qr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						FXMLLoader questionFormPageLoader = new FXMLLoader(
+								getClass().getResource(Navigator.QUESTION_FORM.getVal()));
+						try {
+							QuestionForm = questionFormPageLoader.load();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						questionAnchor.setVisible(true);
+						questionAnchor.toFront();
+						backBtn.setVisible(false);
+						previewTestBtn.setVisible(false);
 						questionFormUIController = questionFormPageLoader.getController();
 						questionFormUIController.getQuestionContentTxt().setText(q.getQuestionText());
-						// questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer()).setSelected(true);
+						questionFormUIController.getAnswerBtns().get(q.getCorrectAnswer() - 1).setSelected(true);
 						questionFormUIController.getNewQuestionFormLbl()
 								.setText("Viewing question " + qr.getID() + " by " + qr.getAuthor());
 						questionFormUIController.getQuestionContentTxt().setEditable(false);
@@ -289,44 +321,32 @@ public class AddingNewTestUIController implements Initializable {
 							questionFormUIController.getAnswerBtns().get(p).setDisable(true);
 							questionFormUIController.getSaveBtn().setVisible(false);
 						}
+						AnchorPane.setTopAnchor(questionFormUIController.getInsideContentAnchor(), 0.0);
+						AnchorPane.setBottomAnchor(questionFormUIController.getInsideContentAnchor(), 0.0);
+						AnchorPane.setLeftAnchor(questionFormUIController.getInsideContentAnchor(), 0.0);
+						AnchorPane.setRightAnchor(questionFormUIController.getInsideContentAnchor(), 0.0);
+						GeneralUIMethods.loadPage(testAnchor2, QuestionForm);
 					}
-					;
-					GeneralUIMethods.getPopupPane().setTranslateX(-208);
-					GeneralUIMethods.getPopupPane().setTranslateY(-280);
-					questionFormUIController.getQuestionsTxtAnchor().setTranslateY(-1
-							* (questionFormUIController.getQuestionsTxtAnchor().getLayoutY()
-									- questionFormUIController.getQuestionContentTxt().getLayoutY())
-							- 1 * GeneralUIMethods.resizeTxtArea(questionFormUIController.getQuestionContentTxt())
-							+ 80);
-					questionFormUIController.getContentPaneAnchor().prefHeightProperty()
-							.bind(testScrollPane.heightProperty().add(20));
-					questionFormUIController.getContentPaneAnchor().prefWidthProperty()
-							.bind(testScrollPane.widthProperty());
-					questionFormUIController.getInsideContentAnchor().prefHeightProperty()
-							.bind(testScrollPane.heightProperty().subtract(100));
-					questionFormUIController.getQuestionAnchor().prefHeightProperty()
-							.bind(testScrollPane.heightProperty().subtract(100));
-					new PopUp(PopUp.TYPE.INFORM, "VIEW_QUESTION", "", contentPaneAnchor,
-							Arrays.asList(new JFXButton("Cancel")), questionFormPageLoader);
 				});
 				// Set the picked questions string
-				if (pickedQuestions.size() == 0)
+				if (pickedQuestions.size() == 0 && savedPickedQuestion.size() == 0)
 					previewTestBtn.setDisable(true);
 				if (pickedQuestions.contains(q))
 					qr.getCheckBox().setSelected(true);
 				qr.getCheckBox().setOnAction(eventCheck -> {
 					if (qr.getCheckBox().isSelected()) {
 						pickedQuestions.add(q);
+						savedPickedQuestion.add(q);
 						previewTestBtn.setDisable(false);
 					} else {
 						pickedQuestions.remove(q);
-						if (pickedQuestions.size() == 0)
+						savedPickedQuestion.remove(q);
+						if (pickedQuestions.size() == 0 && savedPickedQuestion.size() == 0)
 							previewTestBtn.setDisable(true);
 					}
 				});
 			}
 			if (flag) {
-				savedPickedQuestion = new HashSet<>();
 				savedPickedQuestion.addAll(pickedQuestions);
 				pickedQuestions.clear();
 			}

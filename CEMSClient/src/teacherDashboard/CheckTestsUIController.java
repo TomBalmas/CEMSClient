@@ -243,7 +243,7 @@ public class CheckTestsUIController implements Initializable {
 		if (ClientController.getFinishedTests() != null
 				&& (ClientController.getFinishedTests().get(0).getAuthorName()) != null)
 			tests.addAll(ClientController.getFinishedTests());
-
+		ClientController.setFinishedTests(null);
 		testIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

@@ -118,17 +118,12 @@ public class TestBankUIController implements Initializable {
 
 	private Node TestFormNode, addNewTest, AddingFormNode;
 	private FXMLLoader TestFormLoader;
-
-	public JFXButton getAddNewTestButton() {
-		return addNewTestButton;
-	}
-
 	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
 	private final ObservableList<TestRow> datarow = FXCollections.observableArrayList();
-
-	@FXML
-	void searchBtnClicked(MouseEvent event) {
-
+	PopUp p;
+	
+	public JFXButton getAddNewTestButton() {
+		return addNewTestButton;
 	}
 
 	/**
@@ -359,16 +354,20 @@ public class TestBankUIController implements Initializable {
 						SetTestDateController cont = loader.getController();
 						cont.getTestNameLbl().setText(tr.getTestName());
 						cont.getSetDateBtn().setOnMouseClicked(e -> {
+							JFXButton approveBtn = new JFXButton("Okay");
+							approveBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+								p.closePopUp();
+							});	
 							if (cont.getCodeTxt().getText().isEmpty()
-									|| cont.getDateDP().getValue().toString().isEmpty()
-									|| cont.getTimeTP().toString().isEmpty()) {
-								new PopUp(PopUp.TYPE.ERROR, "Error", "Some fields are missing", contentPaneAnchor, null,
-										null);
+									|| cont.getDateDP().getValue() == null
+									|| cont.getTimeTP().getValue() == null) {
+								p = new PopUp(PopUp.TYPE.ALERT, "Error", "Some fields are missing", contentPaneAnchor,
+										Arrays.asList(approveBtn), null);
 								return;
 							} else if (cont.getCodeTxt().getText().length() != 4) {
-								new PopUp(PopUp.TYPE.ERROR, "Error",
+								p = new PopUp(PopUp.TYPE.ALERT, "Error",
 										"Test code must be assembled from 4 chars and/or numbers", contentPaneAnchor,
-										null, null);
+										Arrays.asList(approveBtn), null);
 								return;
 							}
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
@@ -380,7 +379,7 @@ public class TestBankUIController implements Initializable {
 								okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
 									scheduleTestPopUp.hidePopUp();
 								});
-								new PopUp(PopUp.TYPE.ALERT, "Success", "Tests scheduled successfully",
+								new PopUp(PopUp.TYPE.INFORM, "Success", "Tests scheduled successfully",
 										contentPaneAnchor, Arrays.asList(okayBtn), null);
 							} else
 								new PopUp(PopUp.TYPE.ALERT, "Failed", "Tests schedule failed, that code already exsist",
@@ -397,24 +396,20 @@ public class TestBankUIController implements Initializable {
 						yesBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 							ClientController.accept("DELETE_TEST-" + tr.test.getID());
 							if (ClientController.isTestDeleted()) {
-								TestRow selectedItem = testTable.getSelectionModel().getSelectedItem();
-								if (selectedItem != null)
-									testTable.getItems().remove(selectedItem);
-								JFXButton okayBtn = new JFXButton("Okay");
-								okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
-									try {
-										GeneralUIMethods.loadPage(contentPaneAnchor,
-												FXMLLoader.load(getClass().getResource(Navigator.TEST_BANK.getVal())));
-									} catch (IOException e2) {
-										e2.printStackTrace();
-									}
-								});
-								new PopUp(PopUp.TYPE.INFORM, "Information",
-										"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor,
-										Arrays.asList(okayBtn), null);
+									JFXButton okayBtn = new JFXButton("Okay");
+									okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
+										try {
+											GeneralUIMethods.loadPage(contentPaneAnchor, FXMLLoader
+													.load(getClass().getResource(Navigator.TEST_BANK.getVal())));
+										} catch (IOException e2) {
+											e2.printStackTrace();
+										}
+									});
+									new PopUp(PopUp.TYPE.INFORM, "Information",
+											"The test " + tr.getTestId() + " has been deleted", contentPaneAnchor,
+											Arrays.asList(okayBtn), null);
 							}
 						});
-
 						new PopUp(PopUp.TYPE.ALERT, "Alert", "Are you sure that you want to delete this test?",
 								contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 					}
