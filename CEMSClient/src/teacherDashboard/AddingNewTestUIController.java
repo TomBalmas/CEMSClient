@@ -429,15 +429,27 @@ public class AddingNewTestUIController implements Initializable {
 				// Adding questions to preview
 				for (Question q : savedPickedQuestion) {
 					controller.addQuestionToTestForm(q, i, 100 / savedPickedQuestion.size());
-					controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer())
-							.setSelected(true);
+					if (controller.getQuestionsToggleGroup().size() > 0) {
+						controller.getQuestionsToggleGroup().get(i - 1).getToggles().forEach(toggle -> {
+						    Node node = (Node) toggle;
+						    node.setDisable(true);
+						});
+						controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer()-1)
+								.setSelected(true);
+					}
 					i++;
 				}
 			else if (pickedQuestions != null) // Adding questions to preview
 				for (Question q : pickedQuestions) {
 					controller.addQuestionToTestForm(q, i, 100 / pickedQuestions.size());
-					controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer())
-							.setSelected(true);
+					if (controller.getQuestionsToggleGroup().size() > 0) {
+						controller.getQuestionsToggleGroup().get(i - 1).getToggles().forEach(toggle -> {
+						    Node node = (Node) toggle;
+						    node.setDisable(true);
+						});
+						controller.getQuestionsToggleGroup().get(i - 1).getToggles().get(q.getCorrectAnswer()-1)
+								.setSelected(true);
+					}
 					i++;
 				}
 			GeneralUIMethods.loadPage(testAnchor, test);

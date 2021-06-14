@@ -42,38 +42,38 @@ import util.PopUp;
 
 public class CreateReportController implements Initializable {
 
-    @FXML
-    private AnchorPane contentPaneAnchor;
+	@FXML
+	private AnchorPane contentPaneAnchor;
 
-    @FXML
-    private AnchorPane filterAnchor;
+	@FXML
+	private AnchorPane filterAnchor;
 
-    @FXML
-    private AnchorPane insideFilterAnchor;
+	@FXML
+	private AnchorPane insideFilterAnchor;
 
-    @FXML
-    private JFXComboBox<?> selectTypeCbox;
+	@FXML
+	private JFXComboBox<?> selectTypeCbox;
 
-    @FXML
-    private Label selectCourseLbl;
+	@FXML
+	private Label selectCourseLbl;
 
-    @FXML
-    private MenuButton menuBtn;
+	@FXML
+	private MenuButton menuBtn;
 
-    @FXML
-    private AnchorPane tableViewAnchor;
+	@FXML
+	private AnchorPane tableViewAnchor;
 
-    @FXML
-    private TableView<Row> reportsTbl;
+	@FXML
+	private TableView<Row> reportsTbl;
 
-    @FXML
-    private TableColumn<?, ?> nameCol;
+	@FXML
+	private TableColumn<?, ?> nameCol;
 
-    @FXML
-    private TableColumn<?, ?> IDCol;
+	@FXML
+	private TableColumn<?, ?> IDCol;
 
-    @FXML
-    private JFXButton createReportBtn;
+	@FXML
+	private JFXButton createReportBtn;
 
 	ArrayList<Student> students = null;
 	ArrayList<Teacher> teachers = null;
@@ -87,7 +87,7 @@ public class CreateReportController implements Initializable {
 	String median;
 	String average;
 
-	//row to be presented in table view.General for student,course,teCacher
+	// row to be presented in table view.General for student,course,teCacher
 	public class Row {
 		private String id;
 		private String author;
@@ -180,8 +180,8 @@ public class CreateReportController implements Initializable {
 								report = ClientController.getReport();
 								// if report is not empty
 								if (report.isFlag()) {
-									median = String.valueOf(report.getMedian());
-									average = String.valueOf(report.getAverage());
+									median = new DecimalFormat("##.##").format(report.getAverage());
+									average = new DecimalFormat("##.##").format(report.getAverage());									
 									GeneralUIMethods.loadPage(contentPaneAnchor, createReport);
 									if (Double.parseDouble(average) < 55)
 										reportFormController.getAverageTxt().getStyleClass().add("fGradeLbl");
@@ -213,27 +213,22 @@ public class CreateReportController implements Initializable {
 										reportFormController.setSet(set);
 										GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 									}
-								} else {
-
-									new PopUp(PopUp.TYPE.INFORM, "Information", "Relevant tests doesnt exist " + " ",
-											contentPaneAnchor, null, null);
 								}
+								else
+									new PopUp(PopUp.TYPE.INFORM, "Information", "Relevant tests does not exsist ",
+											contentPaneAnchor, null, null);
 							}
-							// courses not selected
+							// Courses not selected
 							else {
 								menuBtn.lookup(".arrow").setStyle("-fx-background-color: teal;");
 								new PopUp(PopUp.TYPE.INFORM, "Information", "" + "Please select courses",
 										contentPaneAnchor, null, null);
-
 							}
-
 						}
-
-						// teachers report
+						// Teachers report
 						if (selectTypeCbox.getValue().equals("Teacher")) {
 							createReportBtn.setDisable(true);
 							reportFormController.setUserNameLbl("Teacher");
-
 							ClientController.accept("CREATE_TEACHER_REPORT-" + selected.getId());
 							Report teachersReport = ClientController.getReport();
 							if (teachersReport.isFlag()) {
@@ -274,13 +269,13 @@ public class CreateReportController implements Initializable {
 								GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 							} else {
 								new PopUp(PopUp.TYPE.INFORM, "Information",
-										"Cant create report. " + "Relevant tests doesnt exist ", contentPaneAnchor,
+										"Cant create report. " + "Relevant tests does not exist ", contentPaneAnchor,
 										null, null);
 							}
 
 						}
 
-						// create course report
+						// Create course report
 						if (selectTypeCbox.getValue().equals("Courses")) {
 							createReportBtn.setDisable(true);
 							if (selected != null) {
@@ -322,11 +317,10 @@ public class CreateReportController implements Initializable {
 									reportFormController.getyAxisGrades().setLabel("Value");
 									GeneralUIMethods.loadPage(contentPaneAnchor, ReportForm);
 
-								} else {
+								} else
 									new PopUp(PopUp.TYPE.INFORM, "Information",
-											"Cant create report.Relevant tests doesnt exist" + " ", contentPaneAnchor,
+											"Cant create report. Relevant tests does not exsist", contentPaneAnchor,
 											null, null);
-								}
 							}
 						}
 					}
@@ -334,7 +328,6 @@ public class CreateReportController implements Initializable {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
 			}
 
 		};
@@ -371,9 +364,7 @@ public class CreateReportController implements Initializable {
 							menuItem.setHideOnClick(false);
 							menuBtn.getItems().add(menuItem);
 							checkMenuItems.add(checkBox);
-
 						}
-
 					}
 
 					else {
@@ -381,19 +372,15 @@ public class CreateReportController implements Initializable {
 								insideFilterAnchor, null, null);
 						menuBtn.getItems().clear();
 						coursesSelection.clear();
-
 					}
 					coursesSelection.clear();
 					ClientController.setCourses(null);
-
 				}
-
 			}
 
 		});
 
 		selectTypeCbox.setOnAction((event) -> {
-
 			Object selectedItem = selectTypeCbox.getSelectionModel().getSelectedItem();
 			if (selectTypeCbox.getValue().equals("Student")) {
 				menuBtn.setVisible(true);
@@ -401,7 +388,7 @@ public class CreateReportController implements Initializable {
 				ClientController.accept("GET_STUDENTS-");
 				students = ClientController.getStudents();
 				reportsTbl.getItems().clear();
-				if (students != null) 
+				if (students != null)
 					for (int i = 0; i < students.size(); i++) {
 						Row usersRow = new Row(students.get(i));
 						tableViewAnchor.setMouseTransparent(false);
@@ -420,7 +407,7 @@ public class CreateReportController implements Initializable {
 						reportsTbl.getItems().add(courseRow);
 					}
 				}
-			// teacher
+			// Teacher
 			} else {
 				menuBtn.setVisible(false);
 				selectCourseLbl.setVisible(false);

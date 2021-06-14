@@ -29,7 +29,7 @@
             <String fx:value="button" />
          </styleClass>
       </JFXButton>
-      <AnchorPane fx:id="insideContentAnchor" layoutX="73.0" layoutY="72.0" maxHeight="678.0" maxWidth="874.0" prefHeight="678.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane fx:id="insideContentAnchor" layoutX="73.0" layoutY="72.0" maxHeight="678.0" maxWidth="874.0" prefHeight="678.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="58.0">
          <children>
             <AnchorPane fx:id="questionAnchor" maxHeight="628.0" maxWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>

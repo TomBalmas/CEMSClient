@@ -96,9 +96,7 @@ public class PopUp {
 				if (nodeToBeBlurred != null)
 					nodeToBeBlurred.removeEventFilter(MouseEvent.ANY, handler);
 				sideBar.removeEventFilter(MouseEvent.ANY, handler);
-				dialog.close();
-				if (type == TYPE.LOGIN)
-					root.toBack();
+				hidePopUp();
 			});
 		});
 	}

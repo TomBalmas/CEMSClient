@@ -305,6 +305,7 @@ public class TestBankUIController implements Initializable {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.TEST_FORM.getVal()));
 						testAnchor.setVisible(true);
 						testAnchor.toFront();
+						addNewTestButton.setVisible(false);
 						GeneralUIMethods.buildTestForm(testAnchor2, testScrollPane, tr.getTestId(), "", loader);
 					}
 				});
@@ -473,6 +474,7 @@ public class TestBankUIController implements Initializable {
 	void backToPageBtnClicked(MouseEvent event) {
 		testAnchor.setVisible(false);
 		testAnchor.toBack();
+		addNewTestButton.setVisible(true);
 	}
 
 }

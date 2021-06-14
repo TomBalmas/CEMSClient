@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TestBankUIController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="62.0" prefHeight="117.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="58.0" prefHeight="117.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <AnchorPane fx:id="insideFilterAnchor" minHeight="77.0" prefHeight="77.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
                   <Label fx:id="testBankLbl" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Test Bank">
                      <font>
@@ -57,7 +57,7 @@
             <FontAwesomeIconView glyphName="PLUS" layoutX="144.0" layoutY="82.0" size="15" /> 
          </graphic>
       </JFXButton>
-      <AnchorPane fx:id="testAnchor" layoutX="63.0" layoutY="40.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
+      <AnchorPane fx:id="testAnchor" layoutX="63.0" layoutY="40.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="58.0">
          <children>
             <JFXButton fx:id="backToPageBtn" onMouseClicked="#backToPageBtnClicked" styleClass="littleBackBtn" text="&lt;   Back to tests bank" textAlignment="CENTER" />
             <ScrollPane fx:id="testScrollPane" prefHeight="750.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">

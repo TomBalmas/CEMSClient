@@ -12,27 +12,32 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="principleDashboard.CreateReportController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="54.0" prefHeight="142.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="54.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="54.0" prefHeight="161.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="54.0">
          <children>
-            <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <AnchorPane fx:id="insideFilterAnchor" prefHeight="123.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
                   <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="pageTitle" text="Create New Report">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="selectTypeCbox" focusColor="#2486b6" layoutY="62.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
-                  <Label layoutY="41.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
-                  <Label fx:id="selectCourseLbl" layoutX="186.0" layoutY="39.0" prefHeight="21.0" styleClass="pageLabel" text="Select course" visible="false" />
-                  <MenuButton fx:id="menuBtn" layoutX="162.0" layoutY="60.0" mnemonicParsing="false" text="Select Courses" textFill="#010011" underline="true">
+                  <JFXComboBox fx:id="selectTypeCbox" focusColor="#2486b6" layoutY="81.0" prefHeight="25.0" prefWidth="123.0" promptText="Select Type" styleClass="selector" visibleRowCount="3" />
+                  <Label layoutY="60.0" prefHeight="21.0" prefWidth="162.0" styleClass="pageLabel" text="Select report type" />
+                  <Label fx:id="selectCourseLbl" layoutX="162.0" layoutY="60.0" prefHeight="21.0" styleClass="pageLabel" text="Select course" visible="false" />
+                  <MenuButton fx:id="menuBtn" layoutX="162.0" layoutY="85.0" mnemonicParsing="false" text="Select Courses" textFill="#010011" underline="true">
                      <font>
                         <Font size="13.0" />
                      </font></MenuButton>
+                  <Label fx:id="timeLeftLbl1" layoutY="30.0" text="Click on the id column in the row that you wish to create report">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="205.0" prefHeight="515.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="226.0" prefHeight="504.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
             <TableView fx:id="reportsTbl" prefHeight="450.0" prefWidth="875.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
@@ -42,11 +47,14 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="createReportBtn" layoutX="875.0" layoutY="736.0" text="Create">
+      <JFXButton fx:id="createReportBtn" layoutX="856.0" layoutY="737.0" text="Create" AnchorPane.bottomAnchor="15.0">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="btn" />
          </styleClass>
+         <font>
+            <Font size="19.0" />
+         </font>
       </JFXButton>
    </children>
 </AnchorPane>

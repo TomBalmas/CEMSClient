@@ -50,7 +50,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="manualTestCheck" layoutX="83.0" layoutY="60.0" prefHeight="160.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="25.0">
+      <AnchorPane fx:id="manualTestCheck" layoutX="63.0" layoutY="51.0" prefHeight="701.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" visible="false" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="50.0">
          <children>
             <AnchorPane prefHeight="122.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="35.0">
                <children>
@@ -59,13 +59,7 @@
                         <Font name="System Bold" size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextArea fx:id="notesTxtArea1" focusColor="#2486b6" layoutX="4.0" layoutY="202.0" prefHeight="429.0" prefWidth="811.0" promptText="Notes for the student" styleClass="fileCommentsTxtArea" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
-                  <JFXButton fx:id="updateBtn1" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="747.0" layoutY="653.0" onMouseClicked="#updateBtnClicked" text="Update" textAlignment="CENTER">
-                     <styleClass>
-                        <String fx:value="filterButton" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </JFXButton>
+                  <JFXTextArea fx:id="notesTxtArea1" focusColor="#2486b6" layoutX="4.0" layoutY="202.0" prefHeight="411.0" prefWidth="816.0" promptText="Notes for the student" styleClass="fileCommentsTxtArea" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
                   <JFXTextField fx:id="newGrade1" focusColor="#2486b6" labelFloat="true" layoutX="7.0" layoutY="140.0" prefHeight="44.0" prefWidth="96.0" promptText="Grade">
                      <font>
                         <Font size="18.0" />
@@ -83,6 +77,12 @@
                   <JFXButton fx:id="backToPageBtn" layoutX="-20.0" layoutY="-30.0" onMouseClicked="#backToPageBtnClicked" styleClass="littleBackBtn" text="&lt;   Back to active tests" textAlignment="CENTER" />
                </children>
             </AnchorPane>
+            <JFXButton fx:id="updateBtn1" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="775.0" layoutY="671.0" onMouseClicked="#updateBtnClicked" text="Update" textAlignment="CENTER">
+               <styleClass>
+                  <String fx:value="filterButton" />
+                  <String fx:value="btn" />
+               </styleClass>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
