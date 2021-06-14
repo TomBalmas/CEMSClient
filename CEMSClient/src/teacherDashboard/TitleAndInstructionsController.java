@@ -5,6 +5,10 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Class for the title and instructions used in the test form
+ *
+ */
 public class TitleAndInstructionsController {
 
 	@FXML

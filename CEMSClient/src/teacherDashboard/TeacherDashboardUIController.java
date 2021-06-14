@@ -81,12 +81,16 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	private Node checkTests;
 	private Node scheduledTests;
 
+	public AnchorPane getAnchorLogin() {
+		return anchorLogin;
+	}
+	
 	public StackPane getPopUpWindow() {
 		return popUpWindow;
 	}
 
 	/**
-	 * clicking test bank will open the test bank page.
+	 * Clicking test bank will open the test bank page.
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -100,7 +104,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	}
 
 	/**
-	 * clicking question bank will open the question bank page.
+	 * Clicking question bank will open the question bank page.
 	 *
 	 * @param event
 	 * @throws IOException
@@ -113,7 +117,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	}
 
 	/**
-	 * clicking view active test will open the active test page.
+	 * Clicking view active test will open the active test page.
 	 *
 	 * @param event
 	 * @throws IOException
@@ -127,7 +131,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	}
 
 	/**
-	 * clicking check tests will go to the check tests screen
+	 * Clicking check tests will go to the check tests screen
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -140,6 +144,12 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	}
 
+	/**
+	 * Clicking tests reports will go to the test report screen
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void testReportsClicked(MouseEvent event) throws IOException {
 		checkTests = FXMLLoader.load(getClass().getResource(Navigator.VIEW_REPORTS.getVal()));
@@ -148,6 +158,12 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	}
 
+	/**
+	 * Clicking scheduled test will go to the scheduled test screen
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void scheduledTestsClicked(MouseEvent event) throws IOException {
 		scheduledTests = FXMLLoader.load(getClass().getResource(Navigator.SCHEDULED_TESTS.getVal()));
@@ -156,7 +172,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	}
 
 	/**
-	 * clicking sign out will go back to the login screen
+	 * Clicking sign out will go back to the login screen
 	 * 
 	 * @param event
 	 * @throws IOException
@@ -169,7 +185,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 	}
 
 	/**
-	 * initializes all the FXML files for easier access.
+	 * Initializes all the FXML files for easier access
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -178,6 +194,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		GeneralUIMethods.setSideBar(menuVBox);
 		GeneralUIMethods.setMenuStyle(testBankBtn, menuVBox);
 		try {
+			// Check if the teacher checked a test, if so go back to the check tests page
 			if (GeneralUIMethods.isCheckingtest()) {
 				GeneralUIMethods.loadPage(contentPaneAnchor,
 						(new FXMLLoader(getClass().getResource(Navigator.CHECK_TESTS.getVal()))).load());
@@ -189,6 +206,7 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		// Set user name and sur name in in the gui
 		nameLbl.setText(ClientController.getActiveUser().getName() + " " + ClientController.getActiveUser().getSurName());
 	}
 
@@ -210,7 +228,4 @@ public class TeacherDashboardUIController implements Initializable, Observer {
 
 	}
 
-	public AnchorPane getAnchorLogin() {
-		return anchorLogin;
-	}
 }

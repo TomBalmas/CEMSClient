@@ -10,6 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Question controller class for the test
+ *
+ */
 public class QuestionController {
 
 	@FXML

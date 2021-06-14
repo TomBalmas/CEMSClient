@@ -120,18 +120,23 @@ public class CheckTestsUIController implements Initializable {
 	private JFXButton backToPageBtn;
 
 	private String manualTestID, manualSSN;
+	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
+	private rowTableCheckTests selectedRow;
+	private byte[] byteArray;
 
-	/*
+	/**
 	 * Go back to the previouse page
+	 * @param event
 	 */
 	@FXML
 	void backToPageBtnClicked(MouseEvent event) {
 		manualTestCheck.setVisible(false);
 		manualTestCheck.toBack();
 	}
-
-	/*
+	
+	/**
 	 * Download the student test file
+	 * @param event
 	 */
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
@@ -149,13 +154,9 @@ public class CheckTestsUIController implements Initializable {
 		}
 	}
 
-	private final ObservableList<rowTableCheckTests> dataList = FXCollections.observableArrayList();
-	private rowTableCheckTests selectedRow;
-	private byte[] byteArray;;
 
 	/**
 	 * Internal class to define a row in tableView.
-	 *
 	 */
 	public class rowTableCheckTests {
 		private String ID;
@@ -229,7 +230,8 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
-	/*
+
+	/**
 	 * Initializes test data to be presented for the teacher during test check
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -299,8 +301,8 @@ public class CheckTestsUIController implements Initializable {
 								tfc.getGradeLbl().getStyleClass().add("fGradeLbl");
 							else
 								tfc.getGradeLbl().getStyleClass().add("aGradeLbl");
-							tfc.setStudentAnswers(test.getID(), tr.getStudentSSN()); // Get students answers and select
-																						// them
+							// Get students answers and select them
+							tfc.setStudentAnswers(test.getID(), tr.getStudentSSN());
 							tfc.setStudentValues(new ArrayList<String>() {
 								{
 									add(tr.getStudentSSN());
@@ -358,8 +360,9 @@ public class CheckTestsUIController implements Initializable {
 
 	}
 
-	/*
+	/**
 	 * Update the student grade
+	 * @param event
 	 */
 	@FXML
 	void updateBtnClicked(MouseEvent event) {

@@ -101,9 +101,23 @@ public class ScheduledTestsController implements Initializable {
 	@FXML
 	private AnchorPane testAnchor2;
 	
+	/**
+	 * Go back to the previous page
+	 * @param event
+	 */
+	@FXML
+	void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+	}
+	
 	private final ObservableList<ScheduleTestRow> dataList = FXCollections.observableArrayList();
 	PopUp p;
 
+	/**
+	 * Row for the table view
+	 *
+	 */
 	public class ScheduleTestRow {
 		private String title;
 		private String testId;
@@ -212,7 +226,7 @@ public class ScheduledTestsController implements Initializable {
 	}
 
 	/**
-	 * initialize colomns and data in scheduled tests table
+	 * Initialize columns and data in scheduled tests table
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -273,7 +287,8 @@ public class ScheduledTestsController implements Initializable {
 							contentPaneAnchor, Arrays.asList(yesBtn, new JFXButton("No")), null);
 				});
 
-				tr.getReScheduleBtn().setOnAction(e -> { // Reschedule
+				// Reschedule button
+				tr.getReScheduleBtn().setOnAction(e -> { 
 					ScheduleTestRow toReschedule = tr;
 					FXMLLoader loader = new FXMLLoader(getClass().getResource(Navigator.SET_TEST_DATE.getVal()));
 					PopUp rescheduleTestPopUp = new PopUp(PopUp.TYPE.INFORM, "RescheduleTest", "", contentPaneAnchor,
@@ -327,59 +342,35 @@ public class ScheduledTestsController implements Initializable {
 			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 				filteredData.setPredicate(myObject -> {
 					// If filter text is empty, display all persons.
-					if (newValue == null || newValue.isEmpty()) {
+					if (newValue == null || newValue.isEmpty())
 						return true;
-					}
-
 					// Compares what we wrote in the text (we searched for) to the appropriate line.
 					String lowerCaseFilter = newValue.toLowerCase();
-
-					if (String.valueOf(myObject.getCode()).toLowerCase().contains(lowerCaseFilter)) {
-						return true;
-						// Filter matches code.
-					}
-
-					else if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
+					if (String.valueOf(myObject.getCode()).toLowerCase().contains(lowerCaseFilter))
+						return true; // Filter matches code.
+					else if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches test id.
-					}
-
-					else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getTitle()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches title.
-					}
-
-					else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getDate()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches date.
-					}
-
-					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches author.
-					} else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getStartingTime()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches starting time.
-					}
-
-					else if (String.valueOf(myObject.getDuration()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getDuration()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches duration.
-					}
-
 					return false; // Does not match.
 				});
 			});
-
 			// Wrap the FilteredList in a SortedList.
 			SortedList<ScheduleTestRow> sortedData = new SortedList<>(filteredData);
 			// Bind the SortedList comparator to the TableView comparator.
 			sortedData.comparatorProperty().bind(scheduledTestsTbl.comparatorProperty());
 			// Add sorted (and filtered) data to the table.
 			scheduledTestsTbl.setItems(sortedData);
-
 		}
 
-	}
-
-	@FXML
-	void backToPageBtnClicked(MouseEvent event) {
-		testAnchor.setVisible(false);
-		testAnchor.toBack();
 	}
 
 }

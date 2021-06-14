@@ -15,6 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Set test date controller. Used in TestBankUI and ScheduleTest
+ *
+ */
 public class SetTestDateController implements Initializable {
 
 	@FXML

@@ -242,12 +242,11 @@ public class AddingNewTestUIController implements Initializable {
 	}
 
 	/**
-	 * initialize a combo box with the relevant fields
-	 *
+	 * Initialize a combo box with the relevant fields
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// Initalize duration combo box
+		// Initialize duration combo box
 		for (int i = 30; i <= 180; i += 5)
 			durationList.add(String.valueOf(i));
 		durationCbox.setItems(durationList);
@@ -294,6 +293,8 @@ public class AddingNewTestUIController implements Initializable {
 				questionTable.getItems().add(qr);
 				if (pickedQuestions.contains(q))
 					flag = true;
+				
+				// View button
 				qr.getViewBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
@@ -388,8 +389,10 @@ public class AddingNewTestUIController implements Initializable {
 			Screen = 0;
 	}
 
-	/*
+
+	/**
 	 * Set parameters and move to the questions screen
+	 * @param event
 	 */
 	@FXML
 	void clickContinueWithParameters(MouseEvent event) {
@@ -422,8 +425,10 @@ public class AddingNewTestUIController implements Initializable {
 		// If editing disable the possibility to change field and course
 	}
 
-	/*
+	
+	/**
 	 * Preview the test
+	 * @param event
 	 */
 	@FXML
 	void clickPreviewTest(MouseEvent event) {

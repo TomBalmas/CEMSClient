@@ -97,14 +97,12 @@ public class QuestionBankUIController implements Initializable {
 
 	private Node blankQuestionForm, QuestionForm;
 	private QuestionFormUIController blankQuestionFormUIController;
-	String authorName;
+	private String authorString;
 	private final ObservableList<questionRow> dataList = FXCollections.observableArrayList();
 	// Lists for Combobox fields. Fields is for adding a new question.
-	// Field is for viewing specific question
 	ObservableList fields = FXCollections.observableArrayList();
+	// Field is for viewing specific question
 	ObservableList field = FXCollections.observableArrayList();
-
-	private String authorString;
 
 	public String getAuthorString() {
 		return authorString;
@@ -121,7 +119,6 @@ public class QuestionBankUIController implements Initializable {
 	 */
 	@FXML
 	void clickAddAnewQuestion(MouseEvent event) {
-
 		try {
 			blankQuestionForm = FXMLLoader.load(getClass().getResource(Navigator.QUESTION_FORM.getVal()));
 
@@ -136,7 +133,7 @@ public class QuestionBankUIController implements Initializable {
 	}
 
 	/**
-	 * contains all data to be presented in a question row in the table view
+	 * Contains all data to be presented in a question row in the table view
 	 *
 	 */
 	public class questionRow {
@@ -163,7 +160,6 @@ public class QuestionBankUIController implements Initializable {
 			DeleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 			EditBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
 			ViewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
-			DeleteBtn.setStyle("-fx-fill: red !important;");
 		}
 
 		public String getID() {
@@ -229,7 +225,7 @@ public class QuestionBankUIController implements Initializable {
 	}
 
 	/**
-	 * getting data from question table into question bank screen according to
+	 * Getting data from question table into question bank screen according to
 	 * teachers fields
 	 */
 	@Override
@@ -277,7 +273,7 @@ public class QuestionBankUIController implements Initializable {
 			for (int i = 0; i < questions.size(); i++) {
 				questionRow questionRow = new questionRow(questions.get(i));
 				questionBankTable.getItems().add(questionRow);
-				dataList.add(questionRow); // add row to dataList to search field.
+				dataList.add(questionRow); // Add row to dataList to search field.
 				tableViewAnchor.setMouseTransparent(false);
 				if (!questionRow.getAuthor().equals(ClientController.getActiveUser().getName())) {
 					questionRow.getEditBtn().setDisable(true);
@@ -306,7 +302,7 @@ public class QuestionBankUIController implements Initializable {
 				};
 
 				// Event handler for deletion from table and DB
-				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+				questionRow.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete from table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						JFXButton yesBtn = new JFXButton("Yes");
@@ -335,7 +331,7 @@ public class QuestionBankUIController implements Initializable {
 					}
 				});
 
-				// event handler for view button
+				// Event handler for view button
 				questionRow.getViewBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
@@ -354,7 +350,7 @@ public class QuestionBankUIController implements Initializable {
 					;
 				});
 
-				// event handler for edit button
+				// Event handler for edit button
 				questionRow.getEditBtn().setOnAction(e -> {
 					btnEventHandler.handle(e);
 					{
@@ -378,41 +374,27 @@ public class QuestionBankUIController implements Initializable {
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(myObject -> {
 				// If filter text is empty, display all persons.
-				if (newValue == null || newValue.isEmpty()) {
+				if (newValue == null || newValue.isEmpty())
 					return true;
-				}
 
 				// Compares what we wrote in the text (we searched for) to the appropriate line.
 				String lowerCaseFilter = newValue.toLowerCase();
-
-				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter)) {
-					return true;
-					// Filter matches ID.
-				}
-
-				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+				if (String.valueOf(myObject.getID()).toLowerCase().contains(lowerCaseFilter))
+					return true; // Filter matches ID.
+				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches author.
-				}
-
-				else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches field.
-				}
-
-				else if (String.valueOf(myObject.getContent()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getContent()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches content.
-				}
-
-				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+				else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter))
 					return true; // Filter matches author.
-				}
-
 				return false; // Does not match.
 			});
 		});
 
 		// Wrap the FilteredList in a SortedList.
 		SortedList<questionRow> sortedData = new SortedList<questionRow>(filteredData);
-
 		// Bind the SortedList comparator to the TableView comparator.
 		sortedData.comparatorProperty().bind(questionBankTable.comparatorProperty());
 		// Add sorted (and filtered) data to the table.

@@ -167,7 +167,7 @@ public class TestFormController implements Initializable {
 	Student student;
 	String testCode = null;
 
-	// getters start
+	// Getters start
 
 	public AnchorPane getQuestionAnchor() {
 		return questionAnchor;
@@ -285,7 +285,7 @@ public class TestFormController implements Initializable {
 		this.studentValues = studentValues;
 	}
 
-	// getters end
+	// Getters end
 
 	public void setSubmittedBy(String submittedBy) {
 		this.submittedBy = submittedBy;
@@ -303,6 +303,9 @@ public class TestFormController implements Initializable {
 
 	}
 
+	/**
+	 * Initialize test form varaibles
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		isDisapproveClicked = false;
@@ -334,7 +337,7 @@ public class TestFormController implements Initializable {
 	/**
 	 * Adds questions to the test form's scroll pane
 	 * 
-	 * @return
+	 * @return QuestionController
 	 * 
 	 * @throws IOException
 	 *
@@ -382,6 +385,7 @@ public class TestFormController implements Initializable {
 		titleAndInstructionsController = titleAndInstructionsLoader.getController();
 		StringBuilder str = new StringBuilder();
 		testTitleFromFXMLLbl = titleAndInstructionsController.getTestTitleLbl();
+		// Check if student is looking at his test
 		if (null != testType && testType.equals("STUDENT_LOOK")) {
 			int i = 0;
 			ClientController.accept("GET_GRADES_BY_SSN-" + ClientController.getActiveUser().getSSN());
@@ -419,6 +423,12 @@ public class TestFormController implements Initializable {
 		scrollPane.setContent(vbox);
 	}
 
+	/**
+	 * Resize text area according to the text
+	 * @param textArea
+	 * @param text
+	 * @return
+	 */
 	public double addTextAndresizeTextArea(JFXTextArea textArea, String text) {
 		Text textBox = new Text(text);
 		textBox.setFont(textArea.getFont());
@@ -445,6 +455,7 @@ public class TestFormController implements Initializable {
 
 	/**
 	 * Download word file
+	 * @param event
 	 */
 	@FXML
 	void downloadFileClicked(MouseEvent event) {
@@ -466,6 +477,9 @@ public class TestFormController implements Initializable {
 		});
 	}
 
+	/**
+	 * Upload file using dragged event
+	 */
 	private void setDraggedFileEvents() {
 		uploadFileAnchor.setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
@@ -500,7 +514,8 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * Upload file
+	 * Upload file using select file
+	 * @param event
 	 */
 	@FXML
 	void uploadFileClicked(MouseEvent event) {
@@ -518,7 +533,7 @@ public class TestFormController implements Initializable {
 	}
 
 	/**
-	 * Finish test clicked, load dashboard
+	 * Finish test clicked, load dash board
 	 * 
 	 * @throws IOException
 	 */
@@ -562,7 +577,6 @@ public class TestFormController implements Initializable {
 			ClientController.setTimeForTest(false);
 			ClientController.setTestLocked(false);
 			ClientController.setLastStudentInTest(false);
-
 		} else if (ClientController.isLastStudentInTest() && ClientController.getTestType().equals("Manual")) {
 			// If so, lock the manual test
 			ClientController.accept("LOCK_MANUAL_TEST-" + testCode);
@@ -592,6 +606,10 @@ public class TestFormController implements Initializable {
 		new PopUp(PopUp.TYPE.INFORM, "Information", "Your test has been submited.", null, Arrays.asList(okayBtn), null);
 	}
 
+	/**
+	 * Approve student grade
+	 * @param event
+	 */
 	@FXML
 	void approveBtnClicked(MouseEvent event) {
 		// Update Finished test table
@@ -629,6 +647,10 @@ public class TestFormController implements Initializable {
 				teacherCheckTestSideBar, Arrays.asList(okayBtn), null);
 	}
 
+	/**
+	 * Disapprove student grade
+	 * @param event
+	 */
 	@FXML
 	void disapproveBtnClicked(MouseEvent event) {
 		disapproveGradeAnchor.setVisible(true);
@@ -636,6 +658,12 @@ public class TestFormController implements Initializable {
 		isDisapproveClicked = true;
 	}
 
+	/**
+	 * Set the student answers in the form
+	 * @param testId
+	 * @param studentSSN
+	 * @return ArrayList<Integer>
+	 */
 	public ArrayList<Integer> setStudentAnswers(String testId, String studentSSN) {
 		ArrayList<Integer> wrongAnswers = new ArrayList<Integer>();
 		ArrayList<Question> returnedQuestions = new ArrayList<Question>();
@@ -661,6 +689,11 @@ public class TestFormController implements Initializable {
 		return wrongAnswers;
 	}
 
+	/**
+	 * Set correct answers in the form
+	 * @param testId
+	 * @return ArrayList<Question>
+	 */
 	public ArrayList<Question> setQuestionsFromTest(String testId) {
 		ArrayList<Question> returnedQuestions = new ArrayList<Question>();
 		returnedQuestions = ClientController.getQuestions();
