@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.QuestionBankUIController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="55.0" prefHeight="117.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="58.0" prefHeight="117.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="95.0" prefWidth="824.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
@@ -27,7 +27,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="200.0" prefHeight="520.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
+      <AnchorPane fx:id="tableViewAnchor" layoutX="63.0" layoutY="200.0" prefHeight="529.0" prefWidth="874.0" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
             <TableView fx:id="questionBankTable" layoutX="-4.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
@@ -42,7 +42,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="addAnewQuestionBtn" layoutX="728.0" layoutY="730.0" onMouseClicked="#clickAddAnewQuestion" text="Add a new question">
+      <JFXButton fx:id="addAnewQuestionBtn" layoutX="728.0" layoutY="730.0" onMouseClicked="#clickAddAnewQuestion" text="Add a new question" AnchorPane.bottomAnchor="15.0">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="btn" />
