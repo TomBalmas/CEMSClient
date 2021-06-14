@@ -103,6 +103,11 @@ public class QuestionFormUIController implements Initializable {
 
 	@FXML
 	private JFXTextArea answer1Txt;
+	
+	private int correctAnswer;
+	final ToggleGroup group = new ToggleGroup(); // Toggle group for allowing one choice of radio button
+	private String author;
+	ObservableList fields = FXCollections.observableArrayList();
 
 	public AnchorPane getContentPaneAnchor() {
 		return contentPaneAnchor;
@@ -127,13 +132,34 @@ public class QuestionFormUIController implements Initializable {
 	public void setCorrectAnswer(int correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
+	
+	public Label getNewQuestionFormLbl() {
+		return newQuestionFormLbl;
+	}
 
-	private int correctAnswer;
-	// toggle group for allowing one choice of radio button
-	final ToggleGroup group = new ToggleGroup();
-	private String author;
-	ObservableList fields = FXCollections.observableArrayList();
+	public JFXTextArea getQuestionContentTxt() {
+		return questionContentTxt;
+	}
+	
+	public JFXButton getSaveBtn() {
+		return saveBtn;
+	}
 
+	public JFXComboBox<?> getFieldCBox() {
+		return fieldCBox;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	/**
+	 * Go back to the previous page
+	 */
 	@FXML
 	void clickBack() {
 		Node page = null;
@@ -145,9 +171,11 @@ public class QuestionFormUIController implements Initializable {
 		GeneralUIMethods.loadPage(contentPaneAnchor, page);
 	}
 
+
 	/**
 	 * the method handles sending a query to DB for editing question and adding a
 	 * new question
+	 * @throws IOException
 	 */
 	@FXML
 	void clickSave() throws IOException {
@@ -190,7 +218,7 @@ public class QuestionFormUIController implements Initializable {
 					new PopUp(PopUp.TYPE.SUCCESS, "Question saved", toShow, contentPaneAnchor, Arrays.asList(okayBtn),
 							null);
 				}
-				// handle empty fields
+			// Handle empty fields
 			} else {
 				ArrayList<Node> nodes = new ArrayList<Node>();
 				nodes.add(fieldCBox);
@@ -210,7 +238,7 @@ public class QuestionFormUIController implements Initializable {
 					new PopUp(PopUp.TYPE.LOGIN, "Error", "Some fields are missing", contentPaneAnchor, null, null);
 			}
 		}
-		// query for editing question
+		// Query for editing question
 		else {
 			String[] questionID = getNewQuestionFormLbl().getText().toString().split(" ");
 			String queryEditQuestion = "EDIT_QUESTION-" + questionID[2] + "," + teacherId + ","
@@ -219,10 +247,10 @@ public class QuestionFormUIController implements Initializable {
 					+ answer4;
 			if (correctAnswer != 0 && !getQuestionContentTxt().getText().isEmpty()
 					&& !fieldCBox.getPromptText().toString().isEmpty() && !answer1.isEmpty() && !answer2.isEmpty()
-					&& !answer3.isEmpty() && !answer4.isEmpty()) { // send query onlt if all fields are not empty
+					&& !answer3.isEmpty() && !answer4.isEmpty()) { // Send query only if all fields are not empty
 				ClientController.accept(queryEditQuestion);
 				boolean answerEdit = ClientController.isQuestionEdited();
-				// check if answer edited correctly in DB
+				// Check if answer edited correctly in DB
 				if (answerEdit) {
 					// Show popup window
 					String toShow = "Question ID: ";
@@ -246,8 +274,9 @@ public class QuestionFormUIController implements Initializable {
 		correctAnswer = 0;
 	}
 
+
 	/**
-	 * this method initializes the toggle group for radio button and other data
+	 * Initializes the toggle group for radio button and other data
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -295,7 +324,7 @@ public class QuestionFormUIController implements Initializable {
 	}
 
 	/**
-	 * this method sets the correct answers label to be not visible
+	 * Sets the correct answers label to be not visible
 	 */
 	public void setToggleGroupNotVisible() {
 		correctAnswer1Lbl.setVisible(false);
@@ -304,14 +333,11 @@ public class QuestionFormUIController implements Initializable {
 		correctAnswer4Lbl.setVisible(false);
 	}
 
-	public Label getNewQuestionFormLbl() {
-		return newQuestionFormLbl;
-	}
-
-	public JFXTextArea getQuestionContentTxt() {
-		return questionContentTxt;
-	}
-
+	
+	/**
+	 * Getting the answer's text
+	 * @return ArrayList<JFXTextArea>
+	 */
 	public ArrayList<JFXTextArea> getAnswerTextFields() {
 		ArrayList<JFXTextArea> answers = new ArrayList<JFXTextArea>();
 		answers.add(answer1Txt);
@@ -321,6 +347,11 @@ public class QuestionFormUIController implements Initializable {
 		return answers;
 	}
 
+	
+	/**
+	 * Getting the answers' buttons
+	 * @return ArrayList<JFXRadioButton>
+	 */
 	public ArrayList<JFXRadioButton> getAnswerBtns() {
 		ArrayList<JFXRadioButton> answersBtns = new ArrayList<JFXRadioButton>();
 		answersBtns.add(answer1Btn);
@@ -328,22 +359,6 @@ public class QuestionFormUIController implements Initializable {
 		answersBtns.add(answer3Btn);
 		answersBtns.add(answer4Btn);
 		return answersBtns;
-	}
-
-	public JFXButton getSaveBtn() {
-		return saveBtn;
-	}
-
-	public JFXComboBox<?> getFieldCBox() {
-		return fieldCBox;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
 	}
 
 }

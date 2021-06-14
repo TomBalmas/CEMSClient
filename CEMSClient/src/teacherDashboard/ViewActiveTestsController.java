@@ -123,13 +123,23 @@ public class ViewActiveTestsController implements Initializable {
 
 	@FXML
 	private AnchorPane testAnchor2;
-
 	private String selectedRow;
 	private final ObservableList<rowTableActiveTest> dataList = FXCollections.observableArrayList();
+	
+	/**
+	 * Go back to the previouse page
+	 * @param event
+	 */
+	@FXML
+	void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+	}
 
 	/**
-	 * this method shows the popup that the request for time extension is approved
+	 * Shows the popup that the request for time extension is approved
 	 * need to connect to active test screen
+	 * @param event
 	 */
 	@FXML
 	void clicksendForApproval(MouseEvent event) {
@@ -158,7 +168,7 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	/**
-	 * Internal class to define a row in tableView.
+	 * Internal class to define a row in tableView
 	 *
 	 */
 	public class rowTableActiveTest {
@@ -242,7 +252,7 @@ public class ViewActiveTestsController implements Initializable {
 	}
 
 	/**
-	 * set data in active tests table
+	 * Set data in active tests table
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -282,6 +292,7 @@ public class ViewActiveTestsController implements Initializable {
 					}
 				});
 
+				// Lock button 
 				tr.getLockBtn().setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent arg0) {
@@ -363,9 +374,4 @@ public class ViewActiveTestsController implements Initializable {
 
 	}
 
-	@FXML
-	void backToPageBtnClicked(MouseEvent event) {
-		testAnchor.setVisible(false);
-		testAnchor.toBack();
-	}
 }

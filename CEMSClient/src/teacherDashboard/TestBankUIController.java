@@ -116,14 +116,24 @@ public class TestBankUIController implements Initializable {
 	@FXML
 	private AnchorPane testAnchor2;
 
-	private Node TestFormNode, addNewTest, AddingFormNode;
-	private FXMLLoader TestFormLoader;
+	private Node addNewTest, AddingFormNode;
 	private final ObservableList<TestRow> dataList = FXCollections.observableArrayList();
 	private final ObservableList<TestRow> datarow = FXCollections.observableArrayList();
 	PopUp p;
 	
 	public JFXButton getAddNewTestButton() {
 		return addNewTestButton;
+	}
+	
+	/**
+	 * Go back to the previous page
+	 * @param event
+	 */
+	@FXML
+	void backToPageBtnClicked(MouseEvent event) {
+		testAnchor.setVisible(false);
+		testAnchor.toBack();
+		addNewTestButton.setVisible(true);
 	}
 
 	/**
@@ -142,7 +152,7 @@ public class TestBankUIController implements Initializable {
 	}
 
 	/**
-	 * this class is a class that defines the properties of the main table its gets
+	 * Class that defines the properties of the main table its gets
 	 * a test and eliminates the unwanted attributes
 	 *
 	 */
@@ -173,7 +183,6 @@ public class TestBankUIController implements Initializable {
 			deleteBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
 			editBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EDIT));
 			viewBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.EYE));
-			deleteBtn.setStyle("-fx-fill: red;");
 		}
 
 		public JFXButton getViewBtn() {
@@ -239,7 +248,7 @@ public class TestBankUIController implements Initializable {
 	}
 
 	/**
-	 * setting the test table and its functionalities
+	 * Setting the test table and its functionalities
 	 *
 	 */
 	@Override
@@ -357,7 +366,8 @@ public class TestBankUIController implements Initializable {
 							JFXButton approveBtn = new JFXButton("Okay");
 							approveBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
 								p.closePopUp();
-							});	
+							});
+							// Check for empty fields
 							if (cont.getCodeTxt().getText().isEmpty()
 									|| cont.getDateDP().getValue() == null
 									|| cont.getTimeTP().getValue() == null) {
@@ -370,11 +380,13 @@ public class TestBankUIController implements Initializable {
 										Arrays.asList(approveBtn), null);
 								return;
 							}
+							// Set date for the test
 							ClientController.accept("SET_TEST_DATE-" + tr.getTestId() + ","
 									+ GeneralUIMethods.israeliDate(cont.getDateDP().getValue()) + ","
 									+ cont.getTimeTP().getValue().toString() + ","
 									+ ClientController.getActiveUser().getSSN() + "," + cont.getCodeTxt().getText());
 							if (ClientController.isTestScheduled()) {
+								// Show popup
 								JFXButton okayBtn = new JFXButton("Okay");
 								okayBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e1) -> {
 									scheduleTestPopUp.hidePopUp();
@@ -389,7 +401,7 @@ public class TestBankUIController implements Initializable {
 				});
 
 				// Delete button
-				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // delete form table and DB
+				tr.getDeleteBtn().setOnAction(new EventHandler<ActionEvent>() { // Delete form table and DB
 					@Override
 					public void handle(ActionEvent event) {
 						JFXButton yesBtn = new JFXButton("Yes");
@@ -423,53 +435,32 @@ public class TestBankUIController implements Initializable {
 			searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 				filteredData.setPredicate(myObject -> {
 					// If filter text is empty, display all persons.
-					if (newValue == null || newValue.isEmpty()) {
+					if (newValue == null || newValue.isEmpty())
 						return true;
-					}
-
 					// Compares what we wrote in the text (we searched for) to the appropriate line.
 					String lowerCaseFilter = newValue.toLowerCase();
 
-					if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter)) {
-						return true;
-						// Filter matches code.
-					}
-
-					else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter)) {
+					if (String.valueOf(myObject.getTestId()).toLowerCase().contains(lowerCaseFilter))
+						return true; // Filter matches code.
+					else if (String.valueOf(myObject.getField()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches field.
-					}
-
-					else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getCourse()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches course.
-					}
-
-					else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getTestName()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches name.
-					}
-
-					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter)) {
+					else if (String.valueOf(myObject.getAuthor()).toLowerCase().contains(lowerCaseFilter))
 						return true; // Filter matches author.
-					}
-
 					return false; // Does not match.
 				});
 			});
 
 			// Wrap the FilteredList in a SortedList.
 			SortedList<TestRow> sortedData = new SortedList<>(filteredData);
-
 			// Bind the SortedList comparator to the TableView comparator.
 			sortedData.comparatorProperty().bind(testTable.comparatorProperty());
 			// Add sorted (and filtered) data to the table.
 			testTable.setItems(sortedData);
 		}
-	}
-
-	@FXML
-	void backToPageBtnClicked(MouseEvent event) {
-		testAnchor.setVisible(false);
-		testAnchor.toBack();
-		addNewTestButton.setVisible(true);
 	}
 
 }
