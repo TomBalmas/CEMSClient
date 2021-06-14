@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="contentPaneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teacherDashboard.TestBankUIController">
    <children>
-      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="55.0" prefHeight="140.0" prefWidth="875.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="48.0">
+      <AnchorPane fx:id="filterAnchor" layoutX="63.0" layoutY="62.0" prefHeight="117.0" prefWidth="874.0" style="-fx-aligment: center;" styleClass="paneBorder" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="63.0">
          <children>
             <AnchorPane fx:id="insideFilterAnchor" prefHeight="225.0" prefWidth="750.0" styleClass="paddingAnchor" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
@@ -28,7 +28,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="tableViewAnchor" accessibleRole="TABLE_VIEW" layoutX="63.0" layoutY="200.0" prefHeight="520.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
+      <AnchorPane fx:id="tableViewAnchor" accessibleRole="TABLE_VIEW" layoutX="63.0" layoutY="200.0" prefHeight="529.0" prefWidth="875.0" styleClass="paneBorder" AnchorPane.leftAnchor="62.5" AnchorPane.rightAnchor="62.5">
          <children>
             <TableView fx:id="testTable" accessibleRole="PARENT" prefHeight="520.0" prefWidth="875.0" style="-fx-alignment: CENTER;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
               <columns>
@@ -45,7 +45,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="addNewTestButton" layoutX="771.0" layoutY="730.0" onMouseClicked="#addNewTest" text="Add a new test">
+      <JFXButton fx:id="addNewTestButton" layoutX="771.0" layoutY="730.0" onMouseClicked="#addNewTest" text="Add a new test" AnchorPane.bottomAnchor="15.0">
          <styleClass>
             <String fx:value="clickedButton" />
             <String fx:value="btn" />
