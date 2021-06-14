@@ -289,7 +289,10 @@ public class CheckTestsUIController implements Initializable {
 							ArrayList<Pair<String, String>> copiedStudents = ClientController.getCopiedStudents();
 							if (null != copiedStudents && copiedStudents.size() > 0) {
 								tfc.getCopyResultLbl().setText("Yes");
-								tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
+								if (copiedStudents.get(0).getValue().equals(tr.getStudentSSN()))
+									tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getKey());
+								else
+									tfc.getCopyWithLbl().setText("With " + copiedStudents.get(0).getValue());
 								tfc.getCopyWithLbl().setVisible(true);
 							}
 							tfc.getScrollPane().setTranslateX(0);
